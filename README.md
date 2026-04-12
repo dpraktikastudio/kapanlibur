@@ -39,6 +39,7 @@ Then open the URL shown in the terminal.
 | `hari-libur-nasional-2026.html` | Static reference tables and copy. |
 | `about.html`, `privacy-policy.html` | About and privacy policy. |
 | `assets/non-critical.css` | Shared layout and component styles. |
+| `assets/site-nav.js` | Mobile drawer menu for the main site nav (hamburger + backdrop). |
 | `assets/site-pdf.js` | Sets official PDF links from JSON `source` on `a[data-pdf-source]`. |
 | `json/2026.json` | Source URL + per-day holiday rows. |
 | `scripts/build.mjs` | Build pipeline. |

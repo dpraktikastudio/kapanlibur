@@ -30,6 +30,7 @@ Data is loaded with `fetch("json/2026.json")`. **Opening `index.html` as `file:/
 | `hari-libur-nasional-2026.html` | Static reference page (tables + long weekend copy); deferred `assets/site-pdf.js`. |
 | `about.html`, `privacy-policy.html` | Info pages; shared nav/footer; deferred `assets/site-pdf.js`. `about.html` menjelaskan latar belakang produk; `privacy-policy.html` kebijakan privasi (AdSense, Analytics, afiliasi, dll.). |
 | `assets/non-critical.css` | Shared styles (list, calendar, tables, `.site-nav`, `.footer-links`, footer, etc.). |
+| `assets/site-nav.js` | Mobile (`max-width: 639px`): hamburger toggles a right-hand drawer for `#site-nav-panel`; backdrop click and Escape close. Desktop keeps the inline `.site-nav` bar. |
 | `assets/site-pdf.js` | Fetches `json/2026.json` and applies `source` (or fallback URL) to `a[data-pdf-source]`; unhides `#source-line` on the home page when run. |
 | `json/YYYY.json` | `{ "source": "<url>", "data": [ ... ] }` — one file per year; app currently loads **`json/2026.json`** (hardcoded in `fetch`). |
 | `docs/guide.md` | This reference. |
