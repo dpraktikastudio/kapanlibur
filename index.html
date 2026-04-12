@@ -99,6 +99,12 @@
       margin: 0 0 1rem;
       letter-spacing: -0.01em;
     }
+    .list-section-head-main h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+      letter-spacing: -0.01em;
+    }
 
     .hero {
       background: var(--surface);
@@ -380,19 +386,33 @@
     .list-row-past .sub {
       color: var(--muted);
     }
+    .list-section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .list-section-head-main {
+      flex: 1;
+      min-width: 0;
+    }
     .list-month-label {
-      margin: -0.35rem 0 0.85rem;
+      margin: 0.25rem 0 0;
       font-size: 0.95rem;
       color: var(--muted);
       font-weight: 500;
     }
-    .list-month-wrap {
+    .list-month-nav {
       display: flex;
-      align-items: stretch;
-      gap: 0.4rem;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .list-month-wrap {
+      min-width: 0;
     }
     .list-swipe-host {
-      flex: 1;
       min-width: 0;
     }
     .list-month-inner {
@@ -615,19 +635,25 @@
     </section>
 
     <section aria-labelledby="list-heading">
-      <h2 id="list-heading">Libur mendatang</h2>
-      <p id="list-month-label" class="list-month-label" hidden></p>
+      <div class="list-section-head">
+        <div class="list-section-head-main">
+          <h2 id="list-heading">Libur mendatang</h2>
+          <p id="list-month-label" class="list-month-label" hidden></p>
+        </div>
+        <div id="list-month-nav" class="list-month-nav" hidden>
+          <button type="button" id="list-nav-prev" class="btn-nav-month" aria-label="Bulan sebelumnya">
+            &#8249;
+          </button>
+          <button type="button" id="list-nav-next" class="btn-nav-month" aria-label="Bulan berikutnya">
+            &#8250;
+          </button>
+        </div>
+      </div>
       <div id="list-state" class="loading">Memuat data…</div>
       <div id="list-month-wrap" class="list-month-wrap" hidden>
-        <button type="button" id="list-nav-prev" class="btn-nav-month" aria-label="Bulan sebelumnya">
-          &#8249;
-        </button>
         <div id="list-swipe-host" class="list-swipe-host">
           <div id="list" class="list-month-inner"></div>
         </div>
-        <button type="button" id="list-nav-next" class="btn-nav-month" aria-label="Bulan berikutnya">
-          &#8250;
-        </button>
       </div>
     </section>
 
@@ -1194,11 +1220,13 @@
     const labelEl = document.getElementById("list-month-label");
     const sorted = listContext.sortedData;
     const byDate = listContext.byDate;
+    const listNav = document.getElementById("list-month-nav");
     if (!sorted || !sorted.length) {
       container.innerHTML =
         '<p class="when" style="margin:0;color:var(--muted)">Tidak ada data libur.</p>';
       wrap.hidden = true;
       labelEl.hidden = true;
+      if (listNav) listNav.hidden = true;
       return;
     }
     const ym = listContext.listYearMonth;
@@ -1268,6 +1296,7 @@
         .join("");
     }
     wrap.hidden = false;
+    if (listNav) listNav.hidden = false;
   }
 
   let listSwipeBound = false;
@@ -1534,6 +1563,8 @@
     });
     const lmw = document.getElementById("list-month-wrap");
     if (lmw) lmw.hidden = true;
+    const lmn = document.getElementById("list-month-nav");
+    if (lmn) lmn.hidden = true;
     const cw = document.getElementById("calendar-wrap");
     if (cw) cw.hidden = true;
   }
