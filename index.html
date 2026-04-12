@@ -171,6 +171,44 @@
       border-top: 1px solid var(--border);
       margin: 0 0 1rem;
     }
+    .hero-next-nav {
+      display: flex;
+      align-items: stretch;
+      gap: 0.4rem;
+    }
+    .hero-next-nav .hero-next {
+      flex: 1;
+      min-width: 0;
+    }
+    .btn-hero-nav {
+      flex: 0 0 auto;
+      font-family: inherit;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1;
+      width: 2.75rem;
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      padding: 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--accent);
+      cursor: pointer;
+      align-self: center;
+    }
+    .btn-hero-nav:hover:not(:disabled) {
+      filter: brightness(0.97);
+      background: var(--accent-soft);
+    }
+    .btn-hero-nav:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .btn-hero-nav:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
     .hero-next {
       display: flex;
       flex-wrap: wrap;
@@ -465,7 +503,7 @@
     return "Menuju " + row.description;
   }
 
-  function buildShareText(t, todayRow, nextRow) {
+  function buildShareText(t, todayRow, selectedRow) {
     const lines = [
       "kapanlibur.com",
       "Per " + formatLongID(t),
@@ -473,82 +511,125 @@
         ? "Hari ini libur: " + todayRow.description + " (" + todayRow.type + ")"
         : "Hari ini tidak libur.",
     ];
-    if (nextRow) {
-      const n = diffDays(t, nextRow.date);
-      lines.push(
-        "Berikutnya: " +
-          formatLongID(nextRow.date) +
-          " — " +
-          nextRow.description +
-          " (" +
-          nextRow.type +
-          ")"
-      );
-      lines.push(
-        daysUntilPhrase(n) +
-          " · Long weekend: " +
-          (nextRow.is_long_weekend ? "Ya" : "Tidak") +
-          " · Rantai " +
-          nextRow.chain_holidays +
-          " hari"
-      );
+    if (selectedRow) {
+      if (selectedRow.date > t) {
+        const n = diffDays(t, selectedRow.date);
+        lines.push(
+          "Berikutnya: " +
+            formatLongID(selectedRow.date) +
+            " — " +
+            selectedRow.description +
+            " (" +
+            selectedRow.type +
+            ")"
+        );
+        lines.push(
+          daysUntilPhrase(n) +
+            " · Long weekend: " +
+            (selectedRow.is_long_weekend ? "Ya" : "Tidak") +
+            " · Rantai " +
+            selectedRow.chain_holidays +
+            " hari"
+        );
+      } else {
+        lines.push(
+          "Pada kartu: " +
+            formatLongID(selectedRow.date) +
+            " — " +
+            selectedRow.description +
+            " (" +
+            selectedRow.type +
+            ")"
+        );
+        lines.push(
+          "Long weekend: " +
+            (selectedRow.is_long_weekend ? "Ya" : "Tidak") +
+            " · Rantai " +
+            selectedRow.chain_holidays +
+            " hari"
+        );
+      }
     } else {
-      lines.push("Tidak ada libur mendatang dalam data tahun ini.");
+      lines.push("Tidak ada data libur untuk ditampilkan.");
     }
     return lines.join("\n");
   }
 
-  function renderMainCard(el, byDate, sortedData) {
-    const t = todayISO();
-    const todayRow = byDate.get(t) || null;
-    const nextRow =
-      sortedData.find(function (r) {
-        return r.date > t;
-      }) || null;
+  const heroContext = {
+    byDate: null,
+    sortedData: null,
+    selectedIndex: null,
+  };
 
-    let nextBlock;
-    if (nextRow) {
-      const n = diffDays(t, nextRow.date);
+  function renderMainCard(el) {
+    const byDate = heroContext.byDate;
+    const sortedData = heroContext.sortedData;
+    const t = todayISO();
+    const todayRow = byDate && byDate.get ? byDate.get(t) || null : null;
+
+    if (!sortedData || !sortedData.length) {
+      el.hidden = false;
+      el.innerHTML =
+        '<div class="hero-status">' +
+        '<p class="countdown hero-today-no">Tidak ada data</p></div>' +
+        '<p class="when muted-line">Data libur kosong.</p>';
+      return;
+    }
+
+    const firstFutureIdx = sortedData.findIndex(function (r) {
+      return r.date > t;
+    });
+    if (heroContext.selectedIndex === null) {
+      heroContext.selectedIndex =
+        firstFutureIdx >= 0 ? firstFutureIdx : sortedData.length - 1;
+    }
+    let idx = heroContext.selectedIndex;
+    idx = Math.max(0, Math.min(sortedData.length - 1, idx));
+    heroContext.selectedIndex = idx;
+
+    const selectedRow = sortedData[idx];
+    const atMin = idx === 0;
+    const atMax = idx === sortedData.length - 1;
+    const showCountdown = selectedRow.date > t;
+
+    const lwChip =
+      selectedRow.is_long_weekend
+        ? '<span class="chip chip-lw-ya">Long weekend: Ya</span>'
+        : '<span class="chip chip-lw-tidak">Long weekend: Tidak</span>';
+
+    let nextBlock =
+      '<div class="hero-next-main">' +
+      '<p class="label">Libur berikutnya</p>' +
+      '<p class="next-when">' +
+      escapeHtml(formatLongID(selectedRow.date)) +
+      "</p>" +
+      '<p class="next-desc">' +
+      escapeHtml(selectedRow.description) +
+      "</p>" +
+      '<p class="next-meta">Rantai libur ' +
+      selectedRow.chain_holidays +
+      " hari</p>" +
+      '<div class="badges">' +
+      '<span class="' +
+      chipClass(selectedRow.type) +
+      '">' +
+      escapeHtml(selectedRow.type) +
+      "</span>" +
+      lwChip +
+      "</div></div>";
+
+    if (showCountdown) {
+      const n = diffDays(t, selectedRow.date);
       const until = daysUntilPhrase(n);
-      const untilDisp =
-        until.charAt(0).toUpperCase() + until.slice(1);
-      const lwChip =
-        nextRow.is_long_weekend
-          ? '<span class="chip chip-lw-ya">Long weekend: Ya</span>'
-          : '<span class="chip chip-lw-tidak">Long weekend: Tidak</span>';
-      nextBlock =
-        '<div class="hero-next-main">' +
-        '<p class="label">Libur berikutnya</p>' +
-        '<p class="next-when">' +
-        escapeHtml(formatLongID(nextRow.date)) +
-        "</p>" +
-        '<p class="next-desc">' +
-        escapeHtml(nextRow.description) +
-        "</p>" +
-        '<p class="next-meta">Rantai libur ' +
-        nextRow.chain_holidays +
-        " hari</p>" +
-        '<div class="badges">' +
-        '<span class="' +
-        chipClass(nextRow.type) +
-        '">' +
-        escapeHtml(nextRow.type) +
-        "</span>" +
-        lwChip +
-        "</div></div>" +
+      const untilDisp = until.charAt(0).toUpperCase() + until.slice(1);
+      nextBlock +=
         '<div class="hero-next-countdown-wrap">' +
         '<p class="countdown-next">' +
         escapeHtml(untilDisp) +
         "</p>" +
         '<p class="countdown-next-sub">' +
-        escapeHtml(menujuNextHolidayCaption(nextRow)) +
+        escapeHtml(menujuNextHolidayCaption(selectedRow)) +
         "</p>" +
-        "</div>";
-    } else {
-      nextBlock =
-        '<div class="hero-next-main">' +
-        '<p class="label">Libur berikutnya</p>' +
-        '<p class="when">Tidak ada tanggal libur mendatang dalam data tahun ini.</p>' +
         "</div>";
     }
 
@@ -581,8 +662,16 @@
         : '<p class="when muted-line">Tidak ada libur pada tanggal ini menurut data.</p>') +
       "</div>" +
       '<hr class="hero-divider" />' +
+      '<div class="hero-next-nav">' +
+      '<button type="button" class="btn-hero-nav" id="hero-nav-prev" aria-label="Libur sebelumnya"' +
+      (atMin ? ' disabled aria-disabled="true"' : "") +
+      ">\u2039</button>" +
       '<div class="hero-next">' +
       nextBlock +
+      "</div>" +
+      '<button type="button" class="btn-hero-nav" id="hero-nav-next" aria-label="Libur berikutnya pada daftar"' +
+      (atMax ? ' disabled aria-disabled="true"' : "") +
+      ">\u203a</button>" +
       "</div>" +
       '<div class="hero-actions">' +
       '<button type="button" class="btn-share" id="share-btn">Bagikan</button>' +
@@ -591,8 +680,23 @@
 
     const shareBtn = document.getElementById("share-btn");
     const toast = document.getElementById("share-toast");
-    const text = buildShareText(t, todayRow, nextRow);
+    const text = buildShareText(t, todayRow, selectedRow);
     const url = typeof location !== "undefined" ? location.href : "";
+
+    const prevNav = document.getElementById("hero-nav-prev");
+    const nextNav = document.getElementById("hero-nav-next");
+    if (prevNav) {
+      prevNav.addEventListener("click", function () {
+        heroContext.selectedIndex = heroContext.selectedIndex - 1;
+        renderMainCard(el);
+      });
+    }
+    if (nextNav) {
+      nextNav.addEventListener("click", function () {
+        heroContext.selectedIndex = heroContext.selectedIndex + 1;
+        renderMainCard(el);
+      });
+    }
 
     shareBtn.addEventListener("click", function () {
       if (navigator.share) {
@@ -823,7 +927,10 @@
       document.getElementById("list-state").hidden = true;
       document.getElementById("cal-state").hidden = true;
 
-      renderMainCard(document.getElementById("hero"), byDate, data);
+      heroContext.byDate = byDate;
+      heroContext.sortedData = data;
+      heroContext.selectedIndex = null;
+      renderMainCard(document.getElementById("hero"));
       renderList(document.getElementById("list"), upcoming);
       renderCalendar(document.getElementById("calendar"), year, byDate);
     })
