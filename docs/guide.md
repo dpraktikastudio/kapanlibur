@@ -1,6 +1,8 @@
 # kapanlibur.com — agent reference
 
-Static single-page app for Indonesian national holidays. **One HTML file** ([`index.html`](../index.html)), **JSON data** per year ([`json/2026.json`](../json/2026.json)), no bundler or framework.
+Static site for Indonesian national holidays. **Interactive app** in [`index.html`](../index.html) (hero, monthly list, calendar); **static reference** in [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html) (full tables for libur nasional, cuti bersama, long weekend). **Legal / info:** [`about.html`](../about.html) (tentang situs & DPraktikastudio); [`privacy-policy.html`](../privacy-policy.html) (kebijakan privasi lengkap). **JSON data** per year ([`json/2026.json`](../json/2026.json)), no bundler or framework.
+
+**PDF links:** [`assets/site-pdf.js`](../assets/site-pdf.js) runs on supporting pages and sets every `a[data-pdf-source]` `href` from `json/2026.json` → `source`, with the same Kemenko PDF URL as fallback when fetch fails or `source` is absent.
 
 Use this doc when changing UI, data shape, or behavior so future edits stay consistent.
 
@@ -24,7 +26,11 @@ Data is loaded with `fetch("json/2026.json")`. **Opening `index.html` as `file:/
 
 | Path | Role |
 |------|------|
-| `index.html` | All markup, CSS, and JS (IIFE at bottom). |
+| `index.html` | Interactive UI: markup, critical CSS, deferred `assets/non-critical.css`, JS (IIFE), deferred `assets/site-pdf.js`. |
+| `hari-libur-nasional-2026.html` | Static reference page (tables + long weekend copy); deferred `assets/site-pdf.js`. |
+| `about.html`, `privacy-policy.html` | Info pages; shared nav/footer; deferred `assets/site-pdf.js`. `about.html` menjelaskan latar belakang produk; `privacy-policy.html` kebijakan privasi (AdSense, Analytics, afiliasi, dll.). |
+| `assets/non-critical.css` | Shared styles (list, calendar, tables, `.site-nav`, `.footer-links`, footer, etc.). |
+| `assets/site-pdf.js` | Fetches `json/2026.json` and applies `source` (or fallback URL) to `a[data-pdf-source]`; unhides `#source-line` on the home page when run. |
 | `json/YYYY.json` | `{ "source": "<url>", "data": [ ... ] }` — one file per year; app currently loads **`json/2026.json`** (hardcoded in `fetch`). |
 | `docs/guide.md` | This reference. |
 
@@ -48,7 +54,7 @@ Each entry is one **calendar day** that counts as holiday/off in the dataset (in
 
 **Chains:** `chain_holidays` is shared across consecutive days in the same block. To list **which weekdays** are in the chain, the code walks **backward** from `row.date` while `byDate.get(prev)` exists and `prevRow.chain_holidays === row.chain_holidays`, then lists **N** days from that start (`chainStartISO`, `formatChainWeekdayList`, `formatRantaiBerturutForRow`). Do not assume the chain starts on `row.date`.
 
-Top-level `source` is optional; if present, the header can show a link to the official PDF/SKB.
+Top-level `source` is optional; PDF anchors (`a[data-pdf-source]`) still get a working link via **`assets/site-pdf.js`** (fallback URL). The home page `#source-line` is shown after that script runs.
 
 ---
 
@@ -117,12 +123,15 @@ Swipe: `attachHeroSwipe` on `#hero-next-nav` — left = next index, right = prev
 
 ## Fetch pipeline
 
-1. `fetch("json/2026.json")` → parse.
-2. `data` sorted by `date` string compare.
-3. `byDate = Map(date → row)`.
-4. `year` = year of first row (label + calendar).
-5. `heroContext`, `listContext`, `calContext` filled; `renderMainCard()`, `renderList()`, `renderCalendar()`.
-6. `initMonthNavAndPopover()` runs once (after functions exist): list/cal nav buttons, popover close, list swipe, calendar-wrap swipe, **resize listener** for calendar.
+1. **`assets/site-pdf.js`** (deferred): `fetch("json/2026.json")` → apply `source` or fallback to all `a[data-pdf-source]`; unhide `#source-line` on the home page.
+2. **`index.html` IIFE:** `fetch("json/2026.json")` → parse.
+3. `data` sorted by `date` string compare.
+4. `byDate = Map(date → row)`.
+5. `year` = year of first row (label + calendar).
+6. `heroContext`, `listContext`, `calContext` filled; `renderMainCard()`, `renderList()`, `renderCalendar()`.
+7. `initMonthNavAndPopover()` runs once (after functions exist): list/cal nav buttons, popover close, list swipe, calendar-wrap swipe, **resize listener** for calendar.
+
+*(Two `fetch` calls to the same JSON on the home page are acceptable; both are small and cached by the browser.)*
 
 ---
 

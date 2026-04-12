@@ -9,15 +9,23 @@ const dist = path.join(root, "dist");
 
 fs.mkdirSync(dist, { recursive: true });
 
-const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-const out = await minify(html, {
+const minifyOpts = {
   collapseWhitespace: true,
   removeComments: true,
   minifyCSS: false,
   minifyJS: false,
   keepClosingSlash: true,
-});
-fs.writeFileSync(path.join(dist, "index.html"), out);
+};
+for (const page of [
+  "index.html",
+  "hari-libur-nasional-2026.html",
+  "about.html",
+  "privacy-policy.html",
+]) {
+  const html = fs.readFileSync(path.join(root, page), "utf8");
+  const out = await minify(html, minifyOpts);
+  fs.writeFileSync(path.join(dist, page), out);
+}
 
 fs.cpSync(path.join(root, "assets"), path.join(dist, "assets"), { recursive: true });
 fs.cpSync(path.join(root, "json"), path.join(dist, "json"), { recursive: true });

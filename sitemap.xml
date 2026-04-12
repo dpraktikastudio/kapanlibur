@@ -7,27 +7,21 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://kapanlibur.com/#hari-libur-nasional-2026</loc>
+    <loc>https://kapanlibur.com/hari-libur-nasional-2026.html</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kapanlibur.com/#cuti-bersama-2026</loc>
+    <loc>https://kapanlibur.com/about.html</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kapanlibur.com/#long-weekend-2026</loc>
+    <loc>https://kapanlibur.com/privacy-policy.html</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://kapanlibur.com/#kalender-2026</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.5</priority>
   </url>
 </urlset>
