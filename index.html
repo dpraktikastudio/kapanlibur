@@ -511,6 +511,59 @@
     return name + ", " + d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
   }
 
+  const DOW_LONG = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+  function toISOFromDate(d) {
+    return (
+      d.getFullYear() +
+      "-" +
+      String(d.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(d.getDate()).padStart(2, "0")
+    );
+  }
+
+  function addDaysISO(iso, delta) {
+    const d = parseISODate(iso);
+    d.setDate(d.getDate() + delta);
+    return toISOFromDate(d);
+  }
+
+  function chainStartISO(row, byDate) {
+    if (!byDate || !byDate.get) return row.date;
+    let cur = row.date;
+    const len = row.chain_holidays;
+    while (true) {
+      const prev = addDaysISO(cur, -1);
+      const pr = byDate.get(prev);
+      if (!pr || pr.chain_holidays !== len) break;
+      cur = prev;
+    }
+    return cur;
+  }
+
+  function formatChainWeekdayList(startISO, n) {
+    const parts = [];
+    for (let i = 0; i < n; i++) {
+      const iso = addDaysISO(startISO, i);
+      parts.push(DOW_LONG[parseISODate(iso).getDay()]);
+    }
+    return parts.join(", ");
+  }
+
+  function formatRantaiBerturutForRow(row, byDate) {
+    if (!byDate || !byDate.get) {
+      return String(row.chain_holidays) + " hari";
+    }
+    const start = chainStartISO(row, byDate);
+    return (
+      row.chain_holidays +
+      " hari (" +
+      formatChainWeekdayList(start, row.chain_holidays) +
+      ")"
+    );
+  }
+
   function chipClass(type) {
     if (type === "Libur Nasional") return "chip chip-nasional";
     if (type === "Cuti Bersama") return "chip chip-cuti";
@@ -546,33 +599,36 @@
     return "Menuju " + row.description;
   }
 
-  function buildShareTodayText(t, todayRow) {
-    const lines = ["kapanlibur.com", "Per " + formatLongID(t)];
+  function buildShareTodayText(t, todayRow, byDate) {
+    const lines = ["kapanlibur.com", "", "Per " + formatLongID(t)];
     if (todayRow) {
       lines.push(
         "Hari ini libur: " + todayRow.description + " (" + todayRow.type + ")"
       );
       lines.push(
-        "Rantai libur berturut-turut: " + todayRow.chain_holidays + " hari"
+        "Libur berturut-turut: " +
+          formatRantaiBerturutForRow(todayRow, byDate)
       );
       if (todayRow.is_long_weekend) {
-        lines.push("Long weekend: Ya");
+        lines.push("Long weekend");
       }
     } else {
       lines.push("Hari ini tidak libur menurut data.");
     }
+    lines.push("");
     return lines.join("\n");
   }
 
-  function buildShareSelectedText(t, selectedRow) {
+  function buildShareSelectedText(t, selectedRow, byDate) {
     if (!selectedRow) {
       return "kapanlibur.com\nTidak ada data libur untuk ditampilkan.";
     }
-    const lines = ["kapanlibur.com", "Per " + formatLongID(t)];
+    const lines = ["kapanlibur.com", ""];
+    const rantaiStr = formatRantaiBerturutForRow(selectedRow, byDate);
     if (selectedRow.date > t) {
       const n = diffDays(t, selectedRow.date);
       lines.push(
-        "Berikutnya: " +
+        "" +
           formatLongID(selectedRow.date) +
           " — " +
           selectedRow.description +
@@ -580,10 +636,9 @@
           selectedRow.type +
           ")"
       );
-      let meta =
-        daysUntilPhrase(n) + " · Rantai " + selectedRow.chain_holidays + " hari";
+      let meta = daysUntilPhrase(n) + " · Libur " + rantaiStr;
       if (selectedRow.is_long_weekend) {
-        meta += " · Long weekend: Ya";
+        meta += " · Long weekend";
       }
       lines.push(meta);
     } else {
@@ -596,12 +651,13 @@
           selectedRow.type +
           ")"
       );
-      let meta = "Rantai " + selectedRow.chain_holidays + " hari";
+      let meta = "Libur " + rantaiStr;
       if (selectedRow.is_long_weekend) {
-        meta += " · Long weekend: Ya";
+        meta += " · Long weekend";
       }
       lines.push(meta);
     }
+    lines.push("");
     return lines.join("\n");
   }
 
@@ -775,9 +831,9 @@
       escapeHtml("Karena " + selectedRow.description) +
       "</p>" +
       nextBadgesWrap +
-      '<p class="chain-note">Rantai libur berturut-turut: <strong>' +
-      selectedRow.chain_holidays +
-      " hari</strong></p>" +
+      '<p class="chain-note">Libur berturut-turut: <strong>' +
+      escapeHtml(formatRantaiBerturutForRow(selectedRow, byDate)) +
+      "</strong></p>" +
       "</div>";
 
     if (showCountdown) {
@@ -808,7 +864,7 @@
       }
       if (todayRow.is_long_weekend) {
         todayBadgeCells +=
-          '<span class="chip chip-lw-ya">Long weekend: Ya</span>';
+          '<span class="chip chip-lw-ya">Long weekend</span>';
       }
       todayBadges =
         (todayBadgeCells ?
@@ -816,9 +872,9 @@
           todayBadgeCells +
           "</div>"
         : "") +
-        '<p class="chain-note">Rantai libur berturut-turut: <strong>' +
-        todayRow.chain_holidays +
-        " hari</strong></p>";
+        '<p class="chain-note">Libur berturut-turut: <strong>' +
+        escapeHtml(formatRantaiBerturutForRow(todayRow, byDate)) +
+        "</strong></p>";
     }
 
     stack.hidden = false;
@@ -872,8 +928,8 @@
       "</div>" +
       "</div>";
 
-    const textToday = buildShareTodayText(t, todayRow);
-    const textSelected = buildShareSelectedText(t, selectedRow);
+    const textToday = buildShareTodayText(t, todayRow, byDate);
+    const textSelected = buildShareSelectedText(t, selectedRow, byDate);
     attachShareButton(
       document.getElementById("share-today-btn"),
       document.getElementById("share-today-toast"),
@@ -930,7 +986,7 @@
     return groups;
   }
 
-  function renderList(container, sorted) {
+  function renderList(container, sorted, byDate) {
     if (!sorted.length) {
       container.innerHTML =
         '<p class="when" style="margin:0;color:var(--muted)">Tidak ada libur mendatang dalam data tahun ini.</p>';
@@ -964,9 +1020,9 @@
                 "</p>" +
                 '<p class="sub">' +
                 escapeHtml(row.day) +
-                " · rantai " +
-                row.chain_holidays +
-                " hari</p>" +
+                " · Libur " +
+                escapeHtml(formatRantaiBerturutForRow(row, byDate)) +
+                "</p>" +
                 "</div>" +
                 '<div class="chips">' +
                 '<span class="' +
@@ -1111,7 +1167,7 @@
       heroContext.sortedData = data;
       heroContext.selectedIndex = null;
       renderMainCard();
-      renderList(document.getElementById("list"), upcoming);
+      renderList(document.getElementById("list"), upcoming, byDate);
       renderCalendar(document.getElementById("calendar"), year, byDate);
     })
     .catch(function (err) {
