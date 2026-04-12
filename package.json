@@ -1,0 +1,11 @@
+{
+  "name": "kapanlibur",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "validate:jsonld": "node scripts/validate-jsonld.mjs"
+  },
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0"
+  }
+}
