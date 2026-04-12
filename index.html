@@ -373,6 +373,60 @@
     .list-row .desc { margin: 0; font-size: 0.92rem; }
     .list-row .sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
     .list-row .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: flex-end; }
+    .list-row-past {
+      opacity: 0.58;
+    }
+    .list-row-past .desc,
+    .list-row-past .sub {
+      color: var(--muted);
+    }
+    .list-month-label {
+      margin: -0.35rem 0 0.85rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .list-month-wrap {
+      display: flex;
+      align-items: stretch;
+      gap: 0.4rem;
+    }
+    .list-swipe-host {
+      flex: 1;
+      min-width: 0;
+    }
+    .list-month-inner {
+      min-height: 2rem;
+    }
+    .btn-nav-month {
+      flex: 0 0 auto;
+      font-family: inherit;
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1;
+      width: 2.5rem;
+      min-width: 2.5rem;
+      min-height: 2.5rem;
+      padding: 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--accent);
+      cursor: pointer;
+      align-self: center;
+    }
+    .btn-nav-month:hover:not(:disabled) {
+      filter: brightness(0.97);
+      background: var(--accent-soft);
+    }
+    .btn-nav-month:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .btn-nav-month:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
 
     .cal-year {
       display: grid;
@@ -432,6 +486,106 @@
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
+    #calendar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .cal-month-toolbar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .cal-month-toolbar .cal-toolbar-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+      flex: 1;
+      min-width: 8rem;
+    }
+    @media (max-width: 640px) {
+      .cal-month-toolbar {
+        display: flex;
+      }
+      #calendar .cal-month > h4 {
+        display: none;
+      }
+    }
+    @media (min-width: 641px) {
+      .cal-month-toolbar {
+        display: none !important;
+      }
+    }
+    .cal-popover-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(15, 20, 28, 0.45);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    .cal-popover {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 201;
+      width: calc(100% - 2rem);
+      max-width: 400px;
+      max-height: min(85vh, 520px);
+      overflow: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.15rem 1rem;
+    }
+    .cal-popover-title {
+      margin: 0 2rem 0.5rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .cal-popover-body {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .cal-popover-body .pop-desc {
+      margin: 0 0 0.65rem;
+    }
+    .cal-popover-body .pop-sub {
+      margin: 0 0 0.75rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .cal-popover-body .badges {
+      margin-bottom: 0.5rem;
+    }
+    .cal-popover-close {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--accent-soft);
+      color: var(--accent);
+      cursor: pointer;
+    }
+    .cal-popover-close:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .cal-popover-wrap {
+      position: relative;
+    }
 
     footer {
       margin-top: 2rem;
@@ -462,15 +616,51 @@
 
     <section aria-labelledby="list-heading">
       <h2 id="list-heading">Libur mendatang</h2>
+      <p id="list-month-label" class="list-month-label" hidden></p>
       <div id="list-state" class="loading">Memuat data…</div>
-      <div id="list" hidden></div>
+      <div id="list-month-wrap" class="list-month-wrap" hidden>
+        <button type="button" id="list-nav-prev" class="btn-nav-month" aria-label="Bulan sebelumnya">
+          &#8249;
+        </button>
+        <div id="list-swipe-host" class="list-swipe-host">
+          <div id="list" class="list-month-inner"></div>
+        </div>
+        <button type="button" id="list-nav-next" class="btn-nav-month" aria-label="Bulan berikutnya">
+          &#8250;
+        </button>
+      </div>
     </section>
 
     <section aria-labelledby="cal-heading">
       <h2 id="cal-heading">Kalender <span id="cal-year-label"></span></h2>
       <div id="cal-state" class="loading">Memuat data…</div>
-      <div id="calendar" class="cal-year" hidden></div>
+      <div id="calendar-wrap" hidden>
+        <div id="cal-month-toolbar" class="cal-month-toolbar">
+          <button type="button" id="cal-nav-prev" class="btn-nav-month" aria-label="Bulan sebelumnya kalender">
+            &#8249;
+          </button>
+          <span id="cal-toolbar-label" class="cal-toolbar-label"></span>
+          <button type="button" id="cal-nav-next" class="btn-nav-month" aria-label="Bulan berikutnya kalender">
+            &#8250;
+          </button>
+        </div>
+        <div id="calendar" class="cal-year"></div>
+      </div>
     </section>
+
+    <div id="cal-popover-backdrop" class="cal-popover-backdrop" hidden aria-hidden="true"></div>
+    <div
+      id="cal-popover"
+      class="cal-popover cal-popover-wrap"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cal-popover-title"
+    >
+      <button type="button" id="cal-popover-close" class="cal-popover-close">Tutup</button>
+      <h3 id="cal-popover-title" class="cal-popover-title"></h3>
+      <div id="cal-popover-body" class="cal-popover-body"></div>
+    </div>
 
     <footer>
       Data berdasarkan pengumuman resmi. Tanggal di perangkat Anda dipakai untuk “hari ini” dan hitungan hari.
@@ -757,6 +947,24 @@
     selectedIndex: null,
   };
 
+  const listContext = {
+    sortedData: null,
+    byDate: null,
+    dataYear: null,
+    listYearMonth: null,
+  };
+
+  const calContext = {
+    year: null,
+    byDate: null,
+    mobileMonth: 0,
+  };
+
+  const CAL_MOBILE_MQ = "(max-width: 640px)";
+  function isCalMobile() {
+    return window.matchMedia(CAL_MOBILE_MQ).matches;
+  }
+
   function renderMainCard() {
     const stack = document.getElementById("hero-stack");
     const elToday = document.getElementById("hero-today");
@@ -970,157 +1178,350 @@
       .replace(/"/g, "&quot;");
   }
 
-  function groupByMonth(sorted) {
-    const groups = [];
-    let cur = null;
-    sorted.forEach(function (row) {
-      const d = parseISODate(row.date);
-      const key = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
-      const title = MONTHS[d.getMonth()] + " " + d.getFullYear();
-      if (!cur || cur.key !== key) {
-        cur = { key: key, title: title, rows: [] };
-        groups.push(cur);
-      }
-      cur.rows.push(row);
-    });
-    return groups;
+  function listMonthStep(delta) {
+    if (!listContext.listYearMonth) return;
+    let m = parseInt(listContext.listYearMonth.slice(5, 7), 10) - 1 + delta;
+    if (m < 0) m = 0;
+    if (m > 11) m = 11;
+    listContext.listYearMonth =
+      listContext.dataYear + "-" + String(m + 1).padStart(2, "0");
+    renderList();
   }
 
-  function renderList(container, sorted, byDate) {
-    if (!sorted.length) {
+  function renderList() {
+    const container = document.getElementById("list");
+    const wrap = document.getElementById("list-month-wrap");
+    const labelEl = document.getElementById("list-month-label");
+    const sorted = listContext.sortedData;
+    const byDate = listContext.byDate;
+    if (!sorted || !sorted.length) {
       container.innerHTML =
-        '<p class="when" style="margin:0;color:var(--muted)">Tidak ada libur mendatang dalam data tahun ini.</p>';
-      container.hidden = false;
+        '<p class="when" style="margin:0;color:var(--muted)">Tidak ada data libur.</p>';
+      wrap.hidden = true;
+      labelEl.hidden = true;
       return;
     }
-    const groups = groupByMonth(sorted);
-    container.innerHTML = groups
-      .map(function (g) {
-        return (
-          '<div class="list-group">' +
-          "<h3>" +
-          escapeHtml(g.title) +
-          "</h3>" +
-          g.rows
-            .map(function (row) {
-              const lw =
-                row.is_long_weekend
-                  ? '<span class="chip chip-lw-ya">LW</span>'
-                  : "";
-              return (
-                '<article class="list-row" id="row-' +
-                row.date +
-                '">' +
-                '<div class="d">' +
-                parseISODate(row.date).getDate() +
-                "</div>" +
-                '<div class="meta">' +
-                '<p class="desc">' +
-                escapeHtml(row.description) +
-                "</p>" +
-                '<p class="sub">' +
-                escapeHtml(row.day) +
-                " · Libur " +
-                escapeHtml(formatRantaiBerturutForRow(row, byDate)) +
-                "</p>" +
-                "</div>" +
-                '<div class="chips">' +
-                '<span class="' +
-                chipClass(row.type) +
-                '">' +
-                escapeHtml(row.type) +
-                "</span>" +
-                lw +
-                "</div>" +
-                "</article>"
-              );
-            })
-            .join("") +
-          "</div>"
-        );
-      })
-      .join("");
-    container.hidden = false;
+    const ym = listContext.listYearMonth;
+    const rows = sorted.filter(function (r) {
+      return r.date.slice(0, 7) === ym;
+    });
+    const t = todayISO();
+    const mIdx = parseInt(ym.slice(5, 7), 10) - 1;
+    labelEl.textContent = MONTHS[mIdx] + " " + listContext.dataYear;
+    labelEl.hidden = false;
+    const prevBtn = document.getElementById("list-nav-prev");
+    const nextBtn = document.getElementById("list-nav-next");
+    prevBtn.disabled = mIdx <= 0;
+    nextBtn.disabled = mIdx >= 11;
+    if (prevBtn.disabled) {
+      prevBtn.setAttribute("aria-disabled", "true");
+    } else {
+      prevBtn.removeAttribute("aria-disabled");
+    }
+    if (nextBtn.disabled) {
+      nextBtn.setAttribute("aria-disabled", "true");
+    } else {
+      nextBtn.removeAttribute("aria-disabled");
+    }
+    if (!rows.length) {
+      container.innerHTML =
+        '<p class="when" style="margin:0;color:var(--muted)">Tidak ada libur pada bulan ini.</p>';
+    } else {
+      container.innerHTML = rows
+        .map(function (row) {
+          const past = row.date < t;
+          const pastClass = past ? " list-row-past" : "";
+          const lw =
+            row.is_long_weekend
+              ? '<span class="chip chip-lw-ya">LW</span>'
+              : "";
+          return (
+            '<article class="list-row' +
+            pastClass +
+            '" id="row-' +
+            row.date +
+            '">' +
+            '<div class="d">' +
+            parseISODate(row.date).getDate() +
+            "</div>" +
+            '<div class="meta">' +
+            '<p class="desc">' +
+            escapeHtml(row.description) +
+            "</p>" +
+            '<p class="sub">' +
+            escapeHtml(row.day) +
+            " · Libur " +
+            escapeHtml(formatRantaiBerturutForRow(row, byDate)) +
+            "</p>" +
+            "</div>" +
+            '<div class="chips">' +
+            '<span class="' +
+            chipClass(row.type) +
+            '">' +
+            escapeHtml(row.type) +
+            "</span>" +
+            lw +
+            "</div>" +
+            "</article>"
+          );
+        })
+        .join("");
+    }
+    wrap.hidden = false;
   }
 
-  function scrollToRow(iso) {
-    const el = document.getElementById("row-" + iso);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  let listSwipeBound = false;
+  function attachListSwipe() {
+    if (listSwipeBound) return;
+    const host = document.getElementById("list-swipe-host");
+    if (!host) return;
+    listSwipeBound = true;
+    let startX = 0;
+    let startY = 0;
+    function trySwipe(endX, endY) {
+      const dx = endX - startX;
+      const dy = endY - startY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        listMonthStep(1);
+      } else {
+        listMonthStep(-1);
+      }
+    }
+    host.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    host.addEventListener(
+      "touchend",
+      function (e) {
+        if (!e.changedTouches.length) return;
+        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+    let ptrId = null;
+    host.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      ptrId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    host.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch") return;
+      if (ptrId === null || e.pointerId !== ptrId) return;
+      ptrId = null;
+      trySwipe(e.clientX, e.clientY);
+    });
+    host.addEventListener("pointercancel", function () {
+      ptrId = null;
+    });
+  }
+
+  let calPopoverLastFocus = null;
+  function closeCalPopover() {
+    document.getElementById("cal-popover-backdrop").hidden = true;
+    document.getElementById("cal-popover").hidden = true;
+    if (calPopoverLastFocus && calPopoverLastFocus.focus) {
+      try {
+        calPopoverLastFocus.focus();
+      } catch (err) {}
+    }
+    calPopoverLastFocus = null;
+  }
+
+  function openCalPopover(row, triggerEl) {
+    calPopoverLastFocus = document.activeElement;
+    const byDate = calContext.byDate;
+    const title = document.getElementById("cal-popover-title");
+    const body = document.getElementById("cal-popover-body");
+    title.textContent = formatLongID(row.date);
+    const lw = row.is_long_weekend
+      ? '<span class="chip chip-lw-ya">LW</span>'
+      : "";
+    body.innerHTML =
+      '<p class="pop-desc">' +
+      escapeHtml(row.description) +
+      "</p>" +
+      '<p class="pop-sub">' +
+      escapeHtml(row.day) +
+      " · Libur " +
+      escapeHtml(formatRantaiBerturutForRow(row, byDate)) +
+      "</p>" +
+      '<div class="badges">' +
+      '<span class="' +
+      chipClass(row.type) +
+      '">' +
+      escapeHtml(row.type) +
+      "</span>" +
+      lw +
+      "</div>";
+    document.getElementById("cal-popover-backdrop").hidden = false;
+    document.getElementById("cal-popover").hidden = false;
+    document.getElementById("cal-popover-close").focus();
+  }
+
+  function buildMonthGrid(year, month, byDate) {
+    const first = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    const startPad = first.getDay();
+    const wrap = document.createElement("div");
+    wrap.className = "cal-month";
+    const h = document.createElement("h4");
+    h.textContent = MONTHS[month] + " " + year;
+    wrap.appendChild(h);
+    const dow = document.createElement("div");
+    dow.className = "cal-dow";
+    DOW_SHORT.forEach(function (label) {
+      const s = document.createElement("span");
+      s.textContent = label;
+      dow.appendChild(s);
+    });
+    wrap.appendChild(dow);
+    const grid = document.createElement("div");
+    grid.className = "cal-grid";
+    for (let i = 0; i < startPad; i++) {
+      const pad = document.createElement("div");
+      pad.className = "cal-cell pad";
+      grid.appendChild(pad);
+    }
+    const tISO = todayISO();
+    const tParts = tISO.split("-").map(Number);
+    const isThisYearToday = tParts[0] === year;
+    for (let day = 1; day <= lastDay; day++) {
+      const iso =
+        year +
+        "-" +
+        String(month + 1).padStart(2, "0") +
+        "-" +
+        String(day).padStart(2, "0");
+      const cell = document.createElement("div");
+      cell.className = "cal-cell";
+      const span = document.createElement("span");
+      span.className = "n";
+      span.textContent = String(day);
+      cell.appendChild(span);
+      const row = byDate.get(iso);
+      if (row) {
+        cell.classList.add(calCellClass(row.type));
+        cell.title = row.description + " (" + row.type + ")";
+        cell.setAttribute("tabindex", "0");
+        cell.setAttribute("role", "button");
+        cell.addEventListener("click", function (e) {
+          e.stopPropagation();
+          openCalPopover(row, cell);
+        });
+        cell.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openCalPopover(row, cell);
+          }
+        });
+      }
+      if (isThisYearToday && iso === tISO) cell.classList.add("is-today");
+      grid.appendChild(cell);
+    }
+    wrap.appendChild(grid);
+    return wrap;
+  }
+
+  let calendarWrapSwipeBound = false;
+  function attachCalendarWrapSwipeOnce() {
+    if (calendarWrapSwipeBound) return;
+    const wrap = document.getElementById("calendar-wrap");
+    if (!wrap) return;
+    calendarWrapSwipeBound = true;
+    let startX = 0;
+    let startY = 0;
+    function trySwipe(endX, endY) {
+      if (!isCalMobile()) return;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        stepCalMobileMonth(1);
+      } else {
+        stepCalMobileMonth(-1);
+      }
+    }
+    wrap.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    wrap.addEventListener(
+      "touchend",
+      function (e) {
+        if (!e.changedTouches.length) return;
+        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+    let ptrId = null;
+    wrap.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      ptrId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    wrap.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch") return;
+      if (ptrId === null || e.pointerId !== ptrId) return;
+      ptrId = null;
+      trySwipe(e.clientX, e.clientY);
+    });
+    wrap.addEventListener("pointercancel", function () {
+      ptrId = null;
+    });
+  }
+
+  function stepCalMobileMonth(delta) {
+    calContext.mobileMonth += delta;
+    if (calContext.mobileMonth < 0) calContext.mobileMonth = 0;
+    if (calContext.mobileMonth > 11) calContext.mobileMonth = 11;
+    renderCalendar(document.getElementById("calendar"), calContext.year, calContext.byDate);
   }
 
   function renderCalendar(container, year, byDate) {
+    calContext.year = year;
+    calContext.byDate = byDate;
     container.innerHTML = "";
-    for (let month = 0; month < 12; month++) {
-      const first = new Date(year, month, 1);
-      const lastDay = new Date(year, month + 1, 0).getDate();
-      const startPad = first.getDay();
-
-      const wrap = document.createElement("div");
-      wrap.className = "cal-month";
-      const h = document.createElement("h4");
-      h.textContent = MONTHS[month] + " " + year;
-      wrap.appendChild(h);
-
-      const dow = document.createElement("div");
-      dow.className = "cal-dow";
-      DOW_SHORT.forEach(function (label) {
-        const s = document.createElement("span");
-        s.textContent = label;
-        dow.appendChild(s);
-      });
-      wrap.appendChild(dow);
-
-      const grid = document.createElement("div");
-      grid.className = "cal-grid";
-
-      for (let i = 0; i < startPad; i++) {
-        const pad = document.createElement("div");
-        pad.className = "cal-cell pad";
-        grid.appendChild(pad);
+    const mobile = isCalMobile();
+    const toolbarLabel = document.getElementById("cal-toolbar-label");
+    const prevCal = document.getElementById("cal-nav-prev");
+    const nextCal = document.getElementById("cal-nav-next");
+    if (mobile) {
+      toolbarLabel.textContent = MONTHS[calContext.mobileMonth] + " " + year;
+      prevCal.disabled = calContext.mobileMonth <= 0;
+      nextCal.disabled = calContext.mobileMonth >= 11;
+      if (prevCal.disabled) {
+        prevCal.setAttribute("aria-disabled", "true");
+      } else {
+        prevCal.removeAttribute("aria-disabled");
       }
-
-      const tISO = todayISO();
-      const tParts = tISO.split("-").map(Number);
-      const isThisYearToday = tParts[0] === year;
-
-      for (let day = 1; day <= lastDay; day++) {
-        const iso =
-          year +
-          "-" +
-          String(month + 1).padStart(2, "0") +
-          "-" +
-          String(day).padStart(2, "0");
-        const cell = document.createElement("div");
-        cell.className = "cal-cell";
-        const span = document.createElement("span");
-        span.className = "n";
-        span.textContent = String(day);
-        cell.appendChild(span);
-
-        const row = byDate.get(iso);
-        if (row) {
-          cell.classList.add(calCellClass(row.type));
-          cell.title = row.description + " (" + row.type + ")";
-          cell.setAttribute("tabindex", "0");
-          cell.setAttribute("role", "button");
-          cell.addEventListener("click", function () {
-            scrollToRow(iso);
-          });
-          cell.addEventListener("keydown", function (e) {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              scrollToRow(iso);
-            }
-          });
-        }
-
-        if (isThisYearToday && iso === tISO) cell.classList.add("is-today");
-
-        grid.appendChild(cell);
+      if (nextCal.disabled) {
+        nextCal.setAttribute("aria-disabled", "true");
+      } else {
+        nextCal.removeAttribute("aria-disabled");
       }
-      wrap.appendChild(grid);
-      container.appendChild(wrap);
+      container.appendChild(buildMonthGrid(year, calContext.mobileMonth, byDate));
+    } else {
+      for (let month = 0; month < 12; month++) {
+        container.appendChild(buildMonthGrid(year, month, byDate));
+      }
     }
+    document.getElementById("calendar-wrap").hidden = false;
     container.hidden = false;
   }
 
@@ -1131,7 +1532,46 @@
       e.textContent = msg;
       e.hidden = false;
     });
+    const lmw = document.getElementById("list-month-wrap");
+    if (lmw) lmw.hidden = true;
+    const cw = document.getElementById("calendar-wrap");
+    if (cw) cw.hidden = true;
   }
+
+  function initMonthNavAndPopover() {
+    document.getElementById("list-nav-prev").addEventListener("click", function () {
+      listMonthStep(-1);
+    });
+    document.getElementById("list-nav-next").addEventListener("click", function () {
+      listMonthStep(1);
+    });
+    document.getElementById("cal-nav-prev").addEventListener("click", function () {
+      stepCalMobileMonth(-1);
+    });
+    document.getElementById("cal-nav-next").addEventListener("click", function () {
+      stepCalMobileMonth(1);
+    });
+    document.getElementById("cal-popover-close").addEventListener("click", closeCalPopover);
+    document.getElementById("cal-popover-backdrop").addEventListener("click", closeCalPopover);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !document.getElementById("cal-popover").hidden) {
+        closeCalPopover();
+      }
+    });
+    attachListSwipe();
+    attachCalendarWrapSwipeOnce();
+    window.matchMedia(CAL_MOBILE_MQ).addEventListener("change", function () {
+      if (calContext.year && calContext.byDate) {
+        renderCalendar(
+          document.getElementById("calendar"),
+          calContext.year,
+          calContext.byDate
+        );
+      }
+    });
+  }
+
+  initMonthNavAndPopover();
 
   fetch("json/2026.json")
     .then(function (r) {
@@ -1155,9 +1595,6 @@
       document.getElementById("cal-year-label").textContent = String(year);
 
       const t = todayISO();
-      const upcoming = data.filter(function (r) {
-        return r.date > t;
-      });
 
       document.getElementById("hero-state").hidden = true;
       document.getElementById("list-state").hidden = true;
@@ -1167,7 +1604,18 @@
       heroContext.sortedData = data;
       heroContext.selectedIndex = null;
       renderMainCard();
-      renderList(document.getElementById("list"), upcoming, byDate);
+
+      listContext.sortedData = data;
+      listContext.byDate = byDate;
+      listContext.dataYear = year;
+      listContext.listYearMonth =
+        t.slice(0, 4) === String(year) ? t.slice(0, 7) : year + "-01";
+      renderList();
+
+      calContext.year = year;
+      calContext.byDate = byDate;
+      calContext.mobileMonth =
+        t.slice(0, 4) === String(year) ? parseInt(t.slice(5, 7), 10) - 1 : 0;
       renderCalendar(document.getElementById("calendar"), year, byDate);
     })
     .catch(function (err) {
