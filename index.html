@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>kapanlibur.com — Libur Nasional Indonesia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --text: #1a2332;
+      --muted: #5c6b7f;
+      --border: #e2e8f0;
+      --accent: #0d9488;
+      --accent-soft: rgba(13, 148, 136, 0.12);
+      --nasional: #1d4ed8;
+      --nasional-bg: rgba(29, 78, 216, 0.1);
+      --cuti: #7c3aed;
+      --cuti-bg: rgba(124, 58, 237, 0.1);
+      --sabtu: #64748b;
+      --sabtu-bg: rgba(100, 116, 139, 0.12);
+      --minggu: #0f766e;
+      --minggu-bg: rgba(15, 118, 110, 0.1);
+      --lw: #c2410c;
+      --lw-bg: rgba(194, 65, 12, 0.12);
+      --shadow: 0 4px 24px rgba(26, 35, 50, 0.08);
+      --radius: 14px;
+      --radius-sm: 10px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1419;
+        --surface: #1a222d;
+        --text: #e8edf4;
+        --muted: #94a3b8;
+        --border: #2d3a4d;
+        --accent: #2dd4bf;
+        --accent-soft: rgba(45, 212, 191, 0.15);
+        --nasional-bg: rgba(96, 165, 250, 0.18);
+        --cuti-bg: rgba(167, 139, 250, 0.18);
+        --sabtu-bg: rgba(148, 163, 184, 0.15);
+        --minggu-bg: rgba(45, 212, 191, 0.12);
+        --lw-bg: rgba(251, 146, 60, 0.18);
+        --shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.35rem;
+    }
+    header .tagline {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    header .source {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+    }
+    header .source a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    header .source a:hover { text-decoration: underline; }
+
+    section {
+      margin-bottom: 2.75rem;
+    }
+    section > h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.35rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .hero .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .hero .countdown {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin: 0 0 0.25rem;
+    }
+    .hero .when {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0 0 1rem;
+    }
+    .hero .why {
+      font-size: 1.05rem;
+      margin: 0 0 1rem;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .chip-nasional { background: var(--nasional-bg); color: var(--nasional); }
+    .chip-cuti { background: var(--cuti-bg); color: var(--cuti); }
+    .chip-sabtu { background: var(--sabtu-bg); color: var(--sabtu); }
+    .chip-minggu { background: var(--minggu-bg); color: var(--minggu); }
+    .chip-lw-ya { background: var(--lw-bg); color: var(--lw); }
+    .chip-lw-tidak { background: var(--border); color: var(--muted); }
+    .chain-note {
+      margin-top: 0.85rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .hero-status .hero-today-yes { color: var(--accent); }
+    .hero-status .hero-today-no { color: var(--muted); }
+    .hero-today-desc { margin-bottom: 1.25rem; }
+    .hero-today-desc .why { margin: 0.35rem 0 0; }
+    .hero-today-desc .when.muted-line {
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .hero-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 0 1rem;
+    }
+    .hero-next .next-when {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.35rem;
+    }
+    .hero-next .next-desc {
+      font-size: 1rem;
+      margin: 0 0 0.65rem;
+    }
+    .hero-next .next-meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0 0 0.75rem;
+    }
+    .hero-actions {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .btn-share {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.55rem 1.1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--accent-soft);
+      color: var(--accent);
+      cursor: pointer;
+    }
+    .btn-share:hover {
+      filter: brightness(0.95);
+    }
+    .btn-share:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .share-toast {
+      display: inline-block;
+      margin-left: 0.65rem;
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .share-toast.show { opacity: 1; }
+
+    .error, .loading {
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .error { color: #b91c1c; }
+
+    .list-group {
+      margin-bottom: 1.75rem;
+    }
+    .list-group h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: capitalize;
+      margin: 0 0 0.65rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .list-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.65rem 1rem;
+      align-items: start;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 1rem;
+    }
+    .list-row:last-child { border-bottom: none; }
+    .list-row .d {
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .list-row .meta { min-width: 0; }
+    .list-row .desc { margin: 0; font-size: 0.92rem; }
+    .list-row .sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+    .list-row .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: flex-end; }
+
+    .cal-year {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .cal-month {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+    }
+    .cal-month h4 {
+      margin: 0 0 0.65rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    .cal-dow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 4px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+    }
+    .cal-dow span { padding: 2px 0; }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .cal-cell {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: default;
+      color: var(--muted);
+      background: transparent;
+    }
+    .cal-cell.pad { visibility: hidden; pointer-events: none; }
+    .cal-cell .n { font-variant-numeric: tabular-nums; }
+    .cal-cell.is-off-nasional { background: var(--nasional-bg); color: var(--nasional); font-weight: 600; }
+    .cal-cell.is-off-cuti { background: var(--cuti-bg); color: var(--cuti); font-weight: 600; }
+    .cal-cell.is-off-sabtu { background: var(--sabtu-bg); color: var(--sabtu); }
+    .cal-cell.is-off-minggu { background: var(--minggu-bg); color: var(--minggu); }
+    .cal-cell.is-today {
+      box-shadow: inset 0 0 0 2px var(--accent);
+    }
+    .cal-cell[tabindex="0"]:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>kapanlibur.com</h1>
+      <p class="tagline">Cek hari ini libur atau tidak, libur berikutnya, daftar mendatang, dan kalender.</p>
+      <p class="source" id="source-line" hidden>
+        <a id="source-link" href="#" target="_blank" rel="noopener noreferrer">Sumber: SKB Kemenko PMK</a>
+      </p>
+    </header>
+
+    <section aria-labelledby="hero-heading">
+      <h2 id="hero-heading">Hari ini &amp; libur berikutnya</h2>
+      <div id="hero-state" class="loading">Memuat data…</div>
+      <div id="hero" class="hero" hidden></div>
+    </section>
+
+    <section aria-labelledby="list-heading">
+      <h2 id="list-heading">Libur mendatang</h2>
+      <div id="list-state" class="loading">Memuat data…</div>
+      <div id="list" hidden></div>
+    </section>
+
+    <section aria-labelledby="cal-heading">
+      <h2 id="cal-heading">Kalender <span id="cal-year-label"></span></h2>
+      <div id="cal-state" class="loading">Memuat data…</div>
+      <div id="calendar" class="cal-year" hidden></div>
+    </section>
+
+    <footer>
+      Data berdasarkan pengumuman resmi. Tanggal di perangkat Anda dipakai untuk “hari ini” dan hitungan hari.
+    </footer>
+  </div>
+
+  <script>
+(function () {
+  const MONTHS = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+  const DOW_SHORT = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+
+  function todayISO() {
+    const n = new Date();
+    const y = n.getFullYear();
+    const m = String(n.getMonth() + 1).padStart(2, "0");
+    const d = String(n.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + d;
+  }
+
+  function parseISODate(iso) {
+    const p = iso.split("-").map(Number);
+    return new Date(p[0], p[1] - 1, p[2]);
+  }
+
+  function diffDays(fromISO, toISO) {
+    const a = parseISODate(fromISO);
+    const b = parseISODate(toISO);
+    return Math.round((b - a) / 86400000);
+  }
+
+  function formatLongID(iso) {
+    const d = parseISODate(iso);
+    const day = d.getDay();
+    const name = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"][day];
+    return name + ", " + d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
+  }
+
+  function chipClass(type) {
+    if (type === "Libur Nasional") return "chip chip-nasional";
+    if (type === "Cuti Bersama") return "chip chip-cuti";
+    if (type === "Sabtu") return "chip chip-sabtu";
+    if (type === "Minggu") return "chip chip-minggu";
+    return "chip chip-sabtu";
+  }
+
+  function calCellClass(type) {
+    if (type === "Libur Nasional") return "is-off-nasional";
+    if (type === "Cuti Bersama") return "is-off-cuti";
+    if (type === "Sabtu") return "is-off-sabtu";
+    if (type === "Minggu") return "is-off-minggu";
+    return "";
+  }
+
+  function daysUntilPhrase(n) {
+    if (n <= 0) return "hari ini";
+    if (n === 1) return "besok";
+    return n + " hari lagi";
+  }
+
+  function buildShareText(t, todayRow, nextRow) {
+    const lines = [
+      "kapanlibur.com",
+      "Per " + formatLongID(t),
+      todayRow
+        ? "Hari ini libur: " + todayRow.description + " (" + todayRow.type + ")"
+        : "Hari ini tidak libur.",
+    ];
+    if (nextRow) {
+      const n = diffDays(t, nextRow.date);
+      lines.push(
+        "Berikutnya: " +
+          formatLongID(nextRow.date) +
+          " — " +
+          nextRow.description +
+          " (" +
+          nextRow.type +
+          ")"
+      );
+      lines.push(
+        daysUntilPhrase(n) +
+          " · Long weekend: " +
+          (nextRow.is_long_weekend ? "Ya" : "Tidak") +
+          " · Rantai " +
+          nextRow.chain_holidays +
+          " hari"
+      );
+    } else {
+      lines.push("Tidak ada libur mendatang dalam data tahun ini.");
+    }
+    return lines.join("\n");
+  }
+
+  function renderMainCard(el, byDate, sortedData) {
+    const t = todayISO();
+    const todayRow = byDate.get(t) || null;
+    const nextRow =
+      sortedData.find(function (r) {
+        return r.date > t;
+      }) || null;
+
+    let nextBlock;
+    if (nextRow) {
+      const n = diffDays(t, nextRow.date);
+      const until = daysUntilPhrase(n);
+      const untilDisp =
+        until.charAt(0).toUpperCase() + until.slice(1);
+      const lwChip =
+        nextRow.is_long_weekend
+          ? '<span class="chip chip-lw-ya">Long weekend: Ya</span>'
+          : '<span class="chip chip-lw-tidak">Long weekend: Tidak</span>';
+      nextBlock =
+        '<p class="label">Libur berikutnya</p>' +
+        '<p class="next-when">' +
+        escapeHtml(formatLongID(nextRow.date)) +
+        "</p>" +
+        '<p class="next-desc">' +
+        escapeHtml(nextRow.description) +
+        "</p>" +
+        '<p class="next-meta">' +
+        escapeHtml(untilDisp) +
+        " · Rantai libur " +
+        nextRow.chain_holidays +
+        " hari</p>" +
+        '<div class="badges">' +
+        '<span class="' +
+        chipClass(nextRow.type) +
+        '">' +
+        escapeHtml(nextRow.type) +
+        "</span>" +
+        lwChip +
+        "</div>";
+    } else {
+      nextBlock =
+        '<p class="label">Libur berikutnya</p>' +
+        '<p class="when">Tidak ada tanggal libur mendatang dalam data tahun ini.</p>';
+    }
+
+    const todayBadges = todayRow
+      ? '<div class="badges" style="margin-top:0.5rem">' +
+        '<span class="' +
+        chipClass(todayRow.type) +
+        '">' +
+        escapeHtml(todayRow.type) +
+        "</span>" +
+        (todayRow.is_long_weekend
+          ? '<span class="chip chip-lw-ya">Long weekend: Ya</span>'
+          : '<span class="chip chip-lw-tidak">Long weekend: Tidak</span>') +
+        "</div>" +
+        '<p class="chain-note">Rantai libur berturut-turut: <strong>' +
+        todayRow.chain_holidays +
+        " hari</strong></p>"
+      : "";
+
+    el.hidden = false;
+    el.innerHTML =
+      '<div class="hero-status">' +
+      (todayRow
+        ? '<p class="countdown hero-today-yes">Hari ini libur</p>'
+        : '<p class="countdown hero-today-no">Hari ini tidak libur</p>') +
+      "</div>" +
+      '<div class="hero-today-desc">' +
+      (todayRow
+        ? '<p class="why">' + escapeHtml(todayRow.description) + "</p>" + todayBadges
+        : '<p class="when muted-line">Tidak ada libur pada tanggal ini menurut data.</p>') +
+      "</div>" +
+      '<hr class="hero-divider" />' +
+      '<div class="hero-next">' +
+      nextBlock +
+      "</div>" +
+      '<div class="hero-actions">' +
+      '<button type="button" class="btn-share" id="share-btn">Bagikan</button>' +
+      '<span class="share-toast" id="share-toast" aria-live="polite"></span>' +
+      "</div>";
+
+    const shareBtn = document.getElementById("share-btn");
+    const toast = document.getElementById("share-toast");
+    const text = buildShareText(t, todayRow, nextRow);
+    const url = typeof location !== "undefined" ? location.href : "";
+
+    shareBtn.addEventListener("click", function () {
+      if (navigator.share) {
+        navigator
+          .share({
+            title: "kapanlibur.com",
+            text: text,
+            url: url,
+          })
+          .catch(function () {});
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(text + "\n\n" + url)
+          .then(function () {
+            toast.textContent = "Disalin ke papan klip";
+            toast.classList.add("show");
+            setTimeout(function () {
+              toast.classList.remove("show");
+            }, 2500);
+          })
+          .catch(function () {
+            window.prompt("Salin teks:", text + "\n\n" + url);
+          });
+      } else {
+        window.prompt("Salin teks:", text + "\n\n" + url);
+      }
+    });
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function groupByMonth(sorted) {
+    const groups = [];
+    let cur = null;
+    sorted.forEach(function (row) {
+      const d = parseISODate(row.date);
+      const key = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+      const title = MONTHS[d.getMonth()] + " " + d.getFullYear();
+      if (!cur || cur.key !== key) {
+        cur = { key: key, title: title, rows: [] };
+        groups.push(cur);
+      }
+      cur.rows.push(row);
+    });
+    return groups;
+  }
+
+  function renderList(container, sorted) {
+    if (!sorted.length) {
+      container.innerHTML =
+        '<p class="when" style="margin:0;color:var(--muted)">Tidak ada libur mendatang dalam data tahun ini.</p>';
+      container.hidden = false;
+      return;
+    }
+    const groups = groupByMonth(sorted);
+    container.innerHTML = groups
+      .map(function (g) {
+        return (
+          '<div class="list-group">' +
+          "<h3>" +
+          escapeHtml(g.title) +
+          "</h3>" +
+          g.rows
+            .map(function (row) {
+              const lw =
+                row.is_long_weekend
+                  ? '<span class="chip chip-lw-ya">LW</span>'
+                  : "";
+              return (
+                '<article class="list-row" id="row-' +
+                row.date +
+                '">' +
+                '<div class="d">' +
+                parseISODate(row.date).getDate() +
+                "</div>" +
+                '<div class="meta">' +
+                '<p class="desc">' +
+                escapeHtml(row.description) +
+                "</p>" +
+                '<p class="sub">' +
+                escapeHtml(row.day) +
+                " · rantai " +
+                row.chain_holidays +
+                " hari</p>" +
+                "</div>" +
+                '<div class="chips">' +
+                '<span class="' +
+                chipClass(row.type) +
+                '">' +
+                escapeHtml(row.type) +
+                "</span>" +
+                lw +
+                "</div>" +
+                "</article>"
+              );
+            })
+            .join("") +
+          "</div>"
+        );
+      })
+      .join("");
+    container.hidden = false;
+  }
+
+  function scrollToRow(iso) {
+    const el = document.getElementById("row-" + iso);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  function renderCalendar(container, year, byDate) {
+    container.innerHTML = "";
+    for (let month = 0; month < 12; month++) {
+      const first = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0).getDate();
+      const startPad = first.getDay();
+
+      const wrap = document.createElement("div");
+      wrap.className = "cal-month";
+      const h = document.createElement("h4");
+      h.textContent = MONTHS[month] + " " + year;
+      wrap.appendChild(h);
+
+      const dow = document.createElement("div");
+      dow.className = "cal-dow";
+      DOW_SHORT.forEach(function (label) {
+        const s = document.createElement("span");
+        s.textContent = label;
+        dow.appendChild(s);
+      });
+      wrap.appendChild(dow);
+
+      const grid = document.createElement("div");
+      grid.className = "cal-grid";
+
+      for (let i = 0; i < startPad; i++) {
+        const pad = document.createElement("div");
+        pad.className = "cal-cell pad";
+        grid.appendChild(pad);
+      }
+
+      const tISO = todayISO();
+      const tParts = tISO.split("-").map(Number);
+      const isThisYearToday = tParts[0] === year;
+
+      for (let day = 1; day <= lastDay; day++) {
+        const iso =
+          year +
+          "-" +
+          String(month + 1).padStart(2, "0") +
+          "-" +
+          String(day).padStart(2, "0");
+        const cell = document.createElement("div");
+        cell.className = "cal-cell";
+        const span = document.createElement("span");
+        span.className = "n";
+        span.textContent = String(day);
+        cell.appendChild(span);
+
+        const row = byDate.get(iso);
+        if (row) {
+          cell.classList.add(calCellClass(row.type));
+          cell.title = row.description + " (" + row.type + ")";
+          cell.setAttribute("tabindex", "0");
+          cell.setAttribute("role", "button");
+          cell.addEventListener("click", function () {
+            scrollToRow(iso);
+          });
+          cell.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              scrollToRow(iso);
+            }
+          });
+        }
+
+        if (isThisYearToday && iso === tISO) cell.classList.add("is-today");
+
+        grid.appendChild(cell);
+      }
+      wrap.appendChild(grid);
+      container.appendChild(wrap);
+    }
+    container.hidden = false;
+  }
+
+  function showError(msg) {
+    ["hero-state", "list-state", "cal-state"].forEach(function (id) {
+      const e = document.getElementById(id);
+      e.className = "error";
+      e.textContent = msg;
+      e.hidden = false;
+    });
+  }
+
+  fetch("json/2026.json")
+    .then(function (r) {
+      if (!r.ok) throw new Error("Gagal memuat json/2026.json (" + r.status + ")");
+      return r.json();
+    })
+    .then(function (json) {
+      const sourceLine = document.getElementById("source-line");
+      const sourceLink = document.getElementById("source-link");
+      if (json.source) {
+        sourceLink.href = json.source;
+        sourceLine.hidden = false;
+      }
+
+      const data = json.data.slice().sort(function (a, b) {
+        return a.date.localeCompare(b.date);
+      });
+      const byDate = new Map(data.map(function (r) { return [r.date, r]; }));
+
+      const year = parseInt(data[0].date.slice(0, 4), 10);
+      document.getElementById("cal-year-label").textContent = String(year);
+
+      const t = todayISO();
+      const upcoming = data.filter(function (r) {
+        return r.date > t;
+      });
+
+      document.getElementById("hero-state").hidden = true;
+      document.getElementById("list-state").hidden = true;
+      document.getElementById("cal-state").hidden = true;
+
+      renderMainCard(document.getElementById("hero"), byDate, data);
+      renderList(document.getElementById("list"), upcoming);
+      renderCalendar(document.getElementById("calendar"), year, byDate);
+    })
+    .catch(function (err) {
+      console.error(err);
+      showError(
+        "Tidak bisa memuat data. Gunakan server statis lokal (bukan file://), misalnya: npx serve di folder proyek."
+      );
+    });
+})();
+  </script>
+</body>
+</html>
