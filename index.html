@@ -312,6 +312,10 @@
       margin: 0 0 0.75rem;
     }
     .btn-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
       font-family: inherit;
       font-size: 0.9rem;
       font-weight: 600;
@@ -321,6 +325,11 @@
       background: var(--accent-soft);
       color: var(--accent);
       cursor: pointer;
+    }
+    .btn-share .share-icon-svg {
+      width: 1.1em;
+      height: 1.1em;
+      flex-shrink: 0;
     }
     .btn-share:hover {
       filter: brightness(0.95);
@@ -362,7 +371,7 @@
     }
     .list-row {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr auto auto;
       gap: 0.65rem 1rem;
       align-items: start;
       padding: 0.75rem 0;
@@ -379,6 +388,35 @@
     .list-row .desc { margin: 0; font-size: 0.92rem; }
     .list-row .sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
     .list-row .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: flex-end; }
+    .list-row-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      min-height: 2.25rem;
+      padding: 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--accent-soft);
+      color: var(--accent);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .list-row-share:hover {
+      filter: brightness(0.95);
+    }
+    .list-row-share:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .list-row-share .share-icon-svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    .list-share-toast {
+      margin: 0 0 0.35rem;
+      display: block;
+    }
     .list-row-past {
       opacity: 0.58;
     }
@@ -560,10 +598,61 @@
       padding: 1.1rem 1.15rem 1rem;
     }
     .cal-popover-title {
-      margin: 0 2rem 0.5rem 0;
+      margin: 0 4.5rem 0.5rem 0;
       font-size: 1rem;
       font-weight: 600;
       line-height: 1.35;
+    }
+    .cal-popover-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin-top: 0.15rem;
+    }
+    .cal-popover-footer-row .badges {
+      margin-bottom: 0;
+      flex: 1;
+      min-width: 0;
+    }
+    .cal-popover-footer-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+      flex-shrink: 0;
+    }
+    .cal-popover-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--accent-soft);
+      color: var(--accent);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .cal-popover-share:hover {
+      filter: brightness(0.95);
+    }
+    .cal-popover-share:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .cal-popover-share .share-icon-svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    .cal-popover-share-toast {
+      margin-left: 0;
+      font-size: 0.75rem;
+      text-align: right;
+      max-width: 7rem;
     }
     .cal-popover-body {
       font-size: 0.92rem;
@@ -577,9 +666,6 @@
       margin: 0 0 0.75rem;
       font-size: 0.85rem;
       color: var(--muted);
-    }
-    .cal-popover-body .badges {
-      margin-bottom: 0.5rem;
     }
     .cal-popover-close {
       position: absolute;
@@ -647,6 +733,7 @@
       </div>
       <div id="list-state" class="loading">Memuat data…</div>
       <div id="list-month-wrap" class="list-month-wrap" hidden>
+        <span id="list-share-toast" class="share-toast list-share-toast" aria-live="polite"></span>
         <div id="list-swipe-host" class="list-swipe-host">
           <div id="list" class="list-month-inner"></div>
         </div>
@@ -856,7 +943,7 @@
       lines.push(meta);
     } else {
       lines.push(
-        "Pada kartu: " +
+        "" +
           formatLongID(selectedRow.date) +
           " — " +
           selectedRow.description +
@@ -874,36 +961,48 @@
     return lines.join("\n");
   }
 
+  function shareIconHtml() {
+    return (
+      '<svg class="share-icon-svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5M16.5 3h6m0 0v6m0-6L10.5 16.5" />' +
+      "</svg>"
+    );
+  }
+
+  function runShare(text, toast) {
+    const url = typeof location !== "undefined" ? location.href : "";
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "kapanlibur.com",
+          text: text,
+          url: url,
+        })
+        .catch(function () {});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text + "\n\n" + url)
+        .then(function () {
+          if (toast) {
+            toast.textContent = "Disalin ke papan klip";
+            toast.classList.add("show");
+            setTimeout(function () {
+              toast.classList.remove("show");
+            }, 2500);
+          }
+        })
+        .catch(function () {
+          window.prompt("Salin teks:", text + "\n\n" + url);
+        });
+    } else {
+      window.prompt("Salin teks:", text + "\n\n" + url);
+    }
+  }
+
   function attachShareButton(btn, toast, text) {
     if (!btn) return;
-    const url = typeof location !== "undefined" ? location.href : "";
     btn.addEventListener("click", function () {
-      if (navigator.share) {
-        navigator
-          .share({
-            title: "kapanlibur.com",
-            text: text,
-            url: url,
-          })
-          .catch(function () {});
-      } else if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard
-          .writeText(text + "\n\n" + url)
-          .then(function () {
-            if (toast) {
-              toast.textContent = "Disalin ke papan klip";
-              toast.classList.add("show");
-              setTimeout(function () {
-                toast.classList.remove("show");
-              }, 2500);
-            }
-          })
-          .catch(function () {
-            window.prompt("Salin teks:", text + "\n\n" + url);
-          });
-      } else {
-        window.prompt("Salin teks:", text + "\n\n" + url);
-      }
+      runShare(text, toast);
     });
   }
 
@@ -1129,7 +1228,9 @@
         : '<p class="when muted-line">Tidak ada libur pada tanggal ini menurut data.</p>') +
       "</div>" +
       '<div class="hero-actions-today">' +
-      '<button type="button" class="btn-share" id="share-today-btn">Bagikan</button>' +
+      '<button type="button" class="btn-share" id="share-today-btn">' +
+      shareIconHtml() +
+      "<span>Bagikan</span></button>" +
       '<span class="share-toast" id="share-today-toast" aria-live="polite"></span>' +
       "</div>";
 
@@ -1146,7 +1247,9 @@
       "</div>" +
       '<div class="hero-actions-next">' +
       '<div class="hero-actions-next-start">' +
-      '<button type="button" class="btn-share" id="share-next-btn">Bagikan</button>' +
+      '<button type="button" class="btn-share" id="share-next-btn">' +
+      shareIconHtml() +
+      "<span>Bagikan</span></button>" +
       '<span class="share-toast" id="share-next-toast" aria-live="polite"></span>' +
       "</div>" +
       '<div class="hero-nav-arrows" role="group" aria-label="Libur sebelumnya atau berikutnya">' +
@@ -1287,6 +1390,11 @@
             "</span>" +
             lw +
             "</div>" +
+            '<button type="button" class="list-row-share" data-date="' +
+            escapeHtml(row.date) +
+            '" aria-label="Bagikan" title="Bagikan">' +
+            shareIconHtml() +
+            "</button>" +
             "</article>"
           );
         })
@@ -1352,6 +1460,7 @@
 
   let calPopoverLastFocus = null;
   let calPopperInstance = null;
+  let calPopoverRow = null;
   function closeCalPopover() {
     if (calPopperInstance) {
       calPopperInstance.destroy();
@@ -1359,6 +1468,7 @@
     }
     document.getElementById("cal-popover-backdrop").hidden = true;
     document.getElementById("cal-popover").hidden = true;
+    calPopoverRow = null;
     if (calPopoverLastFocus && calPopoverLastFocus.focus) {
       try {
         calPopoverLastFocus.focus();
@@ -1368,6 +1478,7 @@
   }
 
   function openCalPopover(row, triggerEl) {
+    calPopoverRow = row;
     calPopoverLastFocus = document.activeElement;
     const byDate = calContext.byDate;
     const title = document.getElementById("cal-popover-title");
@@ -1385,6 +1496,7 @@
       " · Libur " +
       escapeHtml(formatRantaiBerturutForRow(row, byDate)) +
       "</p>" +
+      '<div class="cal-popover-footer-row">' +
       '<div class="badges">' +
       '<span class="' +
       chipClass(row.type) +
@@ -1392,6 +1504,13 @@
       escapeHtml(row.type) +
       "</span>" +
       lw +
+      "</div>" +
+      '<div class="cal-popover-footer-actions">' +
+      '<button type="button" id="cal-popover-share" class="cal-popover-share" aria-label="Bagikan" title="Bagikan">' +
+      shareIconHtml() +
+      "</button>" +
+      '<span id="cal-popover-share-toast" class="share-toast cal-popover-share-toast" aria-live="polite"></span>' +
+      "</div>" +
       "</div>";
     const popoverEl = document.getElementById("cal-popover");
     const refEl =
@@ -1592,7 +1711,39 @@
     if (cw) cw.hidden = true;
   }
 
+  let listShareDelegationBound = false;
+  function attachListShareDelegation() {
+    if (listShareDelegationBound) return;
+    const listEl = document.getElementById("list");
+    if (!listEl) return;
+    listShareDelegationBound = true;
+    const toast = document.getElementById("list-share-toast");
+    listEl.addEventListener("click", function (e) {
+      const btn = e.target.closest(".list-row-share");
+      if (!btn) return;
+      e.preventDefault();
+      const date = btn.getAttribute("data-date");
+      if (!date || !listContext.byDate) return;
+      const row = listContext.byDate.get(date);
+      if (!row) return;
+      const text = buildShareSelectedText(todayISO(), row, listContext.byDate);
+      runShare(text, toast);
+    });
+  }
+
   function initMonthNavAndPopover() {
+    document.getElementById("cal-popover").addEventListener("click", function (e) {
+      if (!e.target.closest("#cal-popover-share")) return;
+      e.stopPropagation();
+      if (!calPopoverRow || !calContext.byDate) return;
+      const text = buildShareSelectedText(
+        todayISO(),
+        calPopoverRow,
+        calContext.byDate
+      );
+      runShare(text, document.getElementById("cal-popover-share-toast"));
+    });
+    attachListShareDelegation();
     document.getElementById("list-nav-prev").addEventListener("click", function () {
       listMonthStep(-1);
     });
