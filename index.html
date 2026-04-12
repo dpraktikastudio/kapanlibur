@@ -566,7 +566,7 @@
   }
 
   function buildShareTodayText(t, todayRow, byDate) {
-    const lines = ["kapanlibur.com", "", "Per " + formatLongID(t)];
+    const lines = ["Per " + formatLongID(t)];
     if (todayRow) {
       lines.push(
         "Hari ini libur: " + todayRow.description + " (" + todayRow.type + ")"
@@ -587,9 +587,9 @@
 
   function buildShareSelectedText(t, selectedRow, byDate) {
     if (!selectedRow) {
-      return "kapanlibur.com\nTidak ada data libur untuk ditampilkan.";
+      return "Tidak ada data libur untuk ditampilkan.";
     }
-    const lines = ["kapanlibur.com", ""];
+    const lines = [];
     const rantaiStr = formatRantaiBerturutForRow(selectedRow, byDate);
     if (selectedRow.date > t) {
       const n = diffDays(t, selectedRow.date);
