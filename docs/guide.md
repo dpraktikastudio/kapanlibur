@@ -28,6 +28,8 @@ Data is loaded with `fetch("json/2026.json")`. **Opening `index.html` as `file:/
 | `json/YYYY.json` | `{ "source": "<url>", "data": [ ... ] }` — one file per year; app currently loads **`json/2026.json`** (hardcoded in `fetch`). |
 | `docs/guide.md` | This reference. |
 
+**CDN:** [`@popperjs/core`](https://popper.js.org/) v2 (`https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js`) loads before the app script. The calendar day dialog (`#cal-popover`) uses `Popper.createPopper` in `openCalPopover` (reference = clicked cell) and `destroy()` in `closeCalPopover`.
+
 ---
 
 ## JSON row schema (`data[]`)

@@ -548,10 +548,6 @@
       cursor: pointer;
     }
     .cal-popover {
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
       z-index: 201;
       width: calc(100% - 2rem);
       max-width: 400px;
@@ -693,6 +689,7 @@
     </footer>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
   <script>
 (function () {
   const MONTHS = [
@@ -1354,7 +1351,12 @@
   }
 
   let calPopoverLastFocus = null;
+  let calPopperInstance = null;
   function closeCalPopover() {
+    if (calPopperInstance) {
+      calPopperInstance.destroy();
+      calPopperInstance = null;
+    }
     document.getElementById("cal-popover-backdrop").hidden = true;
     document.getElementById("cal-popover").hidden = true;
     if (calPopoverLastFocus && calPopoverLastFocus.focus) {
@@ -1391,8 +1393,29 @@
       "</span>" +
       lw +
       "</div>";
+    const popoverEl = document.getElementById("cal-popover");
+    const refEl =
+      triggerEl instanceof Element
+        ? triggerEl
+        : document.getElementById("calendar");
+    if (calPopperInstance) {
+      calPopperInstance.destroy();
+      calPopperInstance = null;
+    }
     document.getElementById("cal-popover-backdrop").hidden = false;
-    document.getElementById("cal-popover").hidden = false;
+    popoverEl.hidden = false;
+    calPopperInstance = Popper.createPopper(refEl, popoverEl, {
+      placement: "bottom",
+      strategy: "fixed",
+      modifiers: [
+        { name: "offset", options: { offset: [0, 8] } },
+        { name: "flip" },
+        { name: "preventOverflow", options: { padding: 8 } },
+      ],
+    });
+    requestAnimationFrame(function () {
+      if (calPopperInstance) calPopperInstance.update();
+    });
     document.getElementById("cal-popover-close").focus();
   }
 
