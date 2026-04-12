@@ -171,6 +171,46 @@
       border-top: 1px solid var(--border);
       margin: 0 0 1rem;
     }
+    .hero-next {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem 1.5rem;
+    }
+    .hero-next-main {
+      flex: 1 1 12rem;
+      min-width: 0;
+    }
+    .hero-next-countdown-wrap {
+      flex: 0 0 auto;
+      text-align: left;
+      max-width: 100%;
+    }
+    @media (min-width: 520px) {
+      .hero-next-countdown-wrap {
+        padding-left: 1.15rem;
+        margin-left: 0.25rem;
+        border-left: 1px solid var(--border);
+      }
+    }
+    .hero-next .countdown-next {
+      font-size: clamp(2rem, 5.5vw, 3.35rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin: 0;
+      color: var(--accent);
+      text-wrap: balance;
+    }
+    .hero-next .countdown-next-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0.35rem 0 0;
+    }
     .hero-next .next-when {
       font-size: 1rem;
       font-weight: 600;
@@ -416,6 +456,15 @@
     return n + " hari lagi";
   }
 
+  function menujuNextHolidayCaption(row) {
+    if (row.type === "Sabtu") return "Menuju libur Sabtu";
+    if (row.type === "Minggu") return "Menuju libur Minggu";
+    if (row.type === "Cuti Bersama") {
+      return "Menuju cuti bersama — " + row.description;
+    }
+    return "Menuju " + row.description;
+  }
+
   function buildShareText(t, todayRow, nextRow) {
     const lines = [
       "kapanlibur.com",
@@ -468,6 +517,7 @@
           ? '<span class="chip chip-lw-ya">Long weekend: Ya</span>'
           : '<span class="chip chip-lw-tidak">Long weekend: Tidak</span>';
       nextBlock =
+        '<div class="hero-next-main">' +
         '<p class="label">Libur berikutnya</p>' +
         '<p class="next-when">' +
         escapeHtml(formatLongID(nextRow.date)) +
@@ -475,9 +525,7 @@
         '<p class="next-desc">' +
         escapeHtml(nextRow.description) +
         "</p>" +
-        '<p class="next-meta">' +
-        escapeHtml(untilDisp) +
-        " · Rantai libur " +
+        '<p class="next-meta">Rantai libur ' +
         nextRow.chain_holidays +
         " hari</p>" +
         '<div class="badges">' +
@@ -487,11 +535,21 @@
         escapeHtml(nextRow.type) +
         "</span>" +
         lwChip +
+        "</div></div>" +
+        '<div class="hero-next-countdown-wrap">' +
+        '<p class="countdown-next">' +
+        escapeHtml(untilDisp) +
+        "</p>" +
+        '<p class="countdown-next-sub">' +
+        escapeHtml(menujuNextHolidayCaption(nextRow)) +
+        "</p>" +
         "</div>";
     } else {
       nextBlock =
+        '<div class="hero-next-main">' +
         '<p class="label">Libur berikutnya</p>' +
-        '<p class="when">Tidak ada tanggal libur mendatang dalam data tahun ini.</p>';
+        '<p class="when">Tidak ada tanggal libur mendatang dalam data tahun ini.</p>' +
+        "</div>";
     }
 
     const todayBadges = todayRow
