@@ -271,7 +271,7 @@
       margin-bottom: 0.5rem;
     }
     .hero .countdown {
-      font-size: 2.25rem;
+      font-size: 3.35rem;
       font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.2;
@@ -598,6 +598,141 @@
     }
     body.page-index #hero-next.hero-card-next .share-toast {
       color: rgba(200, 212, 208, 0.95);
+    }
+    /* Light mode / system light: next card matches page surface with a soft teal tint (dark forest style stays for dark theme only). */
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next {
+      border: 1px solid var(--border);
+      background: linear-gradient(160deg, #ffffff 0%, #f3fbf9 50%, #e8f5f2 100%);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .hero-section-title {
+      color: var(--accent);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .countdown-next {
+      color: var(--accent);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .countdown-next-sub {
+      color: var(--muted);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .next-when,
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .next-desc {
+      color: var(--text);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chain-note {
+      color: var(--muted);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .hero-next-footer {
+      border-top-color: var(--border);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-nasional {
+      background: var(--nasional-bg);
+      color: var(--nasional);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-cuti {
+      background: var(--cuti-bg);
+      color: var(--cuti);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-sabtu,
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-minggu {
+      background: var(--sabtu-bg);
+      color: var(--sabtu);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-lw-ya {
+      background: var(--lw-bg);
+      color: var(--lw);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .hero-actions-next {
+      border-top-color: var(--border);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .btn-hero-nav {
+      background: var(--surface);
+      border-color: var(--border);
+      color: var(--accent);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .btn-hero-nav:hover:not(:disabled) {
+      background: var(--accent-soft);
+      filter: brightness(0.97);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .btn-share {
+      background: var(--accent-soft);
+      border-color: var(--border);
+      color: var(--accent);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .btn-share:hover {
+      filter: brightness(0.95);
+      background: var(--accent-soft);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .share-toast {
+      color: var(--accent);
+    }
+    @media (prefers-color-scheme: light) {
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next {
+        border: 1px solid var(--border);
+        background: linear-gradient(160deg, #ffffff 0%, #f3fbf9 50%, #e8f5f2 100%);
+        color: var(--text);
+        box-shadow: var(--shadow);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .hero-section-title {
+        color: var(--accent);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .countdown-next {
+        color: var(--accent);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .countdown-next-sub {
+        color: var(--muted);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .next-when,
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .next-desc {
+        color: var(--text);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chain-note {
+        color: var(--muted);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .hero-next-footer {
+        border-top-color: var(--border);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-nasional {
+        background: var(--nasional-bg);
+        color: var(--nasional);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-cuti {
+        background: var(--cuti-bg);
+        color: var(--cuti);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-sabtu,
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-minggu {
+        background: var(--sabtu-bg);
+        color: var(--sabtu);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-lw-ya {
+        background: var(--lw-bg);
+        color: var(--lw);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .hero-actions-next {
+        border-top-color: var(--border);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .btn-hero-nav {
+        background: var(--surface);
+        border-color: var(--border);
+        color: var(--accent);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .btn-hero-nav:hover:not(:disabled) {
+        background: var(--accent-soft);
+        filter: brightness(0.97);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .btn-share {
+        background: var(--accent-soft);
+        border-color: var(--border);
+        color: var(--accent);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .btn-share:hover {
+        filter: brightness(0.95);
+        background: var(--accent-soft);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .share-toast {
+        color: var(--accent);
+      }
     }
     .newsletter-cta-section {
       margin: 2rem 0 1.5rem;
@@ -952,7 +1087,7 @@
               href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              >PDF Resmi</a
+              >SKB 3 Menteri</a
             >
           </nav>
           <button
@@ -1724,7 +1859,7 @@
       "hero hero-card-next" + (nextCardDimmed ? " hero-next-dimmed" : "");
 
     elToday.innerHTML =
-      '<p class="hero-section-title">Libur hari ini</p>' +
+      '<p class="hero-section-title">Info hari ini</p>' +
       '<p class="hero-today-date"><time datetime="' +
       escapeHtml(t) +
       '">' +
