@@ -606,6 +606,8 @@
       border: 1px solid var(--border);
       background: var(--surface);
       box-shadow: var(--shadow);
+      position: sticky;
+      bottom: 15px;
     }
     .newsletter-cta-inner {
       display: flex;
@@ -614,6 +616,7 @@
       justify-content: space-between;
       gap: 1rem;
     }
+
     .newsletter-cta-text {
       margin: 0;
       flex: 1 1 12rem;
@@ -622,6 +625,23 @@
       color: var(--text);
       line-height: 1.45;
     }
+
+    @media (max-width: 639px) {
+      .newsletter-cta-inner {
+        flex-direction: column;
+      }
+
+      .newsletter-cta-text {
+        margin: 0;
+        flex: 1 1 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.45;
+        text-align: center;
+      }
+    }
+
     .newsletter-cta-open {
       flex-shrink: 0;
       display: inline-flex;
@@ -1049,7 +1069,7 @@
 
     <section class="newsletter-cta-section" aria-labelledby="newsletter-cta-heading">
       <div class="newsletter-cta-inner">
-        <p id="newsletter-cta-heading" class="newsletter-cta-text">Dapat reminder H-7 sebelum setiap hari libur & long weekend.</p>
+        <p id="newsletter-cta-heading" class="newsletter-cta-text">Dapatkan reminder H-7 sebelum setiap hari libur & long weekend.</p>
         <button type="button" class="newsletter-cta-open" id="newsletter-dialog-open">Langganan gratis</button>
       </div>
     </section>
