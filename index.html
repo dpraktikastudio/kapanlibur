@@ -51,6 +51,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
   <link rel="preload" href="/assets/non-critical.css" as="style" />
   <link rel="stylesheet" href="/assets/non-critical.css" />
+  <style>
+    @font-face {
+      font-display: block;
+      font-family: Roboto;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff");
+    }
+    @font-face {
+      font-display: fallback;
+      font-family: Roboto;
+      font-weight: 600;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff");
+    }
+    @font-face {
+      font-display: fallback;
+      font-family: Roboto;
+      font-weight: 700;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff");
+    }
+    #sib-container input:-ms-input-placeholder {
+      text-align: left;
+      font-family: Helvetica, sans-serif;
+      color: #c0ccda;
+    }
+    #sib-container input::placeholder {
+      text-align: left;
+      font-family: Helvetica, sans-serif;
+      color: #c0ccda;
+    }
+    #sib-container textarea::placeholder {
+      text-align: left;
+      font-family: Helvetica, sans-serif;
+      color: #c0ccda;
+    }
+    #sib-container a {
+      text-decoration: underline;
+      color: #2bb2fc;
+    }
+  </style>
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com","description":"Jadwal hari libur nasional dan cuti bersama Indonesia menurut SKB 3 Menteri.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com?q={search_term_string}","query-input":"required name=search_term_string"}}
   </script>
@@ -560,6 +599,311 @@
     body.page-index #hero-next.hero-card-next .share-toast {
       color: rgba(200, 212, 208, 0.95);
     }
+    .newsletter-cta-section {
+      margin: 2rem 0 1.5rem;
+      padding: 1.25rem 1.35rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .newsletter-cta-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .newsletter-cta-text {
+      margin: 0;
+      flex: 1 1 12rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .newsletter-cta-open {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.45rem 0.9rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .newsletter-cta-open:hover {
+      filter: brightness(0.97);
+    }
+    .newsletter-cta-open:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .newsletter-dialog {
+      max-width: min(540px, calc(100vw - 2rem));
+      width: 100%;
+      padding: 0;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    .newsletter-dialog::backdrop {
+      background: rgba(15, 23, 42, 0.5);
+    }
+    .newsletter-dialog-panel {
+      position: relative;
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .newsletter-dialog-intro {
+      padding-right: 4.75rem;
+      margin-bottom: 1.15rem;
+      text-align: left;
+    }
+    .newsletter-dialog-intro h2 {
+      margin: 0 0 0.6rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+      font-family: inherit;
+    }
+    .newsletter-dialog-intro p {
+      margin: 0 0 0.45rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      font-family: inherit;
+    }
+    .newsletter-dialog-intro ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--muted);
+      font-family: inherit;
+    }
+    .newsletter-dialog-intro li {
+      margin-bottom: 0.35rem;
+    }
+    .newsletter-dialog-intro li:last-child {
+      margin-bottom: 0;
+    }
+    .newsletter-dialog-close {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      z-index: 1;
+      padding: 0.4rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .newsletter-dialog-close:hover {
+      color: var(--text);
+      background: var(--accent-soft);
+    }
+    .newsletter-dialog-close:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .newsletter-dialog .sib-form {
+      text-align: left !important;
+      background: transparent !important;
+    }
+    .newsletter-dialog #sib-form-container {
+      padding-top: 0;
+    }
+    .newsletter-dialog #sib-container {
+      text-align: left !important;
+    }
+    .newsletter-dialog #sib-container .sib-form-block,
+    .newsletter-dialog #sib-container .form__entry.entry_block {
+      width: 100%;
+      max-width: 100%;
+      text-align: left;
+    }
+    .newsletter-dialog #sib-container .form__label-row {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      width: 100% !important;
+      gap: 0.35rem;
+      text-align: left;
+    }
+    .newsletter-dialog #sib-container .entry__field {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: 1 1 auto !important;
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+    .newsletter-dialog #sib-container .entry__field,
+    .newsletter-dialog #sib-container .form__entry.entry_block {
+      box-shadow: none !important;
+    }
+    .newsletter-dialog #sib-container .form__entry.entry_block:focus-within {
+      box-shadow: none !important;
+    }
+    .newsletter-dialog #sib-container input.input {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      border-radius: 6px !important;
+      padding: 0.55rem 0.75rem !important;
+      min-height: 2.5rem;
+      box-sizing: border-box !important;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .newsletter-dialog #sib-container input.input:focus,
+    .newsletter-dialog #sib-container input.input:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border-color: var(--muted) !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container {
+      background-color: var(--bg) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius-sm) !important;
+      box-shadow: none !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .entry__label {
+      color: var(--text) !important;
+      font-family: inherit !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .entry__specification {
+      color: var(--muted) !important;
+      font-family: inherit !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input {
+      background-color: #0a0e14 !important;
+      border: 1px solid rgba(100, 116, 139, 0.38) !important;
+      color: var(--text) !important;
+      font-family: inherit !important;
+      box-shadow: none !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input::placeholder {
+      color: #64748b !important;
+      font-family: inherit !important;
+      opacity: 1;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:focus,
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:focus-visible {
+      border-color: rgba(148, 163, 184, 0.55) !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill,
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:hover,
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:focus,
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px #0a0e14 inset !important;
+      box-shadow: 0 0 0 1000px #0a0e14 inset !important;
+      -webkit-text-fill-color: var(--text) !important;
+      caret-color: var(--text);
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button {
+      background: var(--accent-soft) !important;
+      color: var(--accent) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius-sm) !important;
+      padding: 0.45rem 0.9rem !important;
+      font-family: inherit !important;
+      font-size: 0.88rem !important;
+      font-weight: 600 !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button svg path {
+      fill: currentColor;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button:hover {
+      filter: brightness(0.97);
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container a {
+      color: var(--accent) !important;
+    }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) .newsletter-dialog #sib-container {
+        background-color: var(--bg) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius-sm) !important;
+        box-shadow: none !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .entry__label {
+        color: var(--text) !important;
+        font-family: inherit !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .entry__specification {
+        color: var(--muted) !important;
+        font-family: inherit !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input {
+        background-color: #0a0e14 !important;
+        border: 1px solid rgba(100, 116, 139, 0.38) !important;
+        color: var(--text) !important;
+        font-family: inherit !important;
+        box-shadow: none !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input::placeholder {
+        color: #64748b !important;
+        font-family: inherit !important;
+        opacity: 1;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:focus,
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:focus-visible {
+        border-color: rgba(148, 163, 184, 0.55) !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill,
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:hover,
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:focus,
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px #0a0e14 inset !important;
+        box-shadow: 0 0 0 1000px #0a0e14 inset !important;
+        -webkit-text-fill-color: var(--text) !important;
+        caret-color: var(--text);
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button {
+        background: var(--accent-soft) !important;
+        color: var(--accent) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius-sm) !important;
+        padding: 0.45rem 0.9rem !important;
+        font-family: inherit !important;
+        font-size: 0.88rem !important;
+        font-weight: 600 !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button svg path {
+        fill: currentColor;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button:hover {
+        filter: brightness(0.97);
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container a {
+        color: var(--accent) !important;
+      }
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
   </style>
 </head>
 
@@ -703,6 +1047,137 @@
       <div id="cal-popover-body" class="cal-popover-body"></div>
     </div>
 
+    <section class="newsletter-cta-section" aria-labelledby="newsletter-cta-heading">
+      <div class="newsletter-cta-inner">
+        <p id="newsletter-cta-heading" class="newsletter-cta-text">Dapat reminder H-7 sebelum setiap hari libur & long weekend.</p>
+        <button type="button" class="newsletter-cta-open" id="newsletter-dialog-open">Langganan gratis</button>
+      </div>
+    </section>
+
+    <dialog id="newsletter-dialog" class="newsletter-dialog" aria-labelledby="newsletter-dialog-title">
+      <div class="newsletter-dialog-panel">
+        <button type="button" class="newsletter-dialog-close" id="newsletter-dialog-close">Tutup</button>
+        <div class="newsletter-dialog-intro">
+          <h2 id="newsletter-dialog-title">Planning cuti jadi lebih mudah</h2>
+          <p>Daftar sekarang dan dapatkan:</p>
+          <ul>
+            <li>Reminder H-7 sebelum hari libur nasional, cuti bersama, dan long weekend</li>
+            <li>Notifikasi kalau ada perubahan SKB Menteri terbaru</li>
+            <li>Fitur-fitur baru yang sedang kami kembangkan</li>
+          </ul>
+        </div>
+        <div class="sib-form" style="background-color: transparent">
+          <div id="sib-form-container" class="sib-form-container">
+            <div
+              id="error-message"
+              class="sib-form-message-panel"
+              style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;max-width:540px;"
+            >
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                  <path
+                    d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"
+                  />
+                </svg>
+                <span class="sib-form-message-panel__inner-text">
+                  Terdapat kesalahan pada sistem. Silahkan coba lagi dalam beberapa saat.
+                </span>
+              </div>
+            </div>
+            <div></div>
+            <div
+              id="success-message"
+              class="sib-form-message-panel"
+              style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#085229; background-color:#e7faf0; border-radius:3px; border-color:#13ce66;max-width:540px;"
+            >
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                  <path
+                    d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"
+                  />
+                </svg>
+                <span class="sib-form-message-panel__inner-text">
+                  Terima kasih! Kamu akan dapat reminder sebelum hari libur, salam tanggal merah!
+                </span>
+              </div>
+            </div>
+            <div></div>
+            <div
+              id="sib-container"
+              class="sib-container--large sib-container--vertical"
+              style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:3px; border-width:1px; border-color:#C0CCD9; border-style:solid; direction:ltr"
+            >
+              <form
+                id="sib-form"
+                method="POST"
+                action="https://79c7e120.sibforms.com/serve/MUIFAN2FlXfOTC35p40ipFDoiHP-_jY-iWqcdVYQbGZHmHEfdxdOqcFHOsZa2hv22fJdILjjiKk8FITb7oiFHN7c7RuwpFo8N-vr4CgGDHb8xB7V5J0H9xwpALi5SG8lPH34PTsrTGW8LFw7-qfizSzVkExaBaDIaLapUIWjRSmbQ_Vkgn7O8ekCw2cLtnWP4DVTl_9C_hniGpxEmQ=="
+                data-type="subscription"
+              >
+                <div style="padding: 8px 0;">
+                  <div class="sib-input sib-form-block">
+                    <div class="form__entry entry_block">
+                      <div class="form__label-row">
+                        <label
+                          class="entry__label"
+                          style="font-weight: 700; text-align:left; font-size:16px; text-align:left; font-weight:700; font-family:Helvetica, sans-serif; color:#3c4858;"
+                          for="EMAIL"
+                          data-required="*"
+                          >Alamat Email</label
+                        >
+
+                        <div class="entry__field">
+                          <input
+                            class="input"
+                            type="text"
+                            id="EMAIL"
+                            name="EMAIL"
+                            autocomplete="email"
+                            placeholder="nama@contoh.com"
+                            data-required="true"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <label
+                        class="entry__error entry__error--primary"
+                        style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"
+                      ></label>
+                      <label
+                        class="entry__specification"
+                        style="font-size:12px; text-align:left; font-family:Helvetica, sans-serif; color:#8390A4; text-align:left"
+                        >Masukkan email untuk berlangganan, contoh: nama@domain.com</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="sib-form-block" style="text-align: left">
+                    <button
+                      class="sib-form-block__button sib-form-block__button-with-loader"
+                      style="font-size:16px; text-align:left; font-weight:700; font-family:Helvetica, sans-serif; color:#FFFFFF; background-color:#3E4857; border-radius:3px; border-width:0px;"
+                      form="sib-form"
+                      type="submit"
+                    >
+                      <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                        <path
+                          d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"
+                        />
+                      </svg>
+                      Berlangganan
+                    </button>
+                  </div>
+                </div>
+
+                <input type="text" name="email_address_check" value="" class="input--hidden" />
+                <input type="hidden" name="locale" value="en" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
     <footer>
       <div class="footer-links" role="navigation" aria-label="Tautan footer">
         <a href="/privacy-policy.html">Privasi</a>
@@ -732,6 +1207,49 @@
   <script src="/assets/site-nav.js" defer></script>
   <script src="/assets/site-theme.js" defer></script>
   <script src="/assets/site-pdf.js" defer></script>
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = "Please choose a country code";
+    window.LOCALE = "en";
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE =
+      "Terdapat kesalahan pada informasi yang diberikan. Silahkan cek ulang informasi dan coba kembali.";
+    window.REQUIRED_ERROR_MESSAGE = "Informasi diperlukan. ";
+    window.GENERIC_INVALID_MESSAGE =
+      "Terdapat kesalahan pada informasi yang diberikan. Silahkan cek ulang informasi dan coba kembali.";
+    window.translation = {
+      common: {
+        selectedList: "{quantity} list selected",
+        selectedLists: "{quantity} lists selected",
+        selectedOption: "{quantity} selected",
+        selectedOptions: "{quantity} selected",
+      },
+    };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script>
+    (function () {
+      var dialog = document.getElementById("newsletter-dialog");
+      var openBtn = document.getElementById("newsletter-dialog-open");
+      var closeBtn = document.getElementById("newsletter-dialog-close");
+      if (!dialog || !openBtn || !closeBtn || typeof dialog.showModal !== "function") return;
+
+      function focusEmail() {
+        var email = document.getElementById("EMAIL");
+        if (email) email.focus();
+      }
+
+      openBtn.addEventListener("click", function () {
+        dialog.showModal();
+        requestAnimationFrame(focusEmail);
+      });
+      closeBtn.addEventListener("click", function () {
+        dialog.close();
+      });
+      dialog.addEventListener("click", function (e) {
+        if (e.target === dialog) dialog.close();
+      });
+    })();
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
   <script>
 (function () {
