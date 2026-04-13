@@ -34,11 +34,12 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 
 | Path | Role |
 |------|------|
-| `index.html` | Interactive UI: critical CSS, inline IIFE, deferred [`assets/non-critical.css`](../assets/non-critical.css), deferred [`assets/site-nav.js`](../assets/site-nav.js), deferred [`assets/site-pdf.js`](../assets/site-pdf.js). GA4 snippet in `<head>`. |
+| `index.html` | Interactive UI: critical CSS (includes `body.page-index` wide layout, hero split, emerald next card), inline FOUC snippet for `data-theme`, inline IIFE, deferred [`assets/non-critical.css`](../assets/non-critical.css), [`assets/site-nav.js`](../assets/site-nav.js), [`assets/site-theme.js`](../assets/site-theme.js) (home only), [`assets/site-pdf.js`](../assets/site-pdf.js). GA4 in `<head>`. |
 | `hari-libur-nasional-2026.html` | Static reference; JSON-LD (WebPage, ItemList, Events, BreadcrumbList); same asset stack as home where applicable. |
 | `about.html`, `privacy-policy.html` | Info pages; shared nav/footer; OG/Twitter meta + favicons; deferred `site-pdf.js`. |
 | [`assets/non-critical.css`](../assets/non-critical.css) | Shared UI: lists, calendar, tables, `.site-nav`, `.site-logo`, footer, `.footer-links`, popover, etc. |
 | [`assets/site-nav.js`](../assets/site-nav.js) | Below `640px`: hamburger opens a fixed drawer for `#site-nav-panel`; backdrop + Escape close. Desktop: inline nav bar. |
+| [`assets/site-theme.js`](../assets/site-theme.js) | **Index only:** `#theme-toggle` sets `html[data-theme="light"|"dark"]`, persists **`localStorage` key `kapanlibur-theme`**, updates `#theme-color-meta`. If the key is absent, `data-theme` is omitted and **`prefers-color-scheme`** controls palette (see index critical CSS). |
 | [`assets/site-pdf.js`](../assets/site-pdf.js) | PDF `href` hydration from JSON `source` (+ fallback). |
 | `json/YYYY.json` | `{ "source"?: "<url>", "data": [ ... ] }` — app currently hardcodes **`json/2026.json`** in `fetch`. |
 | [`manifest.json`](../manifest.json) | PWA manifest: `theme_color`, icons under `/assets/kapanlibur-favicon-*.png`. |
@@ -50,6 +51,11 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 | `docs/guide.md` | This reference. |
 
 **CDN:** [`@popperjs/core`](https://popper.js.org/) v2 (`cdn.jsdelivr.net`) loads before the main script. Calendar cell clicks open `#cal-popover` with `Popper.createPopper` (`openCalPopover` / `closeCalPopover`).
+
+### Home page (`index.html`) layout & theme
+
+- **`body.page-index`:** `.wrap` uses **`width: 92vw`** with **`max-width: 1440px`** (centered) and horizontal padding via `clamp`. No **`.sticky-jump-nav`** on the home page (in-page section links were removed there only; other pages may still use it). Header: `.site-logo` left and `.site-nav-cluster` (links + `#theme-toggle`) right on desktop; on small viewports the moon/sun button is fixed near the hamburger. Hero: `#hero-today` / `#hero-next` use **`hero-card-today`** / **`hero-card-next`**; from **960px** up, `#hero-stack` is a row (~62% / ~35%). The next card uses a fixed emerald gradient (not tied to `--surface`).
+- **Theme:** Other HTML pages still use system dark mode only; only the home page loads `site-theme.js`. Clearing `localStorage.kapanlibur-theme` restores system-driven appearance on the next full load.
 
 ---
 
