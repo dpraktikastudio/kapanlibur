@@ -93,7 +93,7 @@ Deploy **`dist/`** (or equivalent) so paths like `/assets/OgImage.png` and `/jso
 
 ## SEO and structured data
 
-- **Canonical URLs** and **meta description** are set per page; **JSON-LD** lives in `index.html` (WebSite + related) and heavily in `hari-libur-nasional-2026.html` (WebPage, ItemList, Events, BreadcrumbList).
+- **Canonical URLs** and **meta description** are set per page; **JSON-LD** lives in `index.html` (WebSite + related) and heavily in `hari-libur-nasional-2026.html` (WebPage, ItemList, Events, BreadcrumbList). **Homepage** canonical + `og:url` use **`https://kapanlibur.com`** (no trailing slash) so link previews match both shared forms; [`netlify.toml`](../netlify.toml) 301s **`/index.html`** → **`/`**.
 - **Sitemap:** [`sitemap.xml`](../sitemap.xml) lists the four main URLs; bump `<lastmod>` when content changes materially.
 - **Headers:** [`_headers`](../_headers) sets baseline security headers and `Cache-Control` for static hosting (e.g. Netlify).
 
