@@ -381,6 +381,8 @@
       margin-right: auto;
       padding-left: clamp(1rem, 3vw, 1.5rem);
       padding-right: clamp(1rem, 3vw, 1.5rem);
+      padding-top: 0;
+      padding-bottom: 3rem;
     }
     body.page-index header {
       position: sticky;
@@ -394,13 +396,80 @@
       padding-top: env(safe-area-inset-top, 0);
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-top: none;
+      border-radius: 0 0 14px 14px;
       box-shadow: 0 2px 10px rgba(26, 35, 50, 0.06);
     }
-    html[data-theme="dark"] body.page-index header {
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    @media (max-width: 639px) {
+      body.page-index .wrap {
+        width: 100%;
+        max-width: none;
+        padding-top: 0;
+        padding-bottom: 3rem;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+      }
+      body.page-index header {
+        margin-left: calc(-1 * max(0.75rem, env(safe-area-inset-left, 0px)));
+        margin-right: calc(-1 * max(0.75rem, env(safe-area-inset-right, 0px)));
+        margin-bottom: 0.75rem;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid var(--border);
+        box-shadow: none;
+      }
+      body.page-index .site-nav-bar {
+        min-height: 2.5rem;
+        padding-right: 0;
+        pointer-events: none;
+      }
+      body.page-index .site-nav-bar .site-brand,
+      body.page-index .site-nav-bar .site-nav-toggle,
+      body.page-index .site-nav-bar .site-nav-backdrop,
+      body.page-index .site-nav-bar .site-nav,
+      body.page-index .site-nav-bar .theme-toggle {
+        pointer-events: auto;
+      }
+      body.page-index .site-nav-cluster {
+        margin-left: auto;
+        gap: 0.45rem;
+        flex: 0 0 auto;
+      }
+      body.page-index .theme-toggle {
+        position: relative;
+        top: auto;
+        right: auto;
+        z-index: auto;
+        width: 2.25rem;
+        min-width: 2.25rem;
+        min-height: 2.25rem;
+        border-radius: var(--radius-sm);
+        box-shadow: none;
+      }
+      body.page-index .theme-toggle svg {
+        width: 1rem;
+        height: 1rem;
+      }
+      body.page-index .site-nav-toggle {
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+        flex-shrink: 0;
+        box-shadow: none;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--accent);
+      }
     }
-    @media (prefers-color-scheme: dark) {
+    @media (min-width: 640px) {
+      html[data-theme="dark"] body.page-index header {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+      }
+    }
+    @media (min-width: 640px) and (prefers-color-scheme: dark) {
       html:not([data-theme]) body.page-index header {
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
       }
@@ -516,39 +585,6 @@
       body.page-index .site-nav-cluster .site-nav-sep {
         color: var(--muted);
         user-select: none;
-      }
-    }
-    @media (max-width: 639px) {
-      body.page-index .site-nav-bar {
-        min-height: 2.25rem;
-        padding-right: 5.5rem;
-        pointer-events: none;
-      }
-      body.page-index .site-nav-bar .site-logo,
-      body.page-index .site-nav-bar .site-nav-toggle,
-      body.page-index .site-nav-bar .site-nav-backdrop,
-      body.page-index .site-nav-bar .site-nav,
-      body.page-index .site-nav-bar .theme-toggle {
-        pointer-events: auto;
-      }
-      body.page-index .theme-toggle {
-        position: fixed;
-        top: calc(0.45rem + env(safe-area-inset-top, 0));
-        right: calc(2.65rem + env(safe-area-inset-right, 0));
-        z-index: 102;
-        width: 2rem;
-        min-width: 2rem;
-        min-height: 2rem;
-        border-radius: 999px;
-        box-shadow: var(--shadow);
-      }
-      body.page-index .theme-toggle svg {
-        width: 1rem;
-        height: 1rem;
-      }
-      body.page-index .site-nav-cluster {
-        margin-left: 0;
-        flex: 0 0 auto;
       }
     }
     @media (min-width: 960px) {
@@ -754,12 +790,12 @@
               <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
             </svg>
           </button>
+          <button type="button" class="site-nav-toggle" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
+            </svg>
+          </button>
         </div>
-        <button type="button" class="site-nav-toggle" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
-          </svg>
-        </button>
         <div class="site-nav-backdrop" id="site-nav-backdrop" hidden></div>
       </div>
     </header>
