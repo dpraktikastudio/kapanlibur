@@ -34,7 +34,7 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 
 | Path | Role |
 |------|------|
-| `index.html` | Interactive UI: critical CSS (shared wide shell + `body.page-index` hero), inline FOUC snippet for `data-theme`, inline IIFE, deferred [`assets/non-critical.css`](../assets/non-critical.css), [`assets/site-nav.js`](../assets/site-nav.js), [`assets/site-theme.js`](../assets/site-theme.js), [`assets/site-pdf.js`](../assets/site-pdf.js). GA4 in `<head>`. |
+| `index.html` | Interactive UI: critical CSS (shared wide shell + `body.page-index` hero), inline FOUC snippet for `data-theme`, inline IIFE, [`assets/non-critical.css`](../assets/non-critical.css) via **`preload` + normal `stylesheet` link** (not `media="print"` + `onload`, so strict **CSP** in prod cannot block layout), [`assets/site-nav.js`](../assets/site-nav.js), [`assets/site-theme.js`](../assets/site-theme.js), [`assets/site-pdf.js`](../assets/site-pdf.js). GA4 in `<head>`. |
 | `hari-libur-nasional-2026.html` | Static reference; JSON-LD (WebPage, ItemList, Events, BreadcrumbList); same nav + theme + `site-pdf.js` as other main pages. |
 | `about.html`, `privacy-policy.html` | Info pages; same header chrome + `site-theme.js` as home; OG/Twitter meta + favicons; deferred `site-pdf.js`. |
 | [`assets/non-critical.css`](../assets/non-critical.css) | Shared UI: **site shell** (`.wrap`, flush-top sticky `header`, mobile full-bleed nav bar, in-flow hamburger), **`.site-brand`**, **`.site-nav-cluster`**, **`.theme-toggle`**, lists, calendar, tables, `.site-nav`, `.site-logo`, footer, `.footer-links`, popover, etc. |
