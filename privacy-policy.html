@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kapanlibur-theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6SNHQ0XXL5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -31,7 +39,7 @@
   <link rel="icon" href="/assets/kapanlibur-favicon-32px.png" type="image/png" sizes="32x32" />
   <link rel="icon" href="/assets/kapanlibur-favicon-16px.png" type="image/png" sizes="16x16" />
   <link rel="apple-touch-icon" href="/assets/kapanlibur-favicon-512px.png" />
-  <meta name="theme-color" content="#0d9488" />
+  <meta id="theme-color-meta" name="theme-color" content="#0d9488" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2" as="font" type="font/woff2" crossorigin />
@@ -51,8 +59,26 @@
       --radius: 14px;
       --radius-sm: 10px;
     }
+    html[data-theme="light"] {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --text: #1a2332;
+      --muted: #5c6b7f;
+      --border: #e2e8f0;
+      --accent: #0d9488;
+      --shadow: 0 4px 24px rgba(26, 35, 50, 0.08);
+    }
+    html[data-theme="dark"] {
+      --bg: #0f1419;
+      --surface: #1a222d;
+      --text: #e8edf4;
+      --muted: #94a3b8;
+      --border: #2d3a4d;
+      --accent: #2dd4bf;
+      --shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+    }
     @media (prefers-color-scheme: dark) {
-      :root {
+      html:not([data-theme]) {
         --bg: #0f1419;
         --surface: #1a222d;
         --text: #e8edf4;
@@ -73,16 +99,51 @@
       -webkit-font-smoothing: antialiased;
     }
     .wrap {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 1.5rem 1.25rem 3rem;
+      width: 92vw;
+      max-width: 1440px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: clamp(1rem, 3vw, 1.5rem);
+      padding-right: clamp(1rem, 3vw, 1.5rem);
+      padding-top: 0;
+      padding-bottom: 3rem;
     }
-    header { margin-bottom: 1.25rem; }
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0 0 0.35rem;
+    @media (max-width: 639px) {
+      .wrap {
+        width: 100%;
+        max-width: none;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+      }
+    }
+    body .wrap > header {
+      position: sticky;
+      top: 0;
+      z-index: 95;
+      margin-left: calc(-1 * clamp(1rem, 3vw, 1.5rem));
+      margin-right: calc(-1 * clamp(1rem, 3vw, 1.5rem));
+      margin-bottom: 1.1rem;
+      padding-left: clamp(1rem, 3vw, 1.5rem);
+      padding-right: clamp(1rem, 3vw, 1.5rem);
+      padding-top: env(safe-area-inset-top, 0);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      box-shadow: 0 2px 10px rgba(26, 35, 50, 0.06);
+    }
+    @media (max-width: 639px) {
+      body .wrap > header {
+        margin-left: calc(-1 * max(0.75rem, env(safe-area-inset-left, 0px)));
+        margin-right: calc(-1 * max(0.75rem, env(safe-area-inset-right, 0px)));
+        margin-bottom: 0.75rem;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid var(--border);
+        box-shadow: none;
+      }
     }
     .legal-panel {
       background: var(--surface);
@@ -120,32 +181,59 @@
   <div class="wrap">
     <header>
       <div class="site-nav-bar">
-        <a href="/" class="site-logo" aria-label="Beranda Kapan Libur"
-          ><img src="assets/kapanlibur-logo-nobg.png" alt="" decoding="async"
-        /></a>
-        <button type="button" class="site-nav-toggle" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
-          </svg>
-        </button>
-        <div class="site-nav-backdrop" id="site-nav-backdrop" hidden></div>
-        <nav id="site-nav-panel" class="site-nav" aria-label="Navigasi utama">
-          <a href="/">Beranda</a>
-          <span class="site-nav-sep" aria-hidden="true">|</span>
-          <a href="/hari-libur-nasional-2026.html">Daftar libur nasional &amp; cuti</a>
-          <span class="site-nav-sep" aria-hidden="true">|</span>
-          <a
-            data-pdf-source
-            href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Unduh PDF</a
+        <a href="/" class="site-logo site-brand" aria-label="Beranda Kapan Libur"
+          ><img
+            class="site-brand-logo"
+            src="assets/kapanlibur-logo-nobg.png"
+            alt=""
+            width="120"
+            height="120"
+            decoding="async"
+          /><span class="site-brand-text">KapanLibur.com</span></a
+        >
+        <div class="site-nav-cluster">
+          <nav id="site-nav-panel" class="site-nav" aria-label="Navigasi utama">
+            <a href="/">Beranda</a>
+            <span class="site-nav-sep" aria-hidden="true">|</span>
+            <a href="/hari-libur-nasional-2026.html">Daftar libur nasional &amp; cuti</a>
+            <span class="site-nav-sep" aria-hidden="true">|</span>
+            <a
+              data-pdf-source
+              href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Unduh PDF</a
+            >
+          </nav>
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Ganti mode terang atau gelap"
+            aria-pressed="false"
+            title="Tema"
           >
-        </nav>
+            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            </svg>
+            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+            </svg>
+          </button>
+          <button type="button" class="site-nav-toggle" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
+            </svg>
+          </button>
+        </div>
+        <div class="site-nav-backdrop" id="site-nav-backdrop" hidden></div>
       </div>
-      <h1>Kebijakan Privasi</h1>
     </header>
     <main>
+      <div class="page-intro">
+        <h1>Kebijakan Privasi</h1>
+      </div>
       <div class="legal-panel">
         <p class="legal-updated">Terakhir diperbarui: April 2026</p>
         <p>
@@ -230,6 +318,7 @@
     </footer>
   </div>
   <script src="assets/site-nav.js" defer></script>
+  <script src="assets/site-theme.js" defer></script>
   <script src="assets/site-pdf.js" defer></script>
 </body>
 </html>
