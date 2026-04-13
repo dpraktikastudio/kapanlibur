@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kapanlibur-theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
   <meta http-equiv="x-dns-prefetch-control" content="on" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6SNHQ0XXL5"></script>
   <script>
@@ -16,13 +24,13 @@
   <meta name="keywords" content="hari libur nasional 2026, tanggal merah 2026, cuti bersama 2026, libur nasional 2026, kalender libur 2026, libur panjang 2026, SKB 3 menteri, Indonesia" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Kapan Libur" />
-  <link rel="canonical" href="https://kapanlibur.com/" />
+  <link rel="canonical" href="https://kapanlibur.com" />
   <meta property="og:title" content="Kapan Libur — Cek libur hari ini &amp; kalender 2026" />
   <meta property="og:description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026." />
   <meta property="og:image" content="https://kapanlibur.com/assets/OgImage.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:url" content="https://kapanlibur.com/" />
+  <meta property="og:url" content="https://kapanlibur.com" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="id_ID" />
   <meta property="og:site_name" content="Kapan Libur" />
@@ -34,7 +42,7 @@
   <link rel="icon" href="/assets/kapanlibur-favicon-32px.png" type="image/png" sizes="32x32" />
   <link rel="icon" href="/assets/kapanlibur-favicon-16px.png" type="image/png" sizes="16x16" />
   <link rel="apple-touch-icon" href="/assets/kapanlibur-favicon-512px.png" />
-  <meta name="theme-color" content="#0d9488" />
+  <meta id="theme-color-meta" name="theme-color" content="#0d9488" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
@@ -45,7 +53,7 @@
   <link rel="stylesheet" href="assets/non-critical.css" media="print" onload="this.media='all'" />
   <noscript><link rel="stylesheet" href="assets/non-critical.css" /></noscript>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com/","description":"Jadwal hari libur nasional dan cuti bersama Indonesia menurut SKB 3 Menteri.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com/?q={search_term_string}","query-input":"required name=search_term_string"}}
+  {"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com","description":"Jadwal hari libur nasional dan cuti bersama Indonesia menurut SKB 3 Menteri.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com?q={search_term_string}","query-input":"required name=search_term_string"}}
   </script>
   <style>
     :root {
@@ -70,8 +78,48 @@
       --radius: 14px;
       --radius-sm: 10px;
     }
+    html[data-theme="light"] {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --text: #1a2332;
+      --muted: #5c6b7f;
+      --border: #e2e8f0;
+      --accent: #0d9488;
+      --accent-soft: rgba(13, 148, 136, 0.12);
+      --nasional: #0f766e;
+      --nasional-bg: rgba(29, 78, 216, 0.1);
+      --cuti: #7c3aed;
+      --cuti-bg: rgba(124, 58, 237, 0.1);
+      --sabtu: #64748b;
+      --sabtu-bg: rgba(100, 116, 139, 0.12);
+      --minggu: #64748b;
+      --minggu-bg: rgba(100, 116, 139, 0.12);
+      --lw: #c2410c;
+      --lw-bg: rgba(194, 65, 12, 0.12);
+      --shadow: 0 4px 24px rgba(26, 35, 50, 0.08);
+    }
+    html[data-theme="dark"] {
+      --bg: #0f1419;
+      --surface: #1a222d;
+      --text: #e8edf4;
+      --muted: #94a3b8;
+      --border: #2d3a4d;
+      --accent: #2dd4bf;
+      --accent-soft: rgba(45, 212, 191, 0.15);
+      --nasional: #5eead4;
+      --nasional-bg: rgba(45, 212, 191, 0.12);
+      --cuti: #c4b5fd;
+      --cuti-bg: rgba(167, 139, 250, 0.18);
+      --sabtu: #94a3b8;
+      --sabtu-bg: rgba(148, 163, 184, 0.15);
+      --minggu: #94a3b8;
+      --minggu-bg: rgba(148, 163, 184, 0.15);
+      --lw: #fdba74;
+      --lw-bg: rgba(251, 146, 60, 0.18);
+      --shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+    }
     @media (prefers-color-scheme: dark) {
-      :root {
+      html:not([data-theme]) {
         --bg: #0f1419;
         --surface: #1a222d;
         --text: #e8edf4;
@@ -79,10 +127,15 @@
         --border: #2d3a4d;
         --accent: #2dd4bf;
         --accent-soft: rgba(45, 212, 191, 0.15);
+        --nasional: #5eead4;
         --nasional-bg: rgba(45, 212, 191, 0.12);
+        --cuti: #c4b5fd;
         --cuti-bg: rgba(167, 139, 250, 0.18);
+        --sabtu: #94a3b8;
         --sabtu-bg: rgba(148, 163, 184, 0.15);
+        --minggu: #94a3b8;
         --minggu-bg: rgba(148, 163, 184, 0.15);
+        --lw: #fdba74;
         --lw-bg: rgba(251, 146, 60, 0.18);
         --shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
       }
@@ -98,21 +151,52 @@
       -webkit-font-smoothing: antialiased;
     }
     .wrap {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 1.5rem 1.25rem 3rem;
+      width: 92vw;
+      max-width: 1440px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: clamp(1rem, 3vw, 1.5rem);
+      padding-right: clamp(1rem, 3vw, 1.5rem);
+      padding-top: 0;
+      padding-bottom: 3rem;
     }
-    header { margin-bottom: 1.25rem; }
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0 0 0.35rem;
+    @media (max-width: 639px) {
+      .wrap {
+        width: 100%;
+        max-width: none;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+      }
     }
-    header .tagline { color: var(--muted); font-size: 0.95rem; margin: 0; }
-    header .intro-copy { margin: 0.75rem 0 0; font-size: 0.92rem; line-height: 1.55; }
-    header .intro-copy a { color: var(--accent); font-weight: 600; text-decoration: none; }
-    header .intro-copy a:hover { text-decoration: underline; }
+    body .wrap > header {
+      position: sticky;
+      top: 0;
+      z-index: 95;
+      margin-left: calc(-1 * clamp(1rem, 3vw, 1.5rem));
+      margin-right: calc(-1 * clamp(1rem, 3vw, 1.5rem));
+      margin-bottom: 1.1rem;
+      padding-left: clamp(1rem, 3vw, 1.5rem);
+      padding-right: clamp(1rem, 3vw, 1.5rem);
+      padding-top: env(safe-area-inset-top, 0);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      box-shadow: 0 2px 10px rgba(26, 35, 50, 0.06);
+    }
+    @media (max-width: 639px) {
+      body .wrap > header {
+        margin-left: calc(-1 * max(0.75rem, env(safe-area-inset-left, 0px)));
+        margin-right: calc(-1 * max(0.75rem, env(safe-area-inset-right, 0px)));
+        margin-bottom: 0.75rem;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid var(--border);
+        box-shadow: none;
+      }
+    }
     section { margin-bottom: 2.75rem; }
     section > h2 {
       font-size: 1.1rem;
@@ -319,45 +403,220 @@
       margin-bottom: 1rem;
     }
     .error { color: #b91c1c; }
+
+    /* --- Home-only: brand/nav/theme chrome in non-critical.css --- */
+    @media (min-width: 960px) {
+      body.page-index .hero-stack {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 1.25rem;
+      }
+      body.page-index #hero-today {
+        flex: 1 1 62%;
+        min-width: 0;
+      }
+      body.page-index #hero-next {
+        flex: 1 1 35%;
+        min-width: 0;
+      }
+    }
+    body.page-index #hero-today.hero-card-today {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 1.65rem 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    body.page-index #hero-today.hero-card-today::before {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -18%;
+      width: 55%;
+      height: 85%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(71, 85, 105, 0.07) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    html[data-theme="dark"] body.page-index #hero-today.hero-card-today::before {
+      background: radial-gradient(circle, rgba(148, 163, 184, 0.08) 0%, transparent 68%);
+    }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) body.page-index #hero-today.hero-card-today::before {
+        background: radial-gradient(circle, rgba(148, 163, 184, 0.08) 0%, transparent 68%);
+      }
+    }
+    body.page-index #hero-today.hero-card-today .hero-section-title {
+      position: relative;
+      z-index: 1;
+    }
+    body.page-index #hero-today.hero-card-today .hero-today-date,
+    body.page-index #hero-today.hero-card-today .hero-status,
+    body.page-index #hero-today.hero-card-today .hero-today-desc,
+    body.page-index #hero-today.hero-card-today .hero-actions-today {
+      position: relative;
+      z-index: 1;
+    }
+    body.page-index #hero-next.hero-card-next {
+      border-radius: 28px;
+      padding: 1.65rem 1.5rem;
+      border: 1px solid rgba(15, 23, 23, 0.2);
+      background: linear-gradient(160deg, #1a3d3a 0%, #152f2d 48%, #122826 100%);
+      color: #e8eeec;
+      box-shadow: 0 4px 18px rgba(15, 23, 23, 0.18);
+    }
+    body.page-index #hero-next.hero-card-next .hero-section-title {
+      color: rgba(200, 212, 208, 0.95);
+    }
+    body.page-index #hero-next.hero-card-next .hero-next {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 1rem;
+      min-height: 0;
+    }
+    body.page-index #hero-next.hero-card-next .hero-next-countdown-wrap {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: none;
+      text-align: left;
+    }
+    body.page-index #hero-next.hero-card-next .countdown-next {
+      color: #f2f5f4;
+    }
+    body.page-index #hero-next.hero-card-next .countdown-next-sub {
+      color: rgba(200, 210, 206, 0.88);
+    }
+    body.page-index #hero-next.hero-card-next .next-when,
+    body.page-index #hero-next.hero-card-next .next-desc {
+      color: #e8eeec;
+    }
+    body.page-index #hero-next.hero-card-next .next-desc {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    body.page-index #hero-next.hero-card-next .chain-note {
+      color: rgba(190, 202, 198, 0.9);
+    }
+    body.page-index #hero-next.hero-card-next .hero-next-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    body.page-index #hero-next.hero-card-next .hero-next-footer .next-when {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+    body.page-index #hero-next.hero-card-next .hero-next-chevron {
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1;
+      opacity: 0.85;
+    }
+    body.page-index #hero-next.hero-card-next .chip-nasional {
+      background: rgba(255, 255, 255, 0.12);
+      color: #d8e2df;
+    }
+    body.page-index #hero-next.hero-card-next .chip-cuti {
+      background: rgba(255, 255, 255, 0.1);
+      color: #d4d0de;
+    }
+    body.page-index #hero-next.hero-card-next .chip-sabtu,
+    body.page-index #hero-next.hero-card-next .chip-minggu {
+      background: rgba(255, 255, 255, 0.08);
+      color: #c5cfcc;
+    }
+    body.page-index #hero-next.hero-card-next .chip-lw-ya {
+      background: rgba(212, 195, 170, 0.22);
+      color: #ebe4d8;
+    }
+    body.page-index #hero-next.hero-card-next .hero-actions-next {
+      border-top-color: rgba(255, 255, 255, 0.12);
+    }
+    body.page-index #hero-next.hero-card-next .btn-hero-nav {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #e8eeec;
+    }
+    body.page-index #hero-next.hero-card-next .btn-hero-nav:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.2);
+      filter: none;
+    }
+    body.page-index #hero-next.hero-card-next .btn-share {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #e8eeec;
+    }
+    body.page-index #hero-next.hero-card-next .btn-share:hover {
+      background: rgba(255, 255, 255, 0.22);
+      filter: none;
+    }
+    body.page-index #hero-next.hero-card-next .share-toast {
+      color: rgba(200, 212, 208, 0.95);
+    }
   </style>
 </head>
 
-<body id="top">
+<body id="top" class="page-index">
   <div class="wrap">
     <header>
       <div class="site-nav-bar">
-        <a href="/" class="site-logo" aria-label="Beranda Kapan Libur"
-          ><img src="assets/kapanlibur-logo-nobg.png" alt="" decoding="async"
-        /></a>
-        <button type="button" class="site-nav-toggle" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
-          </svg>
-        </button>
-        <div class="site-nav-backdrop" id="site-nav-backdrop" hidden></div>
-        <nav id="site-nav-panel" class="site-nav" aria-label="Navigasi utama">
-          <a href="/">Beranda</a>
-          <span class="site-nav-sep" aria-hidden="true">|</span>
-          <a href="/hari-libur-nasional-2026.html">Daftar libur nasional &amp; cuti</a>
-          <span class="site-nav-sep" aria-hidden="true">|</span>
-          <a
-            data-pdf-source
-            href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Unduh PDF</a
+        <a href="/" class="site-logo site-brand" aria-label="Beranda Kapan Libur"
+          ><img
+            class="site-brand-logo"
+            src="assets/kapanlibur-logo-nobg.png"
+            alt=""
+            width="120"
+            height="120"
+            decoding="async"
+          /><span class="site-brand-text">KapanLibur.com</span></a
+        >
+        <div class="site-nav-cluster">
+          <nav id="site-nav-panel" class="site-nav" aria-label="Navigasi utama">
+            <a href="/">Beranda</a>
+            <span class="site-nav-sep" aria-hidden="true">|</span>
+            <a href="/hari-libur-nasional-2026.html">Daftar libur nasional &amp; cuti</a>
+            <span class="site-nav-sep" aria-hidden="true">|</span>
+            <a
+              data-pdf-source
+              href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Unduh PDF</a
+            >
+          </nav>
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Ganti mode terang atau gelap"
+            aria-pressed="false"
+            title="Tema"
           >
-        </nav>
+            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            </svg>
+            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+            </svg>
+          </button>
+          <button type="button" class="site-nav-toggle" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
+            </svg>
+          </button>
+        </div>
+        <div class="site-nav-backdrop" id="site-nav-backdrop" hidden></div>
       </div>
     </header>
-
-    <nav class="sticky-jump-nav" aria-label="Navigasi ke bagian halaman">
-      <a href="#status-libur">Hari ini &amp; berikutnya</a>
-      <span aria-hidden="true">|</span>
-      <a href="#libur-mendatang-section">Per bulan</a>
-      <span aria-hidden="true">|</span>
-      <a href="#kalender-2026">Kalender</a>
-    </nav>
 
     <main>
       <section class="static-section" id="status-libur" aria-labelledby="hero-heading">
@@ -394,9 +653,26 @@
 
       <section class="static-section" id="kalender-2026" aria-labelledby="cal-heading">
         <h2 id="cal-heading">Kalender libur nasional 2026 interaktif</h2>
-        <p class="intro-copy" style="margin-bottom:1rem;font-size:0.92rem">
-          Kalender menampilkan seluruh entri dalam data (termasuk Sabtu dan Minggu). Ketuk tanggal untuk detail.
+        <p class="intro-copy" style="margin-bottom:0.65rem;font-size:0.92rem">
+          Kalender menampilkan seluruh entri dalam data (termasuk Sabtu dan Minggu). Ketuk tanggal untuk detail. Untuk aplikasi kalender di ponsel atau desktop, unduh berkas
+          <abbr title="iCalendar">.ics</abbr> atau tambahkan lewat Google Calendar (perlu URL publik).
         </p>
+        <div class="cal-ics-actions" aria-label="Kalender libur Indonesia2026">
+          <a
+            class="btn-cal-ics"
+            href="assets/kalender-libur-indonesia-2026.ics"
+            download="kalender-libur-indonesia-2026.ics"
+            >Unduh kalender (.ics)</a
+          >
+          <a
+            class="cal-ics-link"
+            id="cal-ics-google"
+            href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Tambahkan ke Google Calendar</a
+          >
+        </div>
         <p id="cal-year-label" class="list-month-label" style="margin-bottom:0.5rem"></p>
         <div id="cal-state" class="loading">Memuat data…</div>
         <div id="calendar-wrap" hidden>
@@ -454,10 +730,19 @@
 
 
   <script src="assets/site-nav.js" defer></script>
+  <script src="assets/site-theme.js" defer></script>
   <script src="assets/site-pdf.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
   <script>
 (function () {
+  (function setCalIcsGoogleLink() {
+    const el = document.getElementById("cal-ics-google");
+    if (!el) return;
+    const icsUrl = new URL("assets/kalender-libur-indonesia-2026.ics", window.location.href).href;
+    el.href =
+      "https://calendar.google.com/calendar/u/0/r/settings/addbyurl?url=" + encodeURIComponent(icsUrl);
+  })();
+
   const MONTHS = [
     "Januari", "Februari", "Maret", "April", "Mei", "Juni",
     "Juli", "Agustus", "September", "Oktober", "November", "Desember"
@@ -592,7 +877,7 @@
         lines.push("Long weekend");
       }
     } else {
-      lines.push("Hari ini tidak libur menurut data.");
+      lines.push("Hari ini tidak libur menurut data SKB 3 Menteri.");
     }
     lines.push("");
     return lines.join("\n");
@@ -778,6 +1063,7 @@
     if (!sortedData || !sortedData.length) {
       stack.hidden = false;
       elToday.hidden = false;
+      elToday.className = "hero hero-card-today";
       elToday.innerHTML =
         '<div class="hero-status">' +
         '<p class="countdown hero-today-no">Tidak ada data</p></div>' +
@@ -831,27 +1117,12 @@
       ? '<div class="badges">' + nextBadgeCells + "</div>"
       : "";
 
-    let nextBlock =
-      '<div class="hero-next-main">' +
-      '<p class="next-when"><time datetime="' +
-      escapeHtml(selectedRow.date) +
-      '">' +
-      escapeHtml(formatLongID(selectedRow.date)) +
-      "</time></p>" +
-      '<p class="next-desc">' +
-      escapeHtml("Karena " + selectedRow.description) +
-      "</p>" +
-      nextBadgesWrap +
-      '<p class="chain-note">Libur berturut-turut: <strong>' +
-      escapeHtml(formatRantaiBerturutForRow(selectedRow, byDate)) +
-      "</strong></p>" +
-      "</div>";
-
+    let countdownHtml = "";
     if (showCountdown) {
       const n = diffDays(t, selectedRow.date);
       const until = daysUntilPhrase(n);
       const untilDisp = until.charAt(0).toUpperCase() + until.slice(1);
-      nextBlock +=
+      countdownHtml =
         '<div class="hero-next-countdown-wrap">' +
         '<p class="countdown-next">' +
         escapeHtml(untilDisp) +
@@ -861,6 +1132,26 @@
         "</p>" +
         "</div>";
     }
+
+    const nextBlock =
+      countdownHtml +
+      '<div class="hero-next-main">' +
+      '<p class="next-desc">' +
+      escapeHtml("Karena " + selectedRow.description) +
+      "</p>" +
+      nextBadgesWrap +
+      '<p class="chain-note">Libur berturut-turut: <strong>' +
+      escapeHtml(formatRantaiBerturutForRow(selectedRow, byDate)) +
+      "</strong></p>" +
+      "</div>" +
+      '<div class="hero-next-footer">' +
+      '<p class="next-when"><time datetime="' +
+      escapeHtml(selectedRow.date) +
+      '">' +
+      escapeHtml(formatLongID(selectedRow.date)) +
+      "</time></p>" +
+      '<span class="hero-next-chevron" aria-hidden="true">\u203a</span>' +
+      "</div>";
 
     let todayBadges = "";
     if (todayRow) {
@@ -891,7 +1182,9 @@
     stack.hidden = false;
     elToday.hidden = false;
     elNext.hidden = false;
-    elNext.className = "hero" + (nextCardDimmed ? " hero-next-dimmed" : "");
+    elToday.className = "hero hero-card-today";
+    elNext.className =
+      "hero hero-card-next" + (nextCardDimmed ? " hero-next-dimmed" : "");
 
     elToday.innerHTML =
       '<p class="hero-section-title">Libur hari ini</p>' +
@@ -908,7 +1201,7 @@
       '<div class="hero-today-desc">' +
       (todayRow
         ? '<p class="why">' + escapeHtml("Karena " + todayRow.description) + "</p>" + todayBadges
-        : '<p class="when muted-line">Tidak ada libur pada tanggal ini menurut data.</p>') +
+        : '<p class="when muted-line">Tidak ada libur pada tanggal ini menurut data SKB 3 Menteri.</p>') +
       "</div>" +
       '<div class="hero-actions-today">' +
       '<button type="button" class="btn-share" id="share-today-btn">' +
