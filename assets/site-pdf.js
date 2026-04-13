@@ -11,7 +11,7 @@
   }
 
   function run() {
-    fetch("json/2026.json")
+    fetch("/json/2026.json")
       .then(function (r) {
         if (!r.ok) throw new Error();
         return r.json();
