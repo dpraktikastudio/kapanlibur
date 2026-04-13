@@ -178,6 +178,9 @@
 .cal-cell.is-off-cuti { background: var(--cuti-bg); color: var(--cuti); font-weight: 600; }
 .cal-cell.is-off-sabtu { background: var(--sabtu-bg); color: var(--sabtu); }
 .cal-cell.is-off-minggu { background: var(--minggu-bg); color: var(--minggu); }
+.cal-cell.is-past {
+  opacity: 0.35;
+}
 .cal-cell.is-today {
   box-shadow: inset 0 0 0 2px var(--accent);
 }

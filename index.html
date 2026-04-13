@@ -2117,6 +2117,7 @@
           }
         });
       }
+      if (iso < tISO) cell.classList.add("is-past");
       if (isThisYearToday && iso === tISO) cell.classList.add("is-today");
       grid.appendChild(cell);
     }
