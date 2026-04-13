@@ -408,6 +408,7 @@
       letter-spacing: 0.08em;
       color: var(--muted);
       margin: 0.35rem 0 0;
+      min-height: 35px;
     }
     .hero-next .next-when { font-size: 1rem; font-weight: 600; margin: 0 0 0.35rem; }
     .hero-next .next-desc { font-size: 1rem; margin: 0 0 0.65rem; }
@@ -448,6 +449,250 @@
       margin-bottom: 1rem;
     }
     .error { color: #b91c1c; }
+    .loading.loading--skeleton {
+      padding: 0;
+      border: none;
+      background: transparent;
+      margin-bottom: 1rem;
+    }
+    @keyframes skeleton-opacity {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 1; }
+    }
+    .skeleton-pulse-root {
+      animation: skeleton-opacity 1.25s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .skeleton-pulse-root {
+        animation: none;
+        opacity: 0.88;
+      }
+    }
+    .skel {
+      background: color-mix(in srgb, var(--muted) 32%, var(--border));
+      border-radius: 6px;
+    }
+    .skeleton-hero-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .skeleton-hero-card {
+      border-radius: 28px;
+      padding: 1.65rem 1.5rem;
+      min-height: 519.31px;
+      box-sizing: border-box;
+    }
+    .skeleton-hero-card--today {
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: var(--surface);
+    }
+    .skeleton-hero-card--next {
+      border: 1px solid rgba(15, 23, 23, 0.2);
+      background: linear-gradient(160deg, #1a3d3a 0%, #152f2d 48%, #122826 100%);
+      box-shadow: 0 4px 18px rgba(15, 23, 23, 0.18);
+    }
+    .skeleton-hero-card--next .skel,
+    .skeleton-hero-card--next .skel-line--on-dark {
+      background: rgba(232, 238, 236, 0.22);
+    }
+    .skeleton-hero-card .skel-line {
+      height: 0.85rem;
+      margin-bottom: 0.75rem;
+      max-width: 100%;
+    }
+    .skeleton-hero-card .skel-line--lg {
+      height: 1rem;
+      width: 42%;
+      margin-bottom: 1rem;
+    }
+    .skeleton-hero-card .skel-line--hero-status {
+      height: 1.35rem;
+      width: 68%;
+      margin-bottom: 0.85rem;
+    }
+    .skeleton-hero-card .skel-line--md {
+      width: 88%;
+    }
+    .skeleton-hero-card .skel-line--sm {
+      width: 72%;
+      height: 0.75rem;
+    }
+    .skeleton-hero-card .skel-line--full {
+      width: 100%;
+      margin-bottom: 0;
+      margin-top: 0.5rem;
+    }
+    .skeleton-hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.35rem;
+    }
+    .skeleton-hero-meta .skel-chip {
+      width: 5.5rem;
+      height: 1.35rem;
+      border-radius: 999px;
+    }
+    .skeleton-hero-meta .skel-chip--narrow {
+      width: 3.25rem;
+    }
+    @media (min-width: 960px) {
+      .skeleton-hero-stack {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 1.25rem;
+      }
+      .skeleton-hero-card--today {
+        flex: 1 1 62%;
+        min-width: 0;
+      }
+      .skeleton-hero-card--next {
+        flex: 1 1 35%;
+        min-width: 0;
+      }
+    }
+    .skeleton-list-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .skeleton-list-chrome .skel-line--month {
+      height: 1rem;
+      flex: 1;
+      max-width: 12rem;
+      min-width: 0;
+    }
+    .skeleton-list-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .skeleton-list-nav .skel-nav-btn {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-sm);
+    }
+    .skeleton-list-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 0.65rem 1rem;
+      align-items: start;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      min-height: 82.25px;
+    }
+    .skeleton-list-row:last-child {
+      border-bottom: none;
+    }
+    .skeleton-list-row .skel-date {
+      width: 2rem;
+      height: 1.2rem;
+    }
+    .skeleton-list-row .skel-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-width: 0;
+    }
+    .skeleton-list-row .skel-meta .skel-line-a {
+      height: 0.92rem;
+      width: 100%;
+    }
+    .skeleton-list-row .skel-meta .skel-line-b {
+      height: 0.78rem;
+      width: 72%;
+    }
+    .skeleton-list-row .skel-type {
+      width: 5.75rem;
+      height: 1.35rem;
+      border-radius: 999px;
+    }
+    .skeleton-list-row .skel-share {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-sm);
+    }
+    .skeleton-cal-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .skeleton-cal-toolbar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .skeleton-cal-toolbar .skel-tb-btn {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+    }
+    .skeleton-cal-toolbar .skel-tb-label {
+      flex: 1;
+      height: 1rem;
+      min-width: 8rem;
+      max-width: 14rem;
+      margin: 0 auto;
+    }
+    .skeleton-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .skeleton-cal-month {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      box-sizing: border-box;
+      min-height: 300px;
+    }
+    .skeleton-cal-month-title {
+      height: 1rem;
+      width: 58%;
+      margin-bottom: 0.65rem;
+    }
+    .skeleton-cal-dow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+    .skeleton-cal-dow .skel-dow {
+      height: 10px;
+      border-radius: 4px;
+    }
+    .skeleton-cal-month-body {
+      width: 100%;
+      min-height: 11.5rem;
+      border-radius: 6px;
+      margin-top: 2px;
+    }
+    @media (max-width: 640px) {
+      .skeleton-cal-toolbar {
+        display: flex;
+      }
+      .skeleton-cal-grid {
+        grid-template-columns: 1fr;
+      }
+      .skeleton-cal-grid .skeleton-cal-month:nth-child(n + 2) {
+        display: none;
+      }
+    }
+    @media (min-width: 641px) {
+      .skeleton-cal-toolbar {
+        display: none !important;
+      }
+    }
 
     /* --- Home-only: brand/nav/theme chrome in non-critical.css --- */
     @media (min-width: 960px) {
@@ -1125,7 +1370,27 @@
 
     <main>
       <section class="static-section" id="status-libur" aria-labelledby="hero-heading">
-        <div id="hero-state" class="loading">Memuat data…</div>
+        <div id="hero-state" class="loading loading--skeleton" role="status" aria-live="polite">
+          <span class="visually-hidden">Memuat data…</span>
+          <div class="skeleton-hero-stack skeleton-pulse-root">
+            <div class="skeleton-hero-card skeleton-hero-card--today">
+              <div class="skel skel-line skel-line--lg"></div>
+              <div class="skel skel-line skel-line--hero-status"></div>
+              <div class="skel skel-line skel-line--md"></div>
+              <div class="skeleton-hero-meta">
+                <div class="skel skel-chip"></div>
+                <div class="skel skel-chip skel-chip--narrow"></div>
+              </div>
+              <div class="skel skel-line skel-line--full"></div>
+            </div>
+            <div class="skeleton-hero-card skeleton-hero-card--next">
+              <div class="skel skel-line skel-line--lg skel-line--on-dark"></div>
+              <div class="skel skel-line skel-line--md skel-line--on-dark"></div>
+              <div class="skel skel-line skel-line--sm skel-line--on-dark"></div>
+              <div class="skel skel-line skel-line--full skel-line--on-dark"></div>
+            </div>
+          </div>
+        </div>
         <div id="hero-stack" class="hero-stack" hidden>
           <div id="hero-today" class="hero"></div>
           <div id="hero-next" class="hero"></div>
@@ -1147,7 +1412,76 @@
             </button>
           </div>
         </div>
-        <div id="list-state" class="loading">Memuat data…</div>
+        <div id="list-state" class="loading loading--skeleton" role="status" aria-live="polite">
+          <span class="visually-hidden">Memuat data…</span>
+          <div class="skeleton-list skeleton-pulse-root">
+            <div class="skeleton-list-rows">
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div id="list-month-wrap" class="list-month-wrap" hidden>
           <span id="list-share-toast" class="share-toast list-share-toast" aria-live="polite"></span>
           <div id="list-swipe-host" class="list-swipe-host">
@@ -1179,7 +1513,102 @@
           >
         </div>
         <p id="cal-year-label" class="list-month-label" style="margin-bottom:0.5rem"></p>
-        <div id="cal-state" class="loading">Memuat data…</div>
+        <div id="cal-state" class="loading loading--skeleton" role="status" aria-live="polite">
+          <span class="visually-hidden">Memuat data…</span>
+          <div class="skeleton-cal-wrap skeleton-pulse-root">
+            <div class="skeleton-cal-toolbar" aria-hidden="true">
+              <div class="skel skel-tb-btn"></div>
+              <div class="skel skel-tb-label"></div>
+              <div class="skel skel-tb-btn"></div>
+            </div>
+            <div class="skeleton-cal-grid">
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div id="calendar-wrap" hidden>
           <div id="cal-month-toolbar" class="cal-month-toolbar">
             <button type="button" id="cal-nav-prev" class="btn-nav-month" aria-label="Bulan sebelumnya kalender">
