@@ -501,6 +501,12 @@ footer .footer-source a:hover {
   text-decoration: underline;
 }
 
+.footer-copyright {
+  margin: 1rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
 /* Site shell: flush-top sticky header, wide wrap, mobile full-bleed bar */
 body .wrap {
   width: 92vw;
