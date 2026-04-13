@@ -277,6 +277,13 @@
       line-height: 1.2;
       margin: 0 0 0.25rem;
     }
+
+    @media (max-width: 639px) {
+      .hero .countdown {
+        font-size: clamp(2rem, 5.5vw, 3.35rem);
+      }
+    }
+
     .hero .when { font-size: 1.05rem; color: var(--muted); margin: 0 0 1rem; }
     .hero .why { font-size: 1.05rem; margin: 0 0 1rem; }
     .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
