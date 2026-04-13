@@ -9,6 +9,11 @@ const dist = path.join(root, "dist");
 
 fs.mkdirSync(dist, { recursive: true });
 
+for (const stale of ["icon.svg", "og-image.png"]) {
+  const stalePath = path.join(dist, stale);
+  if (fs.existsSync(stalePath)) fs.unlinkSync(stalePath);
+}
+
 const minifyOpts = {
   collapseWhitespace: true,
   removeComments: true,
@@ -35,9 +40,7 @@ for (const f of [
   "robots.txt",
   "sitemap.xml",
   "_headers",
-  "og-image.png",
   "og-image.html",
-  "icon.svg",
 ]) {
   fs.copyFileSync(path.join(root, f), path.join(dist, f));
 }
