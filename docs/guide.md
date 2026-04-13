@@ -175,6 +175,7 @@ Swipe: `attachHeroSwipe` on `#hero-next-nav` — left = next index, right = prev
 
 ### 3. Kalender (`#calendar-wrap`)
 
+- **ICS export:** [`assets/kalender-libur-indonesia-2026.ics`](../assets/kalender-libur-indonesia-2026.ics) (source of truth in [`source/kalender-libur-indonesia-2026.ics`](../source/kalender-libur-indonesia-2026.ics); copy to `assets/` for deploy). Section `#kalender-2026` has **Unduh kalender (.ics)** and **Tambahkan ke Google Calendar** (`#cal-ics-google` — `href` filled from `new URL("assets/…", location)` + Google “add by URL”).
 - **Desktop** (`min-width: 641px`): **12** months (`buildMonthGrid` in a loop).
 - **Mobile** (`max-width: 640px`): **one** month (`calContext.mobileMonth`), toolbar `#cal-month-toolbar`, swipe on `#calendar-wrap` via `attachCalendarWrapSwipeOnce` (listeners must persist because `#calendar` innerHTML is replaced on render).
 - **Today** cells get `.is-today`.

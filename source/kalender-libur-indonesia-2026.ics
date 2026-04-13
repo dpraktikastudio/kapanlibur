@@ -1,0 +1,226 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kapan Libur//kapanlibur.com//ID
+X-WR-CALNAME:Hari Libur Indonesia 2026
+X-WR-CALDESC:Hari Libur Nasional dan Cuti Bersama Indonesia 2026 - Berdasarkan SKB 3 Menteri No. 1497 Tahun 2025
+X-WR-TIMEZONE:Asia/Jakarta
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260101
+DTEND;VALUE=DATE:20260102
+SUMMARY:🗓️ Tahun Baru 2026 Masehi
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260116
+DTEND;VALUE=DATE:20260117
+SUMMARY:🗓️ Isra Mikraj Nabi Muhammad SAW
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260216
+DTEND;VALUE=DATE:20260217
+SUMMARY:✂️ Cuti Bersama Tahun Baru Imlek 2577 Kongzili
+DESCRIPTION:Cuti Bersama - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Cuti Bersama
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260217
+DTEND;VALUE=DATE:20260218
+SUMMARY:🗓️ Tahun Baru Imlek 2577 Kongzili
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260318
+DTEND;VALUE=DATE:20260319
+SUMMARY:✂️ Cuti Bersama Hari Suci Nyepi
+DESCRIPTION:Cuti Bersama - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Cuti Bersama
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260319
+DTEND;VALUE=DATE:20260320
+SUMMARY:🗓️ Hari Suci Nyepi (Tahun Baru Saka 1948)
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260320
+DTEND;VALUE=DATE:20260321
+SUMMARY:✂️ Cuti Bersama Idul Fitri 1447 Hijriah
+DESCRIPTION:Cuti Bersama - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Cuti Bersama
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260321
+DTEND;VALUE=DATE:20260323
+SUMMARY:🗓️ Idul Fitri 1447 Hijriah (Hari Pertama & Kedua)
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260323
+DTEND;VALUE=DATE:20260324
+SUMMARY:✂️ Cuti Bersama Idul Fitri 1447 Hijriah
+DESCRIPTION:Cuti Bersama - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Cuti Bersama
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260324
+DTEND;VALUE=DATE:20260325
+SUMMARY:✂️ Cuti Bersama Idul Fitri 1447 Hijriah
+DESCRIPTION:Cuti Bersama - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Cuti Bersama
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260403
+DTEND;VALUE=DATE:20260404
+SUMMARY:🗓️ Wafat Yesus Kristus
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260405
+DTEND;VALUE=DATE:20260406
+SUMMARY:🗓️ Kebangkitan Yesus Kristus (Paskah)
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20260502
+SUMMARY:🗓️ Hari Buruh Internasional
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260514
+DTEND;VALUE=DATE:20260515
+SUMMARY:🗓️ Kenaikan Yesus Kristus
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260515
+DTEND;VALUE=DATE:20260516
+SUMMARY:✂️ Cuti Bersama Kenaikan Yesus Kristus
+DESCRIPTION:Cuti Bersama - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Cuti Bersama
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260527
+DTEND;VALUE=DATE:20260528
+SUMMARY:🗓️ Idul Adha 1447 Hijriah
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260528
+DTEND;VALUE=DATE:20260529
+SUMMARY:✂️ Cuti Bersama Idul Adha 1447 Hijriah
+DESCRIPTION:Cuti Bersama - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Cuti Bersama
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260531
+DTEND;VALUE=DATE:20260601
+SUMMARY:🗓️ Hari Raya Waisak 2570 BE
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20260602
+SUMMARY:🗓️ Hari Lahir Pancasila
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260616
+DTEND;VALUE=DATE:20260617
+SUMMARY:🗓️ 1 Muharam Tahun Baru Islam 1448 Hijriah
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260817
+DTEND;VALUE=DATE:20260818
+SUMMARY:🗓️ Proklamasi Kemerdekaan Republik Indonesia
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+SUMMARY:🗓️ Maulid Nabi Muhammad SAW
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20261224
+DTEND;VALUE=DATE:20261225
+SUMMARY:✂️ Cuti Bersama Kelahiran Yesus Kristus
+DESCRIPTION:Cuti Bersama - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Cuti Bersama
+URL:https://kapanlibur.com
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20261225
+DTEND;VALUE=DATE:20261226
+SUMMARY:🗓️ Kelahiran Yesus Kristus (Natal)
+DESCRIPTION:Hari Libur Nasional - Sumber: SKB 3 Menteri No. 1497 Tahun 2025
+CATEGORIES:Libur Nasional
+URL:https://kapanlibur.com
+END:VEVENT
+
+END:VCALENDAR

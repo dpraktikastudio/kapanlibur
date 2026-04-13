@@ -7,3 +7,6 @@
 
 /sitemap.xml
   Content-Type: application/xml
+
+/assets/*.ics
+  Content-Type: text/calendar; charset=utf-8

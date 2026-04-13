@@ -653,9 +653,26 @@
 
       <section class="static-section" id="kalender-2026" aria-labelledby="cal-heading">
         <h2 id="cal-heading">Kalender libur nasional 2026 interaktif</h2>
-        <p class="intro-copy" style="margin-bottom:1rem;font-size:0.92rem">
-          Kalender menampilkan seluruh entri dalam data (termasuk Sabtu dan Minggu). Ketuk tanggal untuk detail.
+        <p class="intro-copy" style="margin-bottom:0.65rem;font-size:0.92rem">
+          Kalender menampilkan seluruh entri dalam data (termasuk Sabtu dan Minggu). Ketuk tanggal untuk detail. Untuk aplikasi kalender di ponsel atau desktop, unduh berkas
+          <abbr title="iCalendar">.ics</abbr> atau tambahkan lewat Google Calendar (perlu URL publik).
         </p>
+        <div class="cal-ics-actions" aria-label="Kalender libur Indonesia2026">
+          <a
+            class="btn-cal-ics"
+            href="assets/kalender-libur-indonesia-2026.ics"
+            download="kalender-libur-indonesia-2026.ics"
+            >Unduh kalender (.ics)</a
+          >
+          <a
+            class="cal-ics-link"
+            id="cal-ics-google"
+            href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Tambahkan ke Google Calendar</a
+          >
+        </div>
         <p id="cal-year-label" class="list-month-label" style="margin-bottom:0.5rem"></p>
         <div id="cal-state" class="loading">Memuat data…</div>
         <div id="calendar-wrap" hidden>
@@ -718,6 +735,14 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
   <script>
 (function () {
+  (function setCalIcsGoogleLink() {
+    const el = document.getElementById("cal-ics-google");
+    if (!el) return;
+    const icsUrl = new URL("assets/kalender-libur-indonesia-2026.ics", window.location.href).href;
+    el.href =
+      "https://calendar.google.com/calendar/u/0/r/settings/addbyurl?url=" + encodeURIComponent(icsUrl);
+  })();
+
   const MONTHS = [
     "Januari", "Februari", "Maret", "April", "Mei", "Juni",
     "Juli", "Agustus", "September", "Oktober", "November", "Desember"
