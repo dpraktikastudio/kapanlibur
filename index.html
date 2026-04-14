@@ -387,35 +387,236 @@
          #hero-next-nav {
          min-height: 253px;
          }
+         .nav-shell .site-nav-bar {
+         position: relative;
+         display: flex;
+         flex-wrap: nowrap;
+         align-items: center;
+         justify-content: space-between;
+         gap: 0.75rem;
+         width: 100%;
+         min-height: 5rem;
+         }
+         .nav-shell .site-brand {
+         display: inline-flex;
+         align-items: center;
+         gap: 0.5rem;
+         min-width: 0;
+         text-decoration: none;
+         color: inherit;
+         flex-shrink: 0;
+         }
+         @media (min-width: 640px) {
+         .nav-shell .site-brand {
+         gap: 0.75rem;
+         }
+         }
+         .nav-shell .site-nav-cluster {
+         display: flex;
+         align-items: center;
+         gap: 0.45rem;
+         margin-left: auto;
+         flex-shrink: 0;
+         }
+         @media (min-width: 640px) {
+         .nav-shell .site-nav-cluster {
+         gap: 0.85rem;
+         }
+         }
+         .nav-shell .site-nav {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         align-items: center;
+         gap: 0.5rem 1rem;
+         margin: 0;
+         padding: 0.65rem 0.85rem;
+         font-size: 0.875rem;
+         font-weight: 600;
+         }
+         .nav-shell .site-nav a {
+         text-decoration: none;
+         }
+         @media (min-width: 640px) {
+         .nav-shell .site-nav a:hover {
+         text-decoration: underline;
+         }
+         }
+         .nav-shell .site-nav-sep {
+         color: rgb(var(--color-outline-variant));
+         user-select: none;
+         }
+         .nav-shell .site-nav-backdrop {
+         position: fixed;
+         inset: 0;
+         z-index: 90;
+         background: rgba(15, 20, 25, 0.45);
+         }
+         html[data-theme="dark"] .nav-shell .site-nav-backdrop:not([hidden]) {
+         background: rgba(0, 0, 0, 0.55);
+         }
+         @media (prefers-color-scheme: dark) {
+         html:not([data-theme]) .nav-shell .site-nav-backdrop:not([hidden]) {
+         background: rgba(0, 0, 0, 0.55);
+         }
+         }
+         .nav-shell .site-nav-backdrop[hidden] {
+         display: none !important;
+         }
+         .nav-shell .site-nav-backdrop:not([hidden]) {
+         display: block;
+         }
+         .nav-shell .site-nav-toggle {
+         display: none;
+         align-items: center;
+         justify-content: center;
+         width: 2.5rem;
+         min-width: 2.5rem;
+         min-height: 2.5rem;
+         padding: 0;
+         border-radius: 0.625rem;
+         border: 1px solid rgb(var(--color-outline-variant));
+         background: rgb(var(--color-surface-container-high));
+         color: rgb(var(--color-primary));
+         cursor: pointer;
+         flex-shrink: 0;
+         }
+         .nav-shell .site-nav-toggle:hover {
+         background: rgb(var(--color-surface-container-low));
+         }
+         .nav-shell .site-nav-toggle:focus-visible {
+         outline: 2px solid rgb(var(--color-primary));
+         outline-offset: 2px;
+         }
+         .nav-shell .site-nav-toggle svg {
+         display: block;
+         width: 1.1rem;
+         height: 1.1rem;
+         }
+         @media (max-width: 639px) {
+         body.site-nav-open {
+         overflow: hidden;
+         }
+         .nav-shell .site-nav-toggle {
+         display: inline-flex;
+         }
+         .nav-shell .site-nav {
+         position: fixed;
+         top: 0;
+         right: 0;
+         bottom: 0;
+         width: min(17.5rem, 88vw);
+         z-index: 100;
+         flex-direction: column;
+         flex-wrap: nowrap;
+         align-items: stretch;
+         justify-content: flex-start;
+         gap: 0.85rem;
+         margin: 0;
+         padding: calc(1rem + env(safe-area-inset-top, 0)) 1.1rem 1.25rem;
+         background: rgb(var(--color-surface-container-low));
+         border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 35%, transparent);
+         border-radius: 0.625rem 0 0 0.625rem;
+         box-shadow: -8px 0 32px rgba(15, 20, 25, 0.18);
+         transform: translateX(100%);
+         transition: transform 0.2s ease;
+         overflow-y: auto;
+         -webkit-overflow-scrolling: touch;
+         }
+         body.site-nav-open .nav-shell .site-nav {
+         transform: translateX(0);
+         }
+         .nav-shell .site-nav-sep {
+         display: none;
+         }
+         .nav-shell .site-nav a {
+         display: block;
+         padding: 0.65rem 0;
+         font-size: 0.95rem;
+         color: rgb(var(--color-primary));
+         border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 28%, transparent);
+         }
+         .nav-shell .site-nav a:last-of-type {
+         border-bottom: none;
+         }
+         .nav-shell .site-nav a:hover {
+         text-decoration: none;
+         color: rgb(var(--color-primary));
+         }
+         }
+         @media (min-width: 640px) {
+         .nav-shell .site-nav {
+         position: static;
+         flex: 0 1 auto;
+         flex-direction: row;
+         flex-wrap: wrap;
+         justify-content: flex-end;
+         align-items: center;
+         gap: 0.35rem 1.25rem;
+         padding: 0;
+         background: transparent;
+         border: none;
+         box-shadow: none;
+         transform: none;
+         width: auto;
+         max-height: none;
+         overflow: visible;
+         }
+         .nav-shell .site-nav a {
+         display: inline;
+         padding: 0;
+         border-bottom: none;
+         white-space: nowrap;
+         }
+         .nav-shell .site-nav a:hover {
+         text-decoration: underline;
+         }
+         .nav-shell .site-nav-backdrop {
+         display: none !important;
+         }
+         .nav-shell .site-nav-toggle {
+         display: none !important;
+         }
+         }
       </style>
    </head>
    <body id="top" class="bg-background text-on-surface font-body">
       <!-- Top Navigation Bar -->
       <nav class="nav-shell fixed top-0 w-full z-50 backdrop-blur-xl shadow-sm">
-         <div class="grid grid-cols-3 items-center gap-4 px-4 sm:px-8 h-20 max-w-7xl mx-auto">
-            <a href="/" class="justify-self-start inline-flex items-center gap-2 sm:gap-3 min-w-0 text-inherit no-underline hover:opacity-95" aria-label="Beranda Kapan Libur">
-            <img class="h-11 w-11 sm:h-12 sm:w-12 object-contain shrink-0 block" src="/assets/Logo-no-bg.png" alt="" width="120" height="120" decoding="async"/>
-            <span class="text-xl sm:text-2xl font-bold tracking-tighter text-primary whitespace-nowrap">KapanLibur.com</span>
-            </a>
-            <div class="justify-self-center hidden md:flex items-center justify-center space-x-8 text-sm tracking-tight">
-               <a class="text-primary font-bold border-b-2 border-primary pb-1" href="/">Beranda</a>
-               <a class="text-on-surface-variant hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
-               <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
-            </div>
-            <div class="justify-self-end flex items-center">
-               <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
-                  <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                     <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-                     <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-                  </svg>
-                  <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                     <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
-                  </svg>
-               </button>
+         <div class="max-w-7xl mx-auto px-4 sm:px-8">
+            <div class="site-nav-bar">
+               <a href="/" class="site-brand hover:opacity-95" aria-label="Beranda Kapan Libur">
+                  <img class="h-11 w-11 sm:h-12 sm:w-12 object-contain shrink-0 block" src="/assets/Logo-no-bg.png" alt="" width="120" height="120" decoding="async"/>
+                  <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter text-primary truncate max-w-[10.5rem] sm:max-w-none sm:whitespace-nowrap">KapanLibur.com</span>
+               </a>
+               <div class="site-nav-cluster">
+                  <nav id="site-nav-panel" class="site-nav h-screen" aria-label="Navigasi utama">
+                     <a class="text-primary font-bold sm:border-b-2 sm:border-primary sm:pb-0.5" href="/">Beranda</a>
+                     <span class="site-nav-sep" aria-hidden="true">|</span>
+                     <a class="text-on-surface-variant hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
+                     <span class="site-nav-sep" aria-hidden="true">|</span>
+                     <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
+                  </nav>
+                  <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
+                     <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                     </svg>
+                     <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+                     </svg>
+                  </button>
+                  <button type="button" class="site-nav-toggle sm:hidden" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
+                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
+                     </svg>
+                  </button>
+               </div>
+               <div id="site-nav-backdrop" class="site-nav-backdrop" hidden aria-hidden="true"></div>
             </div>
          </div>
       </nav>
-      <main class="pt-32 pb-20 px-8 max-w-7xl mx-auto">
+      <main class="pt-28 md:pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
          <!-- Hero: diisi oleh /assets/site-home-hero.js -->
          <section id="hero-section" class="mb-20" aria-busy="true">
             <div id="hero-loading" class="rounded-xl border border-outline-variant/20 bg-surface-container-low px-6 py-10 text-center text-on-surface-variant">
@@ -438,7 +639,7 @@
                   </div>
                </div>
                <div id="hero-next-column" class="lg:col-span-5 relative overflow-hidden">
-                  <div id="hero-next-card" class="hero-gradient p-8 rounded-xl text-on-primary shadow-2xl relative overflow-hidden transition-opacity">
+                  <div id="hero-next-card" class="hero-gradient p-4 md:p-8 rounded-xl text-on-primary shadow-2xl relative overflow-hidden transition-opacity">
                      <div id="hero-next-nav" class="relative z-10" role="region" aria-label="Libur berikutnya atau sebelumnya">
                         <p id="hero-next-section-title" class="text-white/90 text-sm font-medium mb-2"></p>
                         <div id="hero-next-countdown" class="mb-4 hidden">
@@ -471,7 +672,7 @@
          <!-- Grid: cuplikan libur dan newsletter -->
          <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
             <!-- Libur mendatang (diisi dari /assets/site-home-hero.js) -->
-            <div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 border border-outline-variant/10" id="libur-mendatang-card">
+            <div class="md:col-span-2 bg-surface-container-low rounded-xl p-4 md:p-8 border border-outline-variant/10" id="libur-mendatang-card">
                <div class="flex justify-between items-center mb-8 gap-4 flex-wrap">
                   <div class="flex items-center gap-3 flex-wrap min-w-0">
                      <h3 class="text-2xl font-bold text-on-surface">
@@ -566,8 +767,8 @@
          </section>
       </main>
       <!-- Footer -->
-      <footer class="bg-surface-container-low border-t border-outline-variant/10 pt-16 pb-12">
-         <div class="max-w-7xl mx-auto px-8">
+      <footer class="bg-surface-container-low border-t border-outline-variant/10 pt-12 md:pt-16 pb-12">
+         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 items-start">
                <div>
                   <div class="text-2xl font-bold text-primary tracking-tight mb-4">Kapan Libur</div>
@@ -627,6 +828,7 @@
       </div>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" defer></script>
       <script src="/assets/site-theme.js" defer></script>
+      <script src="/assets/site-nav.js" defer></script>
       <script src="/assets/site-home-hero.js" defer></script>
    </body>
 </html>

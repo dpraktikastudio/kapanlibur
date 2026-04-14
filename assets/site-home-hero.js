@@ -503,21 +503,21 @@
                 "</div>"
               : "";
           return (
-            '<article class="flex items-start gap-6 group' +
+            '<article class="flex items-start gap-4 md:gap-6 group' +
             pastClass +
             '" id="list-row-' +
             row.date +
             '" role="listitem">' +
-            '<div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 ' +
+            '<div class="flex-shrink-0 w-12 md:w-16 h-12 md:h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 ' +
             borderAccent +
             '">' +
             '<span class="text-xs font-bold text-on-surface-variant">' +
             escapeHtml(monAbbr) +
             "</span>" +
-            '<span class="text-2xl font-extrabold text-on-surface">' +
+            '<span class="text-lg md:text-2xl font-extrabold text-on-surface">' +
             dayNum +
             "</span></div>" +
-            '<div class="flex-grow pt-1 min-w-0">' +
+            '<div class="flex-grow min-w-0">' +
             '<div class="flex flex-wrap items-start gap-3 mb-1">' +
             '<h4 class="font-bold text-lg text-on-surface flex-1 min-w-[12rem]">' +
             escapeHtml(row.description) +
