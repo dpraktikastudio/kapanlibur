@@ -1,0 +1,349 @@
+/* Brevo newsletter dialog — uses --color-* from site-chrome.css */
+.newsletter-dialog {
+  max-width: min(540px, calc(100vw - 2rem));
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 0.875rem;
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-on-surface));
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.12);
+}
+
+html[data-theme="dark"] .newsletter-dialog {
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .newsletter-dialog {
+    box-shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.newsletter-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.newsletter-dialog-panel {
+  position: relative;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.newsletter-dialog-intro {
+  padding-right: 4.75rem;
+  margin-bottom: 1.15rem;
+  text-align: left;
+}
+
+.newsletter-dialog-intro h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: rgb(var(--color-on-surface));
+  font-family: inherit;
+}
+
+.newsletter-dialog-intro p {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgb(var(--color-on-surface));
+  font-family: inherit;
+}
+
+.newsletter-dialog-intro ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgb(var(--color-on-surface-variant));
+  font-family: inherit;
+}
+
+.newsletter-dialog-intro li {
+  margin-bottom: 0.35rem;
+}
+
+.newsletter-dialog-intro li:last-child {
+  margin-bottom: 0;
+}
+
+.newsletter-dialog-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  z-index: 1;
+  padding: 0.4rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(var(--color-on-surface-variant));
+  background: transparent;
+  border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 45%, transparent);
+  border-radius: 0.625rem;
+  cursor: pointer;
+}
+
+.newsletter-dialog-close:hover {
+  color: rgb(var(--color-on-surface));
+  background: color-mix(in srgb, rgb(var(--color-primary)) 12%, transparent);
+}
+
+.newsletter-dialog-close:focus-visible {
+  outline: 2px solid rgb(var(--color-primary));
+  outline-offset: 2px;
+}
+
+.newsletter-dialog .sib-form {
+  text-align: left !important;
+  background: transparent !important;
+}
+
+/* Tailwind preflight sets svg { max-width: 100% }, which blows up Brevo notification icons. */
+.newsletter-dialog .sib-form-message-panel svg,
+.newsletter-dialog .sib-form-message-panel .sib-icon {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  max-width: 1.25rem !important;
+  max-height: 1.25rem !important;
+  flex-shrink: 0;
+  display: block;
+}
+
+.newsletter-dialog .sib-form-message-panel__text {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  text-align: left !important;
+}
+
+.newsletter-dialog .sib-form-message-panel__inner-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.newsletter-dialog #sib-form-container {
+  padding-top: 0;
+}
+
+/* Brevo honeypot: without sib-styles.css this field can render as a visible “white box”. */
+.newsletter-dialog input.input--hidden {
+  display: none !important;
+}
+
+/* Submit row: Tailwind svg preflight + missing sib-styles makes the loader icon fill the button. */
+.newsletter-dialog #sib-container .sib-form-block__button {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  box-sizing: border-box !important;
+}
+
+.newsletter-dialog #sib-container .sib-form-block__button svg {
+  width: 1.125rem !important;
+  height: 1.125rem !important;
+  max-width: 1.125rem !important;
+  max-height: 1.125rem !important;
+  flex-shrink: 0;
+}
+
+.newsletter-dialog #sib-container {
+  text-align: left !important;
+}
+
+.newsletter-dialog #sib-container .sib-form-block,
+.newsletter-dialog #sib-container .form__entry.entry_block {
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+}
+
+.newsletter-dialog #sib-container .form__label-row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.newsletter-dialog #sib-container .entry__field {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 1 auto !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.newsletter-dialog #sib-container .entry__field,
+.newsletter-dialog #sib-container .form__entry.entry_block {
+  box-shadow: none !important;
+}
+
+.newsletter-dialog #sib-container .form__entry.entry_block:focus-within {
+  box-shadow: none !important;
+}
+
+.newsletter-dialog #sib-container input.input {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  border-radius: 6px !important;
+  padding: 0.55rem 0.75rem !important;
+  min-height: 2.5rem;
+  box-sizing: border-box !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.newsletter-dialog #sib-container input.input:focus,
+.newsletter-dialog #sib-container input.input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: rgb(var(--color-outline-variant)) !important;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container {
+  background-color: rgb(var(--color-background)) !important;
+  border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 40%, transparent) !important;
+  border-radius: 0.625rem !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container .entry__label {
+  color: rgb(var(--color-on-surface)) !important;
+  font-family: inherit !important;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container .entry__specification {
+  color: rgb(var(--color-on-surface-variant)) !important;
+  font-family: inherit !important;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container input.input {
+  background-color: rgb(var(--color-surface-container-low)) !important;
+  border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 45%, transparent) !important;
+  color: rgb(var(--color-on-surface)) !important;
+  font-family: inherit !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container input.input::placeholder {
+  color: rgb(var(--color-on-surface-variant)) !important;
+  font-family: inherit !important;
+  opacity: 1;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container input.input:focus,
+html[data-theme="dark"] .newsletter-dialog #sib-container input.input:focus-visible {
+  border-color: color-mix(in srgb, rgb(var(--color-outline)) 55%, transparent) !important;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill,
+html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:hover,
+html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:focus,
+html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgb(var(--color-surface-container-low)) inset !important;
+  box-shadow: 0 0 0 1000px rgb(var(--color-surface-container-low)) inset !important;
+  -webkit-text-fill-color: rgb(var(--color-on-surface)) !important;
+  caret-color: rgb(var(--color-on-surface));
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button {
+  background: color-mix(in srgb, rgb(var(--color-primary)) 18%, transparent) !important;
+  color: rgb(var(--color-primary)) !important;
+  border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 40%, transparent) !important;
+  border-radius: 0.625rem !important;
+  padding: 0.45rem 0.9rem !important;
+  font-family: inherit !important;
+  font-size: 0.88rem !important;
+  font-weight: 600 !important;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button svg path {
+  fill: currentColor;
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button:hover {
+  filter: brightness(0.97);
+}
+
+html[data-theme="dark"] .newsletter-dialog #sib-container a {
+  color: rgb(var(--color-primary)) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .newsletter-dialog #sib-container {
+    background-color: rgb(var(--color-background)) !important;
+    border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 40%, transparent) !important;
+    border-radius: 0.625rem !important;
+    box-shadow: none !important;
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container .entry__label {
+    color: rgb(var(--color-on-surface)) !important;
+    font-family: inherit !important;
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container .entry__specification {
+    color: rgb(var(--color-on-surface-variant)) !important;
+    font-family: inherit !important;
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container input.input {
+    background-color: rgb(var(--color-surface-container-low)) !important;
+    border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 45%, transparent) !important;
+    color: rgb(var(--color-on-surface)) !important;
+    font-family: inherit !important;
+    box-shadow: none !important;
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container input.input::placeholder {
+    color: rgb(var(--color-on-surface-variant)) !important;
+    font-family: inherit !important;
+    opacity: 1;
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container input.input:focus,
+  html:not([data-theme]) .newsletter-dialog #sib-container input.input:focus-visible {
+    border-color: color-mix(in srgb, rgb(var(--color-outline)) 55%, transparent) !important;
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill,
+  html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:hover,
+  html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:focus,
+  html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px rgb(var(--color-surface-container-low)) inset !important;
+    box-shadow: 0 0 0 1000px rgb(var(--color-surface-container-low)) inset !important;
+    -webkit-text-fill-color: rgb(var(--color-on-surface)) !important;
+    caret-color: rgb(var(--color-on-surface));
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button {
+    background: color-mix(in srgb, rgb(var(--color-primary)) 18%, transparent) !important;
+    color: rgb(var(--color-primary)) !important;
+    border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 40%, transparent) !important;
+    border-radius: 0.625rem !important;
+    padding: 0.45rem 0.9rem !important;
+    font-family: inherit !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button svg path {
+    fill: currentColor;
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button:hover {
+    filter: brightness(0.97);
+  }
+
+  html:not([data-theme]) .newsletter-dialog #sib-container a {
+    color: rgb(var(--color-primary)) !important;
+  }
+}

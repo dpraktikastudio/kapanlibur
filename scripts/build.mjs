@@ -17,10 +17,12 @@ function shortHash(absPath) {
 const BUST_ASSETS = [
   "non-critical.css",
   "site-chrome.css",
+  "site-newsletter.css",
   "site-holiday-list.css",
   "site-nav.js",
   "site-theme.js",
   "site-pdf.js",
+  "site-newsletter.js",
   "Logo-no-bg.png",
   "kalender-libur-indonesia-2026.ics",
   "favicon.ico",
