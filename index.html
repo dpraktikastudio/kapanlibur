@@ -1,8 +1,17 @@
 ﻿<!DOCTYPE html>
 
-<html class="dark" lang="id"><head>
+<html lang="id"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("kapanlibur-theme");
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+})();
+</script>
+<meta id="theme-color-meta" name="theme-color" content="#0d9488"/>
 <title>Kapan Libur — Cek libur hari ini &amp; kalender 2026</title>
 <meta name="description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026. Lihat daftar lengkap libur nasional dan cuti bersama di halaman referensi." />
 <meta name="keywords" content="hari libur nasional 2026, tanggal merah 2026, cuti bersama 2026, libur nasional 2026, kalender libur 2026, libur panjang 2026, SKB 3 menteri, Indonesia" />
@@ -26,61 +35,63 @@
 {"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com","description":"Jadwal hari libur nasional dan cuti bersama Indonesia menurut SKB 3 Menteri.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preload" href="https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2" as="font" type="font/woff2" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "tertiary": "#ffd1aa",
-                        "secondary-fixed": "#b8ede2",
-                        "on-secondary": "#003731",
-                        "surface-container-lowest": "#060e20",
-                        "inverse-surface": "#dae2fd",
-                        "surface-container-high": "#222a3d",
-                        "on-surface": "#dae2fd",
-                        "inverse-primary": "#006b5f",
-                        "secondary-fixed-dim": "#9cd1c6",
-                        "surface-container-highest": "#2d3449",
-                        "secondary": "#9cd1c6",
-                        "on-primary": "#003731",
-                        "on-secondary-fixed-variant": "#1a4f47",
-                        "error-container": "#93000a",
-                        "on-tertiary-fixed": "#2d1600",
-                        "primary-fixed-dim": "#3cddc7",
-                        "outline": "#859490",
-                        "on-primary-fixed-variant": "#005047",
-                        "on-tertiary": "#4b2800",
-                        "tertiary-fixed-dim": "#ffb875",
-                        "tertiary-fixed": "#ffdcc0",
-                        "on-primary-container": "#00574d",
-                        "background": "#0b1326",
-                        "primary-fixed": "#62fae3",
-                        "primary": "#57f1db",
-                        "surface-tint": "#3cddc7",
-                        "tertiary-container": "#ffac5a",
-                        "on-primary-fixed": "#00201c",
-                        "surface-dim": "#0b1326",
-                        "primary-container": "#2dd4bf",
-                        "surface": "#0b1326",
-                        "secondary-container": "#1a4f47",
-                        "on-secondary-fixed": "#00201c",
-                        "inverse-on-surface": "#283044",
-                        "outline-variant": "#3c4a46",
-                        "on-tertiary-fixed-variant": "#6b3b00",
-                        "error": "#ffb4ab",
-                        "surface-bright": "#31394d",
-                        "surface-container-low": "#131b2e",
-                        "on-error-container": "#ffdad6",
-                        "on-error": "#690005",
-                        "on-surface-variant": "#bacac5",
-                        "on-background": "#dae2fd",
-                        "surface-variant": "#2d3449",
-                        "on-tertiary-container": "#744000",
-                        "on-secondary-container": "#8bbfb5",
-                        "surface-container": "#171f33"
+                        "tertiary": "rgb(var(--color-tertiary) / <alpha-value>)",
+                        "secondary-fixed": "rgb(var(--color-secondary-fixed) / <alpha-value>)",
+                        "on-secondary": "rgb(var(--color-on-secondary) / <alpha-value>)",
+                        "surface-container-lowest": "rgb(var(--color-surface-container-lowest) / <alpha-value>)",
+                        "inverse-surface": "rgb(var(--color-inverse-surface) / <alpha-value>)",
+                        "surface-container-high": "rgb(var(--color-surface-container-high) / <alpha-value>)",
+                        "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
+                        "inverse-primary": "rgb(var(--color-inverse-primary) / <alpha-value>)",
+                        "secondary-fixed-dim": "rgb(var(--color-secondary-fixed-dim) / <alpha-value>)",
+                        "surface-container-highest": "rgb(var(--color-surface-container-highest) / <alpha-value>)",
+                        "secondary": "rgb(var(--color-secondary) / <alpha-value>)",
+                        "on-primary": "rgb(var(--color-on-primary) / <alpha-value>)",
+                        "on-secondary-fixed-variant": "rgb(var(--color-on-secondary-fixed-variant) / <alpha-value>)",
+                        "error-container": "rgb(var(--color-error-container) / <alpha-value>)",
+                        "on-tertiary-fixed": "rgb(var(--color-on-tertiary-fixed) / <alpha-value>)",
+                        "primary-fixed-dim": "rgb(var(--color-primary-fixed-dim) / <alpha-value>)",
+                        "outline": "rgb(var(--color-outline) / <alpha-value>)",
+                        "on-primary-fixed-variant": "rgb(var(--color-on-primary-fixed-variant) / <alpha-value>)",
+                        "on-tertiary": "rgb(var(--color-on-tertiary) / <alpha-value>)",
+                        "tertiary-fixed-dim": "rgb(var(--color-tertiary-fixed-dim) / <alpha-value>)",
+                        "tertiary-fixed": "rgb(var(--color-tertiary-fixed) / <alpha-value>)",
+                        "on-primary-container": "rgb(var(--color-on-primary-container) / <alpha-value>)",
+                        "background": "rgb(var(--color-background) / <alpha-value>)",
+                        "primary-fixed": "rgb(var(--color-primary-fixed) / <alpha-value>)",
+                        "primary": "rgb(var(--color-primary) / <alpha-value>)",
+                        "surface-tint": "rgb(var(--color-surface-tint) / <alpha-value>)",
+                        "tertiary-container": "rgb(var(--color-tertiary-container) / <alpha-value>)",
+                        "on-primary-fixed": "rgb(var(--color-on-primary-fixed) / <alpha-value>)",
+                        "surface-dim": "rgb(var(--color-surface-dim) / <alpha-value>)",
+                        "primary-container": "rgb(var(--color-primary-container) / <alpha-value>)",
+                        "surface": "rgb(var(--color-surface) / <alpha-value>)",
+                        "secondary-container": "rgb(var(--color-secondary-container) / <alpha-value>)",
+                        "on-secondary-fixed": "rgb(var(--color-on-secondary-fixed) / <alpha-value>)",
+                        "inverse-on-surface": "rgb(var(--color-inverse-on-surface) / <alpha-value>)",
+                        "outline-variant": "rgb(var(--color-outline-variant) / <alpha-value>)",
+                        "on-tertiary-fixed-variant": "rgb(var(--color-on-tertiary-fixed-variant) / <alpha-value>)",
+                        "error": "rgb(var(--color-error) / <alpha-value>)",
+                        "surface-bright": "rgb(var(--color-surface-bright) / <alpha-value>)",
+                        "surface-container-low": "rgb(var(--color-surface-container-low) / <alpha-value>)",
+                        "on-error-container": "rgb(var(--color-on-error-container) / <alpha-value>)",
+                        "on-error": "rgb(var(--color-on-error) / <alpha-value>)",
+                        "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
+                        "on-background": "rgb(var(--color-on-background) / <alpha-value>)",
+                        "surface-variant": "rgb(var(--color-surface-variant) / <alpha-value>)",
+                        "on-tertiary-container": "rgb(var(--color-on-tertiary-container) / <alpha-value>)",
+                        "on-secondary-container": "rgb(var(--color-on-secondary-container) / <alpha-value>)",
+                        "surface-container": "rgb(var(--color-surface-container) / <alpha-value>)"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.25rem",
@@ -89,75 +100,363 @@
                         "full": "9999px"
                     },
                     "fontFamily": {
-                        "headline": ["Manrope"],
-                        "body": ["Manrope"],
-                        "label": ["Manrope"]
+                        "headline": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+                        "body": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+                        "label": ["Plus Jakarta Sans", "system-ui", "sans-serif"]
                     }
                 },
             },
         }
     </script>
 <style>
+        /* Light / dark / system — RGB triplets for Tailwind alpha-value */
+        @media (prefers-color-scheme: light) {
+            :root:not([data-theme]) {
+                --color-tertiary: 180 83 9;
+                --color-secondary-fixed: 45 212 191;
+                --color-on-secondary: 255 255 255;
+                --color-surface-container-lowest: 248 250 252;
+                --color-inverse-surface: 30 41 59;
+                --color-surface-container-high: 241 245 249;
+                --color-on-surface: 26 35 50;
+                --color-inverse-primary: 45 212 191;
+                --color-secondary-fixed-dim: 20 184 166;
+                --color-surface-container-highest: 226 232 240;
+                --color-secondary: 20 184 166;
+                --color-on-primary: 255 255 255;
+                --color-on-secondary-fixed-variant: 19 78 74;
+                --color-error-container: 254 226 226;
+                --color-on-tertiary-fixed: 67 20 7;
+                --color-primary-fixed-dim: 13 148 136;
+                --color-outline: 100 116 139;
+                --color-on-primary-fixed-variant: 15 118 110;
+                --color-on-tertiary: 120 53 15;
+                --color-tertiary-fixed-dim: 251 146 60;
+                --color-tertiary-fixed: 255 237 213;
+                --color-on-primary-container: 19 78 74;
+                --color-background: 244 246 248;
+                --color-primary-fixed: 45 212 191;
+                --color-primary: 13 148 136;
+                --color-surface-tint: 13 148 136;
+                --color-tertiary-container: 254 215 170;
+                --color-on-primary-fixed: 240 253 250;
+                --color-surface-dim: 241 245 249;
+                --color-primary-container: 153 246 228;
+                --color-surface: 255 255 255;
+                --color-secondary-container: 204 251 241;
+                --color-on-secondary-fixed: 240 253 250;
+                --color-inverse-on-surface: 241 245 249;
+                --color-outline-variant: 203 213 225;
+                --color-on-tertiary-fixed-variant: 154 52 18;
+                --color-error: 185 28 28;
+                --color-surface-bright: 255 255 255;
+                --color-surface-container-low: 255 255 255;
+                --color-on-error-container: 127 29 29;
+                --color-on-error: 255 255 255;
+                --color-on-surface-variant: 92 107 127;
+                --color-on-background: 26 35 50;
+                --color-surface-variant: 226 232 240;
+                --color-on-tertiary-container: 120 53 15;
+                --color-on-secondary-container: 19 78 74;
+                --color-surface-container: 248 250 252;
+                --hero-gradient: linear-gradient(135deg, rgb(15 118 110) 0%, rgb(45 212 191) 100%);
+                --cal-dot-shadow: 0 0 8px rgba(13, 148, 136, 0.45);
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme]) {
+                --color-tertiary: 255 209 170;
+                --color-secondary-fixed: 184 237 226;
+                --color-on-secondary: 0 55 49;
+                --color-surface-container-lowest: 6 14 32;
+                --color-inverse-surface: 218 226 253;
+                --color-surface-container-high: 34 42 61;
+                --color-on-surface: 218 226 253;
+                --color-inverse-primary: 0 107 95;
+                --color-secondary-fixed-dim: 156 209 198;
+                --color-surface-container-highest: 45 52 73;
+                --color-secondary: 156 209 198;
+                --color-on-primary: 0 55 49;
+                --color-on-secondary-fixed-variant: 26 79 71;
+                --color-error-container: 147 0 10;
+                --color-on-tertiary-fixed: 45 22 0;
+                --color-primary-fixed-dim: 60 221 199;
+                --color-outline: 133 148 144;
+                --color-on-primary-fixed-variant: 0 80 71;
+                --color-on-tertiary: 75 40 0;
+                --color-tertiary-fixed-dim: 255 184 117;
+                --color-tertiary-fixed: 255 220 192;
+                --color-on-primary-container: 0 87 77;
+                --color-background: 11 19 38;
+                --color-primary-fixed: 98 250 227;
+                --color-primary: 87 241 219;
+                --color-surface-tint: 60 221 199;
+                --color-tertiary-container: 255 172 90;
+                --color-on-primary-fixed: 0 32 28;
+                --color-surface-dim: 11 19 38;
+                --color-primary-container: 45 212 191;
+                --color-surface: 11 19 38;
+                --color-secondary-container: 26 79 71;
+                --color-on-secondary-fixed: 0 32 28;
+                --color-inverse-on-surface: 40 48 68;
+                --color-outline-variant: 60 74 70;
+                --color-on-tertiary-fixed-variant: 107 59 0;
+                --color-error: 255 180 171;
+                --color-surface-bright: 49 57 77;
+                --color-surface-container-low: 19 27 46;
+                --color-on-error-container: 255 218 214;
+                --color-on-error: 105 0 5;
+                --color-on-surface-variant: 186 202 197;
+                --color-on-background: 218 226 253;
+                --color-surface-variant: 45 52 73;
+                --color-on-tertiary-container: 116 64 0;
+                --color-on-secondary-container: 139 191 181;
+                --color-surface-container: 23 31 51;
+                --hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 212 191) 100%);
+                --cal-dot-shadow: 0 0 8px rgba(87, 241, 219, 0.5);
+            }
+        }
+        html[data-theme="light"] {
+                --color-tertiary: 180 83 9;
+                --color-secondary-fixed: 45 212 191;
+                --color-on-secondary: 255 255 255;
+                --color-surface-container-lowest: 248 250 252;
+                --color-inverse-surface: 30 41 59;
+                --color-surface-container-high: 241 245 249;
+                --color-on-surface: 26 35 50;
+                --color-inverse-primary: 45 212 191;
+                --color-secondary-fixed-dim: 20 184 166;
+                --color-surface-container-highest: 226 232 240;
+                --color-secondary: 20 184 166;
+                --color-on-primary: 255 255 255;
+                --color-on-secondary-fixed-variant: 19 78 74;
+                --color-error-container: 254 226 226;
+                --color-on-tertiary-fixed: 67 20 7;
+                --color-primary-fixed-dim: 13 148 136;
+                --color-outline: 100 116 139;
+                --color-on-primary-fixed-variant: 15 118 110;
+                --color-on-tertiary: 120 53 15;
+                --color-tertiary-fixed-dim: 251 146 60;
+                --color-tertiary-fixed: 255 237 213;
+                --color-on-primary-container: 19 78 74;
+                --color-background: 244 246 248;
+                --color-primary-fixed: 45 212 191;
+                --color-primary: 13 148 136;
+                --color-surface-tint: 13 148 136;
+                --color-tertiary-container: 254 215 170;
+                --color-on-primary-fixed: 240 253 250;
+                --color-surface-dim: 241 245 249;
+                --color-primary-container: 153 246 228;
+                --color-surface: 255 255 255;
+                --color-secondary-container: 204 251 241;
+                --color-on-secondary-fixed: 240 253 250;
+                --color-inverse-on-surface: 241 245 249;
+                --color-outline-variant: 203 213 225;
+                --color-on-tertiary-fixed-variant: 154 52 18;
+                --color-error: 185 28 28;
+                --color-surface-bright: 255 255 255;
+                --color-surface-container-low: 255 255 255;
+                --color-on-error-container: 127 29 29;
+                --color-on-error: 255 255 255;
+                --color-on-surface-variant: 92 107 127;
+                --color-on-background: 26 35 50;
+                --color-surface-variant: 226 232 240;
+                --color-on-tertiary-container: 120 53 15;
+                --color-on-secondary-container: 19 78 74;
+                --color-surface-container: 248 250 252;
+                --hero-gradient: linear-gradient(135deg, rgb(15 118 110) 0%, rgb(45 212 191) 100%);
+                --cal-dot-shadow: 0 0 8px rgba(13, 148, 136, 0.45);
+        }
+        html[data-theme="dark"] {
+                --color-tertiary: 255 209 170;
+                --color-secondary-fixed: 184 237 226;
+                --color-on-secondary: 0 55 49;
+                --color-surface-container-lowest: 6 14 32;
+                --color-inverse-surface: 218 226 253;
+                --color-surface-container-high: 34 42 61;
+                --color-on-surface: 218 226 253;
+                --color-inverse-primary: 0 107 95;
+                --color-secondary-fixed-dim: 156 209 198;
+                --color-surface-container-highest: 45 52 73;
+                --color-secondary: 156 209 198;
+                --color-on-primary: 0 55 49;
+                --color-on-secondary-fixed-variant: 26 79 71;
+                --color-error-container: 147 0 10;
+                --color-on-tertiary-fixed: 45 22 0;
+                --color-primary-fixed-dim: 60 221 199;
+                --color-outline: 133 148 144;
+                --color-on-primary-fixed-variant: 0 80 71;
+                --color-on-tertiary: 75 40 0;
+                --color-tertiary-fixed-dim: 255 184 117;
+                --color-tertiary-fixed: 255 220 192;
+                --color-on-primary-container: 0 87 77;
+                --color-background: 11 19 38;
+                --color-primary-fixed: 98 250 227;
+                --color-primary: 87 241 219;
+                --color-surface-tint: 60 221 199;
+                --color-tertiary-container: 255 172 90;
+                --color-on-primary-fixed: 0 32 28;
+                --color-surface-dim: 11 19 38;
+                --color-primary-container: 45 212 191;
+                --color-surface: 11 19 38;
+                --color-secondary-container: 26 79 71;
+                --color-on-secondary-fixed: 0 32 28;
+                --color-inverse-on-surface: 40 48 68;
+                --color-outline-variant: 60 74 70;
+                --color-on-tertiary-fixed-variant: 107 59 0;
+                --color-error: 255 180 171;
+                --color-surface-bright: 49 57 77;
+                --color-surface-container-low: 19 27 46;
+                --color-on-error-container: 255 218 214;
+                --color-on-error: 105 0 5;
+                --color-on-surface-variant: 186 202 197;
+                --color-on-background: 218 226 253;
+                --color-surface-variant: 45 52 73;
+                --color-on-tertiary-container: 116 64 0;
+                --color-on-secondary-container: 139 191 181;
+                --color-surface-container: 23 31 51;
+                --hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 212 191) 100%);
+                --cal-dot-shadow: 0 0 8px rgba(87, 241, 219, 0.5);
+        }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         body {
-            background-color: #0b1326;
-            color: #dae2fd;
-            font-family: 'Manrope', sans-serif;
+            background-color: rgb(var(--color-background));
+            color: rgb(var(--color-on-surface));
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
         }
-        .hero-gradient { background: linear-gradient(135deg, #00574d 0%, #2dd4bf 100%); }
+        .hero-gradient { background: var(--hero-gradient); }
+        .nav-shell {
+            background: color-mix(in srgb, rgb(var(--color-background)) 82%, transparent);
+            border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 22%, transparent);
+        }
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            min-width: 2.5rem;
+            min-height: 2.5rem;
+            padding: 0;
+            border-radius: 0.625rem;
+            border: 1px solid rgb(var(--color-outline-variant));
+            background: rgb(var(--color-surface-container-high));
+            color: rgb(var(--color-primary));
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .theme-toggle:hover {
+            background: rgb(var(--color-surface-container-low));
+        }
+        .theme-toggle:focus-visible {
+            outline: 2px solid rgb(var(--color-primary));
+            outline-offset: 2px;
+        }
+        .theme-toggle svg {
+            display: block;
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+        .theme-toggle .icon-sun { display: none; }
+        .theme-toggle .icon-moon { display: block; }
+        html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+        html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+        @media (prefers-color-scheme: dark) {
+            html:not([data-theme]) .theme-toggle .icon-sun { display: block; }
+            html:not([data-theme]) .theme-toggle .icon-moon { display: none; }
+        }
+        html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+        html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+        .share-toast {
+            display: inline-block;
+            margin-left: 0.5rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .share-toast.show { opacity: 1; }
+        #hero-next-nav {
+          min-height: 253px;
+        }
     </style>
 </head>
-<body id="top" class="bg-background text-on-surface">
+<body id="top" class="bg-background text-on-surface font-body">
 <!-- Top Navigation Bar -->
-<nav class="fixed top-0 w-full z-50 bg-[#0b1326]/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
-<div class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto">
-<a href="/" class="text-2xl font-bold tracking-tighter text-primary">KapanLibur.com</a>
-<div class="hidden md:flex items-center space-x-8 text-sm tracking-tight">
+<nav class="nav-shell fixed top-0 w-full z-50 backdrop-blur-xl shadow-sm">
+<div class="grid grid-cols-3 items-center gap-4 px-4 sm:px-8 h-20 max-w-7xl mx-auto">
+<a href="/" class="justify-self-start inline-flex items-center gap-2 sm:gap-3 min-w-0 text-inherit no-underline hover:opacity-95" aria-label="Beranda Kapan Libur">
+<img class="h-11 w-11 sm:h-12 sm:w-12 object-contain shrink-0 block" src="/assets/Logo-no-bg.png" alt="" width="120" height="120" decoding="async"/>
+<span class="text-xl sm:text-2xl font-bold tracking-tighter text-primary whitespace-nowrap">KapanLibur.com</span>
+</a>
+<div class="justify-self-center hidden md:flex items-center justify-center space-x-8 text-sm tracking-tight">
 <a class="text-primary font-bold border-b-2 border-primary pb-1" href="/">Beranda</a>
 <a class="text-on-surface-variant hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
 <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
 </div>
-<div class="flex items-center space-x-4">
-<button type="button" class="p-2 hover:bg-surface-variant/50 rounded-full transition-colors text-on-surface-variant" aria-label="Notifikasi">
-<span class="material-symbols-outlined">notifications</span>
+<div class="justify-self-end flex items-center">
+<button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
+<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+<path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+</svg>
+<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+</svg>
 </button>
-<button type="button" class="p-2 hover:bg-surface-variant/50 rounded-full transition-colors text-on-surface-variant" aria-label="Favorit">
-<span class="material-symbols-outlined">favorite</span>
-</button>
-<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/30 ml-2">
-<img alt="" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlCqrmgsTHA5RVBznFGjAuJxiSPALU4NiX66ireKEdOuDqiAlBPyPu6Uu3aChoNxcvvutXxuiIiMCksCRlPCLshu7g9W1uhrQfwW17YZspioIdl6z5f11V0TjY_J-0C_39fXJrsC_1XZaE22z5B2j3QKYUkXN1U7eiLSZTdZZm5CW5pF9gjxxDqJZ-_LMdV3iL-vWlbPqhtNBDsmC_CsY7Sfu3QNjUrcD9kbV6NchigZ09jKs-QOM7fOiXyxze-h3zFtmaj2AZJVrJ"/>
-</div>
 </div>
 </div>
 </nav>
 <main class="pt-32 pb-20 px-8 max-w-7xl mx-auto">
-<!-- Hero: contoh statis sampai data dinamis disambungkan -->
-<section class="mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+<!-- Hero: diisi oleh /assets/site-home-hero.js -->
+<section id="hero-section" class="mb-20" aria-busy="true">
+<div id="hero-loading" class="rounded-xl border border-outline-variant/20 bg-surface-container-low px-6 py-10 text-center text-on-surface-variant">
+<p class="text-base font-medium">Memuat data libur…</p>
+</div>
+<div id="hero-error" class="hidden rounded-xl border border-error/30 bg-error-container/10 px-6 py-10 text-on-error-container text-center">
+<p id="hero-error-msg" class="text-base font-medium"></p>
+</div>
+<div id="hero-content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 <div class="lg:col-span-7">
 <p class="text-primary font-bold tracking-widest uppercase text-xs mb-4">Status hari ini</p>
-<h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface mb-6 leading-[1.1]">
-                Hari ini <span class="text-outline">tidak</span> libur.
-            </h1>
-<p class="text-lg text-on-surface-variant max-w-xl">Tetap semangat — libur berikutnya dari data SKB sudah terlihat di depan mata.</p>
+<p class="text-base font-semibold text-on-surface mb-3"><time id="hero-today-date" datetime=""></time></p>
+<h1 id="hero-today-headline" class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface mb-6 leading-[1.1]"></h1>
+<div id="hero-today-body" class="text-lg text-on-surface-variant max-w-xl space-y-3"></div>
+<div class="mt-6 flex flex-wrap items-center gap-3">
+<button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
+<span>Bagikan</span>
+</button>
+<span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
 </div>
-<div class="lg:col-span-5">
-<div class="hero-gradient p-8 rounded-xl text-on-primary shadow-2xl relative overflow-hidden">
-<div class="relative z-10">
-<p class="text-primary-fixed-dim opacity-90 text-sm font-medium mb-2">Libur berikutnya</p>
-<div class="flex items-baseline gap-2 mb-4">
-<span class="text-6xl font-extrabold tracking-tighter">5</span>
-<span class="text-2xl font-medium opacity-80">hari lagi</span>
 </div>
-<h2 class="text-2xl font-bold mb-6 text-white">Sabtu, 18 April 2026</h2>
-<div class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm border border-white/20 text-white">
-<span class="material-symbols-outlined text-sm mr-2" style="font-variation-settings: 'FILL' 1;">celebration</span>
-                        Isra Mikraj Nabi Muhammad SAW
-                    </div>
+<div id="hero-next-column" class="lg:col-span-5">
+<div id="hero-next-card" class="hero-gradient p-8 rounded-xl text-on-primary shadow-2xl relative overflow-hidden transition-opacity">
+<div id="hero-next-nav" class="relative z-10" role="region" aria-label="Libur berikutnya atau sebelumnya">
+<p id="hero-next-section-title" class="text-white/90 text-sm font-medium mb-2"></p>
+<div id="hero-next-countdown" class="mb-4 hidden">
+<p id="hero-next-count-primary" class="text-4xl sm:text-5xl font-extrabold tracking-tighter text-white leading-tight"></p>
+<p id="hero-next-count-sub" class="text-lg text-white/85 mt-1"></p>
 </div>
-<div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12">
-<span class="material-symbols-outlined text-[160px]">event_repeat</span>
+<p id="hero-next-because" class="text-white text-base font-medium mb-3"></p>
+<div id="hero-next-badges" class="flex flex-wrap gap-2 mb-3"></div>
+<p id="hero-next-chain" class="text-white/85 text-sm mb-4"></p>
+<p class="text-2xl font-bold text-white mb-4"><time id="hero-next-date" datetime=""></time></p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button type="button" id="hero-share-next" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/25 text-sm font-semibold text-white bg-white/10 hover:bg-white/15 transition-colors">
+<span>Bagikan</span>
+</button>
+<span id="hero-share-next-toast" class="share-toast text-white" aria-live="polite"></span>
+<div class="flex items-center gap-1 ml-auto" role="group" aria-label="Libur sebelumnya atau berikutnya">
+<button type="button" id="hero-nav-prev" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-white/25 text-white text-lg font-bold hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur sebelumnya">&#8249;</button>
+<button type="button" id="hero-nav-next" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-white/25 text-white text-lg font-bold hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur berikutnya pada daftar">&#8250;</button>
+</div>
+</div>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12 pointer-events-none">
+<span class="material-symbols-outlined text-[160px] text-white">event_repeat</span>
+</div>
 </div>
 </div>
 </div>
@@ -231,6 +530,9 @@
 <script>
                 const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
                 const container = document.currentScript.parentElement;
+                const dotStyle = (typeof getComputedStyle !== "undefined"
+                    ? getComputedStyle(document.documentElement).getPropertyValue("--cal-dot-shadow").trim()
+                    : "") || "0 0 8px rgba(87, 241, 219, 0.5)";
                 
                 months.forEach((month, idx) => {
                     const monthDiv = document.createElement('div');
@@ -239,7 +541,7 @@
                     let calendarHtml = `
                         <h4 class="font-bold text-lg mb-4 flex items-center justify-between text-on-surface">
                             ${month}
-                            ${idx === 3 ? '<span class="w-2 h-2 bg-primary rounded-full shadow-[0_0_8px_rgba(87,241,219,0.5)]"></span>' : ''}
+                            ${idx === 3 ? '<span class="w-2 h-2 bg-primary rounded-full" style="box-shadow: ' + dotStyle + '"></span>' : ''}
                         </h4>
                         <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-outline mb-2 uppercase">
                             <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
@@ -311,4 +613,6 @@ Sumber: <strong class="text-on-surface">SKB 3 Menteri No. 1497 Tahun 2025</stron
 <p class="text-sm text-on-surface-variant">© 2026 Kapan Libur</p>
 </div>
 </footer>
+<script src="/assets/site-theme.js" defer></script>
+<script src="/assets/site-home-hero.js" defer></script>
 </body></html>
