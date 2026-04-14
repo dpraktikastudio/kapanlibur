@@ -408,28 +408,22 @@
   }
 
   function showLiburMendatangLoaded() {
-    const sk = document.getElementById("libur-mendatang-skeleton");
+    const state = document.getElementById("libur-mendatang-state");
     const err = document.getElementById("libur-mendatang-error");
     const host = document.getElementById("libur-mendatang-swipe-host");
     const nav = document.getElementById("libur-mendatang-nav");
-    if (sk) {
-      sk.classList.add("hidden");
-      sk.setAttribute("aria-hidden", "true");
-    }
+    if (state) state.classList.add("hidden");
     if (err) err.classList.add("hidden");
     if (host) host.classList.remove("hidden");
     if (nav) nav.classList.remove("hidden");
   }
 
   function showLiburMendatangError() {
-    const sk = document.getElementById("libur-mendatang-skeleton");
+    const state = document.getElementById("libur-mendatang-state");
     const err = document.getElementById("libur-mendatang-error");
     const host = document.getElementById("libur-mendatang-swipe-host");
     const nav = document.getElementById("libur-mendatang-nav");
-    if (sk) {
-      sk.classList.add("hidden");
-      sk.setAttribute("aria-hidden", "true");
-    }
+    if (state) state.classList.add("hidden");
     if (err) err.classList.remove("hidden");
     if (host) host.classList.add("hidden");
     if (nav) nav.classList.add("hidden");
@@ -1329,15 +1323,15 @@
     heroContext.sortedData = data;
     heroContext.selectedIndex = null;
 
-    const loading = document.getElementById("hero-loading");
-    const errBox = document.getElementById("hero-error");
     const content = document.getElementById("hero-content");
     const section = document.getElementById("hero-section");
+    const calState = document.getElementById("calendar-state");
+    const calLoaded = document.getElementById("calendar-loaded");
 
-    if (loading) loading.classList.add("hidden");
-    if (errBox) errBox.classList.add("hidden");
     if (content) content.classList.remove("hidden");
     if (section) section.setAttribute("aria-busy", "false");
+    if (calState) calState.classList.add("hidden");
+    if (calLoaded) calLoaded.classList.remove("hidden");
 
     renderMainCard();
     ensureHeroSwipe();
@@ -1374,18 +1368,15 @@
   }
 
   function onDataError() {
-    const loading = document.getElementById("hero-loading");
-    const errBox = document.getElementById("hero-error");
-    const msg = document.getElementById("hero-error-msg");
+    const content = document.getElementById("hero-content");
     const section = document.getElementById("hero-section");
+    const calState = document.getElementById("calendar-state");
+    const calLoaded = document.getElementById("calendar-loaded");
 
-    if (loading) loading.classList.add("hidden");
-    if (errBox) errBox.classList.remove("hidden");
-    if (msg) {
-      msg.textContent =
-        "Tidak bisa memuat data. Gunakan server statis lokal (bukan file://), misalnya: npx serve di folder proyek.";
-    }
+    if (content) content.classList.add("hidden");
     if (section) section.setAttribute("aria-busy", "false");
+    if (calState) calState.classList.add("hidden");
+    if (calLoaded) calLoaded.classList.remove("hidden");
 
     showLiburMendatangError();
 
