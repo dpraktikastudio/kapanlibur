@@ -1,625 +1,626 @@
 ﻿<!DOCTYPE html>
-
-<html lang="id"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("kapanlibur-theme");
-    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
-  } catch (e) {}
-})();
-</script>
-<meta id="theme-color-meta" name="theme-color" content="#0d9488"/>
-<title>Kapan Libur — Cek libur hari ini &amp; kalender 2026</title>
-<meta name="description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026. Lihat daftar lengkap libur nasional dan cuti bersama di halaman referensi." />
-<meta name="keywords" content="hari libur nasional 2026, tanggal merah 2026, cuti bersama 2026, libur nasional 2026, kalender libur 2026, libur panjang 2026, SKB 3 menteri, Indonesia" />
-<meta name="robots" content="index, follow" />
-<meta name="author" content="Kapan Libur" />
-<link rel="canonical" href="https://kapanlibur.com" />
-<meta property="og:title" content="Kapan Libur — Cek libur hari ini &amp; kalender 2026" />
-<meta property="og:description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026." />
-<meta property="og:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
-<meta property="og:image:width" content="2496" />
-<meta property="og:image:height" content="1664" />
-<meta property="og:url" content="https://kapanlibur.com" />
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="id_ID" />
-<meta property="og:site_name" content="Kapan Libur" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Kapan Libur — Cek libur hari ini &amp; kalender 2026" />
-<meta name="twitter:description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026." />
-<meta name="twitter:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com","description":"Jadwal hari libur nasional dan cuti bersama Indonesia menurut SKB 3 Menteri.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com?q={search_term_string}","query-input":"required name=search_term_string"}}
-</script>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="preload" href="https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2" as="font" type="font/woff2" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: [
-                "variant",
-                [
-                    '@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) & }',
-                    '@media (prefers-color-scheme: light) { html[data-theme="dark"] & }',
-                ],
-            ],
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary": "rgb(var(--color-tertiary) / <alpha-value>)",
-                        "secondary-fixed": "rgb(var(--color-secondary-fixed) / <alpha-value>)",
-                        "on-secondary": "rgb(var(--color-on-secondary) / <alpha-value>)",
-                        "surface-container-lowest": "rgb(var(--color-surface-container-lowest) / <alpha-value>)",
-                        "inverse-surface": "rgb(var(--color-inverse-surface) / <alpha-value>)",
-                        "surface-container-high": "rgb(var(--color-surface-container-high) / <alpha-value>)",
-                        "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
-                        "inverse-primary": "rgb(var(--color-inverse-primary) / <alpha-value>)",
-                        "secondary-fixed-dim": "rgb(var(--color-secondary-fixed-dim) / <alpha-value>)",
-                        "surface-container-highest": "rgb(var(--color-surface-container-highest) / <alpha-value>)",
-                        "secondary": "rgb(var(--color-secondary) / <alpha-value>)",
-                        "on-primary": "rgb(var(--color-on-primary) / <alpha-value>)",
-                        "on-secondary-fixed-variant": "rgb(var(--color-on-secondary-fixed-variant) / <alpha-value>)",
-                        "error-container": "rgb(var(--color-error-container) / <alpha-value>)",
-                        "on-tertiary-fixed": "rgb(var(--color-on-tertiary-fixed) / <alpha-value>)",
-                        "primary-fixed-dim": "rgb(var(--color-primary-fixed-dim) / <alpha-value>)",
-                        "outline": "rgb(var(--color-outline) / <alpha-value>)",
-                        "on-primary-fixed-variant": "rgb(var(--color-on-primary-fixed-variant) / <alpha-value>)",
-                        "on-tertiary": "rgb(var(--color-on-tertiary) / <alpha-value>)",
-                        "tertiary-fixed-dim": "rgb(var(--color-tertiary-fixed-dim) / <alpha-value>)",
-                        "tertiary-fixed": "rgb(var(--color-tertiary-fixed) / <alpha-value>)",
-                        "on-primary-container": "rgb(var(--color-on-primary-container) / <alpha-value>)",
-                        "background": "rgb(var(--color-background) / <alpha-value>)",
-                        "primary-fixed": "rgb(var(--color-primary-fixed) / <alpha-value>)",
-                        "primary": "rgb(var(--color-primary) / <alpha-value>)",
-                        "surface-tint": "rgb(var(--color-surface-tint) / <alpha-value>)",
-                        "tertiary-container": "rgb(var(--color-tertiary-container) / <alpha-value>)",
-                        "on-primary-fixed": "rgb(var(--color-on-primary-fixed) / <alpha-value>)",
-                        "surface-dim": "rgb(var(--color-surface-dim) / <alpha-value>)",
-                        "primary-container": "rgb(var(--color-primary-container) / <alpha-value>)",
-                        "surface": "rgb(var(--color-surface) / <alpha-value>)",
-                        "secondary-container": "rgb(var(--color-secondary-container) / <alpha-value>)",
-                        "on-secondary-fixed": "rgb(var(--color-on-secondary-fixed) / <alpha-value>)",
-                        "inverse-on-surface": "rgb(var(--color-inverse-on-surface) / <alpha-value>)",
-                        "outline-variant": "rgb(var(--color-outline-variant) / <alpha-value>)",
-                        "on-tertiary-fixed-variant": "rgb(var(--color-on-tertiary-fixed-variant) / <alpha-value>)",
-                        "error": "rgb(var(--color-error) / <alpha-value>)",
-                        "surface-bright": "rgb(var(--color-surface-bright) / <alpha-value>)",
-                        "surface-container-low": "rgb(var(--color-surface-container-low) / <alpha-value>)",
-                        "on-error-container": "rgb(var(--color-on-error-container) / <alpha-value>)",
-                        "on-error": "rgb(var(--color-on-error) / <alpha-value>)",
-                        "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
-                        "on-background": "rgb(var(--color-on-background) / <alpha-value>)",
-                        "surface-variant": "rgb(var(--color-surface-variant) / <alpha-value>)",
-                        "on-tertiary-container": "rgb(var(--color-on-tertiary-container) / <alpha-value>)",
-                        "on-secondary-container": "rgb(var(--color-on-secondary-container) / <alpha-value>)",
-                        "surface-container": "rgb(var(--color-surface-container) / <alpha-value>)"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
-                        "body": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
-                        "label": ["Plus Jakarta Sans", "system-ui", "sans-serif"]
-                    }
-                },
-            },
-        }
-    </script>
-<style>
-        /* Light / dark / system — RGB triplets for Tailwind alpha-value */
-        @media (prefers-color-scheme: light) {
-            :root:not([data-theme]) {
-                --color-tertiary: 180 83 9;
-                --color-secondary-fixed: 45 212 191;
-                --color-on-secondary: 255 255 255;
-                --color-surface-container-lowest: 248 250 252;
-                --color-inverse-surface: 30 41 59;
-                --color-surface-container-high: 241 245 249;
-                --color-on-surface: 26 35 50;
-                --color-inverse-primary: 45 212 191;
-                --color-secondary-fixed-dim: 20 184 166;
-                --color-surface-container-highest: 226 232 240;
-                --color-secondary: 20 184 166;
-                --color-on-primary: 255 255 255;
-                --color-on-secondary-fixed-variant: 19 78 74;
-                --color-error-container: 254 226 226;
-                --color-on-tertiary-fixed: 67 20 7;
-                --color-primary-fixed-dim: 13 148 136;
-                --color-outline: 100 116 139;
-                --color-on-primary-fixed-variant: 15 118 110;
-                --color-on-tertiary: 120 53 15;
-                --color-tertiary-fixed-dim: 251 146 60;
-                --color-tertiary-fixed: 255 237 213;
-                --color-on-primary-container: 19 78 74;
-                --color-background: 244 246 248;
-                --color-primary-fixed: 45 212 191;
-                --color-primary: 13 148 136;
-                --color-surface-tint: 13 148 136;
-                --color-tertiary-container: 254 215 170;
-                --color-on-primary-fixed: 240 253 250;
-                --color-surface-dim: 241 245 249;
-                --color-primary-container: 153 246 228;
-                --color-surface: 255 255 255;
-                --color-secondary-container: 204 251 241;
-                --color-on-secondary-fixed: 240 253 250;
-                --color-inverse-on-surface: 241 245 249;
-                --color-outline-variant: 203 213 225;
-                --color-on-tertiary-fixed-variant: 154 52 18;
-                --color-error: 185 28 28;
-                --color-surface-bright: 255 255 255;
-                --color-surface-container-low: 255 255 255;
-                --color-on-error-container: 127 29 29;
-                --color-on-error: 255 255 255;
-                --color-on-surface-variant: 92 107 127;
-                --color-on-background: 26 35 50;
-                --color-surface-variant: 226 232 240;
-                --color-on-tertiary-container: 120 53 15;
-                --color-on-secondary-container: 19 78 74;
-                --color-surface-container: 248 250 252;
-                --hero-gradient: linear-gradient(135deg, rgb(15 118 110) 0%, rgb(45 212 191) 100%);
-                --cal-dot-shadow: 0 0 8px rgba(13, 148, 136, 0.45);
-            }
-        }
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme]) {
-                --color-tertiary: 255 209 170;
-                --color-secondary-fixed: 184 237 226;
-                --color-on-secondary: 0 55 49;
-                --color-surface-container-lowest: 6 14 32;
-                --color-inverse-surface: 218 226 253;
-                --color-surface-container-high: 34 42 61;
-                --color-on-surface: 218 226 253;
-                --color-inverse-primary: 0 107 95;
-                --color-secondary-fixed-dim: 156 209 198;
-                --color-surface-container-highest: 45 52 73;
-                --color-secondary: 156 209 198;
-                --color-on-primary: 0 55 49;
-                --color-on-secondary-fixed-variant: 26 79 71;
-                --color-error-container: 147 0 10;
-                --color-on-tertiary-fixed: 45 22 0;
-                --color-primary-fixed-dim: 60 221 199;
-                --color-outline: 133 148 144;
-                --color-on-primary-fixed-variant: 0 80 71;
-                --color-on-tertiary: 75 40 0;
-                --color-tertiary-fixed-dim: 255 184 117;
-                --color-tertiary-fixed: 255 220 192;
-                --color-on-primary-container: 0 87 77;
-                --color-background: 11 19 38;
-                --color-primary-fixed: 98 250 227;
-                --color-primary: 87 241 219;
-                --color-surface-tint: 60 221 199;
-                --color-tertiary-container: 255 172 90;
-                --color-on-primary-fixed: 0 32 28;
-                --color-surface-dim: 11 19 38;
-                --color-primary-container: 45 212 191;
-                --color-surface: 11 19 38;
-                --color-secondary-container: 26 79 71;
-                --color-on-secondary-fixed: 0 32 28;
-                --color-inverse-on-surface: 40 48 68;
-                --color-outline-variant: 60 74 70;
-                --color-on-tertiary-fixed-variant: 107 59 0;
-                --color-error: 255 180 171;
-                --color-surface-bright: 49 57 77;
-                --color-surface-container-low: 19 27 46;
-                --color-on-error-container: 255 218 214;
-                --color-on-error: 105 0 5;
-                --color-on-surface-variant: 186 202 197;
-                --color-on-background: 218 226 253;
-                --color-surface-variant: 45 52 73;
-                --color-on-tertiary-container: 116 64 0;
-                --color-on-secondary-container: 139 191 181;
-                --color-surface-container: 23 31 51;
-                --hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 212 191) 100%);
-                --cal-dot-shadow: 0 0 8px rgba(87, 241, 219, 0.5);
-            }
-        }
-        html[data-theme="light"] {
-                --color-tertiary: 180 83 9;
-                --color-secondary-fixed: 45 212 191;
-                --color-on-secondary: 255 255 255;
-                --color-surface-container-lowest: 248 250 252;
-                --color-inverse-surface: 30 41 59;
-                --color-surface-container-high: 241 245 249;
-                --color-on-surface: 26 35 50;
-                --color-inverse-primary: 45 212 191;
-                --color-secondary-fixed-dim: 20 184 166;
-                --color-surface-container-highest: 226 232 240;
-                --color-secondary: 20 184 166;
-                --color-on-primary: 255 255 255;
-                --color-on-secondary-fixed-variant: 19 78 74;
-                --color-error-container: 254 226 226;
-                --color-on-tertiary-fixed: 67 20 7;
-                --color-primary-fixed-dim: 13 148 136;
-                --color-outline: 100 116 139;
-                --color-on-primary-fixed-variant: 15 118 110;
-                --color-on-tertiary: 120 53 15;
-                --color-tertiary-fixed-dim: 251 146 60;
-                --color-tertiary-fixed: 255 237 213;
-                --color-on-primary-container: 19 78 74;
-                --color-background: 244 246 248;
-                --color-primary-fixed: 45 212 191;
-                --color-primary: 13 148 136;
-                --color-surface-tint: 13 148 136;
-                --color-tertiary-container: 254 215 170;
-                --color-on-primary-fixed: 240 253 250;
-                --color-surface-dim: 241 245 249;
-                --color-primary-container: 153 246 228;
-                --color-surface: 255 255 255;
-                --color-secondary-container: 204 251 241;
-                --color-on-secondary-fixed: 240 253 250;
-                --color-inverse-on-surface: 241 245 249;
-                --color-outline-variant: 203 213 225;
-                --color-on-tertiary-fixed-variant: 154 52 18;
-                --color-error: 185 28 28;
-                --color-surface-bright: 255 255 255;
-                --color-surface-container-low: 255 255 255;
-                --color-on-error-container: 127 29 29;
-                --color-on-error: 255 255 255;
-                --color-on-surface-variant: 92 107 127;
-                --color-on-background: 26 35 50;
-                --color-surface-variant: 226 232 240;
-                --color-on-tertiary-container: 120 53 15;
-                --color-on-secondary-container: 19 78 74;
-                --color-surface-container: 248 250 252;
-                --hero-gradient: linear-gradient(135deg, rgb(15 118 110) 0%, rgb(45 212 191) 100%);
-                --cal-dot-shadow: 0 0 8px rgba(13, 148, 136, 0.45);
-        }
-        html[data-theme="dark"] {
-                --color-tertiary: 255 209 170;
-                --color-secondary-fixed: 184 237 226;
-                --color-on-secondary: 0 55 49;
-                --color-surface-container-lowest: 6 14 32;
-                --color-inverse-surface: 218 226 253;
-                --color-surface-container-high: 34 42 61;
-                --color-on-surface: 218 226 253;
-                --color-inverse-primary: 0 107 95;
-                --color-secondary-fixed-dim: 156 209 198;
-                --color-surface-container-highest: 45 52 73;
-                --color-secondary: 156 209 198;
-                --color-on-primary: 0 55 49;
-                --color-on-secondary-fixed-variant: 26 79 71;
-                --color-error-container: 147 0 10;
-                --color-on-tertiary-fixed: 45 22 0;
-                --color-primary-fixed-dim: 60 221 199;
-                --color-outline: 133 148 144;
-                --color-on-primary-fixed-variant: 0 80 71;
-                --color-on-tertiary: 75 40 0;
-                --color-tertiary-fixed-dim: 255 184 117;
-                --color-tertiary-fixed: 255 220 192;
-                --color-on-primary-container: 0 87 77;
-                --color-background: 11 19 38;
-                --color-primary-fixed: 98 250 227;
-                --color-primary: 87 241 219;
-                --color-surface-tint: 60 221 199;
-                --color-tertiary-container: 255 172 90;
-                --color-on-primary-fixed: 0 32 28;
-                --color-surface-dim: 11 19 38;
-                --color-primary-container: 45 212 191;
-                --color-surface: 11 19 38;
-                --color-secondary-container: 26 79 71;
-                --color-on-secondary-fixed: 0 32 28;
-                --color-inverse-on-surface: 40 48 68;
-                --color-outline-variant: 60 74 70;
-                --color-on-tertiary-fixed-variant: 107 59 0;
-                --color-error: 255 180 171;
-                --color-surface-bright: 49 57 77;
-                --color-surface-container-low: 19 27 46;
-                --color-on-error-container: 255 218 214;
-                --color-on-error: 105 0 5;
-                --color-on-surface-variant: 186 202 197;
-                --color-on-background: 218 226 253;
-                --color-surface-variant: 45 52 73;
-                --color-on-tertiary-container: 116 64 0;
-                --color-on-secondary-container: 139 191 181;
-                --color-surface-container: 23 31 51;
-                --hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 212 191) 100%);
-                --cal-dot-shadow: 0 0 8px rgba(87, 241, 219, 0.5);
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            background-color: rgb(var(--color-background));
-            color: rgb(var(--color-on-surface));
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-        }
-        .hero-gradient { background: var(--hero-gradient); }
-        .nav-shell {
-            background: color-mix(in srgb, rgb(var(--color-background)) 82%, transparent);
-            border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 22%, transparent);
-        }
-        .theme-toggle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 2.5rem;
-            min-width: 2.5rem;
-            min-height: 2.5rem;
-            padding: 0;
-            border-radius: 0.625rem;
-            border: 1px solid rgb(var(--color-outline-variant));
-            background: rgb(var(--color-surface-container-high));
-            color: rgb(var(--color-primary));
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        .theme-toggle:hover {
-            background: rgb(var(--color-surface-container-low));
-        }
-        .theme-toggle:focus-visible {
-            outline: 2px solid rgb(var(--color-primary));
-            outline-offset: 2px;
-        }
-        .theme-toggle svg {
-            display: block;
-            width: 1.2rem;
-            height: 1.2rem;
-        }
-        .theme-toggle .icon-sun { display: none; }
-        .theme-toggle .icon-moon { display: block; }
-        html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-        html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-        @media (prefers-color-scheme: dark) {
-            html:not([data-theme]) .theme-toggle .icon-sun { display: block; }
-            html:not([data-theme]) .theme-toggle .icon-moon { display: none; }
-        }
-        html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
-        html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
-        .share-toast {
-            display: inline-block;
-            margin-left: 0.5rem;
-            font-size: 0.82rem;
-            font-weight: 500;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-        .share-toast.show { opacity: 1; }
-        #hero-next-nav {
-          min-height: 253px;
-        }
-    </style>
-</head>
-<body id="top" class="bg-background text-on-surface font-body">
-<!-- Top Navigation Bar -->
-<nav class="nav-shell fixed top-0 w-full z-50 backdrop-blur-xl shadow-sm">
-<div class="grid grid-cols-3 items-center gap-4 px-4 sm:px-8 h-20 max-w-7xl mx-auto">
-<a href="/" class="justify-self-start inline-flex items-center gap-2 sm:gap-3 min-w-0 text-inherit no-underline hover:opacity-95" aria-label="Beranda Kapan Libur">
-<img class="h-11 w-11 sm:h-12 sm:w-12 object-contain shrink-0 block" src="/assets/Logo-no-bg.png" alt="" width="120" height="120" decoding="async"/>
-<span class="text-xl sm:text-2xl font-bold tracking-tighter text-primary whitespace-nowrap">KapanLibur.com</span>
-</a>
-<div class="justify-self-center hidden md:flex items-center justify-center space-x-8 text-sm tracking-tight">
-<a class="text-primary font-bold border-b-2 border-primary pb-1" href="/">Beranda</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
-</div>
-<div class="justify-self-end flex items-center">
-<button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
-<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-<path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-</svg>
-<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
-</svg>
-</button>
-</div>
-</div>
-</nav>
-<main class="pt-32 pb-20 px-8 max-w-7xl mx-auto">
-<!-- Hero: diisi oleh /assets/site-home-hero.js -->
-<section id="hero-section" class="mb-20" aria-busy="true">
-<div id="hero-loading" class="rounded-xl border border-outline-variant/20 bg-surface-container-low px-6 py-10 text-center text-on-surface-variant">
-<p class="text-base font-medium">Memuat data libur…</p>
-</div>
-<div id="hero-error" class="hidden rounded-xl border border-error/30 bg-error-container/10 px-6 py-10 text-on-error-container text-center">
-<p id="hero-error-msg" class="text-base font-medium"></p>
-</div>
-<div id="hero-content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-<div class="lg:col-span-7">
-<p class="text-primary font-bold tracking-widest uppercase text-xs mb-4">Status hari ini</p>
-<p class="text-base font-semibold text-on-surface mb-3"><time id="hero-today-date" datetime=""></time></p>
-<h1 id="hero-today-headline" class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface mb-6 leading-[1.1]"></h1>
-<div id="hero-today-body" class="text-lg text-on-surface-variant max-w-xl space-y-3"></div>
-<div class="mt-6 flex flex-wrap items-center gap-3">
-<button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
-<span>Bagikan</span>
-</button>
-<span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
-</div>
-</div>
-<div id="hero-next-column" class="lg:col-span-5">
-<div id="hero-next-card" class="hero-gradient p-8 rounded-xl text-on-primary shadow-2xl relative overflow-hidden transition-opacity">
-<div id="hero-next-nav" class="relative z-10" role="region" aria-label="Libur berikutnya atau sebelumnya">
-<p id="hero-next-section-title" class="text-white/90 text-sm font-medium mb-2"></p>
-<div id="hero-next-countdown" class="mb-4 hidden">
-<p id="hero-next-count-primary" class="text-4xl sm:text-5xl font-extrabold tracking-tighter text-white leading-tight"></p>
-<p id="hero-next-count-sub" class="text-lg text-white/85 mt-1"></p>
-</div>
-<p id="hero-next-because" class="text-white text-base font-medium mb-3"></p>
-<div id="hero-next-badges" class="flex flex-wrap gap-2 mb-3"></div>
-<p id="hero-next-chain" class="text-white/85 text-sm mb-4"></p>
-<p class="text-2xl font-bold text-white mb-4"><time id="hero-next-date" datetime=""></time></p>
-</div>
-<div class="flex flex-wrap items-center gap-3">
-<button type="button" id="hero-share-next" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/25 text-sm font-semibold text-white bg-white/10 hover:bg-white/15 transition-colors">
-<span>Bagikan</span>
-</button>
-<span id="hero-share-next-toast" class="share-toast text-white" aria-live="polite"></span>
-<div class="flex items-center gap-1 ml-auto" role="group" aria-label="Libur sebelumnya atau berikutnya">
-<button type="button" id="hero-nav-prev" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-white/25 text-white text-lg font-bold hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur sebelumnya">&#8249;</button>
-<button type="button" id="hero-nav-next" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-white/25 text-white text-lg font-bold hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur berikutnya pada daftar">&#8250;</button>
-</div>
-</div>
-</div>
-<div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12 pointer-events-none">
-<span class="material-symbols-outlined text-[160px] text-white">event_repeat</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Grid: cuplikan libur dan newsletter -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-<!-- Kartu contoh libur April -->
-<div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
-<div class="flex justify-between items-center mb-8">
-<h3 class="text-2xl font-bold text-on-surface">Libur mendatang — April 2026</h3>
-<a class="text-primary font-bold text-sm hover:underline flex items-center" href="/hari-libur-nasional-2026.html">
-                    Lihat daftar lengkap <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
-</a>
-</div>
-<div class="space-y-6">
-<div class="flex items-start gap-6 group">
-<div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 border-primary">
-<span class="text-xs font-bold text-on-surface-variant">APR</span>
-<span class="text-2xl font-extrabold text-on-surface">18</span>
-</div>
-<div class="flex-grow pt-1">
-<div class="flex items-center gap-3 mb-1">
-<h4 class="font-bold text-lg text-on-surface">Isra Mikraj Nabi Muhammad SAW</h4>
-<span class="px-2 py-0.5 bg-primary-container text-on-primary-container text-[10px] font-bold rounded uppercase tracking-wider">Libur Nasional</span>
-</div>
-<p class="text-on-surface-variant text-sm">Memperingati peristiwa Isra dan Mikraj menurut kalender libur nasional.</p>
-</div>
-</div>
-<div class="flex items-start gap-6 group">
-<div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 border-secondary">
-<span class="text-xs font-bold text-on-surface-variant">APR</span>
-<span class="text-2xl font-extrabold text-on-surface">21</span>
-</div>
-<div class="flex-grow pt-1">
-<div class="flex items-center gap-3 mb-1">
-<h4 class="font-bold text-lg text-on-surface">Hari Kartini</h4>
-<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider">Hari nasional (peringatan)</span>
-</div>
-<p class="text-on-surface-variant text-sm">Hari besar nasional untuk mengenang Raden Ajeng Kartini; cek SKB untuk status tanggal merah.</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Kartu langganan pengingat -->
-<div class="bg-primary-container rounded-xl p-8 flex flex-col justify-between text-on-primary-container">
-<div>
-<span class="material-symbols-outlined text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
-<h3 class="text-2xl font-bold mb-4">Planning cuti jadi lebih mudah</h3>
-<p class="opacity-90 text-sm leading-relaxed mb-6">Dapatkan pengingat H-7 sebelum hari libur nasional, cuti bersama, dan libur panjang, plus info jika ada pembaruan SKB.</p>
-</div>
-<div class="space-y-3">
-<input class="w-full bg-white/10 border-white/20 rounded-lg py-3 px-4 text-on-primary-container placeholder:text-on-primary-container/50 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="nama@email.com" type="email"/>
-<button type="button" class="w-full bg-on-primary-container text-primary-container font-bold py-3 rounded-lg hover:opacity-90 transition-opacity">Langganan gratis</button>
-</div>
-</div>
-</section>
-<!-- Kalender libur nasional 2026 -->
-<section class="mb-20">
-<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-<div>
-<p class="text-primary font-bold tracking-widest uppercase text-xs mb-2">Kalender tahunan</p>
-<h2 class="text-4xl font-extrabold tracking-tight text-on-surface">Kalender libur nasional 2026</h2>
-</div>
-<div class="flex gap-2 bg-surface-container-low p-1 rounded-lg border border-outline-variant/10">
-<button class="px-6 py-2 bg-surface-container-high text-on-surface shadow-sm rounded-md text-sm font-bold">2026</button>
-<button class="px-6 py-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors">2027</button>
-</div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-<!-- Kalender 12 bulan (contoh tampilan) -->
-<script>
-                const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-                const container = document.currentScript.parentElement;
-                const dotStyle = (typeof getComputedStyle !== "undefined"
-                    ? getComputedStyle(document.documentElement).getPropertyValue("--cal-dot-shadow").trim()
-                    : "") || "0 0 8px rgba(87, 241, 219, 0.5)";
-                
-                months.forEach((month, idx) => {
-                    const monthDiv = document.createElement('div');
-                    monthDiv.className = "flex flex-col";
-                    
-                    let calendarHtml = `
-                        <h4 class="font-bold text-lg mb-4 flex items-center justify-between text-on-surface">
-                            ${month}
-                            ${idx === 3 ? '<span class="w-2 h-2 bg-primary rounded-full" style="box-shadow: ' + dotStyle + '"></span>' : ''}
-                        </h4>
-                        <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-outline mb-2 uppercase">
-                            <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+<html lang="id">
+   <head>
+      <meta charset="utf-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <script>
+         (function () {
+           try {
+             var t = localStorage.getItem("kapanlibur-theme");
+             if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+           } catch (e) {}
+         })();
+      </script>
+      <meta id="theme-color-meta" name="theme-color" content="#0d9488"/>
+      <title>Kapan Libur — Cek libur hari ini &amp; kalender 2026</title>
+      <meta name="description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026. Lihat daftar lengkap libur nasional dan cuti bersama di halaman referensi." />
+      <meta name="keywords" content="hari libur nasional 2026, tanggal merah 2026, cuti bersama 2026, libur nasional 2026, kalender libur 2026, libur panjang 2026, SKB 3 menteri, Indonesia" />
+      <meta name="robots" content="index, follow" />
+      <meta name="author" content="Kapan Libur" />
+      <link rel="canonical" href="https://kapanlibur.com" />
+      <meta property="og:title" content="Kapan Libur — Cek libur hari ini &amp; kalender 2026" />
+      <meta property="og:description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026." />
+      <meta property="og:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
+      <meta property="og:image:width" content="2496" />
+      <meta property="og:image:height" content="1664" />
+      <meta property="og:url" content="https://kapanlibur.com" />
+      <meta property="og:type" content="website" />
+      <meta property="og:locale" content="id_ID" />
+      <meta property="og:site_name" content="Kapan Libur" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Kapan Libur — Cek libur hari ini &amp; kalender 2026" />
+      <meta name="twitter:description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026." />
+      <meta name="twitter:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
+      <script type="application/ld+json">
+         {"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com","description":"Jadwal hari libur nasional dan cuti bersama Indonesia menurut SKB 3 Menteri.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com?q={search_term_string}","query-input":"required name=search_term_string"}}
+      </script>
+      <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+      <link rel="preload" href="https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2" as="font" type="font/woff2" crossorigin/>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+      <script id="tailwind-config">
+         tailwind.config = {
+             darkMode: [
+                 "variant",
+                 [
+                     '@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) & }',
+                     '@media (prefers-color-scheme: light) { html[data-theme="dark"] & }',
+                 ],
+             ],
+             theme: {
+                 extend: {
+                     "colors": {
+                         "tertiary": "rgb(var(--color-tertiary) / <alpha-value>)",
+                         "secondary-fixed": "rgb(var(--color-secondary-fixed) / <alpha-value>)",
+                         "on-secondary": "rgb(var(--color-on-secondary) / <alpha-value>)",
+                         "surface-container-lowest": "rgb(var(--color-surface-container-lowest) / <alpha-value>)",
+                         "inverse-surface": "rgb(var(--color-inverse-surface) / <alpha-value>)",
+                         "surface-container-high": "rgb(var(--color-surface-container-high) / <alpha-value>)",
+                         "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
+                         "inverse-primary": "rgb(var(--color-inverse-primary) / <alpha-value>)",
+                         "secondary-fixed-dim": "rgb(var(--color-secondary-fixed-dim) / <alpha-value>)",
+                         "surface-container-highest": "rgb(var(--color-surface-container-highest) / <alpha-value>)",
+                         "secondary": "rgb(var(--color-secondary) / <alpha-value>)",
+                         "on-primary": "rgb(var(--color-on-primary) / <alpha-value>)",
+                         "on-secondary-fixed-variant": "rgb(var(--color-on-secondary-fixed-variant) / <alpha-value>)",
+                         "error-container": "rgb(var(--color-error-container) / <alpha-value>)",
+                         "on-tertiary-fixed": "rgb(var(--color-on-tertiary-fixed) / <alpha-value>)",
+                         "primary-fixed-dim": "rgb(var(--color-primary-fixed-dim) / <alpha-value>)",
+                         "outline": "rgb(var(--color-outline) / <alpha-value>)",
+                         "on-primary-fixed-variant": "rgb(var(--color-on-primary-fixed-variant) / <alpha-value>)",
+                         "on-tertiary": "rgb(var(--color-on-tertiary) / <alpha-value>)",
+                         "tertiary-fixed-dim": "rgb(var(--color-tertiary-fixed-dim) / <alpha-value>)",
+                         "tertiary-fixed": "rgb(var(--color-tertiary-fixed) / <alpha-value>)",
+                         "on-primary-container": "rgb(var(--color-on-primary-container) / <alpha-value>)",
+                         "background": "rgb(var(--color-background) / <alpha-value>)",
+                         "primary-fixed": "rgb(var(--color-primary-fixed) / <alpha-value>)",
+                         "primary": "rgb(var(--color-primary) / <alpha-value>)",
+                         "surface-tint": "rgb(var(--color-surface-tint) / <alpha-value>)",
+                         "tertiary-container": "rgb(var(--color-tertiary-container) / <alpha-value>)",
+                         "on-primary-fixed": "rgb(var(--color-on-primary-fixed) / <alpha-value>)",
+                         "surface-dim": "rgb(var(--color-surface-dim) / <alpha-value>)",
+                         "primary-container": "rgb(var(--color-primary-container) / <alpha-value>)",
+                         "surface": "rgb(var(--color-surface) / <alpha-value>)",
+                         "secondary-container": "rgb(var(--color-secondary-container) / <alpha-value>)",
+                         "on-secondary-fixed": "rgb(var(--color-on-secondary-fixed) / <alpha-value>)",
+                         "inverse-on-surface": "rgb(var(--color-inverse-on-surface) / <alpha-value>)",
+                         "outline-variant": "rgb(var(--color-outline-variant) / <alpha-value>)",
+                         "on-tertiary-fixed-variant": "rgb(var(--color-on-tertiary-fixed-variant) / <alpha-value>)",
+                         "error": "rgb(var(--color-error) / <alpha-value>)",
+                         "surface-bright": "rgb(var(--color-surface-bright) / <alpha-value>)",
+                         "surface-container-low": "rgb(var(--color-surface-container-low) / <alpha-value>)",
+                         "on-error-container": "rgb(var(--color-on-error-container) / <alpha-value>)",
+                         "on-error": "rgb(var(--color-on-error) / <alpha-value>)",
+                         "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
+                         "on-background": "rgb(var(--color-on-background) / <alpha-value>)",
+                         "surface-variant": "rgb(var(--color-surface-variant) / <alpha-value>)",
+                         "on-tertiary-container": "rgb(var(--color-on-tertiary-container) / <alpha-value>)",
+                         "on-secondary-container": "rgb(var(--color-on-secondary-container) / <alpha-value>)",
+                         "surface-container": "rgb(var(--color-surface-container) / <alpha-value>)"
+                     },
+                     "borderRadius": {
+                         "DEFAULT": "0.25rem",
+                         "lg": "0.5rem",
+                         "xl": "0.75rem",
+                         "full": "9999px"
+                     },
+                     "fontFamily": {
+                         "headline": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+                         "body": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+                         "label": ["Plus Jakarta Sans", "system-ui", "sans-serif"]
+                     }
+                 },
+             },
+         }
+      </script>
+      <style>
+         /* Light / dark / system — RGB triplets for Tailwind alpha-value */
+         @media (prefers-color-scheme: light) {
+         :root:not([data-theme]) {
+         --color-tertiary: 180 83 9;
+         --color-secondary-fixed: 45 212 191;
+         --color-on-secondary: 255 255 255;
+         --color-surface-container-lowest: 248 250 252;
+         --color-inverse-surface: 30 41 59;
+         --color-surface-container-high: 241 245 249;
+         --color-on-surface: 26 35 50;
+         --color-inverse-primary: 45 212 191;
+         --color-secondary-fixed-dim: 20 184 166;
+         --color-surface-container-highest: 226 232 240;
+         --color-secondary: 20 184 166;
+         --color-on-primary: 255 255 255;
+         --color-on-secondary-fixed-variant: 19 78 74;
+         --color-error-container: 254 226 226;
+         --color-on-tertiary-fixed: 67 20 7;
+         --color-primary-fixed-dim: 13 148 136;
+         --color-outline: 100 116 139;
+         --color-on-primary-fixed-variant: 15 118 110;
+         --color-on-tertiary: 120 53 15;
+         --color-tertiary-fixed-dim: 251 146 60;
+         --color-tertiary-fixed: 255 237 213;
+         --color-on-primary-container: 19 78 74;
+         --color-background: 244 246 248;
+         --color-primary-fixed: 45 212 191;
+         --color-primary: 13 148 136;
+         --color-surface-tint: 13 148 136;
+         --color-tertiary-container: 254 215 170;
+         --color-on-primary-fixed: 240 253 250;
+         --color-surface-dim: 241 245 249;
+         --color-primary-container: 153 246 228;
+         --color-surface: 255 255 255;
+         --color-secondary-container: 204 251 241;
+         --color-on-secondary-fixed: 240 253 250;
+         --color-inverse-on-surface: 241 245 249;
+         --color-outline-variant: 203 213 225;
+         --color-on-tertiary-fixed-variant: 154 52 18;
+         --color-error: 185 28 28;
+         --color-surface-bright: 255 255 255;
+         --color-surface-container-low: 255 255 255;
+         --color-on-error-container: 127 29 29;
+         --color-on-error: 255 255 255;
+         --color-on-surface-variant: 92 107 127;
+         --color-on-background: 26 35 50;
+         --color-surface-variant: 226 232 240;
+         --color-on-tertiary-container: 120 53 15;
+         --color-on-secondary-container: 19 78 74;
+         --color-surface-container: 248 250 252;
+         --hero-gradient: linear-gradient(135deg, rgb(15 118 110) 0%, rgb(45 212 191) 100%);
+         --cal-dot-shadow: 0 0 8px rgba(13, 148, 136, 0.45);
+         }
+         }
+         @media (prefers-color-scheme: dark) {
+         :root:not([data-theme]) {
+         --color-tertiary: 255 209 170;
+         --color-secondary-fixed: 184 237 226;
+         --color-on-secondary: 0 55 49;
+         --color-surface-container-lowest: 6 14 32;
+         --color-inverse-surface: 218 226 253;
+         --color-surface-container-high: 34 42 61;
+         --color-on-surface: 218 226 253;
+         --color-inverse-primary: 0 107 95;
+         --color-secondary-fixed-dim: 156 209 198;
+         --color-surface-container-highest: 45 52 73;
+         --color-secondary: 156 209 198;
+         --color-on-primary: 0 55 49;
+         --color-on-secondary-fixed-variant: 26 79 71;
+         --color-error-container: 147 0 10;
+         --color-on-tertiary-fixed: 45 22 0;
+         --color-primary-fixed-dim: 60 221 199;
+         --color-outline: 133 148 144;
+         --color-on-primary-fixed-variant: 0 80 71;
+         --color-on-tertiary: 75 40 0;
+         --color-tertiary-fixed-dim: 255 184 117;
+         --color-tertiary-fixed: 255 220 192;
+         --color-on-primary-container: 0 87 77;
+         --color-background: 11 19 38;
+         --color-primary-fixed: 98 250 227;
+         --color-primary: 87 241 219;
+         --color-surface-tint: 60 221 199;
+         --color-tertiary-container: 255 172 90;
+         --color-on-primary-fixed: 0 32 28;
+         --color-surface-dim: 11 19 38;
+         --color-primary-container: 45 212 191;
+         --color-surface: 11 19 38;
+         --color-secondary-container: 26 79 71;
+         --color-on-secondary-fixed: 0 32 28;
+         --color-inverse-on-surface: 40 48 68;
+         --color-outline-variant: 60 74 70;
+         --color-on-tertiary-fixed-variant: 107 59 0;
+         --color-error: 255 180 171;
+         --color-surface-bright: 49 57 77;
+         --color-surface-container-low: 19 27 46;
+         --color-on-error-container: 255 218 214;
+         --color-on-error: 105 0 5;
+         --color-on-surface-variant: 186 202 197;
+         --color-on-background: 218 226 253;
+         --color-surface-variant: 45 52 73;
+         --color-on-tertiary-container: 116 64 0;
+         --color-on-secondary-container: 139 191 181;
+         --color-surface-container: 23 31 51;
+         --hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 212 191) 100%);
+         --cal-dot-shadow: 0 0 8px rgba(87, 241, 219, 0.5);
+         }
+         }
+         html[data-theme="light"] {
+         --color-tertiary: 180 83 9;
+         --color-secondary-fixed: 45 212 191;
+         --color-on-secondary: 255 255 255;
+         --color-surface-container-lowest: 248 250 252;
+         --color-inverse-surface: 30 41 59;
+         --color-surface-container-high: 241 245 249;
+         --color-on-surface: 26 35 50;
+         --color-inverse-primary: 45 212 191;
+         --color-secondary-fixed-dim: 20 184 166;
+         --color-surface-container-highest: 226 232 240;
+         --color-secondary: 20 184 166;
+         --color-on-primary: 255 255 255;
+         --color-on-secondary-fixed-variant: 19 78 74;
+         --color-error-container: 254 226 226;
+         --color-on-tertiary-fixed: 67 20 7;
+         --color-primary-fixed-dim: 13 148 136;
+         --color-outline: 100 116 139;
+         --color-on-primary-fixed-variant: 15 118 110;
+         --color-on-tertiary: 120 53 15;
+         --color-tertiary-fixed-dim: 251 146 60;
+         --color-tertiary-fixed: 255 237 213;
+         --color-on-primary-container: 19 78 74;
+         --color-background: 244 246 248;
+         --color-primary-fixed: 45 212 191;
+         --color-primary: 13 148 136;
+         --color-surface-tint: 13 148 136;
+         --color-tertiary-container: 254 215 170;
+         --color-on-primary-fixed: 240 253 250;
+         --color-surface-dim: 241 245 249;
+         --color-primary-container: 153 246 228;
+         --color-surface: 255 255 255;
+         --color-secondary-container: 204 251 241;
+         --color-on-secondary-fixed: 240 253 250;
+         --color-inverse-on-surface: 241 245 249;
+         --color-outline-variant: 203 213 225;
+         --color-on-tertiary-fixed-variant: 154 52 18;
+         --color-error: 185 28 28;
+         --color-surface-bright: 255 255 255;
+         --color-surface-container-low: 255 255 255;
+         --color-on-error-container: 127 29 29;
+         --color-on-error: 255 255 255;
+         --color-on-surface-variant: 92 107 127;
+         --color-on-background: 26 35 50;
+         --color-surface-variant: 226 232 240;
+         --color-on-tertiary-container: 120 53 15;
+         --color-on-secondary-container: 19 78 74;
+         --color-surface-container: 248 250 252;
+         --hero-gradient: linear-gradient(135deg, rgb(15 118 110) 0%, rgb(45 212 191) 100%);
+         --cal-dot-shadow: 0 0 8px rgba(13, 148, 136, 0.45);
+         }
+         html[data-theme="dark"] {
+         --color-tertiary: 255 209 170;
+         --color-secondary-fixed: 184 237 226;
+         --color-on-secondary: 0 55 49;
+         --color-surface-container-lowest: 6 14 32;
+         --color-inverse-surface: 218 226 253;
+         --color-surface-container-high: 34 42 61;
+         --color-on-surface: 218 226 253;
+         --color-inverse-primary: 0 107 95;
+         --color-secondary-fixed-dim: 156 209 198;
+         --color-surface-container-highest: 45 52 73;
+         --color-secondary: 156 209 198;
+         --color-on-primary: 0 55 49;
+         --color-on-secondary-fixed-variant: 26 79 71;
+         --color-error-container: 147 0 10;
+         --color-on-tertiary-fixed: 45 22 0;
+         --color-primary-fixed-dim: 60 221 199;
+         --color-outline: 133 148 144;
+         --color-on-primary-fixed-variant: 0 80 71;
+         --color-on-tertiary: 75 40 0;
+         --color-tertiary-fixed-dim: 255 184 117;
+         --color-tertiary-fixed: 255 220 192;
+         --color-on-primary-container: 0 87 77;
+         --color-background: 11 19 38;
+         --color-primary-fixed: 98 250 227;
+         --color-primary: 87 241 219;
+         --color-surface-tint: 60 221 199;
+         --color-tertiary-container: 255 172 90;
+         --color-on-primary-fixed: 0 32 28;
+         --color-surface-dim: 11 19 38;
+         --color-primary-container: 45 212 191;
+         --color-surface: 11 19 38;
+         --color-secondary-container: 26 79 71;
+         --color-on-secondary-fixed: 0 32 28;
+         --color-inverse-on-surface: 40 48 68;
+         --color-outline-variant: 60 74 70;
+         --color-on-tertiary-fixed-variant: 107 59 0;
+         --color-error: 255 180 171;
+         --color-surface-bright: 49 57 77;
+         --color-surface-container-low: 19 27 46;
+         --color-on-error-container: 255 218 214;
+         --color-on-error: 105 0 5;
+         --color-on-surface-variant: 186 202 197;
+         --color-on-background: 218 226 253;
+         --color-surface-variant: 45 52 73;
+         --color-on-tertiary-container: 116 64 0;
+         --color-on-secondary-container: 139 191 181;
+         --color-surface-container: 23 31 51;
+         --hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 212 191) 100%);
+         --cal-dot-shadow: 0 0 8px rgba(87, 241, 219, 0.5);
+         }
+         .material-symbols-outlined {
+         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+         }
+         body {
+         background-color: rgb(var(--color-background));
+         color: rgb(var(--color-on-surface));
+         font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+         }
+         .hero-gradient { background: var(--hero-gradient); }
+         .nav-shell {
+         background: color-mix(in srgb, rgb(var(--color-background)) 82%, transparent);
+         border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 22%, transparent);
+         }
+         .theme-toggle {
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         width: 2.5rem;
+         min-width: 2.5rem;
+         min-height: 2.5rem;
+         padding: 0;
+         border-radius: 0.625rem;
+         border: 1px solid rgb(var(--color-outline-variant));
+         background: rgb(var(--color-surface-container-high));
+         color: rgb(var(--color-primary));
+         cursor: pointer;
+         flex-shrink: 0;
+         }
+         .theme-toggle:hover {
+         background: rgb(var(--color-surface-container-low));
+         }
+         .theme-toggle:focus-visible {
+         outline: 2px solid rgb(var(--color-primary));
+         outline-offset: 2px;
+         }
+         .theme-toggle svg {
+         display: block;
+         width: 1.2rem;
+         height: 1.2rem;
+         }
+         .theme-toggle .icon-sun { display: none; }
+         .theme-toggle .icon-moon { display: block; }
+         html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+         html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+         @media (prefers-color-scheme: dark) {
+         html:not([data-theme]) .theme-toggle .icon-sun { display: block; }
+         html:not([data-theme]) .theme-toggle .icon-moon { display: none; }
+         }
+         html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+         html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+         .share-toast {
+         display: inline-block;
+         margin-left: 0.5rem;
+         font-size: 0.82rem;
+         font-weight: 500;
+         opacity: 0;
+         transition: opacity 0.2s;
+         }
+         .share-toast.show { opacity: 1; }
+         #hero-next-nav {
+         min-height: 253px;
+         }
+      </style>
+   </head>
+   <body id="top" class="bg-background text-on-surface font-body">
+      <!-- Top Navigation Bar -->
+      <nav class="nav-shell fixed top-0 w-full z-50 backdrop-blur-xl shadow-sm">
+         <div class="grid grid-cols-3 items-center gap-4 px-4 sm:px-8 h-20 max-w-7xl mx-auto">
+            <a href="/" class="justify-self-start inline-flex items-center gap-2 sm:gap-3 min-w-0 text-inherit no-underline hover:opacity-95" aria-label="Beranda Kapan Libur">
+            <img class="h-11 w-11 sm:h-12 sm:w-12 object-contain shrink-0 block" src="/assets/Logo-no-bg.png" alt="" width="120" height="120" decoding="async"/>
+            <span class="text-xl sm:text-2xl font-bold tracking-tighter text-primary whitespace-nowrap">KapanLibur.com</span>
+            </a>
+            <div class="justify-self-center hidden md:flex items-center justify-center space-x-8 text-sm tracking-tight">
+               <a class="text-primary font-bold border-b-2 border-primary pb-1" href="/">Beranda</a>
+               <a class="text-on-surface-variant hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
+               <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
+            </div>
+            <div class="justify-self-end flex items-center">
+               <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
+                  <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                     <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                     <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                  </svg>
+                  <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                     <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+                  </svg>
+               </button>
+            </div>
+         </div>
+      </nav>
+      <main class="pt-32 pb-20 px-8 max-w-7xl mx-auto">
+         <!-- Hero: diisi oleh /assets/site-home-hero.js -->
+         <section id="hero-section" class="mb-20" aria-busy="true">
+            <div id="hero-loading" class="rounded-xl border border-outline-variant/20 bg-surface-container-low px-6 py-10 text-center text-on-surface-variant">
+               <p class="text-base font-medium">Memuat data libur…</p>
+            </div>
+            <div id="hero-error" class="hidden rounded-xl border border-error/30 bg-error-container/10 px-6 py-10 text-on-error-container text-center">
+               <p id="hero-error-msg" class="text-base font-medium"></p>
+            </div>
+            <div id="hero-content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+               <div class="lg:col-span-7">
+                  <p class="text-primary font-bold tracking-widest uppercase text-xs mb-4">Status hari ini</p>
+                  <p class="text-base font-semibold text-on-surface mb-3"><time id="hero-today-date" datetime=""></time></p>
+                  <h1 id="hero-today-headline" class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface mb-6 leading-[1.1]"></h1>
+                  <div id="hero-today-body" class="text-lg text-on-surface-variant max-w-xl space-y-3"></div>
+                  <div class="mt-6 flex flex-wrap items-center gap-3">
+                     <button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
+                     <span>Bagikan</span>
+                     </button>
+                     <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
+                  </div>
+               </div>
+               <div id="hero-next-column" class="lg:col-span-5 relative overflow-hidden">
+                  <div id="hero-next-card" class="hero-gradient p-8 rounded-xl text-on-primary shadow-2xl relative overflow-hidden transition-opacity">
+                     <div id="hero-next-nav" class="relative z-10" role="region" aria-label="Libur berikutnya atau sebelumnya">
+                        <p id="hero-next-section-title" class="text-white/90 text-sm font-medium mb-2"></p>
+                        <div id="hero-next-countdown" class="mb-4 hidden">
+                           <p id="hero-next-count-primary" class="text-4xl sm:text-5xl font-extrabold tracking-tighter text-white leading-tight"></p>
+                           <p id="hero-next-count-sub" class="text-lg text-white/85 mt-1"></p>
                         </div>
-                        <div class="grid grid-cols-7 gap-y-2 gap-x-1 text-sm">
-                    `;
-                    
-                    for (let i = 1; i <= 31; i++) {
-                        const isHoliday = (idx === 3 && i === 18);
-                        const isToday = (idx === 3 && i === 13);
-                        
-                        let dateClass = "h-8 flex items-center justify-center rounded-lg transition-colors cursor-pointer";
-                        if (isHoliday) dateClass += " bg-primary text-on-primary font-bold";
-                        else if (isToday) dateClass += " border border-primary text-primary font-bold";
-                        else dateClass += " hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface";
-                        
-                        calendarHtml += `<div class="${dateClass}">${i}</div>`;
-                        if (i === 28 && idx === 1) break;
-                        if (i === 30 && [3, 5, 8, 10].includes(idx)) break;
-                    }
-                    
-                    calendarHtml += `</div>`;
-                    monthDiv.innerHTML = calendarHtml;
-                    container.appendChild(monthDiv);
-                });
-            </script>
-</div>
-</section>
-<!-- Ajakan rencana libur -->
-<section class="bg-surface-container-low rounded-xl p-12 relative overflow-hidden border border-outline-variant/15">
-<div class="relative z-10 flex flex-col md:flex-row items-center gap-12">
-<div class="md:w-1/2">
-<img alt="Ilustrasi perencanaan libur dan cuti" class="rounded-xl shadow-2xl w-full aspect-video object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi3Udk_AuuG0U0iJ8E0bovk0A4PTsC9i3EiEPV5Yt9rx7JL4XekXW_W8mG0TRywAyrKM5sOhWgopnzUm5oVplFXeU_-suHWAw5BmwvfCoEEz6DjtpxM6WzOyw5RtYwzv3DEB9vwxhU92RuWXFR3Wo6OGq7db11a85C9fiTqZF9BfcJHq5pebiW8KlPQnuSOOuxY3Qk7AbKTh33g3IQU9Q5YlGomvUWmDBvtsRd11AnVRKf3DJFM3Dk26J0GEY2SDIzEDUcKepbH7zx"/>
-</div>
-<div class="md:w-1/2">
-<h2 class="text-3xl font-extrabold mb-4 leading-tight text-on-surface">Rencanakan libur panjang dan cuti lebih awal.</h2>
-<p class="text-on-surface-variant mb-8 text-lg">Manfaatkan tanggal merah dan cuti bersama supaya jadwal liburan lebih tenang — cek pola libur panjang di daftar resmi.</p>
-<a class="inline-flex bg-primary text-on-primary px-8 py-4 rounded-lg font-bold items-center hover:bg-primary-container transition-all group active:scale-95 shadow-lg shadow-primary/10" href="/hari-libur-nasional-2026.html">
-                    Lihat daftar libur
-                    <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">map</span>
-</a>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-surface-container-low border-t border-outline-variant/10 py-16">
-<div class="max-w-7xl mx-auto px-8 flex flex-col gap-6">
-<div class="text-xl font-bold text-primary">Kapan Libur</div>
-<nav class="flex flex-wrap gap-x-3 gap-y-1 text-sm text-on-surface-variant" aria-label="Tautan footer">
-<a class="hover:text-primary transition-colors" href="/privacy-policy.html">Privasi</a>
-<span class="text-outline-variant" aria-hidden="true">·</span>
-<a class="hover:text-primary transition-colors" href="/about.html">Tentang</a>
-<span class="text-outline-variant" aria-hidden="true">·</span>
-<a class="hover:text-primary transition-colors" href="mailto:hello@kapanlibur.com">hello@kapanlibur.com</a>
-<span class="text-outline-variant" aria-hidden="true">·</span>
-<a class="hover:text-primary transition-colors" href="/">Beranda</a>
-<span class="text-outline-variant" aria-hidden="true">·</span>
-<a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
-<span class="text-outline-variant" aria-hidden="true">·</span>
-<a class="hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
-</nav>
-<p class="text-sm text-on-surface-variant leading-relaxed">
-Sumber: <strong class="text-on-surface">SKB 3 Menteri No. 1497 Tahun 2025</strong> tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026.
-<a class="text-primary font-medium hover:underline" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">Unduh PDF resmi (Kemenko PMK)</a>
-</p>
-<p class="text-sm text-on-surface-variant leading-relaxed">Data berdasarkan pengumuman resmi. Tanggal di perangkat Anda dipakai untuk “hari ini” dan hitungan hari.</p>
-<p class="text-sm"><a class="text-primary font-medium hover:underline" href="#top">Kembali ke atas</a></p>
-<p class="text-sm text-on-surface-variant">© 2026 Kapan Libur</p>
-</div>
-</footer>
-<script src="/assets/site-theme.js" defer></script>
-<script src="/assets/site-home-hero.js" defer></script>
-</body></html>
+                        <p id="hero-next-because" class="text-white text-base font-medium mb-3"></p>
+                        <div id="hero-next-badges" class="flex flex-wrap gap-2 mb-3"></div>
+                        <p id="hero-next-chain" class="text-white/85 text-sm mb-4"></p>
+                        <p class="text-2xl font-bold text-white mb-4"><time id="hero-next-date" datetime=""></time></p>
+                     </div>
+                     <div class="flex flex-wrap items-center gap-3">
+                        <button type="button" id="hero-share-next" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/25 text-sm font-semibold text-white bg-white/10 hover:bg-white/15 transition-colors">
+                        <span>Bagikan</span>
+                        </button>
+                        <span id="hero-share-next-toast" class="share-toast text-white" aria-live="polite"></span>
+                        <div class="flex items-center gap-1 ml-auto" role="group" aria-label="Libur sebelumnya atau berikutnya">
+                           <button type="button" id="hero-nav-prev" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-white/25 text-white text-lg font-bold hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur sebelumnya">&#8249;</button>
+                           <button type="button" id="hero-nav-next" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-white/25 text-white text-lg font-bold hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur berikutnya pada daftar">&#8250;</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12 pointer-events-none">
+                     <span class="material-symbols-outlined text-[250px] text-gray-200">event_repeat</span>
+                  </div>
+               </div>
+            </div>
+            </div>
+         </section>
+         <!-- Grid: cuplikan libur dan newsletter -->
+         <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+            <!-- Kartu contoh libur April -->
+            <div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
+               <div class="flex justify-between items-center mb-8">
+                  <h3 class="text-2xl font-bold text-on-surface">Libur mendatang — April 2026</h3>
+                  <a class="text-primary font-bold text-sm hover:underline flex items-center" href="/hari-libur-nasional-2026.html">
+                  Lihat daftar lengkap <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                  </a>
+               </div>
+               <div class="space-y-6">
+                  <div class="flex items-start gap-6 group">
+                     <div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 border-primary">
+                        <span class="text-xs font-bold text-on-surface-variant">APR</span>
+                        <span class="text-2xl font-extrabold text-on-surface">18</span>
+                     </div>
+                     <div class="flex-grow pt-1">
+                        <div class="flex items-center gap-3 mb-1">
+                           <h4 class="font-bold text-lg text-on-surface">Isra Mikraj Nabi Muhammad SAW</h4>
+                           <span class="px-2 py-0.5 bg-primary-container text-on-primary-container text-[10px] font-bold rounded uppercase tracking-wider">Libur Nasional</span>
+                        </div>
+                        <p class="text-on-surface-variant text-sm">Memperingati peristiwa Isra dan Mikraj menurut kalender libur nasional.</p>
+                     </div>
+                  </div>
+                  <div class="flex items-start gap-6 group">
+                     <div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 border-secondary">
+                        <span class="text-xs font-bold text-on-surface-variant">APR</span>
+                        <span class="text-2xl font-extrabold text-on-surface">21</span>
+                     </div>
+                     <div class="flex-grow pt-1">
+                        <div class="flex items-center gap-3 mb-1">
+                           <h4 class="font-bold text-lg text-on-surface">Hari Kartini</h4>
+                           <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider">Hari nasional (peringatan)</span>
+                        </div>
+                        <p class="text-on-surface-variant text-sm">Hari besar nasional untuk mengenang Raden Ajeng Kartini; cek SKB untuk status tanggal merah.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Kartu langganan pengingat -->
+            <div class="bg-primary-container rounded-xl p-8 flex flex-col justify-between text-on-primary-container">
+               <div>
+                  <span class="material-symbols-outlined text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+                  <h3 class="text-2xl font-bold mb-4">Planning cuti jadi lebih mudah</h3>
+                  <p class="opacity-90 text-sm leading-relaxed mb-6">Dapatkan pengingat H-7 sebelum hari libur nasional, cuti bersama, dan libur panjang, plus info jika ada pembaruan SKB.</p>
+               </div>
+               <div class="space-y-3">
+                  <input class="w-full bg-white/10 border-white/20 rounded-lg py-3 px-4 text-on-primary-container placeholder:text-on-primary-container/50 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="nama@email.com" type="email"/>
+                  <button type="button" class="w-full bg-on-primary-container text-primary-container font-bold py-3 rounded-lg hover:opacity-90 transition-opacity">Langganan gratis</button>
+               </div>
+            </div>
+         </section>
+         <!-- Kalender libur nasional 2026 -->
+         <section class="mb-20">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+               <div>
+                  <p class="text-primary font-bold tracking-widest uppercase text-xs mb-2">Kalender tahunan</p>
+                  <h2 class="text-4xl font-extrabold tracking-tight text-on-surface">Kalender libur nasional 2026</h2>
+               </div>
+               <div class="flex gap-2 bg-surface-container-low p-1 rounded-lg border border-outline-variant/10">
+                  <button class="px-6 py-2 bg-surface-container-high text-on-surface shadow-sm rounded-md text-sm font-bold">2026</button>
+                  <button class="px-6 py-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors">2027</button>
+               </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+               <!-- Kalender 12 bulan (contoh tampilan) -->
+               <script>
+                  const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+                  const container = document.currentScript.parentElement;
+                  const dotStyle = (typeof getComputedStyle !== "undefined"
+                      ? getComputedStyle(document.documentElement).getPropertyValue("--cal-dot-shadow").trim()
+                      : "") || "0 0 8px rgba(87, 241, 219, 0.5)";
+                  
+                  months.forEach((month, idx) => {
+                      const monthDiv = document.createElement('div');
+                      monthDiv.className = "flex flex-col";
+                      
+                      let calendarHtml = `
+                          <h4 class="font-bold text-lg mb-4 flex items-center justify-between text-on-surface">
+                              ${month}
+                              ${idx === 3 ? '<span class="w-2 h-2 bg-primary rounded-full" style="box-shadow: ' + dotStyle + '"></span>' : ''}
+                          </h4>
+                          <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-outline mb-2 uppercase">
+                              <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+                          </div>
+                          <div class="grid grid-cols-7 gap-y-2 gap-x-1 text-sm">
+                      `;
+                      
+                      for (let i = 1; i <= 31; i++) {
+                          const isHoliday = (idx === 3 && i === 18);
+                          const isToday = (idx === 3 && i === 13);
+                          
+                          let dateClass = "h-8 flex items-center justify-center rounded-lg transition-colors cursor-pointer";
+                          if (isHoliday) dateClass += " bg-primary text-on-primary font-bold";
+                          else if (isToday) dateClass += " border border-primary text-primary font-bold";
+                          else dateClass += " hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface";
+                          
+                          calendarHtml += `<div class="${dateClass}">${i}</div>`;
+                          if (i === 28 && idx === 1) break;
+                          if (i === 30 && [3, 5, 8, 10].includes(idx)) break;
+                      }
+                      
+                      calendarHtml += `</div>`;
+                      monthDiv.innerHTML = calendarHtml;
+                      container.appendChild(monthDiv);
+                  });
+               </script>
+            </div>
+         </section>
+         <!-- Ajakan rencana libur -->
+         <section class="bg-surface-container-low rounded-xl p-12 relative overflow-hidden border border-outline-variant/15">
+            <div class="relative z-10 flex flex-col md:flex-row items-center gap-12">
+               <div class="md:w-1/2">
+                  <img alt="Ilustrasi perencanaan libur dan cuti" class="rounded-xl shadow-2xl w-full aspect-video object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi3Udk_AuuG0U0iJ8E0bovk0A4PTsC9i3EiEPV5Yt9rx7JL4XekXW_W8mG0TRywAyrKM5sOhWgopnzUm5oVplFXeU_-suHWAw5BmwvfCoEEz6DjtpxM6WzOyw5RtYwzv3DEB9vwxhU92RuWXFR3Wo6OGq7db11a85C9fiTqZF9BfcJHq5pebiW8KlPQnuSOOuxY3Qk7AbKTh33g3IQU9Q5YlGomvUWmDBvtsRd11AnVRKf3DJFM3Dk26J0GEY2SDIzEDUcKepbH7zx"/>
+               </div>
+               <div class="md:w-1/2">
+                  <h2 class="text-3xl font-extrabold mb-4 leading-tight text-on-surface">Rencanakan libur panjang dan cuti lebih awal.</h2>
+                  <p class="text-on-surface-variant mb-8 text-lg">Manfaatkan tanggal merah dan cuti bersama supaya jadwal liburan lebih tenang — cek pola libur panjang di daftar resmi.</p>
+                  <a class="inline-flex bg-primary text-on-primary px-8 py-4 rounded-lg font-bold items-center hover:bg-primary-container transition-all group active:scale-95 shadow-lg shadow-primary/10" href="/hari-libur-nasional-2026.html">
+                  Lihat daftar libur
+                  <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">map</span>
+                  </a>
+               </div>
+            </div>
+         </section>
+      </main>
+      <!-- Footer -->
+      <footer class="bg-surface-container-low border-t border-outline-variant/10 py-16">
+         <div class="max-w-7xl mx-auto px-8 flex flex-col gap-6">
+            <div class="text-xl font-bold text-primary">Kapan Libur</div>
+            <nav class="flex flex-wrap gap-x-3 gap-y-1 text-sm text-on-surface-variant" aria-label="Tautan footer">
+               <a class="hover:text-primary transition-colors" href="/privacy-policy.html">Privasi</a>
+               <span class="text-outline-variant" aria-hidden="true">·</span>
+               <a class="hover:text-primary transition-colors" href="/about.html">Tentang</a>
+               <span class="text-outline-variant" aria-hidden="true">·</span>
+               <a class="hover:text-primary transition-colors" href="mailto:hello@kapanlibur.com">hello@kapanlibur.com</a>
+               <span class="text-outline-variant" aria-hidden="true">·</span>
+               <a class="hover:text-primary transition-colors" href="/">Beranda</a>
+               <span class="text-outline-variant" aria-hidden="true">·</span>
+               <a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
+               <span class="text-outline-variant" aria-hidden="true">·</span>
+               <a class="hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
+            </nav>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+               Sumber: <strong class="text-on-surface">SKB 3 Menteri No. 1497 Tahun 2025</strong> tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026.
+               <a class="text-primary font-medium hover:underline" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">Unduh PDF resmi (Kemenko PMK)</a>
+            </p>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Data berdasarkan pengumuman resmi. Tanggal di perangkat Anda dipakai untuk “hari ini” dan hitungan hari.</p>
+            <p class="text-sm"><a class="text-primary font-medium hover:underline" href="#top">Kembali ke atas</a></p>
+            <p class="text-sm text-on-surface-variant">© 2026 Kapan Libur</p>
+         </div>
+      </footer>
+      <script src="/assets/site-theme.js" defer></script>
+      <script src="/assets/site-home-hero.js" defer></script>
+   </body>
+</html>

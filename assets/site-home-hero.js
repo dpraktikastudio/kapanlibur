@@ -359,10 +359,11 @@
 
     const byDate = heroContext.byDate;
     const sortedData = heroContext.sortedData;
-    // const t = todayISO();
+    const t = todayISO();
+    
     // * Test, manipulate date
-
-    const t = "2026-05-01";
+    // const t = "2026-05-01";
+    
     const todayRow = byDate && byDate.get ? byDate.get(t) || null : null;
 
     if (elDate) {
