@@ -470,45 +470,55 @@
          </section>
          <!-- Grid: cuplikan libur dan newsletter -->
          <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-            <!-- Kartu contoh libur April -->
-            <div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
-               <div class="flex justify-between items-center mb-8">
-                  <h3 class="text-2xl font-bold text-on-surface">Libur mendatang — April 2026</h3>
-                  <a class="text-primary font-bold text-sm hover:underline flex items-center" href="/hari-libur-nasional-2026.html">
-                  Lihat daftar lengkap <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
-                  </a>
+            <!-- Libur mendatang (diisi dari /assets/site-home-hero.js) -->
+            <div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 border border-outline-variant/10" id="libur-mendatang-card">
+               <div class="flex justify-between items-center mb-8 gap-4 flex-wrap">
+                  <div class="flex items-center gap-3 flex-wrap min-w-0">
+                     <h3 class="text-2xl font-bold text-on-surface">
+                        Libur mendatang —
+                        <span id="libur-mendatang-month-label" class="text-on-surface"></span>
+                     </h3>
+                  </div>
+                  <div id="libur-mendatang-nav" class="hidden flex items-center gap-1 shrink-0" role="group" aria-label="Ganti bulan">
+                    <button type="button" id="libur-mendatang-prev" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface text-lg font-bold hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Bulan sebelumnya">&#8249;</button>
+                    <button type="button" id="libur-mendatang-next" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface text-lg font-bold hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Bulan berikutnya">&#8250;</button>
+                 </div>
+                  
                </div>
-               <div class="space-y-6">
-                  <div class="flex items-start gap-6 group">
-                     <div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 border-primary">
-                        <span class="text-xs font-bold text-on-surface-variant">APR</span>
-                        <span class="text-2xl font-extrabold text-on-surface">18</span>
-                     </div>
-                     <div class="flex-grow pt-1">
-                        <div class="flex items-center gap-3 mb-1">
-                           <h4 class="font-bold text-lg text-on-surface">Isra Mikraj Nabi Muhammad SAW</h4>
-                           <span class="px-2 py-0.5 bg-primary-container text-on-primary-container text-[10px] font-bold rounded uppercase tracking-wider">Libur Nasional</span>
-                        </div>
-                        <p class="text-on-surface-variant text-sm">Memperingati peristiwa Isra dan Mikraj menurut kalender libur nasional.</p>
+               <span id="libur-mendatang-share-toast" class="share-toast text-primary" aria-live="polite"></span>
+               <div id="libur-mendatang-skeleton" class="space-y-6" aria-hidden="true">
+                  <div class="flex items-start gap-6 animate-pulse">
+                     <div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg border-l-4 border-outline-variant/30"></div>
+                     <div class="flex-grow pt-1 space-y-2 min-w-0">
+                        <div class="h-5 bg-surface-container-highest rounded w-3/4 max-w-md"></div>
+                        <div class="h-4 bg-surface-container-highest rounded w-full max-w-lg"></div>
+                        <div class="h-4 bg-surface-container-highest rounded w-5/6 max-w-sm"></div>
                      </div>
                   </div>
-                  <div class="flex items-start gap-6 group">
-                     <div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 border-secondary">
-                        <span class="text-xs font-bold text-on-surface-variant">APR</span>
-                        <span class="text-2xl font-extrabold text-on-surface">21</span>
-                     </div>
-                     <div class="flex-grow pt-1">
-                        <div class="flex items-center gap-3 mb-1">
-                           <h4 class="font-bold text-lg text-on-surface">Hari Kartini</h4>
-                           <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider">Hari nasional (peringatan)</span>
-                        </div>
-                        <p class="text-on-surface-variant text-sm">Hari besar nasional untuk mengenang Raden Ajeng Kartini; cek SKB untuk status tanggal merah.</p>
+                  <div class="flex items-start gap-6 animate-pulse">
+                     <div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg border-l-4 border-outline-variant/30"></div>
+                     <div class="flex-grow pt-1 space-y-2 min-w-0">
+                        <div class="h-5 bg-surface-container-highest rounded w-2/3 max-w-md"></div>
+                        <div class="h-4 bg-surface-container-highest rounded w-full max-w-lg"></div>
                      </div>
                   </div>
+                  <div class="flex items-start gap-6 animate-pulse">
+                     <div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg border-l-4 border-outline-variant/30"></div>
+                     <div class="flex-grow pt-1 space-y-2 min-w-0">
+                        <div class="h-5 bg-surface-container-highest rounded w-4/5 max-w-md"></div>
+                        <div class="h-4 bg-surface-container-highest rounded w-full max-w-sm"></div>
+                     </div>
+                  </div>
+               </div>
+               <div id="libur-mendatang-error" class="hidden text-on-surface-variant text-sm">
+                  <p>Tidak bisa memuat daftar libur. Coba muat ulang halaman atau <a class="text-primary font-semibold hover:underline" href="/hari-libur-nasional-2026.html">buka daftar lengkap</a>.</p>
+               </div>
+               <div id="libur-mendatang-swipe-host" class="hidden">
+                  <div id="libur-mendatang-list" class="space-y-6" role="list"></div>
                </div>
             </div>
             <!-- Kartu langganan pengingat -->
-            <div class="bg-primary-container rounded-xl p-8 flex flex-col justify-between text-on-primary-container">
+            <div class="bg-primary-container rounded-xl p-8 flex flex-col justify-between text-on-primary-container h-fit md:sticky md:top-40">
                <div>
                   <span class="material-symbols-outlined text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
                   <h3 class="text-2xl font-bold mb-4">Planning cuti jadi lebih mudah</h3>

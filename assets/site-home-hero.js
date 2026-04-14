@@ -13,7 +13,16 @@
     selectedIndex: null,
   };
 
+  const listContext = {
+    sortedData: null,
+    byDate: null,
+    dataYear: null,
+    listYearMonth: null,
+  };
+
   let heroSwipeInitialized = false;
+  let liburMendatangSwipeBound = false;
+  let liburMendatangInited = false;
 
   function todayISO() {
     const n = new Date();
@@ -272,6 +281,249 @@
     navEl.addEventListener("pointercancel", function () {
       ptrId = null;
     });
+  }
+
+  function monthAbbrevFromISO(iso) {
+    const m = parseInt(iso.slice(5, 7), 10) - 1;
+    return MONTHS[m].slice(0, 3).toUpperCase();
+  }
+
+  function rowBorderAccentClass(type) {
+    if (type === "Libur Nasional") return "border-primary";
+    if (type === "Cuti Bersama") return "border-secondary";
+    return "border-outline-variant";
+  }
+
+  function liburMendatangMonthStep(delta) {
+    if (!listContext.listYearMonth) return;
+    let m = parseInt(listContext.listYearMonth.slice(5, 7), 10) - 1 + delta;
+    if (m < 0) m = 0;
+    if (m > 11) m = 11;
+    listContext.listYearMonth =
+      listContext.dataYear + "-" + String(m + 1).padStart(2, "0");
+    renderLiburMendatangList();
+  }
+
+  function attachLiburMendatangSwipe(hostEl) {
+    if (liburMendatangSwipeBound) return;
+    if (!hostEl) return;
+    liburMendatangSwipeBound = true;
+    let startX = 0;
+    let startY = 0;
+    let ptrId = null;
+    function trySwipe(endX, endY) {
+      const dx = endX - startX;
+      const dy = endY - startY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        liburMendatangMonthStep(1);
+      } else {
+        liburMendatangMonthStep(-1);
+      }
+    }
+    hostEl.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    hostEl.addEventListener(
+      "touchend",
+      function (e) {
+        if (!e.changedTouches.length) return;
+        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+    hostEl.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      ptrId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    hostEl.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch") return;
+      if (ptrId === null || e.pointerId !== ptrId) return;
+      ptrId = null;
+      trySwipe(e.clientX, e.clientY);
+    });
+    hostEl.addEventListener("pointercancel", function () {
+      ptrId = null;
+    });
+  }
+
+  function initLiburMendatangControls() {
+    if (liburMendatangInited) return;
+    liburMendatangInited = true;
+    const prev = document.getElementById("libur-mendatang-prev");
+    const next = document.getElementById("libur-mendatang-next");
+    const listEl = document.getElementById("libur-mendatang-list");
+    const host = document.getElementById("libur-mendatang-swipe-host");
+    const toast = document.getElementById("libur-mendatang-share-toast");
+    if (prev) {
+      prev.addEventListener("click", function () {
+        liburMendatangMonthStep(-1);
+      });
+    }
+    if (next) {
+      next.addEventListener("click", function () {
+        liburMendatangMonthStep(1);
+      });
+    }
+    if (listEl) {
+      listEl.addEventListener("click", function (e) {
+        const btn = e.target.closest(".libur-mendatang-row-share");
+        if (!btn) return;
+        e.preventDefault();
+        const date = btn.getAttribute("data-date");
+        if (!date || !listContext.byDate) return;
+        const row = listContext.byDate.get(date);
+        if (!row) return;
+        runShare(
+          buildShareSelectedText(todayISO(), row, listContext.byDate),
+          toast
+        );
+      });
+    }
+    attachLiburMendatangSwipe(host);
+  }
+
+  function showLiburMendatangLoaded() {
+    const sk = document.getElementById("libur-mendatang-skeleton");
+    const err = document.getElementById("libur-mendatang-error");
+    const host = document.getElementById("libur-mendatang-swipe-host");
+    const nav = document.getElementById("libur-mendatang-nav");
+    if (sk) {
+      sk.classList.add("hidden");
+      sk.setAttribute("aria-hidden", "true");
+    }
+    if (err) err.classList.add("hidden");
+    if (host) host.classList.remove("hidden");
+    if (nav) nav.classList.remove("hidden");
+  }
+
+  function showLiburMendatangError() {
+    const sk = document.getElementById("libur-mendatang-skeleton");
+    const err = document.getElementById("libur-mendatang-error");
+    const host = document.getElementById("libur-mendatang-swipe-host");
+    const nav = document.getElementById("libur-mendatang-nav");
+    if (sk) {
+      sk.classList.add("hidden");
+      sk.setAttribute("aria-hidden", "true");
+    }
+    if (err) err.classList.remove("hidden");
+    if (host) host.classList.add("hidden");
+    if (nav) nav.classList.add("hidden");
+  }
+
+  function renderLiburMendatangList() {
+    const labelEl = document.getElementById("libur-mendatang-month-label");
+    const listEl = document.getElementById("libur-mendatang-list");
+    const prev = document.getElementById("libur-mendatang-prev");
+    const next = document.getElementById("libur-mendatang-next");
+    const sorted = listContext.sortedData;
+    const byDate = listContext.byDate;
+    const t = todayISO();
+
+    if (!sorted || !sorted.length) {
+      if (labelEl) labelEl.textContent = "";
+      if (listEl) {
+        listEl.innerHTML =
+          '<p class="text-on-surface-variant text-sm">Tidak ada data libur.</p>';
+      }
+      if (prev) {
+        prev.disabled = true;
+        prev.setAttribute("aria-disabled", "true");
+      }
+      if (next) {
+        next.disabled = true;
+        next.setAttribute("aria-disabled", "true");
+      }
+      return;
+    }
+
+    const ym = listContext.listYearMonth;
+    const mIdx = parseInt(ym.slice(5, 7), 10) - 1;
+    if (labelEl) {
+      labelEl.textContent = MONTHS[mIdx] + " " + listContext.dataYear;
+    }
+    if (prev) {
+      prev.disabled = mIdx <= 0;
+      prev.setAttribute("aria-disabled", mIdx <= 0 ? "true" : "false");
+    }
+    if (next) {
+      next.disabled = mIdx >= 11;
+      next.setAttribute("aria-disabled", mIdx >= 11 ? "true" : "false");
+    }
+
+    const rows = sorted.filter(function (r) {
+      return r.date.slice(0, 7) === ym;
+    });
+
+    if (!rows.length) {
+      if (listEl) {
+        listEl.innerHTML =
+          '<p class="text-on-surface-variant text-sm">Tidak ada libur pada bulan ini.</p>';
+      }
+      return;
+    }
+
+    if (listEl) {
+      listEl.innerHTML = rows
+        .map(function (row) {
+          const past = row.date < t;
+          const pastClass = past ? " opacity-60" : "";
+          const borderAccent = rowBorderAccentClass(row.type);
+          const dayNum = parseISODate(row.date).getDate();
+          const monAbbr = monthAbbrevFromISO(row.date);
+          const badges = renderBadgeSpans(row, byDate);
+          const rantai = formatRantaiBerturutForRow(row, byDate);
+          const badgeRow =
+            badges !== ""
+              ? '<div class="flex flex-wrap items-center gap-2">' +
+                badges +
+                "</div>"
+              : "";
+          return (
+            '<article class="flex items-start gap-6 group' +
+            pastClass +
+            '" id="list-row-' +
+            row.date +
+            '" role="listitem">' +
+            '<div class="flex-shrink-0 w-16 h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 ' +
+            borderAccent +
+            '">' +
+            '<span class="text-xs font-bold text-on-surface-variant">' +
+            escapeHtml(monAbbr) +
+            "</span>" +
+            '<span class="text-2xl font-extrabold text-on-surface">' +
+            dayNum +
+            "</span></div>" +
+            '<div class="flex-grow pt-1 min-w-0">' +
+            '<div class="flex flex-wrap items-start gap-3 mb-1">' +
+            '<h4 class="font-bold text-lg text-on-surface flex-1 min-w-[12rem]">' +
+            escapeHtml(row.description) +
+            "</h4>" +
+            '<div class="flex flex-wrap items-center gap-2 shrink-0">' +
+            badgeRow +
+            '<button type="button" class="libur-mendatang-row-share inline-flex items-center justify-center p-2 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/40 transition-colors" data-date="' +
+            escapeHtml(row.date) +
+            '" aria-label="Bagikan">' +
+            shareIconSvg() +
+            "</button></div></div>" +
+            '<p class="text-on-surface-variant text-sm">' +
+            escapeHtml(row.day) +
+            " · Libur " +
+            escapeHtml(rantai) +
+            "</p></div></article>"
+          );
+        })
+        .join("");
+    }
   }
 
   function badgeClass(type) {
@@ -541,6 +793,25 @@
 
     renderMainCard();
     ensureHeroSwipe();
+
+    const t = todayISO();
+    if (data.length) {
+      const year = parseInt(data[0].date.slice(0, 4), 10);
+      listContext.sortedData = data;
+      listContext.byDate = byDate;
+      listContext.dataYear = year;
+      listContext.listYearMonth =
+        t.slice(0, 4) === String(year) ? t.slice(0, 7) : year + "-01";
+    } else {
+      listContext.sortedData = [];
+      listContext.byDate = byDate;
+      const y = new Date().getFullYear();
+      listContext.dataYear = y;
+      listContext.listYearMonth = y + "-01";
+    }
+    showLiburMendatangLoaded();
+    initLiburMendatangControls();
+    renderLiburMendatangList();
   }
 
   function onDataError() {
@@ -556,6 +827,8 @@
         "Tidak bisa memuat data. Gunakan server statis lokal (bukan file://), misalnya: npx serve di folder proyek.";
     }
     if (section) section.setAttribute("aria-busy", "false");
+
+    showLiburMendatangError();
   }
 
   fetch("/json/2026.json")
