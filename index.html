@@ -18,7 +18,7 @@
          gtag('js', new Date());
          gtag('config', 'G-6SNHQ0XXL5');
       </script>
-      <meta id="theme-color-meta" name="theme-color" content="#0d9488"/>
+      <meta id="theme-color-meta" name="theme-color" content="#00685f"/>
       <title>Kapan Libur — Cek libur hari ini &amp; kalender 2026</title>
       <meta name="description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026. Lihat daftar lengkap libur nasional dan cuti bersama di halaman referensi." />
       <meta name="keywords" content="hari libur nasional 2026, tanggal merah 2026, cuti bersama 2026, libur nasional 2026, kalender libur 2026, libur panjang 2026, SKB 3 menteri, Indonesia" />
@@ -114,8 +114,8 @@
                      },
                      "borderRadius": {
                          "DEFAULT": "0.25rem",
-                         "lg": "0.5rem",
-                         "xl": "0.75rem",
+                         "lg": "1rem",
+                         "xl": "1.5rem",
                          "full": "9999px"
                      },
                      "fontFamily": {
@@ -208,7 +208,7 @@
                      </div>
                   </div>
                   <div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12 pointer-events-none">
-                     <span class="material-symbols-outlined text-[250px] text-gray-200">event_repeat</span>
+                     <span class="material-symbols-outlined text-[250px] text-white/20">event_repeat</span>
                   </div>
                </div>
             </div>
@@ -216,7 +216,7 @@
          <!-- Grid: cuplikan libur dan newsletter -->
          <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
             <!-- Libur mendatang (diisi dari /assets/site-home-hero.js) -->
-            <div class="md:col-span-2 bg-surface-container-low rounded-xl p-4 md:p-8 border border-outline-variant/10" id="libur-mendatang-card">
+            <div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-4 md:p-8 shadow-sm border border-outline-variant/10" id="libur-mendatang-card">
                <div class="flex justify-between items-center mb-8 gap-4 flex-wrap">
                   <div class="flex items-center gap-3 flex-wrap min-w-0">
                      <h3 class="text-2xl font-bold text-on-surface">
@@ -273,8 +273,8 @@
                   <p class="opacity-90 text-sm leading-relaxed mb-6">Dapatkan pengingat H-7 sebelum hari libur nasional, cuti bersama, dan libur panjang, plus info jika ada pembaruan SKB.</p>
                </div>
                <div class="space-y-3">
-                  <input id="newsletter-teaser-email" class="w-full bg-white/10 border-white/20 rounded-lg py-3 px-4 text-on-primary-container placeholder:text-on-primary-container/50 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="nama@email.com" type="email" autocomplete="email"/>
-                  <button type="button" id="newsletter-dialog-open" disabled class="w-full bg-on-primary-container text-primary-container font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed">Langganan gratis</button>
+                  <input id="newsletter-teaser-email" class="w-full bg-white/10 border-white/20 rounded-lg py-3 px-4 text-on-primary-container placeholder:text-on-primary-container/50 focus:ring-2 focus:ring-primary-fixed focus:outline-none" placeholder="nama@email.com" type="email" autocomplete="email"/>
+                  <button type="button" id="newsletter-dialog-open" disabled class="w-full bg-primary-fixed text-on-primary-fixed font-bold py-3 rounded-lg hover:bg-primary-fixed-dim transition-colors disabled:opacity-40 disabled:cursor-not-allowed">Langganan gratis</button>
                </div>
             </div>
          </section>

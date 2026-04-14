@@ -539,7 +539,7 @@
     if (type === "Libur Nasional") {
       return (
         "px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border border-transparent " +
-        "bg-primary-container text-on-primary-container " +
+        "bg-primary-fixed text-on-primary-fixed-variant " +
         "dark:bg-white/15 dark:text-white dark:border-white/25"
       );
     }
@@ -715,10 +715,10 @@
 
     const segments = todayRow
       ? [
-          { text: "libur", className: "text-primary" },
+          { text: "libur", className: "text-red-700 dark:text-red-600" },
           { text: ".", instant: true },
         ]
-      : [{ text: "tidak libur.", className: "text-outline" }];
+      : [{ text: "tidak libur.", className: "text-slate-400 dark:text-on-surface-variant" }];
 
     if (prefersReducedMotion()) {
       if (todayRow) {
@@ -726,7 +726,7 @@
           'Hari ini <span class="text-primary">libur</span>.';
       } else {
         elHeadline.innerHTML =
-          'Hari ini <span class="text-outline">tidak libur.</span>';
+          'Hari ini <span class="text-slate-400 dark:text-on-surface-variant">tidak libur.</span>';
       }
       elHeadline.setAttribute("data-headline-done", "1");
       elHeadline.removeAttribute("aria-busy");
@@ -787,7 +787,7 @@
     if (!sortedData || !sortedData.length) {
       if (elHeadline) {
         elHeadline.innerHTML =
-          'Data <span class="text-outline">belum</span> tersedia';
+          'Data <span class="text-slate-400 dark:text-on-surface-variant">belum</span> tersedia';
       }
       if (elBody) {
         elBody.innerHTML =
@@ -935,7 +935,7 @@
 
   function calCellClasses(type) {
     if (type === "Libur Nasional") {
-      return "bg-primary text-on-primary font-bold cursor-pointer";
+      return "bg-primary-fixed text-on-primary-fixed font-bold cursor-pointer dark:bg-primary dark:text-on-primary";
     }
     if (type === "Cuti Bersama") {
       return "bg-secondary-container text-on-secondary-container font-bold cursor-pointer";
@@ -1072,7 +1072,7 @@
 
     const dow = document.createElement("div");
     dow.className =
-      "grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-outline mb-2 uppercase";
+      "grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-slate-400 dark:text-on-surface-variant mb-2 uppercase";
     DOW_CAL_SHORT.forEach(function (label) {
       const s = document.createElement("div");
       s.textContent = label;

@@ -19,7 +19,7 @@
       dark ? "Aktifkan mode terang" : "Aktifkan mode gelap"
     );
     if (meta) {
-      meta.setAttribute("content", dark ? "#115e59" : "#0d9488");
+      meta.setAttribute("content", dark ? "#115e59" : "#00685f");
     }
   }
 
