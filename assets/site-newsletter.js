@@ -26,6 +26,7 @@
 
   function panelVisible(el) {
     if (!el) return false;
+    if (el.classList.contains("sib-form-message-panel--active")) return true;
     return window.getComputedStyle(el).display !== "none";
   }
 
@@ -107,8 +108,14 @@
 
   if (successEl && errorEl) {
     var mo = new MutationObserver(onBrevoPanelsMaybeChanged);
-    mo.observe(successEl, { attributes: true, attributeFilter: ["style", "class"] });
-    mo.observe(errorEl, { attributes: true, attributeFilter: ["style", "class"] });
+    var obs = {
+      attributes: true,
+      attributeFilter: ["style", "class"],
+      childList: true,
+      subtree: true,
+    };
+    mo.observe(successEl, obs);
+    mo.observe(errorEl, obs);
     queueMicrotask(onBrevoPanelsMaybeChanged);
   }
 

@@ -100,6 +100,16 @@ html[data-theme="dark"] .newsletter-dialog {
   background: transparent !important;
 }
 
+/*
+ * Brevo shows #success-message / #error-message via .sib-form-message-panel--active (sib-styles.css).
+ * Do NOT use inline display:none on those nodes — it beats the class and panels never appear,
+ * so the snackbar observer never sees a visible panel.
+ */
+.newsletter-dialog #success-message:not(.sib-form-message-panel--active),
+.newsletter-dialog #error-message:not(.sib-form-message-panel--active) {
+  display: none !important;
+}
+
 /* Tailwind preflight sets svg { max-width: 100% }, which blows up Brevo notification icons. */
 .newsletter-dialog .sib-form-message-panel svg,
 .newsletter-dialog .sib-form-message-panel .sib-icon {
