@@ -1,0 +1,2825 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("kapanlibur-theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <meta http-equiv="x-dns-prefetch-control" content="on" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6SNHQ0XXL5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6SNHQ0XXL5');
+  </script>
+  <title>Kapan Libur — Cek libur hari ini &amp; kalender 2026</title>
+  <meta name="description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026. Lihat daftar lengkap libur nasional dan cuti bersama di halaman referensi." />
+  <meta name="keywords" content="hari libur nasional 2026, tanggal merah 2026, cuti bersama 2026, libur nasional 2026, kalender libur 2026, libur panjang 2026, SKB 3 menteri, Indonesia" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Kapan Libur" />
+  <link rel="canonical" href="https://kapanlibur.com" />
+  <meta property="og:title" content="Kapan Libur — Cek libur hari ini &amp; kalender 2026" />
+  <meta property="og:description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026." />
+  <meta property="og:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
+  <meta property="og:image:width" content="2496" />
+  <meta property="og:image:height" content="1664" />
+  <meta property="og:url" content="https://kapanlibur.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="id_ID" />
+  <meta property="og:site_name" content="Kapan Libur" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kapan Libur — Cek libur hari ini &amp; kalender 2026" />
+  <meta name="twitter:description" content="Cek apakah hari ini libur, libur berikutnya, daftar tanggal merah per bulan, dan kalender libur 2026." />
+  <meta name="twitter:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/assets/favicon-16x16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <meta id="theme-color-meta" name="theme-color" content="#0d9488" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+  <link rel="preload" href="https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2" as="font" type="font/woff2" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link rel="preload" href="/assets/non-critical.css" as="style" />
+  <link rel="stylesheet" href="/assets/non-critical.css" />
+  <style>
+    @font-face {
+      font-display: block;
+      font-family: Roboto;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff");
+    }
+    @font-face {
+      font-display: fallback;
+      font-family: Roboto;
+      font-weight: 600;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff");
+    }
+    @font-face {
+      font-display: fallback;
+      font-family: Roboto;
+      font-weight: 700;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff");
+    }
+    #sib-container input:-ms-input-placeholder {
+      text-align: left;
+      font-family: Helvetica, sans-serif;
+      color: #c0ccda;
+    }
+    #sib-container input::placeholder {
+      text-align: left;
+      font-family: Helvetica, sans-serif;
+      color: #c0ccda;
+    }
+    #sib-container textarea::placeholder {
+      text-align: left;
+      font-family: Helvetica, sans-serif;
+      color: #c0ccda;
+    }
+    #sib-container a {
+      text-decoration: underline;
+      color: #2bb2fc;
+    }
+  </style>
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com","description":"Jadwal hari libur nasional dan cuti bersama Indonesia menurut SKB 3 Menteri.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com?q={search_term_string}","query-input":"required name=search_term_string"}}
+  </script>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --text: #1a2332;
+      --muted: #5c6b7f;
+      --border: #e2e8f0;
+      --accent: #0d9488;
+      --accent-soft: rgba(13, 148, 136, 0.12);
+      --nasional: #0f766e;
+      --nasional-bg: rgba(29, 78, 216, 0.1);
+      --cuti: #7c3aed;
+      --cuti-bg: rgba(124, 58, 237, 0.1);
+      --sabtu: #64748b;
+      --sabtu-bg: rgba(100, 116, 139, 0.12);
+      --minggu: #64748b;
+      --minggu-bg: rgba(100, 116, 139, 0.12);
+      --lw: #c2410c;
+      --lw-bg: rgba(194, 65, 12, 0.12);
+      --shadow: 0 4px 24px rgba(26, 35, 50, 0.08);
+      --radius: 14px;
+      --radius-sm: 10px;
+    }
+    html[data-theme="light"] {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --text: #1a2332;
+      --muted: #5c6b7f;
+      --border: #e2e8f0;
+      --accent: #0d9488;
+      --accent-soft: rgba(13, 148, 136, 0.12);
+      --nasional: #0f766e;
+      --nasional-bg: rgba(29, 78, 216, 0.1);
+      --cuti: #7c3aed;
+      --cuti-bg: rgba(124, 58, 237, 0.1);
+      --sabtu: #64748b;
+      --sabtu-bg: rgba(100, 116, 139, 0.12);
+      --minggu: #64748b;
+      --minggu-bg: rgba(100, 116, 139, 0.12);
+      --lw: #c2410c;
+      --lw-bg: rgba(194, 65, 12, 0.12);
+      --shadow: 0 4px 24px rgba(26, 35, 50, 0.08);
+    }
+    html[data-theme="dark"] {
+      --bg: #0f1419;
+      --surface: #1a222d;
+      --text: #e8edf4;
+      --muted: #94a3b8;
+      --border: #2d3a4d;
+      --accent: #2dd4bf;
+      --accent-soft: rgba(45, 212, 191, 0.15);
+      --nasional: #5eead4;
+      --nasional-bg: rgba(45, 212, 191, 0.12);
+      --cuti: #c4b5fd;
+      --cuti-bg: rgba(167, 139, 250, 0.18);
+      --sabtu: #94a3b8;
+      --sabtu-bg: rgba(148, 163, 184, 0.15);
+      --minggu: #94a3b8;
+      --minggu-bg: rgba(148, 163, 184, 0.15);
+      --lw: #fdba74;
+      --lw-bg: rgba(251, 146, 60, 0.18);
+      --shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+    }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) {
+        --bg: #0f1419;
+        --surface: #1a222d;
+        --text: #e8edf4;
+        --muted: #94a3b8;
+        --border: #2d3a4d;
+        --accent: #2dd4bf;
+        --accent-soft: rgba(45, 212, 191, 0.15);
+        --nasional: #5eead4;
+        --nasional-bg: rgba(45, 212, 191, 0.12);
+        --cuti: #c4b5fd;
+        --cuti-bg: rgba(167, 139, 250, 0.18);
+        --sabtu: #94a3b8;
+        --sabtu-bg: rgba(148, 163, 184, 0.15);
+        --minggu: #94a3b8;
+        --minggu-bg: rgba(148, 163, 184, 0.15);
+        --lw: #fdba74;
+        --lw-bg: rgba(251, 146, 60, 0.18);
+        --shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+      }
+    }
+    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      width: 92vw;
+      max-width: 1440px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: clamp(1rem, 3vw, 1.5rem);
+      padding-right: clamp(1rem, 3vw, 1.5rem);
+      padding-top: 0;
+      padding-bottom: 3rem;
+    }
+    @media (max-width: 639px) {
+      .wrap {
+        width: 100%;
+        max-width: none;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+      }
+    }
+    body .wrap > header {
+      position: sticky;
+      top: 0;
+      z-index: 95;
+      margin-left: calc(-1 * clamp(1rem, 3vw, 1.5rem));
+      margin-right: calc(-1 * clamp(1rem, 3vw, 1.5rem));
+      margin-bottom: 1.1rem;
+      padding-left: clamp(1rem, 3vw, 1.5rem);
+      padding-right: clamp(1rem, 3vw, 1.5rem);
+      padding-top: env(safe-area-inset-top, 0);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      box-shadow: 0 2px 10px rgba(26, 35, 50, 0.06);
+    }
+    @media (max-width: 639px) {
+      body .wrap > header {
+        margin-left: calc(-1 * max(0.75rem, env(safe-area-inset-left, 0px)));
+        margin-right: calc(-1 * max(0.75rem, env(safe-area-inset-right, 0px)));
+        margin-bottom: 0.75rem;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid var(--border);
+        box-shadow: none;
+      }
+    }
+    section { margin-bottom: 2.75rem; }
+    section > h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      letter-spacing: -0.01em;
+    }
+    .list-section-head-main h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-page-heading {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      letter-spacing: -0.01em;
+    }
+    .hero {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.35rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .hero-stack { display: flex; flex-direction: column; gap: 1rem; min-height: 519.31px; }
+    .hero .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .hero .countdown {
+      font-size: 3.35rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin: 0 0 0.25rem;
+    }
+
+    @media (max-width: 639px) {
+      .hero .countdown {
+        font-size: clamp(2rem, 5.5vw, 3.35rem);
+      }
+    }
+
+    .hero .when { font-size: 1.05rem; color: var(--muted); margin: 0 0 1rem; }
+    .hero .why { font-size: 1.05rem; margin: 0 0 1rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .chip-nasional { background: var(--nasional-bg); color: var(--nasional); }
+    .chip-cuti { background: var(--cuti-bg); color: var(--cuti); }
+    .chip-sabtu { background: var(--sabtu-bg); color: var(--sabtu); }
+    .chip-minggu { background: var(--minggu-bg); color: var(--minggu); }
+    .chip-lw-ya { background: var(--lw-bg); color: var(--lw); }
+    .chip-lw-tidak { background: var(--border); color: var(--muted); }
+    .chain-note { margin-top: 0.85rem; font-size: 0.88rem; color: var(--muted); }
+    .hero-status .hero-today-yes { color: var(--accent); }
+    .hero-status .hero-today-no { color: var(--muted); }
+    .hero-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin: 0 0 0.5rem;
+    }
+    .hero-today-date { font-size: 1rem; font-weight: 600; margin: 0 0 0.5rem; }
+    .hero-today-desc { margin-top: 0.35rem; }
+    .hero-today-desc .why { margin: 0.35rem 0 0; }
+    .hero-today-desc .when.muted-line {
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .hero-next-dimmed {
+      opacity: 0.76;
+      filter: saturate(0.94);
+      transition: opacity 0.2s ease, filter 0.2s ease;
+    }
+    .hero-actions-today {
+      margin-top: 1rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-next-nav { min-width: 0; }
+    .hero-actions-next {
+      margin-top: 1rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem 1rem;
+    }
+    .hero-actions-next-start {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      min-width: 0;
+    }
+    .hero-nav-arrows {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .btn-hero-nav {
+      flex: 0 0 auto;
+      font-family: inherit;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1;
+      width: 2.75rem;
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      padding: 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--accent);
+      cursor: pointer;
+      align-self: center;
+    }
+    .btn-hero-nav:hover:not(:disabled) { filter: brightness(0.97); background: var(--accent-soft); }
+    .btn-hero-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-hero-nav:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .hero-next {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem 1.5rem;
+      min-height: 145px;
+    }
+    .hero-next-main { flex: 1 1 12rem; min-width: 0; }
+    .hero-next-countdown-wrap { flex: 0 0 auto; text-align: left; max-width: 100%; }
+    @media (min-width: 520px) {
+      .hero-next-countdown-wrap {
+        padding-left: 1.15rem;
+        margin-left: 0.25rem;
+        border-left: 1px solid var(--border);
+      }
+    }
+    .hero-next .countdown-next {
+      font-size: clamp(2rem, 5.5vw, 3.35rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin: 0;
+      color: var(--accent);
+      text-wrap: balance;
+    }
+    .hero-next .countdown-next-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0.35rem 0 0;
+      min-height: 35px;
+    }
+    .hero-next .next-when { font-size: 1rem; font-weight: 600; margin: 0 0 0.35rem; }
+    .hero-next .next-desc { font-size: 1rem; margin: 0 0 0.65rem; }
+    .hero-next .next-meta { font-size: 0.9rem; color: var(--muted); margin: 0 0 0.75rem; }
+    .btn-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.55rem 1.1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--accent-soft);
+      color: var(--accent);
+      cursor: pointer;
+    }
+    .btn-share .share-icon-svg { width: 1.1em; height: 1.1em; flex-shrink: 0; }
+    .btn-share:hover { filter: brightness(0.95); }
+    .btn-share:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .share-toast {
+      display: inline-block;
+      margin-left: 0.65rem;
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .share-toast.show { opacity: 1; }
+    .error, .loading {
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .error { color: #b91c1c; }
+    .loading.loading--skeleton {
+      padding: 0;
+      border: none;
+      background: transparent;
+      margin-bottom: 1rem;
+    }
+    @keyframes skeleton-opacity {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 1; }
+    }
+    .skeleton-pulse-root {
+      animation: skeleton-opacity 1.25s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .skeleton-pulse-root {
+        animation: none;
+        opacity: 0.88;
+      }
+    }
+    .skel {
+      background: color-mix(in srgb, var(--muted) 32%, var(--border));
+      border-radius: 6px;
+    }
+    .skeleton-list-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .skeleton-list-chrome .skel-line--month {
+      height: 1rem;
+      flex: 1;
+      max-width: 12rem;
+      min-width: 0;
+    }
+    .skeleton-list-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .skeleton-list-nav .skel-nav-btn {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-sm);
+    }
+    .skeleton-list-rows {
+      padding: 2.25rem 0;
+    }
+    .skeleton-list-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 0.65rem 1rem;
+      align-items: start;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      min-height: 82.25px;
+    }
+    .skeleton-list-row:last-child {
+      border-bottom: none;
+    }
+    .skeleton-list-row .skel-date {
+      width: 2rem;
+      height: 1.2rem;
+    }
+    .skeleton-list-row .skel-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-width: 0;
+    }
+    .skeleton-list-row .skel-meta .skel-line-a {
+      height: 0.92rem;
+      width: 100%;
+    }
+    .skeleton-list-row .skel-meta .skel-line-b {
+      height: 0.78rem;
+      width: 72%;
+    }
+    .skeleton-list-row .skel-type {
+      width: 5.75rem;
+      height: 1.35rem;
+      border-radius: 999px;
+    }
+    .skeleton-list-row .skel-share {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-sm);
+    }
+    .skeleton-cal-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .skeleton-cal-toolbar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .skeleton-cal-toolbar .skel-tb-btn {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+    }
+    .skeleton-cal-toolbar .skel-tb-label {
+      flex: 1;
+      height: 1rem;
+      min-width: 8rem;
+      max-width: 14rem;
+      margin: 0 auto;
+    }
+    .skeleton-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .skeleton-cal-month {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      box-sizing: border-box;
+      min-height: 300px;
+    }
+    .skeleton-cal-month-title {
+      height: 1rem;
+      width: 58%;
+      margin-bottom: 0.65rem;
+    }
+    .skeleton-cal-dow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+    .skeleton-cal-dow .skel-dow {
+      height: 10px;
+      border-radius: 4px;
+    }
+    .skeleton-cal-month-body {
+      width: 100%;
+      min-height: 11.5rem;
+      border-radius: 6px;
+      margin-top: 2px;
+    }
+    @media (max-width: 640px) {
+      .skeleton-cal-toolbar {
+        display: flex;
+      }
+      .skeleton-cal-grid {
+        grid-template-columns: 1fr;
+      }
+      .skeleton-cal-grid .skeleton-cal-month:nth-child(n + 2) {
+        display: none;
+      }
+    }
+    @media (min-width: 641px) {
+      .skeleton-cal-toolbar {
+        display: none !important;
+      }
+    }
+
+    /* --- Home-only: brand/nav/theme chrome in non-critical.css --- */
+    @media (min-width: 960px) {
+      body.page-index .hero-stack {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 1.25rem;
+      }
+      body.page-index #hero-today {
+        flex: 1 1 62%;
+        min-width: 0;
+      }
+      body.page-index #hero-next {
+        flex: 1 1 35%;
+        min-width: 0;
+      }
+    }
+    body.page-index #hero-today.hero-card-today {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 1.65rem 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      min-height: 270.55px;
+    }
+    body.page-index #hero-today.hero-card-today::before {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -18%;
+      width: 55%;
+      height: 85%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(71, 85, 105, 0.07) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    html[data-theme="dark"] body.page-index #hero-today.hero-card-today::before {
+      background: radial-gradient(circle, rgba(148, 163, 184, 0.08) 0%, transparent 68%);
+    }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) body.page-index #hero-today.hero-card-today::before {
+        background: radial-gradient(circle, rgba(148, 163, 184, 0.08) 0%, transparent 68%);
+      }
+    }
+    body.page-index #hero-today.hero-card-today .hero-section-title {
+      position: relative;
+      z-index: 1;
+    }
+    body.page-index #hero-today.hero-card-today .hero-today-date,
+    body.page-index #hero-today.hero-card-today .hero-status,
+    body.page-index #hero-today.hero-card-today .hero-today-desc,
+    body.page-index #hero-today.hero-card-today .hero-actions-today {
+      position: relative;
+      z-index: 1;
+    }
+    body.page-index #hero-next.hero-card-next {
+      border-radius: 28px;
+      padding: 1.65rem 1.5rem;
+      border: 1px solid rgba(15, 23, 23, 0.2);
+      background: linear-gradient(160deg, #1a3d3a 0%, #152f2d 48%, #122826 100%);
+      color: #e8eeec;
+      box-shadow: 0 4px 18px rgba(15, 23, 23, 0.18);
+      min-height: 519.31px;
+    }
+    body.page-index #hero-next.hero-card-next .hero-section-title {
+      color: rgba(200, 212, 208, 0.95);
+    }
+    body.page-index #hero-next.hero-card-next .hero-next {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 1rem;
+      min-height: 0;
+    }
+    body.page-index #hero-next.hero-card-next .hero-next-countdown-wrap {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: none;
+      text-align: left;
+    }
+    body.page-index #hero-next.hero-card-next .countdown-next {
+      color: #f2f5f4;
+    }
+    body.page-index #hero-next.hero-card-next .countdown-next-sub {
+      color: rgba(200, 210, 206, 0.88);
+    }
+    body.page-index #hero-next.hero-card-next .next-when,
+    body.page-index #hero-next.hero-card-next .next-desc {
+      color: #e8eeec;
+    }
+    body.page-index #hero-next.hero-card-next .next-desc {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    body.page-index #hero-next.hero-card-next .chain-note {
+      color: rgba(190, 202, 198, 0.9);
+    }
+    body.page-index #hero-next.hero-card-next .hero-next-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    body.page-index #hero-next.hero-card-next .hero-next-footer .next-when {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+    body.page-index #hero-next.hero-card-next .hero-next-chevron {
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1;
+      opacity: 0.85;
+    }
+    body.page-index #hero-next.hero-card-next .chip-nasional {
+      background: rgba(255, 255, 255, 0.12);
+      color: #d8e2df;
+    }
+    body.page-index #hero-next.hero-card-next .chip-cuti {
+      background: rgba(255, 255, 255, 0.1);
+      color: #d4d0de;
+    }
+    body.page-index #hero-next.hero-card-next .chip-sabtu,
+    body.page-index #hero-next.hero-card-next .chip-minggu {
+      background: rgba(255, 255, 255, 0.08);
+      color: #c5cfcc;
+    }
+    body.page-index #hero-next.hero-card-next .chip-lw-ya {
+      background: rgba(212, 195, 170, 0.22);
+      color: #ebe4d8;
+    }
+    body.page-index #hero-next.hero-card-next .hero-actions-next {
+      border-top-color: rgba(255, 255, 255, 0.12);
+    }
+    body.page-index #hero-next.hero-card-next .btn-hero-nav {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #e8eeec;
+    }
+    body.page-index #hero-next.hero-card-next .btn-hero-nav:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.2);
+      filter: none;
+    }
+    body.page-index #hero-next.hero-card-next .btn-share {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #e8eeec;
+    }
+    body.page-index #hero-next.hero-card-next .btn-share:hover {
+      background: rgba(255, 255, 255, 0.22);
+      filter: none;
+    }
+    body.page-index #hero-next.hero-card-next .share-toast {
+      color: rgba(200, 212, 208, 0.95);
+    }
+    /* Light mode / system light: next card matches page surface with a soft teal tint (dark forest style stays for dark theme only). */
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next {
+      border: 1px solid var(--border);
+      background: linear-gradient(160deg, #ffffff 0%, #f3fbf9 50%, #e8f5f2 100%);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .hero-section-title {
+      color: var(--accent);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .countdown-next {
+      color: var(--accent);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .countdown-next-sub {
+      color: var(--muted);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .next-when,
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .next-desc {
+      color: var(--text);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chain-note {
+      color: var(--muted);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .hero-next-footer {
+      border-top-color: var(--border);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-nasional {
+      background: var(--nasional-bg);
+      color: var(--nasional);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-cuti {
+      background: var(--cuti-bg);
+      color: var(--cuti);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-sabtu,
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-minggu {
+      background: var(--sabtu-bg);
+      color: var(--sabtu);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .chip-lw-ya {
+      background: var(--lw-bg);
+      color: var(--lw);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .hero-actions-next {
+      border-top-color: var(--border);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .btn-hero-nav {
+      background: var(--surface);
+      border-color: var(--border);
+      color: var(--accent);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .btn-hero-nav:hover:not(:disabled) {
+      background: var(--accent-soft);
+      filter: brightness(0.97);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .btn-share {
+      background: var(--accent-soft);
+      border-color: var(--border);
+      color: var(--accent);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .btn-share:hover {
+      filter: brightness(0.95);
+      background: var(--accent-soft);
+    }
+    html[data-theme="light"] body.page-index #hero-next.hero-card-next .share-toast {
+      color: var(--accent);
+    }
+    @media (prefers-color-scheme: light) {
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next {
+        border: 1px solid var(--border);
+        background: linear-gradient(160deg, #ffffff 0%, #f3fbf9 50%, #e8f5f2 100%);
+        color: var(--text);
+        box-shadow: var(--shadow);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .hero-section-title {
+        color: var(--accent);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .countdown-next {
+        color: var(--accent);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .countdown-next-sub {
+        color: var(--muted);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .next-when,
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .next-desc {
+        color: var(--text);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chain-note {
+        color: var(--muted);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .hero-next-footer {
+        border-top-color: var(--border);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-nasional {
+        background: var(--nasional-bg);
+        color: var(--nasional);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-cuti {
+        background: var(--cuti-bg);
+        color: var(--cuti);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-sabtu,
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-minggu {
+        background: var(--sabtu-bg);
+        color: var(--sabtu);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .chip-lw-ya {
+        background: var(--lw-bg);
+        color: var(--lw);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .hero-actions-next {
+        border-top-color: var(--border);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .btn-hero-nav {
+        background: var(--surface);
+        border-color: var(--border);
+        color: var(--accent);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .btn-hero-nav:hover:not(:disabled) {
+        background: var(--accent-soft);
+        filter: brightness(0.97);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .btn-share {
+        background: var(--accent-soft);
+        border-color: var(--border);
+        color: var(--accent);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .btn-share:hover {
+        filter: brightness(0.95);
+        background: var(--accent-soft);
+      }
+      html:not([data-theme]) body.page-index #hero-next.hero-card-next .share-toast {
+        color: var(--accent);
+      }
+    }
+    .newsletter-cta-section {
+      margin: 2rem 0 1.5rem;
+      padding: 1.25rem 1.35rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      position: sticky;
+      bottom: 15px;
+    }
+    .newsletter-cta-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .newsletter-cta-text {
+      margin: 0;
+      flex: 1 1 12rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 639px) {
+      .newsletter-cta-inner {
+        flex-direction: column;
+      }
+
+      .newsletter-cta-text {
+        margin: 0;
+        flex: 1 1 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.45;
+        text-align: center;
+      }
+    }
+
+    .newsletter-cta-open {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.45rem 0.9rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .newsletter-cta-open:hover {
+      filter: brightness(0.97);
+    }
+    .newsletter-cta-open:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .newsletter-dialog {
+      max-width: min(540px, calc(100vw - 2rem));
+      width: 100%;
+      padding: 0;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    .newsletter-dialog::backdrop {
+      background: rgba(15, 23, 42, 0.5);
+    }
+    .newsletter-dialog-panel {
+      position: relative;
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .newsletter-dialog-intro {
+      padding-right: 4.75rem;
+      margin-bottom: 1.15rem;
+      text-align: left;
+    }
+    .newsletter-dialog-intro h2 {
+      margin: 0 0 0.6rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+      font-family: inherit;
+    }
+    .newsletter-dialog-intro p {
+      margin: 0 0 0.45rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      font-family: inherit;
+    }
+    .newsletter-dialog-intro ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--muted);
+      font-family: inherit;
+    }
+    .newsletter-dialog-intro li {
+      margin-bottom: 0.35rem;
+    }
+    .newsletter-dialog-intro li:last-child {
+      margin-bottom: 0;
+    }
+    .newsletter-dialog-close {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      z-index: 1;
+      padding: 0.4rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .newsletter-dialog-close:hover {
+      color: var(--text);
+      background: var(--accent-soft);
+    }
+    .newsletter-dialog-close:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .newsletter-dialog .sib-form {
+      text-align: left !important;
+      background: transparent !important;
+    }
+    .newsletter-dialog #sib-form-container {
+      padding-top: 0;
+    }
+    .newsletter-dialog #sib-container {
+      text-align: left !important;
+    }
+    .newsletter-dialog #sib-container .sib-form-block,
+    .newsletter-dialog #sib-container .form__entry.entry_block {
+      width: 100%;
+      max-width: 100%;
+      text-align: left;
+    }
+    .newsletter-dialog #sib-container .form__label-row {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      width: 100% !important;
+      gap: 0.35rem;
+      text-align: left;
+    }
+    .newsletter-dialog #sib-container .entry__field {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: 1 1 auto !important;
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+    .newsletter-dialog #sib-container .entry__field,
+    .newsletter-dialog #sib-container .form__entry.entry_block {
+      box-shadow: none !important;
+    }
+    .newsletter-dialog #sib-container .form__entry.entry_block:focus-within {
+      box-shadow: none !important;
+    }
+    .newsletter-dialog #sib-container input.input {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      border-radius: 6px !important;
+      padding: 0.55rem 0.75rem !important;
+      min-height: 2.5rem;
+      box-sizing: border-box !important;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .newsletter-dialog #sib-container input.input:focus,
+    .newsletter-dialog #sib-container input.input:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border-color: var(--muted) !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container {
+      background-color: var(--bg) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius-sm) !important;
+      box-shadow: none !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .entry__label {
+      color: var(--text) !important;
+      font-family: inherit !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .entry__specification {
+      color: var(--muted) !important;
+      font-family: inherit !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input {
+      background-color: #0a0e14 !important;
+      border: 1px solid rgba(100, 116, 139, 0.38) !important;
+      color: var(--text) !important;
+      font-family: inherit !important;
+      box-shadow: none !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input::placeholder {
+      color: #64748b !important;
+      font-family: inherit !important;
+      opacity: 1;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:focus,
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:focus-visible {
+      border-color: rgba(148, 163, 184, 0.55) !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill,
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:hover,
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:focus,
+    html[data-theme="dark"] .newsletter-dialog #sib-container input.input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px #0a0e14 inset !important;
+      box-shadow: 0 0 0 1000px #0a0e14 inset !important;
+      -webkit-text-fill-color: var(--text) !important;
+      caret-color: var(--text);
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button {
+      background: var(--accent-soft) !important;
+      color: var(--accent) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius-sm) !important;
+      padding: 0.45rem 0.9rem !important;
+      font-family: inherit !important;
+      font-size: 0.88rem !important;
+      font-weight: 600 !important;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button svg path {
+      fill: currentColor;
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container .sib-form-block__button:hover {
+      filter: brightness(0.97);
+    }
+    html[data-theme="dark"] .newsletter-dialog #sib-container a {
+      color: var(--accent) !important;
+    }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) .newsletter-dialog #sib-container {
+        background-color: var(--bg) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius-sm) !important;
+        box-shadow: none !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .entry__label {
+        color: var(--text) !important;
+        font-family: inherit !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .entry__specification {
+        color: var(--muted) !important;
+        font-family: inherit !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input {
+        background-color: #0a0e14 !important;
+        border: 1px solid rgba(100, 116, 139, 0.38) !important;
+        color: var(--text) !important;
+        font-family: inherit !important;
+        box-shadow: none !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input::placeholder {
+        color: #64748b !important;
+        font-family: inherit !important;
+        opacity: 1;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:focus,
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:focus-visible {
+        border-color: rgba(148, 163, 184, 0.55) !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill,
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:hover,
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:focus,
+      html:not([data-theme]) .newsletter-dialog #sib-container input.input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px #0a0e14 inset !important;
+        box-shadow: 0 0 0 1000px #0a0e14 inset !important;
+        -webkit-text-fill-color: var(--text) !important;
+        caret-color: var(--text);
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button {
+        background: var(--accent-soft) !important;
+        color: var(--accent) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius-sm) !important;
+        padding: 0.45rem 0.9rem !important;
+        font-family: inherit !important;
+        font-size: 0.88rem !important;
+        font-weight: 600 !important;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button svg path {
+        fill: currentColor;
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container .sib-form-block__button:hover {
+        filter: brightness(0.97);
+      }
+      html:not([data-theme]) .newsletter-dialog #sib-container a {
+        color: var(--accent) !important;
+      }
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+
+<body id="top" class="page-index">
+  <div class="wrap">
+    <header>
+      <div class="site-nav-bar">
+        <a href="/" class="site-logo site-brand" aria-label="Beranda Kapan Libur"
+          ><img
+            class="site-brand-logo"
+            src="/assets/Logo-no-bg.png"
+            alt=""
+            width="120"
+            height="120"
+            decoding="async"
+          /><span class="site-brand-text">KapanLibur.com</span></a
+        >
+        <div class="site-nav-cluster">
+          <nav id="site-nav-panel" class="site-nav" aria-label="Navigasi utama">
+            <a href="/">Beranda</a>
+            <span class="site-nav-sep" aria-hidden="true">|</span>
+            <a href="/hari-libur-nasional-2026.html">Daftar Libur</a>
+            <span class="site-nav-sep" aria-hidden="true">|</span>
+            <a
+              data-pdf-source
+              href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              >SKB 3 Menteri</a
+            >
+          </nav>
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Ganti mode terang atau gelap"
+            aria-pressed="false"
+            title="Tema"
+          >
+            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            </svg>
+            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+            </svg>
+          </button>
+          <button type="button" class="site-nav-toggle" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
+            </svg>
+          </button>
+        </div>
+        <div class="site-nav-backdrop" id="site-nav-backdrop" hidden></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="static-section" id="status-libur" aria-labelledby="hero-heading">
+        <div id="hero-stack" class="hero-stack" hidden>
+          <div id="hero-today" class="hero hero-card-today"></div>
+          <div id="hero-next" class="hero hero-card-next"></div>
+        </div>
+      </section>
+
+      <section class="static-section" id="libur-mendatang-section" aria-labelledby="list-heading">
+        <div class="list-section-head">
+          <div class="list-section-head-main">
+            <h2 id="list-heading">Libur mendatang per bulan (tanggal merah 2026)</h2>
+            <p id="list-month-label" class="list-month-label" hidden></p>
+          </div>
+          <div id="list-month-nav" class="list-month-nav" hidden>
+            <button type="button" id="list-nav-prev" class="btn-nav-month" aria-label="Bulan sebelumnya">
+              &#8249;
+            </button>
+            <button type="button" id="list-nav-next" class="btn-nav-month" aria-label="Bulan berikutnya">
+              &#8250;
+            </button>
+          </div>
+        </div>
+        <div id="list-state" class="loading loading--skeleton" role="status" aria-live="polite">
+          <span class="visually-hidden">Memuat data…</span>
+          <div class="skeleton-list skeleton-pulse-root">
+            <div class="skeleton-list-rows">
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+              <div class="skeleton-list-row" aria-hidden="true">
+                <div class="skel skel-date"></div>
+                <div class="skel-meta">
+                  <div class="skel skel-line skel-line-a"></div>
+                  <div class="skel skel-line skel-line-b"></div>
+                </div>
+                <div class="skel skel-type"></div>
+                <div class="skel skel-share"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="list-month-wrap" class="list-month-wrap" hidden>
+          <span id="list-share-toast" class="share-toast list-share-toast" aria-live="polite"></span>
+          <div id="list-swipe-host" class="list-swipe-host">
+            <div id="list" class="list-month-inner"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="static-section" id="kalender-2026" aria-labelledby="cal-heading">
+        <h2 id="cal-heading">Kalender libur nasional 2026 interaktif</h2>
+        <p class="intro-copy" style="margin-bottom:0.65rem;font-size:0.92rem">
+          Kalender menampilkan seluruh entri dalam data (termasuk Sabtu dan Minggu). Ketuk tanggal untuk detail. Untuk aplikasi kalender di ponsel atau desktop, unduh berkas
+          <abbr title="iCalendar">.ics</abbr> atau tambahkan lewat Google Calendar (perlu URL publik).
+        </p>
+        <div class="cal-ics-actions" aria-label="Kalender libur Indonesia2026">
+          <a
+            class="btn-cal-ics"
+            href="/assets/kalender-libur-indonesia-2026.ics"
+            download="kalender-libur-indonesia-2026.ics"
+            >Unduh kalender (.ics)</a
+          >
+          <a
+            class="cal-ics-link"
+            id="cal-ics-google"
+            href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Tambahkan ke Google Calendar</a
+          >
+        </div>
+        <p id="cal-year-label" class="list-month-label" style="margin-bottom:0.5rem"></p>
+        <div id="cal-state" class="loading loading--skeleton" role="status" aria-live="polite">
+          <span class="visually-hidden">Memuat data…</span>
+          <div class="skeleton-cal-wrap skeleton-pulse-root">
+            <div class="skeleton-cal-toolbar" aria-hidden="true">
+              <div class="skel skel-tb-btn"></div>
+              <div class="skel skel-tb-label"></div>
+              <div class="skel skel-tb-btn"></div>
+            </div>
+            <div class="skeleton-cal-grid">
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+              <div class="skeleton-cal-month" aria-hidden="true">
+                <div class="skel skeleton-cal-month-title"></div>
+                <div class="skeleton-cal-dow">
+                  <span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span><span class="skel skel-dow"></span>
+                </div>
+                <div class="skel skeleton-cal-month-body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="calendar-wrap" hidden>
+          <div id="cal-month-toolbar" class="cal-month-toolbar">
+            <button type="button" id="cal-nav-prev" class="btn-nav-month" aria-label="Bulan sebelumnya kalender">
+              &#8249;
+            </button>
+            <span id="cal-toolbar-label" class="cal-toolbar-label"></span>
+            <button type="button" id="cal-nav-next" class="btn-nav-month" aria-label="Bulan berikutnya kalender">
+              &#8250;
+            </button>
+          </div>
+          <div id="calendar" class="cal-year"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="cal-popover-backdrop" class="cal-popover-backdrop" hidden aria-hidden="true"></div>
+    <div
+      id="cal-popover"
+      class="cal-popover cal-popover-wrap"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cal-popover-title"
+    >
+      <button type="button" id="cal-popover-close" class="cal-popover-close">Tutup</button>
+      <h3 id="cal-popover-title" class="cal-popover-title"></h3>
+      <div id="cal-popover-body" class="cal-popover-body"></div>
+    </div>
+
+    <section class="newsletter-cta-section" aria-labelledby="newsletter-cta-heading">
+      <div class="newsletter-cta-inner">
+        <p id="newsletter-cta-heading" class="newsletter-cta-text">Dapatkan reminder H-7 sebelum setiap hari libur & long weekend.</p>
+        <button type="button" class="newsletter-cta-open" id="newsletter-dialog-open">Langganan gratis</button>
+      </div>
+    </section>
+
+    <dialog id="newsletter-dialog" class="newsletter-dialog" aria-labelledby="newsletter-dialog-title">
+      <div class="newsletter-dialog-panel">
+        <button type="button" class="newsletter-dialog-close" id="newsletter-dialog-close">Tutup</button>
+        <div class="newsletter-dialog-intro">
+          <h2 id="newsletter-dialog-title">Planning cuti jadi lebih mudah</h2>
+          <p>Daftar sekarang dan dapatkan:</p>
+          <ul>
+            <li>Reminder H-7 sebelum hari libur nasional, cuti bersama, dan long weekend</li>
+            <li>Notifikasi kalau ada perubahan SKB Menteri terbaru</li>
+            <li>Fitur-fitur baru yang sedang kami kembangkan</li>
+          </ul>
+        </div>
+        <div class="sib-form" style="background-color: transparent">
+          <div id="sib-form-container" class="sib-form-container">
+            <div
+              id="error-message"
+              class="sib-form-message-panel"
+              style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;max-width:540px;"
+            >
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                  <path
+                    d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"
+                  />
+                </svg>
+                <span class="sib-form-message-panel__inner-text">
+                  Terdapat kesalahan pada sistem. Silahkan coba lagi dalam beberapa saat.
+                </span>
+              </div>
+            </div>
+            <div></div>
+            <div
+              id="success-message"
+              class="sib-form-message-panel"
+              style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#085229; background-color:#e7faf0; border-radius:3px; border-color:#13ce66;max-width:540px;"
+            >
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                  <path
+                    d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"
+                  />
+                </svg>
+                <span class="sib-form-message-panel__inner-text">
+                  Terima kasih! Kamu akan dapat reminder sebelum hari libur, salam tanggal merah!
+                </span>
+              </div>
+            </div>
+            <div></div>
+            <div
+              id="sib-container"
+              class="sib-container--large sib-container--vertical"
+              style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:3px; border-width:1px; border-color:#C0CCD9; border-style:solid; direction:ltr"
+            >
+              <form
+                id="sib-form"
+                method="POST"
+                action="https://79c7e120.sibforms.com/serve/MUIFAN2FlXfOTC35p40ipFDoiHP-_jY-iWqcdVYQbGZHmHEfdxdOqcFHOsZa2hv22fJdILjjiKk8FITb7oiFHN7c7RuwpFo8N-vr4CgGDHb8xB7V5J0H9xwpALi5SG8lPH34PTsrTGW8LFw7-qfizSzVkExaBaDIaLapUIWjRSmbQ_Vkgn7O8ekCw2cLtnWP4DVTl_9C_hniGpxEmQ=="
+                data-type="subscription"
+              >
+                <div style="padding: 8px 0;">
+                  <div class="sib-input sib-form-block">
+                    <div class="form__entry entry_block">
+                      <div class="form__label-row">
+                        <label
+                          class="entry__label"
+                          style="font-weight: 700; text-align:left; font-size:16px; text-align:left; font-weight:700; font-family:Helvetica, sans-serif; color:#3c4858;"
+                          for="EMAIL"
+                          data-required="*"
+                          >Alamat Email</label
+                        >
+
+                        <div class="entry__field">
+                          <input
+                            class="input"
+                            type="text"
+                            id="EMAIL"
+                            name="EMAIL"
+                            autocomplete="email"
+                            placeholder="nama@contoh.com"
+                            data-required="true"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <label
+                        class="entry__error entry__error--primary"
+                        style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"
+                      ></label>
+                      <label
+                        class="entry__specification"
+                        style="font-size:12px; text-align:left; font-family:Helvetica, sans-serif; color:#8390A4; text-align:left"
+                        >Masukkan email untuk berlangganan, contoh: nama@domain.com</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="sib-form-block" style="text-align: left">
+                    <button
+                      class="sib-form-block__button sib-form-block__button-with-loader"
+                      style="font-size:16px; text-align:left; font-weight:700; font-family:Helvetica, sans-serif; color:#FFFFFF; background-color:#3E4857; border-radius:3px; border-width:0px;"
+                      form="sib-form"
+                      type="submit"
+                    >
+                      <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                        <path
+                          d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"
+                        />
+                      </svg>
+                      Berlangganan
+                    </button>
+                  </div>
+                </div>
+
+                <input type="text" name="email_address_check" value="" class="input--hidden" />
+                <input type="hidden" name="locale" value="en" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <footer>
+      <div class="footer-links" role="navigation" aria-label="Tautan footer">
+        <a href="/privacy-policy.html">Privasi</a>
+        <span class="footer-links-sep" aria-hidden="true">·</span>
+        <a href="/about.html">Tentang</a>
+        <span class="footer-links-sep" aria-hidden="true">·</span>
+        <a href="mailto:hello@kapanlibur.com">hello@kapanlibur.com</a>
+      </div>
+      <p class="footer-source">
+        Sumber: <strong>SKB 3 Menteri No. 1497 Tahun 2025</strong> tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026.
+        <a
+          id="footer-source-link"
+          data-pdf-source
+          href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Unduh PDF resmi (Kemenko PMK)</a
+        >
+      </p>
+      <p>Data berdasarkan pengumuman resmi. Tanggal di perangkat Anda dipakai untuk “hari ini” dan hitungan hari.</p>
+      <p><a class="back-to-top" href="#top">Kembali ke atas</a></p>
+      <p class="footer-copyright">© 2026 Kapan Libur</p>
+    </footer>
+  </div>
+
+
+  <script src="/assets/site-nav.js" defer></script>
+  <script src="/assets/site-theme.js" defer></script>
+  <script src="/assets/site-pdf.js" defer></script>
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = "Please choose a country code";
+    window.LOCALE = "en";
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE =
+      "Terdapat kesalahan pada informasi yang diberikan. Silahkan cek ulang informasi dan coba kembali.";
+    window.REQUIRED_ERROR_MESSAGE = "Informasi diperlukan. ";
+    window.GENERIC_INVALID_MESSAGE =
+      "Terdapat kesalahan pada informasi yang diberikan. Silahkan cek ulang informasi dan coba kembali.";
+    window.translation = {
+      common: {
+        selectedList: "{quantity} list selected",
+        selectedLists: "{quantity} lists selected",
+        selectedOption: "{quantity} selected",
+        selectedOptions: "{quantity} selected",
+      },
+    };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script>
+    (function () {
+      var dialog = document.getElementById("newsletter-dialog");
+      var openBtn = document.getElementById("newsletter-dialog-open");
+      var closeBtn = document.getElementById("newsletter-dialog-close");
+      if (!dialog || !openBtn || !closeBtn || typeof dialog.showModal !== "function") return;
+
+      function focusEmail() {
+        var email = document.getElementById("EMAIL");
+        if (email) email.focus();
+      }
+
+      openBtn.addEventListener("click", function () {
+        dialog.showModal();
+        requestAnimationFrame(focusEmail);
+      });
+      closeBtn.addEventListener("click", function () {
+        dialog.close();
+      });
+      dialog.addEventListener("click", function (e) {
+        if (e.target === dialog) dialog.close();
+      });
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script>
+(function () {
+  (function setCalIcsGoogleLink() {
+    const el = document.getElementById("cal-ics-google");
+    if (!el) return;
+    const icsUrl = new URL("/assets/kalender-libur-indonesia-2026.ics", window.location.origin).href;
+    el.href =
+      "https://calendar.google.com/calendar/u/0/r/settings/addbyurl?url=" + encodeURIComponent(icsUrl);
+  })();
+
+  const MONTHS = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+  const DOW_SHORT = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+
+  function todayISO() {
+    const n = new Date();
+    const y = n.getFullYear();
+    const m = String(n.getMonth() + 1).padStart(2, "0");
+    const d = String(n.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + d;
+  }
+
+  function parseISODate(iso) {
+    const p = iso.split("-").map(Number);
+    return new Date(p[0], p[1] - 1, p[2]);
+  }
+
+  function diffDays(fromISO, toISO) {
+    const a = parseISODate(fromISO);
+    const b = parseISODate(toISO);
+    return Math.round((b - a) / 86400000);
+  }
+
+  function formatLongID(iso) {
+    const d = parseISODate(iso);
+    const day = d.getDay();
+    const name = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"][day];
+    return name + ", " + d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
+  }
+
+  const DOW_LONG = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+  function toISOFromDate(d) {
+    return (
+      d.getFullYear() +
+      "-" +
+      String(d.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(d.getDate()).padStart(2, "0")
+    );
+  }
+
+  function addDaysISO(iso, delta) {
+    const d = parseISODate(iso);
+    d.setDate(d.getDate() + delta);
+    return toISOFromDate(d);
+  }
+
+  function chainStartISO(row, byDate) {
+    if (!byDate || !byDate.get) return row.date;
+    let cur = row.date;
+    const len = row.chain_holidays;
+    while (true) {
+      const prev = addDaysISO(cur, -1);
+      const pr = byDate.get(prev);
+      if (!pr || pr.chain_holidays !== len) break;
+      cur = prev;
+    }
+    return cur;
+  }
+
+  function formatChainWeekdayList(startISO, n) {
+    const parts = [];
+    for (let i = 0; i < n; i++) {
+      const iso = addDaysISO(startISO, i);
+      parts.push(DOW_LONG[parseISODate(iso).getDay()]);
+    }
+    return parts.join(", ");
+  }
+
+  function formatRantaiBerturutForRow(row, byDate) {
+    if (!byDate || !byDate.get) {
+      return String(row.chain_holidays) + " hari";
+    }
+    const start = chainStartISO(row, byDate);
+    return (
+      row.chain_holidays +
+      " hari (" +
+      formatChainWeekdayList(start, row.chain_holidays) +
+      ")"
+    );
+  }
+
+  function chipClass(type) {
+    if (type === "Libur Nasional") return "chip chip-nasional";
+    if (type === "Cuti Bersama") return "chip chip-cuti";
+    if (type === "Sabtu") return "chip chip-sabtu";
+    if (type === "Minggu") return "chip chip-minggu";
+    return "chip chip-sabtu";
+  }
+
+  function showTypeBadgeForRow(type) {
+    return type !== "Sabtu" && type !== "Minggu";
+  }
+
+  function calCellClass(type) {
+    if (type === "Libur Nasional") return "is-off-nasional";
+    if (type === "Cuti Bersama") return "is-off-cuti";
+    if (type === "Sabtu") return "is-off-sabtu";
+    if (type === "Minggu") return "is-off-minggu";
+    return "";
+  }
+
+  function daysUntilPhrase(n) {
+    if (n <= 0) return "hari ini";
+    if (n === 1) return "besok";
+    return n + " hari lagi";
+  }
+
+  function menujuNextHolidayCaption(row) {
+    if (row.type === "Sabtu") return "Menuju libur Sabtu";
+    if (row.type === "Minggu") return "Menuju libur Minggu";
+    if (row.type === "Cuti Bersama") {
+      return "Menuju cuti bersama — " + row.description;
+    }
+    return "Menuju libur nasional — " + row.description;
+  }
+
+  function buildShareTodayText(t, todayRow, byDate) {
+    const lines = ["Per " + formatLongID(t)];
+    if (todayRow) {
+      lines.push(
+        "Hari ini libur: " + todayRow.description + " (" + todayRow.type + ")"
+      );
+      lines.push(
+        "Libur berturut-turut: " +
+          formatRantaiBerturutForRow(todayRow, byDate)
+      );
+      if (todayRow.is_long_weekend) {
+        lines.push("Long weekend");
+      }
+    } else {
+      lines.push("Hari ini tidak libur menurut data SKB 3 Menteri.");
+    }
+    lines.push("");
+    return lines.join("\n");
+  }
+
+  function buildShareSelectedText(t, selectedRow, byDate) {
+    if (!selectedRow) {
+      return "Tidak ada data libur untuk ditampilkan.";
+    }
+    const lines = [];
+    const rantaiStr = formatRantaiBerturutForRow(selectedRow, byDate);
+    if (selectedRow.date > t) {
+      const n = diffDays(t, selectedRow.date);
+      lines.push(
+        "" +
+          formatLongID(selectedRow.date) +
+          " — " +
+          selectedRow.description +
+          " (" +
+          selectedRow.type +
+          ")"
+      );
+      let meta = daysUntilPhrase(n) + " · Libur " + rantaiStr;
+      if (selectedRow.is_long_weekend) {
+        meta += " · Long weekend";
+      }
+      lines.push(meta);
+    } else {
+      lines.push(
+        "" +
+          formatLongID(selectedRow.date) +
+          " — " +
+          selectedRow.description +
+          " (" +
+          selectedRow.type +
+          ")"
+      );
+      let meta = "Libur " + rantaiStr;
+      if (selectedRow.is_long_weekend) {
+        meta += " · Long weekend";
+      }
+      lines.push(meta);
+    }
+    lines.push("");
+    return lines.join("\n");
+  }
+
+  function shareIconHtml() {
+    return (
+      '<svg class="share-icon-svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5M16.5 3h6m0 0v6m0-6L10.5 16.5" />' +
+      "</svg>"
+    );
+  }
+
+  function runShare(text, toast) {
+    const url = typeof location !== "undefined" ? location.href : "";
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "kapanlibur.com",
+          text: text,
+          url: url,
+        })
+        .catch(function () {});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text + "\n\n" + url)
+        .then(function () {
+          if (toast) {
+            toast.textContent = "Disalin ke papan klip";
+            toast.classList.add("show");
+            setTimeout(function () {
+              toast.classList.remove("show");
+            }, 2500);
+          }
+        })
+        .catch(function () {
+          window.prompt("Salin teks:", text + "\n\n" + url);
+        });
+    } else {
+      window.prompt("Salin teks:", text + "\n\n" + url);
+    }
+  }
+
+  function attachShareButton(btn, toast, text) {
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      runShare(text, toast);
+    });
+  }
+
+  function attachHeroSwipe(navEl) {
+    let startX = 0;
+    let startY = 0;
+    let ptrId = null;
+    function trySwipe(endX, endY) {
+      const dx = endX - startX;
+      const dy = endY - startY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      const idx = heroContext.selectedIndex;
+      const max = heroContext.sortedData.length - 1;
+      if (dx < 0) {
+        if (idx < max) {
+          heroContext.selectedIndex = idx + 1;
+          renderMainCard();
+        }
+      } else {
+        if (idx > 0) {
+          heroContext.selectedIndex = idx - 1;
+          renderMainCard();
+        }
+      }
+    }
+    navEl.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    navEl.addEventListener(
+      "touchend",
+      function (e) {
+        if (!e.changedTouches.length) return;
+        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+    navEl.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      ptrId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    navEl.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch") return;
+      if (ptrId === null || e.pointerId !== ptrId) return;
+      ptrId = null;
+      trySwipe(e.clientX, e.clientY);
+    });
+    navEl.addEventListener("pointercancel", function () {
+      ptrId = null;
+    });
+  }
+
+  const heroContext = {
+    byDate: null,
+    sortedData: null,
+    selectedIndex: null,
+  };
+
+  const listContext = {
+    sortedData: null,
+    byDate: null,
+    dataYear: null,
+    listYearMonth: null,
+  };
+
+  const calContext = {
+    year: null,
+    byDate: null,
+    mobileMonth: 0,
+  };
+
+  const CAL_MOBILE_MQ = "(max-width: 640px)";
+  function isCalMobile() {
+    return window.matchMedia(CAL_MOBILE_MQ).matches;
+  }
+
+  function renderMainCard() {
+    const stack = document.getElementById("hero-stack");
+    const elToday = document.getElementById("hero-today");
+    const elNext = document.getElementById("hero-next");
+    const byDate = heroContext.byDate;
+    const sortedData = heroContext.sortedData;
+    const t = todayISO();
+    const todayRow = byDate && byDate.get ? byDate.get(t) || null : null;
+
+    if (!sortedData || !sortedData.length) {
+      elToday.hidden = false;
+      elToday.className = "hero hero-card-today";
+      elToday.innerHTML =
+        '<div class="hero-status">' +
+        '<p class="countdown hero-today-no">Tidak ada data</p></div>' +
+        '<p class="when muted-line">Data libur kosong.</p>';
+      elNext.hidden = true;
+      elNext.innerHTML = "";
+      return;
+    }
+
+    const firstFutureIdx = sortedData.findIndex(function (r) {
+      return r.date > t;
+    });
+    if (heroContext.selectedIndex === null) {
+      heroContext.selectedIndex =
+        firstFutureIdx >= 0 ? firstFutureIdx : sortedData.length - 1;
+    }
+    let idx = heroContext.selectedIndex;
+    idx = Math.max(0, Math.min(sortedData.length - 1, idx));
+    heroContext.selectedIndex = idx;
+
+    const selectedRow = sortedData[idx];
+    const atMin = idx === 0;
+    const atMax = idx === sortedData.length - 1;
+    const showCountdown = selectedRow.date > t;
+
+    let nextSectionTitle;
+    if (selectedRow.date > t) {
+      nextSectionTitle = "Libur berikutnya";
+    } else if (selectedRow.date < t) {
+      nextSectionTitle = "Libur sebelumnya";
+    } else {
+      nextSectionTitle = "Libur pada hari ini";
+    }
+
+    const nextCardDimmed = selectedRow.date < t;
+
+    let nextBadgeCells = "";
+    if (showTypeBadgeForRow(selectedRow.type)) {
+      nextBadgeCells +=
+        '<span class="' +
+        chipClass(selectedRow.type) +
+        '">' +
+        escapeHtml(selectedRow.type) +
+        "</span>";
+    }
+    if (selectedRow.is_long_weekend) {
+      nextBadgeCells +=
+        '<span class="chip chip-lw-ya">Long weekend</span>';
+    }
+    const nextBadgesWrap = nextBadgeCells
+      ? '<div class="badges">' + nextBadgeCells + "</div>"
+      : "";
+
+    let countdownHtml = "";
+    if (showCountdown) {
+      const n = diffDays(t, selectedRow.date);
+      const until = daysUntilPhrase(n);
+      const untilDisp = until.charAt(0).toUpperCase() + until.slice(1);
+      countdownHtml =
+        '<div class="hero-next-countdown-wrap">' +
+        '<p class="countdown-next">' +
+        escapeHtml(untilDisp) +
+        "</p>" +
+        '<p class="countdown-next-sub">' +
+        escapeHtml(menujuNextHolidayCaption(selectedRow)) +
+        "</p>" +
+        "</div>";
+    }
+
+    const nextBlock =
+      countdownHtml +
+      '<div class="hero-next-main">' +
+      '<p class="next-desc">' +
+      escapeHtml("Karena " + selectedRow.description) +
+      "</p>" +
+      nextBadgesWrap +
+      '<p class="chain-note">Libur berturut-turut: <strong>' +
+      escapeHtml(formatRantaiBerturutForRow(selectedRow, byDate)) +
+      "</strong></p>" +
+      "</div>" +
+      '<div class="hero-next-footer">' +
+      '<p class="next-when"><time datetime="' +
+      escapeHtml(selectedRow.date) +
+      '">' +
+      escapeHtml(formatLongID(selectedRow.date)) +
+      "</time></p>" +
+      "</div>";
+
+    let todayBadges = "";
+    if (todayRow) {
+      let todayBadgeCells = "";
+      if (showTypeBadgeForRow(todayRow.type)) {
+        todayBadgeCells +=
+          '<span class="' +
+          chipClass(todayRow.type) +
+          '">' +
+          escapeHtml(todayRow.type) +
+          "</span>";
+      }
+      if (todayRow.is_long_weekend) {
+        todayBadgeCells +=
+          '<span class="chip chip-lw-ya">Long weekend</span>';
+      }
+      todayBadges =
+        (todayBadgeCells ?
+          '<div class="badges" style="margin-top:0.5rem">' +
+          todayBadgeCells +
+          "</div>"
+        : "") +
+        '<p class="chain-note">Libur berturut-turut: <strong>' +
+        escapeHtml(formatRantaiBerturutForRow(todayRow, byDate)) +
+        "</strong></p>";
+    }
+
+    elToday.hidden = false;
+    elNext.hidden = false;
+    elToday.className = "hero hero-card-today";
+    elNext.className =
+      "hero hero-card-next" + (nextCardDimmed ? " hero-next-dimmed" : "");
+
+    elToday.innerHTML =
+      '<p class="hero-section-title">Info hari ini</p>' +
+      '<p class="hero-today-date"><time datetime="' +
+      escapeHtml(t) +
+      '">' +
+      escapeHtml(formatLongID(t)) +
+      "</time></p>" +
+      '<div class="hero-status">' +
+      (todayRow
+        ? '<p class="countdown hero-today-yes">Hari ini libur</p>'
+        : '<p class="countdown hero-today-no">Hari ini tidak libur</p>') +
+      "</div>" +
+      '<div class="hero-today-desc">' +
+      (todayRow
+        ? '<p class="why">' + escapeHtml("Karena " + todayRow.description) + "</p>" + todayBadges
+        : '<p class="when muted-line">Tidak ada libur pada tanggal ini menurut data SKB 3 Menteri.</p>') +
+      "</div>" +
+      '<div class="hero-actions-today">' +
+      '<button type="button" class="btn-share" id="share-today-btn">' +
+      shareIconHtml() +
+      "<span>Bagikan</span></button>" +
+      '<span class="share-toast" id="share-today-toast" aria-live="polite"></span>' +
+      "</div>";
+
+    elNext.innerHTML =
+      '<p class="hero-section-title">' +
+      escapeHtml(nextSectionTitle) +
+      "</p>" +
+      '<div class="hero-next-nav" id="hero-next-nav" role="region" aria-label="' +
+      escapeHtml(nextSectionTitle) +
+      '">' +
+      '<div class="hero-next">' +
+      nextBlock +
+      "</div>" +
+      "</div>" +
+      '<div class="hero-actions-next">' +
+      '<div class="hero-actions-next-start">' +
+      '<button type="button" class="btn-share" id="share-next-btn">' +
+      shareIconHtml() +
+      "<span>Bagikan</span></button>" +
+      '<span class="share-toast" id="share-next-toast" aria-live="polite"></span>' +
+      "</div>" +
+      '<div class="hero-nav-arrows" role="group" aria-label="Libur sebelumnya atau berikutnya">' +
+      '<button type="button" class="btn-hero-nav" id="hero-nav-prev" aria-label="Libur sebelumnya"' +
+      (atMin ? ' disabled aria-disabled="true"' : "") +
+      ">\u2039</button>" +
+      '<button type="button" class="btn-hero-nav" id="hero-nav-next" aria-label="Libur berikutnya pada daftar"' +
+      (atMax ? ' disabled aria-disabled="true"' : "") +
+      ">\u203a</button>" +
+      "</div>" +
+      "</div>";
+
+    const textToday = buildShareTodayText(t, todayRow, byDate);
+    const textSelected = buildShareSelectedText(t, selectedRow, byDate);
+    attachShareButton(
+      document.getElementById("share-today-btn"),
+      document.getElementById("share-today-toast"),
+      textToday
+    );
+    attachShareButton(
+      document.getElementById("share-next-btn"),
+      document.getElementById("share-next-toast"),
+      textSelected
+    );
+
+    const prevNav = document.getElementById("hero-nav-prev");
+    const nextNav = document.getElementById("hero-nav-next");
+    if (prevNav) {
+      prevNav.addEventListener("click", function () {
+        heroContext.selectedIndex = heroContext.selectedIndex - 1;
+        renderMainCard();
+      });
+    }
+    if (nextNav) {
+      nextNav.addEventListener("click", function () {
+        heroContext.selectedIndex = heroContext.selectedIndex + 1;
+        renderMainCard();
+      });
+    }
+
+    const swipeHost = document.getElementById("hero-next-nav");
+    if (swipeHost) {
+      attachHeroSwipe(swipeHost);
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function listMonthStep(delta) {
+    if (!listContext.listYearMonth) return;
+    let m = parseInt(listContext.listYearMonth.slice(5, 7), 10) - 1 + delta;
+    if (m < 0) m = 0;
+    if (m > 11) m = 11;
+    listContext.listYearMonth =
+      listContext.dataYear + "-" + String(m + 1).padStart(2, "0");
+    renderList();
+  }
+
+  function renderList() {
+    const container = document.getElementById("list");
+    const wrap = document.getElementById("list-month-wrap");
+    const labelEl = document.getElementById("list-month-label");
+    const sorted = listContext.sortedData;
+    const byDate = listContext.byDate;
+    const listNav = document.getElementById("list-month-nav");
+    if (!sorted || !sorted.length) {
+      container.innerHTML =
+        '<p class="when" style="margin:0;color:var(--muted)">Tidak ada data libur.</p>';
+      wrap.hidden = true;
+      labelEl.hidden = true;
+      if (listNav) listNav.hidden = true;
+      return;
+    }
+    const ym = listContext.listYearMonth;
+    const rows = sorted.filter(function (r) {
+      return r.date.slice(0, 7) === ym;
+    });
+    const t = todayISO();
+    const mIdx = parseInt(ym.slice(5, 7), 10) - 1;
+    labelEl.textContent = MONTHS[mIdx] + " " + listContext.dataYear;
+    labelEl.hidden = false;
+    const prevBtn = document.getElementById("list-nav-prev");
+    const nextBtn = document.getElementById("list-nav-next");
+    prevBtn.disabled = mIdx <= 0;
+    nextBtn.disabled = mIdx >= 11;
+    if (prevBtn.disabled) {
+      prevBtn.setAttribute("aria-disabled", "true");
+    } else {
+      prevBtn.removeAttribute("aria-disabled");
+    }
+    if (nextBtn.disabled) {
+      nextBtn.setAttribute("aria-disabled", "true");
+    } else {
+      nextBtn.removeAttribute("aria-disabled");
+    }
+    if (!rows.length) {
+      container.innerHTML =
+        '<p class="when" style="margin:0;color:var(--muted)">Tidak ada libur pada bulan ini.</p>';
+    } else {
+      container.innerHTML = rows
+        .map(function (row) {
+          const past = row.date < t;
+          const pastClass = past ? " list-row-past" : "";
+          const lw =
+            row.is_long_weekend
+              ? '<span class="chip chip-lw-ya">LW</span>'
+              : "";
+          return (
+            '<article class="list-row' +
+            pastClass +
+            '" id="list-row-' +
+            row.date +
+            '">' +
+            '<div class="d"><time datetime="' +
+            escapeHtml(row.date) +
+            '">' +
+            parseISODate(row.date).getDate() +
+            "</time></div>" +
+            '<div class="meta">' +
+            '<p class="desc">' +
+            escapeHtml(row.description) +
+            "</p>" +
+            '<p class="sub">' +
+            escapeHtml(row.day) +
+            " · Libur " +
+            escapeHtml(formatRantaiBerturutForRow(row, byDate)) +
+            "</p>" +
+            "</div>" +
+            '<div class="chips">' +
+            '<span class="' +
+            chipClass(row.type) +
+            '">' +
+            escapeHtml(row.type) +
+            "</span>" +
+            lw +
+            "</div>" +
+            '<button type="button" class="list-row-share" data-date="' +
+            escapeHtml(row.date) +
+            '" aria-label="Bagikan" title="Bagikan">' +
+            shareIconHtml() +
+            "</button>" +
+            "</article>"
+          );
+        })
+        .join("");
+    }
+    wrap.hidden = false;
+    if (listNav) listNav.hidden = false;
+  }
+
+  let listSwipeBound = false;
+  function attachListSwipe() {
+    if (listSwipeBound) return;
+    const host = document.getElementById("list-swipe-host");
+    if (!host) return;
+    listSwipeBound = true;
+    let startX = 0;
+    let startY = 0;
+    function trySwipe(endX, endY) {
+      const dx = endX - startX;
+      const dy = endY - startY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        listMonthStep(1);
+      } else {
+        listMonthStep(-1);
+      }
+    }
+    host.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    host.addEventListener(
+      "touchend",
+      function (e) {
+        if (!e.changedTouches.length) return;
+        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+    let ptrId = null;
+    host.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      ptrId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    host.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch") return;
+      if (ptrId === null || e.pointerId !== ptrId) return;
+      ptrId = null;
+      trySwipe(e.clientX, e.clientY);
+    });
+    host.addEventListener("pointercancel", function () {
+      ptrId = null;
+    });
+  }
+
+  let calPopoverLastFocus = null;
+  let calPopperInstance = null;
+  let calPopoverRow = null;
+  function closeCalPopover() {
+    if (calPopperInstance) {
+      calPopperInstance.destroy();
+      calPopperInstance = null;
+    }
+    document.getElementById("cal-popover-backdrop").hidden = true;
+    document.getElementById("cal-popover").hidden = true;
+    calPopoverRow = null;
+    if (calPopoverLastFocus && calPopoverLastFocus.focus) {
+      try {
+        calPopoverLastFocus.focus();
+      } catch (err) {}
+    }
+    calPopoverLastFocus = null;
+  }
+
+  function openCalPopover(row, triggerEl) {
+    calPopoverRow = row;
+    calPopoverLastFocus = document.activeElement;
+    const byDate = calContext.byDate;
+    const title = document.getElementById("cal-popover-title");
+    const body = document.getElementById("cal-popover-body");
+    title.innerHTML =
+      '<time datetime="' +
+      escapeHtml(row.date) +
+      '">' +
+      escapeHtml(formatLongID(row.date)) +
+      "</time>";
+    const lw = row.is_long_weekend
+      ? '<span class="chip chip-lw-ya">LW</span>'
+      : "";
+    body.innerHTML =
+      '<p class="pop-desc">' +
+      escapeHtml(row.description) +
+      "</p>" +
+      '<p class="pop-sub"><time datetime="' +
+      escapeHtml(row.date) +
+      '">' +
+      escapeHtml(row.day) +
+      "</time> · Libur " +
+      escapeHtml(formatRantaiBerturutForRow(row, byDate)) +
+      "</p>" +
+      '<div class="cal-popover-footer-row">' +
+      '<div class="badges">' +
+      '<span class="' +
+      chipClass(row.type) +
+      '">' +
+      escapeHtml(row.type) +
+      "</span>" +
+      lw +
+      "</div>" +
+      '<div class="cal-popover-footer-actions">' +
+      '<button type="button" id="cal-popover-share" class="cal-popover-share" aria-label="Bagikan" title="Bagikan">' +
+      shareIconHtml() +
+      "</button>" +
+      '<span id="cal-popover-share-toast" class="share-toast cal-popover-share-toast" aria-live="polite"></span>' +
+      "</div>" +
+      "</div>";
+    const popoverEl = document.getElementById("cal-popover");
+    const refEl =
+      triggerEl instanceof Element
+        ? triggerEl
+        : document.getElementById("calendar");
+    if (calPopperInstance) {
+      calPopperInstance.destroy();
+      calPopperInstance = null;
+    }
+    document.getElementById("cal-popover-backdrop").hidden = false;
+    popoverEl.hidden = false;
+    calPopperInstance = Popper.createPopper(refEl, popoverEl, {
+      placement: "bottom",
+      strategy: "fixed",
+      modifiers: [
+        { name: "offset", options: { offset: [0, 8] } },
+        { name: "flip" },
+        { name: "preventOverflow", options: { padding: 8 } },
+      ],
+    });
+    requestAnimationFrame(function () {
+      if (calPopperInstance) calPopperInstance.update();
+    });
+    document.getElementById("cal-popover-close").focus();
+  }
+
+  function buildMonthGrid(year, month, byDate) {
+    const first = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    const startPad = first.getDay();
+    const wrap = document.createElement("div");
+    wrap.className = "cal-month";
+    const h = document.createElement("h4");
+    h.textContent = MONTHS[month] + " " + year;
+    wrap.appendChild(h);
+    const dow = document.createElement("div");
+    dow.className = "cal-dow";
+    DOW_SHORT.forEach(function (label) {
+      const s = document.createElement("span");
+      s.textContent = label;
+      dow.appendChild(s);
+    });
+    wrap.appendChild(dow);
+    const grid = document.createElement("div");
+    grid.className = "cal-grid";
+    for (let i = 0; i < startPad; i++) {
+      const pad = document.createElement("div");
+      pad.className = "cal-cell pad";
+      grid.appendChild(pad);
+    }
+    const tISO = todayISO();
+    const tParts = tISO.split("-").map(Number);
+    const isThisYearToday = tParts[0] === year;
+    for (let day = 1; day <= lastDay; day++) {
+      const iso =
+        year +
+        "-" +
+        String(month + 1).padStart(2, "0") +
+        "-" +
+        String(day).padStart(2, "0");
+      const cell = document.createElement("div");
+      cell.className = "cal-cell";
+      const span = document.createElement("span");
+      span.className = "n";
+      span.textContent = String(day);
+      cell.appendChild(span);
+      const row = byDate.get(iso);
+      if (row) {
+        cell.classList.add(calCellClass(row.type));
+        cell.title = row.description + " (" + row.type + ")";
+        cell.setAttribute("tabindex", "0");
+        cell.setAttribute("role", "button");
+        cell.addEventListener("click", function (e) {
+          e.stopPropagation();
+          openCalPopover(row, cell);
+        });
+        cell.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openCalPopover(row, cell);
+          }
+        });
+      }
+      if (iso < tISO) cell.classList.add("is-past");
+      if (isThisYearToday && iso === tISO) cell.classList.add("is-today");
+      grid.appendChild(cell);
+    }
+    wrap.appendChild(grid);
+    return wrap;
+  }
+
+  let calendarWrapSwipeBound = false;
+  function attachCalendarWrapSwipeOnce() {
+    if (calendarWrapSwipeBound) return;
+    const wrap = document.getElementById("calendar-wrap");
+    if (!wrap) return;
+    calendarWrapSwipeBound = true;
+    let startX = 0;
+    let startY = 0;
+    function trySwipe(endX, endY) {
+      if (!isCalMobile()) return;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        stepCalMobileMonth(1);
+      } else {
+        stepCalMobileMonth(-1);
+      }
+    }
+    wrap.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    wrap.addEventListener(
+      "touchend",
+      function (e) {
+        if (!e.changedTouches.length) return;
+        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+    let ptrId = null;
+    wrap.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      ptrId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    wrap.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch") return;
+      if (ptrId === null || e.pointerId !== ptrId) return;
+      ptrId = null;
+      trySwipe(e.clientX, e.clientY);
+    });
+    wrap.addEventListener("pointercancel", function () {
+      ptrId = null;
+    });
+  }
+
+  function stepCalMobileMonth(delta) {
+    calContext.mobileMonth += delta;
+    if (calContext.mobileMonth < 0) calContext.mobileMonth = 0;
+    if (calContext.mobileMonth > 11) calContext.mobileMonth = 11;
+    renderCalendar(document.getElementById("calendar"), calContext.year, calContext.byDate);
+  }
+
+  function renderCalendar(container, year, byDate) {
+    calContext.year = year;
+    calContext.byDate = byDate;
+    container.innerHTML = "";
+    const mobile = isCalMobile();
+    const toolbarLabel = document.getElementById("cal-toolbar-label");
+    const prevCal = document.getElementById("cal-nav-prev");
+    const nextCal = document.getElementById("cal-nav-next");
+    if (mobile) {
+      toolbarLabel.textContent = MONTHS[calContext.mobileMonth] + " " + year;
+      prevCal.disabled = calContext.mobileMonth <= 0;
+      nextCal.disabled = calContext.mobileMonth >= 11;
+      if (prevCal.disabled) {
+        prevCal.setAttribute("aria-disabled", "true");
+      } else {
+        prevCal.removeAttribute("aria-disabled");
+      }
+      if (nextCal.disabled) {
+        nextCal.setAttribute("aria-disabled", "true");
+      } else {
+        nextCal.removeAttribute("aria-disabled");
+      }
+      container.appendChild(buildMonthGrid(year, calContext.mobileMonth, byDate));
+    } else {
+      for (let month = 0; month < 12; month++) {
+        container.appendChild(buildMonthGrid(year, month, byDate));
+      }
+    }
+    document.getElementById("calendar-wrap").hidden = false;
+    container.hidden = false;
+  }
+
+  function showError(msg) {
+    const heroStack = document.getElementById("hero-stack");
+    if (heroStack) heroStack.hidden = true;
+    ["list-state", "cal-state"].forEach(function (id) {
+      const e = document.getElementById(id);
+      if (!e) return;
+      e.className = "error";
+      e.textContent = msg;
+      e.hidden = false;
+    });
+    const lmw = document.getElementById("list-month-wrap");
+    if (lmw) lmw.hidden = true;
+    const lmn = document.getElementById("list-month-nav");
+    if (lmn) lmn.hidden = true;
+    const cw = document.getElementById("calendar-wrap");
+    if (cw) cw.hidden = true;
+  }
+
+  let listShareDelegationBound = false;
+  function attachListShareDelegation() {
+    if (listShareDelegationBound) return;
+    const listEl = document.getElementById("list");
+    if (!listEl) return;
+    listShareDelegationBound = true;
+    const toast = document.getElementById("list-share-toast");
+    listEl.addEventListener("click", function (e) {
+      const btn = e.target.closest(".list-row-share");
+      if (!btn) return;
+      e.preventDefault();
+      const date = btn.getAttribute("data-date");
+      if (!date || !listContext.byDate) return;
+      const row = listContext.byDate.get(date);
+      if (!row) return;
+      const text = buildShareSelectedText(todayISO(), row, listContext.byDate);
+      runShare(text, toast);
+    });
+  }
+
+  function initMonthNavAndPopover() {
+    document.getElementById("cal-popover").addEventListener("click", function (e) {
+      if (!e.target.closest("#cal-popover-share")) return;
+      e.stopPropagation();
+      if (!calPopoverRow || !calContext.byDate) return;
+      const text = buildShareSelectedText(
+        todayISO(),
+        calPopoverRow,
+        calContext.byDate
+      );
+      runShare(text, document.getElementById("cal-popover-share-toast"));
+    });
+    attachListShareDelegation();
+    document.getElementById("list-nav-prev").addEventListener("click", function () {
+      listMonthStep(-1);
+    });
+    document.getElementById("list-nav-next").addEventListener("click", function () {
+      listMonthStep(1);
+    });
+    document.getElementById("cal-nav-prev").addEventListener("click", function () {
+      stepCalMobileMonth(-1);
+    });
+    document.getElementById("cal-nav-next").addEventListener("click", function () {
+      stepCalMobileMonth(1);
+    });
+    document.getElementById("cal-popover-close").addEventListener("click", closeCalPopover);
+    document.getElementById("cal-popover-backdrop").addEventListener("click", closeCalPopover);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !document.getElementById("cal-popover").hidden) {
+        closeCalPopover();
+      }
+    });
+    attachListSwipe();
+    attachCalendarWrapSwipeOnce();
+    window.matchMedia(CAL_MOBILE_MQ).addEventListener("change", function () {
+      if (calContext.year && calContext.byDate) {
+        renderCalendar(
+          document.getElementById("calendar"),
+          calContext.year,
+          calContext.byDate
+        );
+      }
+    });
+  }
+
+  initMonthNavAndPopover();
+
+  fetch("/json/2026.json")
+    .then(function (r) {
+      if (!r.ok) throw new Error("Gagal memuat json/2026.json (" + r.status + ")");
+      return r.json();
+    })
+    .then(function (json) {
+      const data = json.data.slice().sort(function (a, b) {
+        return a.date.localeCompare(b.date);
+      });
+      const byDate = new Map(data.map(function (r) { return [r.date, r]; }));
+
+      const year = parseInt(data[0].date.slice(0, 4), 10);
+      document.getElementById("cal-year-label").textContent = String(year);
+
+      const t = todayISO();
+
+      document.getElementById("list-state").hidden = true;
+      document.getElementById("cal-state").hidden = true;
+
+      heroContext.byDate = byDate;
+      heroContext.sortedData = data;
+      heroContext.selectedIndex = null;
+      renderMainCard();
+
+      listContext.sortedData = data;
+      listContext.byDate = byDate;
+      listContext.dataYear = year;
+      listContext.listYearMonth =
+        t.slice(0, 4) === String(year) ? t.slice(0, 7) : year + "-01";
+      renderList();
+
+      calContext.year = year;
+      calContext.byDate = byDate;
+      calContext.mobileMonth =
+        t.slice(0, 4) === String(year) ? parseInt(t.slice(5, 7), 10) - 1 : 0;
+      renderCalendar(document.getElementById("calendar"), year, byDate);
+    })
+    .catch(function (err) {
+      console.error(err);
+      showError(
+        "Tidak bisa memuat data. Gunakan server statis lokal (bukan file://), misalnya: npx serve di folder proyek."
+      );
+    });
+})();
+  </script>
+</body>
+</html>
