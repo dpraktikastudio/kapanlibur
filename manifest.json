@@ -9,13 +9,13 @@
   "lang": "id",
   "icons": [
     {
-      "src": "/assets/kapanlibur-favicon-256px.png",
-      "sizes": "256x256",
+      "src": "/assets/android-chrome-192x192.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/kapanlibur-favicon-512px.png",
+      "src": "/assets/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"

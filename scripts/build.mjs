@@ -19,11 +19,12 @@ const BUST_ASSETS = [
   "site-nav.js",
   "site-theme.js",
   "site-pdf.js",
-  "kapanlibur-logo-nobg.png",
+  "Logo-no-bg.png",
   "kalender-libur-indonesia-2026.ics",
-  "kapanlibur-favicon-32px.png",
-  "kapanlibur-favicon-16px.png",
-  "kapanlibur-favicon-512px.png",
+  "favicon.ico",
+  "favicon-32x32.png",
+  "favicon-16x16.png",
+  "apple-touch-icon.png",
 ];
 
 function bustHtml(html, assetHashes, jsonHash) {
