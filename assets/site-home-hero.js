@@ -274,40 +274,41 @@
     });
   }
 
-  function badgeClassLight(type) {
+  function badgeClass(type) {
     if (type === "Libur Nasional") {
-      return "px-2 py-0.5 bg-primary-container text-on-primary-container text-[10px] font-bold rounded uppercase tracking-wider";
+      return (
+        "px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border border-transparent " +
+        "bg-primary-container text-on-primary-container " +
+        "dark:bg-white/15 dark:text-white dark:border-white/25"
+      );
     }
     if (type === "Cuti Bersama") {
-      return "px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider";
+      return (
+        "px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border border-transparent " +
+        "bg-secondary-container text-on-secondary-container " +
+        "dark:bg-white/10 dark:text-white dark:border-white/20"
+      );
     }
-    return "px-2 py-0.5 bg-surface-variant text-on-surface-variant text-[10px] font-bold rounded uppercase tracking-wider";
+    return (
+      "px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border border-transparent " +
+      "bg-surface-variant text-on-surface-variant " +
+      "dark:bg-white/10 dark:text-white dark:border-white/15"
+    );
   }
 
-  function badgeClassDark(type) {
-    if (type === "Libur Nasional") {
-      return "px-2 py-0.5 bg-white/15 text-white text-[10px] font-bold rounded uppercase tracking-wider border border-white/25";
-    }
-    if (type === "Cuti Bersama") {
-      return "px-2 py-0.5 bg-white/10 text-white text-[10px] font-bold rounded uppercase tracking-wider border border-white/20";
-    }
-    return "px-2 py-0.5 bg-white/10 text-white text-[10px] font-bold rounded uppercase tracking-wider border border-white/15";
-  }
-
-  function renderBadgeSpans(row, byDate, dark) {
+  function renderBadgeSpans(row, byDate) {
     let html = "";
     if (showTypeBadgeForRow(row.type)) {
-      const cls = dark ? badgeClassDark(row.type) : badgeClassLight(row.type);
       html +=
-        '<span class="' + cls + '">' + escapeHtml(row.type) + "</span>";
+        '<span class="' +
+        badgeClass(row.type) +
+        '">' +
+        escapeHtml(row.type) +
+        "</span>";
     }
     if (row.is_long_weekend) {
       html +=
-        '<span class="' +
-        (dark
-          ? "px-2 py-0.5 text-white text-[10px] font-bold rounded uppercase tracking-wider border border-amber-200/40 bg-amber-500/20"
-          : "px-2 py-0.5 bg-amber-100 text-amber-900 text-[10px] font-bold rounded uppercase tracking-wider") +
-        '">Libur panjang</span>';
+        '<span class="px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider bg-amber-100 text-amber-900 dark:text-white dark:border dark:border-red-500/40 dark:bg-red-600/20">Libur panjang</span>';
     }
     return html;
   }
@@ -319,7 +320,7 @@
         '<p class="text-on-surface">' +
         escapeHtml("Karena " + todayRow.description) +
         "</p>";
-      const badges = renderBadgeSpans(todayRow, byDate, false);
+      const badges = renderBadgeSpans(todayRow, byDate);
       if (badges) {
         html += '<div class="flex flex-wrap gap-2">' + badges + "</div>";
       }
@@ -459,7 +460,7 @@
       // elBecause.textContent = "Karena " + selectedRow.description;
     }
     if (elBadges) {
-      elBadges.innerHTML = renderBadgeSpans(selectedRow, byDate, true);
+      elBadges.innerHTML = renderBadgeSpans(selectedRow, byDate);
     }
     if (elChain) {
       elChain.innerHTML =
