@@ -347,3 +347,63 @@ html[data-theme="dark"] .newsletter-dialog #sib-container a {
     color: rgb(var(--color-primary)) !important;
   }
 }
+
+/* Global + in-dialog snackbars (Brevo success/error feedback) */
+.site-snackbar {
+  box-sizing: border-box;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.75rem 1rem;
+  border-radius: 0.625rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+  border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 35%, transparent);
+  opacity: 0;
+  transform: translateX(-50%) translateY(0.35rem);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.site-snackbar.site-snackbar--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.site-snackbar--success {
+  background: rgb(var(--color-primary-container));
+  color: rgb(var(--color-on-primary-container));
+}
+
+.site-snackbar--error {
+  background: rgb(var(--color-error-container));
+  color: rgb(var(--color-on-error-container));
+  border-color: color-mix(in srgb, rgb(var(--color-error)) 35%, transparent);
+}
+
+#site-snackbar.site-snackbar {
+  position: fixed;
+  left: 50%;
+  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  z-index: 100000;
+}
+
+.newsletter-dialog-panel .site-snackbar--in-dialog {
+  position: absolute;
+  left: 50%;
+  bottom: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+html[data-theme="dark"] .site-snackbar {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .site-snackbar {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  }
+}
