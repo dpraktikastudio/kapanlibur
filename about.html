@@ -1,282 +1,250 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6SNHQ0XXL5"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-6SNHQ0XXL5');
-  </script>
-  <title>Tentang Kami | Kapan Libur</title>
-  <meta name="description" content="Tentang Kapan Libur: asal ide, fitur, DPraktikastudio, dan cara menghubungi kami." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://kapanlibur.com/about.html" />
-  <meta property="og:title" content="Tentang Kami | Kapan Libur" />
-  <meta property="og:description" content="Tentang Kapan Libur: asal ide, fitur, DPraktikastudio, dan cara menghubungi kami." />
-  <meta property="og:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
-  <meta property="og:image:width" content="2496" />
-  <meta property="og:image:height" content="1664" />
-  <meta property="og:url" content="https://kapanlibur.com/about.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="id_ID" />
-  <meta property="og:site_name" content="Kapan Libur" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Tentang Kami | Kapan Libur" />
-  <meta name="twitter:description" content="Tentang Kapan Libur: asal ide, fitur, DPraktikastudio, dan cara menghubungi kami." />
-  <meta name="twitter:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
-  <link rel="icon" href="/assets/favicon-32x32.png" type="image/png" sizes="32x32" />
-  <link rel="icon" href="/assets/favicon-16x16.png" type="image/png" sizes="16x16" />
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <meta id="theme-color-meta" name="theme-color" content="#0d9488" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2" as="font" type="font/woff2" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
-  <link rel="preload" href="/assets/non-critical.css" as="style" />
-  <link rel="stylesheet" href="/assets/non-critical.css" />
-  <style>
-    :root {
-      --bg: #f4f6f8;
-      --surface: #ffffff;
-      --text: #1a2332;
-      --muted: #5c6b7f;
-      --border: #e2e8f0;
-      --accent: #0d9488;
-      --shadow: 0 4px 24px rgba(26, 35, 50, 0.08);
-      --radius: 14px;
-      --radius-sm: 10px;
-    }
-    html[data-theme="light"] {
-      --bg: #f4f6f8;
-      --surface: #ffffff;
-      --text: #1a2332;
-      --muted: #5c6b7f;
-      --border: #e2e8f0;
-      --accent: #0d9488;
-      --shadow: 0 4px 24px rgba(26, 35, 50, 0.08);
-    }
-    html[data-theme="dark"] {
-      --bg: #0f1419;
-      --surface: #1a222d;
-      --text: #e8edf4;
-      --muted: #94a3b8;
-      --border: #2d3a4d;
-      --accent: #2dd4bf;
-      --shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
-    }
-    @media (prefers-color-scheme: dark) {
-      html:not([data-theme]) {
-        --bg: #0f1419;
-        --surface: #1a222d;
-        --text: #e8edf4;
-        --muted: #94a3b8;
-        --border: #2d3a4d;
-        --accent: #2dd4bf;
-        --shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("kapanlibur-theme");
+          if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6SNHQ0XXL5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
       }
-    }
-    html { scroll-behavior: smooth; }
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-    .wrap {
-      width: 92vw;
-      max-width: 1440px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: clamp(1rem, 3vw, 1.5rem);
-      padding-right: clamp(1rem, 3vw, 1.5rem);
-      padding-top: 0;
-      padding-bottom: 3rem;
-    }
-    @media (max-width: 639px) {
-      .wrap {
-        width: 100%;
-        max-width: none;
-        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
-        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
-      }
-    }
-    body .wrap > header {
-      position: sticky;
-      top: 0;
-      z-index: 95;
-      margin-left: calc(-1 * clamp(1rem, 3vw, 1.5rem));
-      margin-right: calc(-1 * clamp(1rem, 3vw, 1.5rem));
-      margin-bottom: 1.1rem;
-      padding-left: clamp(1rem, 3vw, 1.5rem);
-      padding-right: clamp(1rem, 3vw, 1.5rem);
-      padding-top: env(safe-area-inset-top, 0);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-top: none;
-      border-radius: 0 0 14px 14px;
-      box-shadow: 0 2px 10px rgba(26, 35, 50, 0.06);
-    }
-    @media (max-width: 639px) {
-      body .wrap > header {
-        margin-left: calc(-1 * max(0.75rem, env(safe-area-inset-left, 0px)));
-        margin-right: calc(-1 * max(0.75rem, env(safe-area-inset-right, 0px)));
-        margin-bottom: 0.75rem;
-        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
-        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
-        border-radius: 0;
-        border: none;
-        border-bottom: 1px solid var(--border);
-        box-shadow: none;
-      }
-    }
-    .legal-panel {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 1.35rem 1.25rem;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-    }
-    .legal-panel h2 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin: 1.35rem 0 0.65rem;
-      letter-spacing: -0.01em;
-    }
-    .legal-panel h2:first-of-type { margin-top: 0; }
-    .legal-panel p { margin: 0 0 0.85rem; font-size: 0.95rem; }
-    .legal-panel p:last-child { margin-bottom: 0; }
-    .legal-panel ul { margin: 0 0 0.85rem; padding-left: 1.25rem; font-size: 0.95rem; }
-    .legal-panel li { margin-bottom: 0.4rem; }
-    .legal-panel a { color: var(--accent); font-weight: 600; text-decoration: none; }
-    .legal-panel a:hover { text-decoration: underline; }
-  </style>
-</head>
-<body id="top">
-  <div class="wrap">
-    <header>
-      <div class="site-nav-bar">
-        <a href="/" class="site-logo site-brand" aria-label="Beranda Kapan Libur"
-          ><img
-            class="site-brand-logo"
-            src="/assets/Logo-no-bg.png"
-            alt=""
-            width="120"
-            height="120"
-            decoding="async"
-          /><span class="site-brand-text">KapanLibur.com</span></a
-        >
-        <div class="site-nav-cluster">
-          <nav id="site-nav-panel" class="site-nav" aria-label="Navigasi utama">
-            <a href="/">Beranda</a>
-            <span class="site-nav-sep" aria-hidden="true">|</span>
-            <a href="/hari-libur-nasional-2026.html">Daftar Libur</a>
-            <span class="site-nav-sep" aria-hidden="true">|</span>
-            <a
-              data-pdf-source
-              href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              >SKB 3 Menteri</a
-            >
-          </nav>
-          <button
-            type="button"
-            class="theme-toggle"
-            id="theme-toggle"
-            aria-label="Ganti mode terang atau gelap"
-            aria-pressed="false"
-            title="Tema"
-          >
-            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-            </svg>
-            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
-            </svg>
-          </button>
-          <button type="button" class="site-nav-toggle" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
-            </svg>
-          </button>
+      gtag("js", new Date());
+      gtag("config", "G-6SNHQ0XXL5");
+    </script>
+    <title>Tentang Kami | Kapan Libur</title>
+    <meta name="description" content="Tentang Kapan Libur: asal ide, fitur, DPraktikastudio, dan cara menghubungi kami." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://kapanlibur.com/about.html" />
+    <meta property="og:title" content="Tentang Kami | Kapan Libur" />
+    <meta property="og:description" content="Tentang Kapan Libur: asal ide, fitur, DPraktikastudio, dan cara menghubungi kami." />
+    <meta property="og:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
+    <meta property="og:image:width" content="2496" />
+    <meta property="og:image:height" content="1664" />
+    <meta property="og:url" content="https://kapanlibur.com/about.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Kapan Libur" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tentang Kami | Kapan Libur" />
+    <meta name="twitter:description" content="Tentang Kapan Libur: asal ide, fitur, DPraktikastudio, dan cara menghubungi kami." />
+    <meta name="twitter:image" content="https://kapanlibur.com/assets/OgImage.jpg" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+    <link rel="icon" href="/assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/assets/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <meta id="theme-color-meta" name="theme-color" content="#0d9488" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2" as="font" type="font/woff2" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: [
+          "variant",
+          [
+            '@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) & }',
+            '@media (prefers-color-scheme: light) { html[data-theme="dark"] & }',
+          ],
+        ],
+        theme: {
+          extend: {
+            colors: {
+              tertiary: "rgb(var(--color-tertiary) / <alpha-value>)",
+              "secondary-fixed": "rgb(var(--color-secondary-fixed) / <alpha-value>)",
+              "on-secondary": "rgb(var(--color-on-secondary) / <alpha-value>)",
+              "surface-container-lowest": "rgb(var(--color-surface-container-lowest) / <alpha-value>)",
+              "inverse-surface": "rgb(var(--color-inverse-surface) / <alpha-value>)",
+              "surface-container-high": "rgb(var(--color-surface-container-high) / <alpha-value>)",
+              "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
+              "inverse-primary": "rgb(var(--color-inverse-primary) / <alpha-value>)",
+              "secondary-fixed-dim": "rgb(var(--color-secondary-fixed-dim) / <alpha-value>)",
+              "surface-container-highest": "rgb(var(--color-surface-container-highest) / <alpha-value>)",
+              secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+              "on-primary": "rgb(var(--color-on-primary) / <alpha-value>)",
+              "on-secondary-fixed-variant": "rgb(var(--color-on-secondary-fixed-variant) / <alpha-value>)",
+              "error-container": "rgb(var(--color-error-container) / <alpha-value>)",
+              "on-tertiary-fixed": "rgb(var(--color-on-tertiary-fixed) / <alpha-value>)",
+              "primary-fixed-dim": "rgb(var(--color-primary-fixed-dim) / <alpha-value>)",
+              outline: "rgb(var(--color-outline) / <alpha-value>)",
+              "on-primary-fixed-variant": "rgb(var(--color-on-primary-fixed-variant) / <alpha-value>)",
+              "on-tertiary": "rgb(var(--color-on-tertiary) / <alpha-value>)",
+              "tertiary-fixed-dim": "rgb(var(--color-tertiary-fixed-dim) / <alpha-value>)",
+              "tertiary-fixed": "rgb(var(--color-tertiary-fixed) / <alpha-value>)",
+              "on-primary-container": "rgb(var(--color-on-primary-container) / <alpha-value>)",
+              background: "rgb(var(--color-background) / <alpha-value>)",
+              "primary-fixed": "rgb(var(--color-primary-fixed) / <alpha-value>)",
+              primary: "rgb(var(--color-primary) / <alpha-value>)",
+              "surface-tint": "rgb(var(--color-surface-tint) / <alpha-value>)",
+              "tertiary-container": "rgb(var(--color-tertiary-container) / <alpha-value>)",
+              "on-primary-fixed": "rgb(var(--color-on-primary-fixed) / <alpha-value>)",
+              "surface-dim": "rgb(var(--color-surface-dim) / <alpha-value>)",
+              "primary-container": "rgb(var(--color-primary-container) / <alpha-value>)",
+              surface: "rgb(var(--color-surface) / <alpha-value>)",
+              "secondary-container": "rgb(var(--color-secondary-container) / <alpha-value>)",
+              "on-secondary-fixed": "rgb(var(--color-on-secondary-fixed) / <alpha-value>)",
+              "inverse-on-surface": "rgb(var(--color-inverse-on-surface) / <alpha-value>)",
+              "outline-variant": "rgb(var(--color-outline-variant) / <alpha-value>)",
+              "on-tertiary-fixed-variant": "rgb(var(--color-on-tertiary-fixed-variant) / <alpha-value>)",
+              error: "rgb(var(--color-error) / <alpha-value>)",
+              "surface-bright": "rgb(var(--color-surface-bright) / <alpha-value>)",
+              "surface-container-low": "rgb(var(--color-surface-container-low) / <alpha-value>)",
+              "on-error-container": "rgb(var(--color-on-error-container) / <alpha-value>)",
+              "on-error": "rgb(var(--color-on-error) / <alpha-value>)",
+              "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
+              "on-background": "rgb(var(--color-on-background) / <alpha-value>)",
+              "surface-variant": "rgb(var(--color-surface-variant) / <alpha-value>)",
+              "on-tertiary-container": "rgb(var(--color-on-tertiary-container) / <alpha-value>)",
+              "on-secondary-container": "rgb(var(--color-on-secondary-container) / <alpha-value>)",
+              "surface-container": "rgb(var(--color-surface-container) / <alpha-value>)",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+              body: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+              label: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="/assets/site-chrome.css" />
+  </head>
+  <body id="top" class="bg-background text-on-surface font-body">
+    <nav class="nav-shell fixed top-0 w-full z-50 backdrop-blur-xl shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8">
+        <div class="site-nav-bar">
+          <a href="/" class="site-brand hover:opacity-95" aria-label="Beranda Kapan Libur">
+            <img class="h-11 w-11 sm:h-12 sm:w-12 object-contain shrink-0 block" src="/assets/Logo-no-bg.png" alt="" width="120" height="120" decoding="async" />
+            <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter text-primary truncate max-w-[10.5rem] sm:max-w-none sm:whitespace-nowrap">KapanLibur.com</span>
+          </a>
+          <div class="site-nav-cluster">
+            <nav id="site-nav-panel" class="site-nav h-screen" aria-label="Navigasi utama">
+              <a class="text-on-surface-variant hover:text-primary transition-colors" href="/">Beranda</a>
+              <span class="site-nav-sep" aria-hidden="true">|</span>
+              <a class="text-on-surface-variant hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
+              <span class="site-nav-sep" aria-hidden="true">|</span>
+              <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
+            </nav>
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
+              <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+                <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+              <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+              </svg>
+            </button>
+            <button type="button" class="site-nav-toggle sm:hidden" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14" />
+              </svg>
+            </button>
+          </div>
+          <div id="site-nav-backdrop" class="site-nav-backdrop h-screen" hidden aria-hidden="true"></div>
         </div>
-        <div class="site-nav-backdrop" id="site-nav-backdrop" hidden></div>
       </div>
-    </header>
-    <main>
-      <div class="page-intro">
-        <p class="legal-kicker">Tentang Kami</p>
-        <h1>Tentang Kapan Libur</h1>
-      </div>
-      <div class="legal-panel">
-        <p>
-          <strong>Kapan Libur</strong> lahir dari masalah yang sangat sederhana — sering lupa tanggal merah.
-          Sebagai pekerja, merencanakan cuti itu butuh data yang jelas: kapan hari liburnya, berapa hari, bisa disambung dengan weekend
-          atau tidak. Informasi itu sebenarnya ada di dokumen resmi SKB 3 Menteri, tapi formatnya tidak selalu ramah untuk dibaca cepat.
-        </p>
-        <p>
-          Dari situlah ide <strong>kapanlibur.com</strong> muncul — satu halaman, semua informasi yang dibutuhkan, langsung bisa dipakai
-          buat nentuin mau ambil cuti kapan.
-        </p>
-
-        <h2>Apa yang Bisa Kamu Temukan di Sini</h2>
-        <ul>
-          <li>Daftar lengkap hari libur nasional dan cuti bersama berdasarkan SKB 3 Menteri resmi</li>
-          <li>Kalender visual yang mudah dibaca</li>
-          <li>Informasi long weekend sepanjang tahun</li>
-          <li>Rekomendasi destinasi untuk memanfaatkan libur panjang</li>
-        </ul>
-        <p>
-          Semua data bersumber langsung dari dokumen resmi pemerintah, sehingga kamu bisa mengandalkannya untuk perencanaan kerja maupun
-          liburan.
-        </p>
-
-        <h2>Tentang DPraktikastudio</h2>
-        <p>
-          Kapanlibur.com dibuat dan dikelola oleh <strong>DPraktikastudio</strong>, sebuah solo project yang fokus membangun produk digital
-          sederhana namun bermanfaat untuk kehidupan sehari-hari.
-        </p>
-
-        <h2>Ada Pertanyaan atau Masukan?</h2>
-        <p>
-          Kami senang mendengar masukan dari kamu — entah itu soal data yang kurang akurat, fitur yang ingin ditambahkan, atau sekadar
-          menyapa. Hubungi kami di <a href="mailto:hello@kapanlibur.com">hello@kapanlibur.com</a>
-        </p>
+    </nav>
+    <main class="pt-28 md:pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
+      <div class="max-w-3xl">
+        <header class="mb-8">
+          <p class="text-primary font-bold tracking-widest uppercase text-xs mb-2">Tentang Kami</p>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-on-surface">Tentang Kapan Libur</h1>
+        </header>
+        <div class="bg-surface-container-low rounded-xl border border-outline-variant/10 p-4 md:p-8 text-[0.95rem] leading-relaxed text-on-surface-variant space-y-4">
+          <p>
+            <strong class="text-on-surface">Kapan Libur</strong> lahir dari masalah yang sangat sederhana — sering lupa tanggal merah. Sebagai pekerja, merencanakan cuti itu butuh data yang jelas: kapan hari liburnya, berapa hari, bisa disambung dengan weekend atau tidak. Informasi itu sebenarnya ada di dokumen resmi SKB 3 Menteri, tapi formatnya tidak selalu ramah untuk dibaca cepat.
+          </p>
+          <p>
+            Dari situlah ide <strong class="text-on-surface">kapanlibur.com</strong> muncul — satu halaman, semua informasi yang dibutuhkan, langsung bisa dipakai buat nentuin mau ambil cuti kapan.
+          </p>
+          <h2 class="text-on-surface text-[1.05rem] font-semibold pt-2">Apa yang Bisa Kamu Temukan di Sini</h2>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Daftar lengkap hari libur nasional dan cuti bersama berdasarkan SKB 3 Menteri resmi</li>
+            <li>Kalender visual yang mudah dibaca</li>
+            <li>Informasi long weekend sepanjang tahun</li>
+            <li>Rekomendasi destinasi untuk memanfaatkan libur panjang</li>
+          </ul>
+          <p>Semua data bersumber langsung dari dokumen resmi pemerintah, sehingga kamu bisa mengandalkannya untuk perencanaan kerja maupun liburan.</p>
+          <h2 class="text-on-surface text-[1.05rem] font-semibold pt-2">Tentang DPraktikastudio</h2>
+          <p>
+            Kapanlibur.com dibuat dan dikelola oleh <strong class="text-on-surface">DPraktikastudio</strong>, sebuah solo project yang fokus membangun produk digital sederhana namun bermanfaat untuk kehidupan sehari-hari.
+          </p>
+          <h2 class="text-on-surface text-[1.05rem] font-semibold pt-2">Ada Pertanyaan atau Masukan?</h2>
+          <p class="pb-0">
+            Kami senang mendengar masukan dari kamu — entah itu soal data yang kurang akurat, fitur yang ingin ditambahkan, atau sekadar menyapa. Hubungi kami di
+            <a class="text-primary font-semibold hover:underline" href="mailto:hello@kapanlibur.com">hello@kapanlibur.com</a>
+          </p>
+        </div>
       </div>
     </main>
-    <footer>
-      <div class="footer-links" role="navigation" aria-label="Tautan footer">
-        <a href="/privacy-policy.html">Privasi</a>
-        <span class="footer-links-sep" aria-hidden="true">·</span>
-        <a href="/about.html" aria-current="page">Tentang</a>
-        <span class="footer-links-sep" aria-hidden="true">·</span>
-        <a href="mailto:hello@kapanlibur.com">hello@kapanlibur.com</a>
+    <footer class="bg-surface-container-low border-t border-outline-variant/10 pt-12 md:pt-16 pb-12">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 items-start">
+          <div>
+            <div class="text-2xl font-bold text-primary tracking-tight mb-4">Kapan Libur</div>
+            <p class="text-sm text-on-surface-variant leading-relaxed max-w-sm">
+              © 2026 Kapan Libur. Dibuat agar jadwal libur nasional, cuti bersama, dan tanggal merah mudah dipahami — supaya Anda bisa merencanakan liburan dan cuti dengan tenang, berdasarkan data resmi pemerintah.
+            </p>
+            <div class="flex items-center gap-3 mt-6">
+              <a class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-outline-variant/40 text-on-surface-variant hover:text-primary hover:border-primary transition-colors" href="/" aria-label="Beranda Kapan Libur">
+                <span class="material-symbols-outlined text-[1.25rem]" aria-hidden="true">language</span>
+              </a>
+              <a class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-outline-variant/40 text-on-surface-variant hover:text-primary hover:border-primary transition-colors" href="mailto:hello@kapanlibur.com" aria-label="Email hello@kapanlibur.com">
+                <span class="material-symbols-outlined text-[1.25rem]" aria-hidden="true">alternate_email</span>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-xs font-bold tracking-widest text-on-surface uppercase mb-5">Peta situs</h2>
+            <nav aria-label="Peta situs">
+              <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li><a class="hover:text-primary transition-colors" href="/">Beranda</a></li>
+                <li><a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar libur</a></li>
+                <li>
+                  <a class="hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div>
+            <h2 class="text-xs font-bold tracking-widest text-on-surface uppercase mb-5">Dukungan &amp; legal</h2>
+            <nav aria-label="Dukungan dan legal">
+              <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li><a class="hover:text-primary transition-colors" href="/about.html">Tentang</a></li>
+                <li><a class="hover:text-primary transition-colors" href="/privacy-policy.html">Kebijakan privasi</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="mt-14 pt-8 border-t border-outline-variant/10 text-xs text-on-surface-variant leading-relaxed space-y-2">
+          <p>
+            Sumber data: <strong class="text-on-surface font-medium">SKB 3 Menteri No. 1497 Tahun 2025</strong> tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026.
+            <a class="text-primary font-medium hover:underline" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">Unduh PDF resmi (Kemenko PMK)</a>
+          </p>
+          <p>Tanggal di perangkat Anda dipakai untuk status “hari ini” dan hitungan hari menuju libur.</p>
+          <p><a class="text-primary font-medium hover:underline" href="#top">Kembali ke atas</a></p>
+        </div>
       </div>
-      <p class="footer-source">
-        Sumber: <strong>SKB 3 Menteri No. 1497 Tahun 2025</strong> tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026.
-        <a
-          data-pdf-source
-          href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Unduh PDF resmi (Kemenko PMK)</a
-        >
-      </p>
-      <p><a class="back-to-top" href="#top">Kembali ke atas</a></p>
-      <p class="footer-copyright">© 2026 Kapan Libur</p>
     </footer>
-  </div>
-  <script src="/assets/site-nav.js" defer></script>
-  <script src="/assets/site-theme.js" defer></script>
-  <script src="/assets/site-pdf.js" defer></script>
-</body>
+    <script src="/assets/site-theme.js" defer></script>
+    <script src="/assets/site-nav.js" defer></script>
+    <script src="/assets/site-pdf.js" defer></script>
+  </body>
 </html>

@@ -1,0 +1,131 @@
+/* Daftar libur page — uses --color-* from site-chrome.css */
+html {
+  scroll-behavior: smooth;
+}
+
+.static-section[id] {
+  scroll-margin-top: 7rem;
+}
+
+@media (min-width: 768px) {
+  .static-section[id] {
+    scroll-margin-top: 8rem;
+  }
+}
+
+.page-intro {
+  margin-bottom: 1.25rem;
+}
+
+.page-intro h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+  color: rgb(var(--color-on-surface));
+}
+
+.brand-line {
+  font-size: 0.88rem;
+  color: rgb(var(--color-on-surface-variant));
+  margin: 0.35rem 0 0;
+  font-weight: 500;
+}
+
+.intro-copy {
+  font-size: 0.95rem;
+  color: rgb(var(--color-on-surface));
+  line-height: 1.55;
+  margin: 0 0 1.25rem;
+  max-width: 52rem;
+}
+
+.page-intro .brand-line {
+  margin: 0.25rem 0 0;
+}
+
+.page-intro .intro-copy {
+  margin: 0.75rem 0 0;
+  max-width: 52rem;
+}
+
+.static-section {
+  margin-bottom: 2.75rem;
+}
+
+.static-section > h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-on-surface));
+}
+
+.holiday-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.holiday-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  background: rgb(var(--color-surface));
+  border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 40%, transparent);
+  border-radius: 0.625rem;
+}
+
+.holiday-table caption {
+  text-align: left;
+  font-weight: 600;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 40%, transparent);
+  color: rgb(var(--color-on-surface));
+}
+
+.holiday-table thead th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgb(var(--color-on-surface-variant));
+  border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 40%, transparent);
+  background: rgb(var(--color-background));
+}
+
+.holiday-table tbody td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 40%, transparent);
+  vertical-align: top;
+  color: rgb(var(--color-on-surface));
+}
+
+.holiday-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.holiday-table time {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.static-month-h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.65rem;
+  color: rgb(var(--color-on-surface));
+}
+
+.long-weekend-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+  line-height: 1.55;
+  font-size: 0.92rem;
+  color: rgb(var(--color-on-surface));
+}
+
+.long-weekend-list li {
+  margin-bottom: 0.35rem;
+}
