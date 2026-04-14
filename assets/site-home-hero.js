@@ -927,7 +927,7 @@
     wrap.className = "flex flex-col";
 
     const h = document.createElement("h4");
-    h.className = "font-bold text-lg mb-4 text-on-surface";
+    h.className = "font-bold text-lg mb-4 text-on-surface hidden sm:flex ";
     h.textContent = MONTHS[month] + " " + year;
     wrap.appendChild(h);
 
