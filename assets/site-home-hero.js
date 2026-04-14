@@ -11,6 +11,7 @@
     byDate: null,
     sortedData: null,
     selectedIndex: null,
+    headlineTypingGen: 0,
   };
 
   const listContext = {
@@ -601,6 +602,158 @@
     }
   }
 
+  function prefersReducedMotion() {
+    return (
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+  }
+
+  function isInViewport(el) {
+    const r = el.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight * 0.95;
+  }
+
+  function whenEntersViewport(el, cb) {
+    if (!el) return;
+    const observeTarget =
+      document.getElementById("hero-content") ||
+      document.getElementById("hero-section") ||
+      el;
+    if (isInViewport(observeTarget)) {
+      requestAnimationFrame(cb);
+      return;
+    }
+    const io = new IntersectionObserver(
+      function (entries, obs) {
+        if (entries[0] && entries[0].isIntersecting) {
+          obs.disconnect();
+          cb();
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    io.observe(observeTarget);
+  }
+
+  function typeHeadlineSegments(el, segments, options) {
+    const delayMs = options.delayMs || 38;
+    const shouldAbort = options.shouldAbort;
+    const onComplete = options.onComplete;
+    const prefix = options.prefix || "";
+    el.innerHTML = "";
+    if (prefix) {
+      el.appendChild(document.createTextNode(prefix));
+    }
+    el.setAttribute("aria-busy", "true");
+    let segI = 0;
+    let pos = 0;
+    let span = null;
+    let textNode = null;
+
+    function tick() {
+      if (shouldAbort && shouldAbort()) {
+        el.removeAttribute("aria-busy");
+        return;
+      }
+      if (segI >= segments.length) {
+        el.removeAttribute("aria-busy");
+        if (onComplete) onComplete();
+        return;
+      }
+      const seg = segments[segI];
+      if (seg.instant) {
+        span = null;
+        textNode = null;
+        if (seg.className) {
+          span = document.createElement("span");
+          span.className = seg.className;
+          span.textContent = seg.text;
+          el.appendChild(span);
+        } else {
+          el.appendChild(document.createTextNode(seg.text));
+        }
+        segI++;
+        pos = 0;
+        window.setTimeout(tick, 0);
+        return;
+      }
+      if (pos === 0) {
+        span = null;
+        textNode = null;
+        if (seg.className) {
+          span = document.createElement("span");
+          span.className = seg.className;
+          el.appendChild(span);
+        } else {
+          textNode = document.createTextNode("");
+          el.appendChild(textNode);
+        }
+      }
+      const bucket = span || textNode;
+      bucket.textContent += seg.text.charAt(pos);
+      pos++;
+      if (pos >= seg.text.length) {
+        segI++;
+        pos = 0;
+      }
+      window.setTimeout(tick, delayMs);
+    }
+
+    window.setTimeout(tick, 300);
+  }
+
+  function scheduleHeroTodayHeadline(elHeadline, todayRow, todayIso) {
+    if (!elHeadline) return;
+    const key = todayIso + ":" + (todayRow ? "libur" : "kerja");
+    const prevKey = elHeadline.getAttribute("data-headline-key");
+    const done = elHeadline.getAttribute("data-headline-done") === "1";
+    const busy = elHeadline.getAttribute("aria-busy") === "true";
+    if (prevKey === key && (done || busy)) return;
+
+    heroContext.headlineTypingGen += 1;
+    const gen = heroContext.headlineTypingGen;
+    elHeadline.setAttribute("data-headline-key", key);
+    elHeadline.removeAttribute("data-headline-done");
+    if (prevKey != null && prevKey !== key) {
+      elHeadline.innerHTML = "";
+    }
+
+    const segments = todayRow
+      ? [
+          { text: "libur", className: "text-primary" },
+          { text: ".", instant: true },
+        ]
+      : [{ text: "tidak libur.", className: "text-outline" }];
+
+    if (prefersReducedMotion()) {
+      if (todayRow) {
+        elHeadline.innerHTML =
+          'Hari ini <span class="text-primary">libur</span>.';
+      } else {
+        elHeadline.innerHTML =
+          'Hari ini <span class="text-outline">tidak libur.</span>';
+      }
+      elHeadline.setAttribute("data-headline-done", "1");
+      elHeadline.removeAttribute("aria-busy");
+      return;
+    }
+
+    whenEntersViewport(elHeadline, function () {
+      if (gen !== heroContext.headlineTypingGen) return;
+      typeHeadlineSegments(elHeadline, segments, {
+        prefix: "Hari ini ",
+        shouldAbort: function () {
+          return gen !== heroContext.headlineTypingGen;
+        },
+        onComplete: function () {
+          if (gen !== heroContext.headlineTypingGen) return;
+          elHeadline.setAttribute("data-headline-done", "1");
+        },
+      });
+    });
+  }
+
   function renderMainCard() {
     const elDate = document.getElementById("hero-today-date");
     const elHeadline = document.getElementById("hero-today-headline");
@@ -658,15 +811,7 @@
 
     if (nextCol) nextCol.classList.remove("hidden");
 
-    if (elHeadline) {
-      if (todayRow) {
-        elHeadline.innerHTML =
-          'Hari ini <span class="text-primary">libur</span>.';
-      } else {
-        elHeadline.innerHTML =
-          'Hari ini <span class="text-outline">tidak libur.</span>';
-      }
-    }
+    scheduleHeroTodayHeadline(elHeadline, todayRow, t);
     setTodayBody(elBody, todayRow, byDate);
 
     if (btnShareToday) {
