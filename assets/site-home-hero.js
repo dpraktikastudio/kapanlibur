@@ -664,7 +664,7 @@
           'Hari ini <span class="text-primary">libur</span>.';
       } else {
         elHeadline.innerHTML =
-          'Hari ini <span class="text-outline">tidak</span> libur.';
+          'Hari ini <span class="text-outline">tidak libur.</span>';
       }
     }
     setTodayBody(elBody, todayRow, byDate);
