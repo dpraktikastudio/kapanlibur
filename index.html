@@ -537,58 +537,23 @@
                   <p class="text-primary font-bold tracking-widest uppercase text-xs mb-2">Kalender tahunan</p>
                   <h2 class="text-4xl font-extrabold tracking-tight text-on-surface">Kalender libur nasional 2026</h2>
                </div>
-               <div class="flex gap-2 bg-surface-container-low p-1 rounded-lg border border-outline-variant/10">
-                  <button class="px-6 py-2 bg-surface-container-high text-on-surface shadow-sm rounded-md text-sm font-bold">2026</button>
-                  <button class="px-6 py-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors">2027</button>
+               <div class="flex gap-2 bg-surface-container-low p-1 rounded-lg border border-outline-variant/10" role="group" aria-label="Tahun kalender">
+                  <button type="button" id="cal-year-2026" class="px-6 py-2 bg-surface-container-high text-on-surface shadow-sm rounded-md text-sm font-bold" aria-current="true">2026</button>
+                  <button type="button" id="cal-year-2027" disabled class="px-6 py-2 text-sm font-medium text-on-surface-variant opacity-50 cursor-not-allowed rounded-md" aria-disabled="true" title="Data belum tersedia">2027</button>
                </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-               <!-- Kalender 12 bulan (contoh tampilan) -->
-               <script>
-                  const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-                  const container = document.currentScript.parentElement;
-                  const dotStyle = (typeof getComputedStyle !== "undefined"
-                      ? getComputedStyle(document.documentElement).getPropertyValue("--cal-dot-shadow").trim()
-                      : "") || "0 0 8px rgba(87, 241, 219, 0.5)";
-                  
-                  months.forEach((month, idx) => {
-                      const monthDiv = document.createElement('div');
-                      monthDiv.className = "flex flex-col";
-                      
-                      let calendarHtml = `
-                          <h4 class="font-bold text-lg mb-4 flex items-center justify-between text-on-surface">
-                              ${month}
-                              ${idx === 3 ? '<span class="w-2 h-2 bg-primary rounded-full" style="box-shadow: ' + dotStyle + '"></span>' : ''}
-                          </h4>
-                          <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-outline mb-2 uppercase">
-                              <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
-                          </div>
-                          <div class="grid grid-cols-7 gap-y-2 gap-x-1 text-sm">
-                      `;
-                      
-                      for (let i = 1; i <= 31; i++) {
-                          const isHoliday = (idx === 3 && i === 18);
-                          const isToday = (idx === 3 && i === 13);
-                          
-                          let dateClass = "h-8 flex items-center justify-center rounded-lg transition-colors cursor-pointer";
-                          if (isHoliday) dateClass += " bg-primary text-on-primary font-bold";
-                          else if (isToday) dateClass += " border border-primary text-primary font-bold";
-                          else dateClass += " hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface";
-                          
-                          calendarHtml += `<div class="${dateClass}">${i}</div>`;
-                          if (i === 28 && idx === 1) break;
-                          if (i === 30 && [3, 5, 8, 10].includes(idx)) break;
-                      }
-                      
-                      calendarHtml += `</div>`;
-                      monthDiv.innerHTML = calendarHtml;
-                      container.appendChild(monthDiv);
-                  });
-               </script>
+            <div id="cal-month-toolbar" class="flex md:hidden items-center gap-2 mb-6" role="group" aria-label="Bulan pada layar kecil">
+               <button type="button" id="cal-nav-prev" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface text-lg font-bold hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed shrink-0" aria-label="Bulan sebelumnya">&#8249;</button>
+               <p id="cal-toolbar-label" class="flex-1 text-center text-base font-bold text-on-surface min-h-[2.5rem] flex items-center justify-center"></p>
+               <button type="button" id="cal-nav-next" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface text-lg font-bold hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed shrink-0" aria-label="Bulan berikutnya">&#8250;</button>
+            </div>
+            <div id="calendar-wrap">
+               <div id="calendar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12"></div>
             </div>
          </section>
+
          <!-- Ajakan rencana libur -->
-         <section class="bg-surface-container-low rounded-xl p-12 relative overflow-hidden border border-outline-variant/15">
+         <section class="bg-surface-container-low rounded-xl p-12 relative overflow-hidden border border-outline-variant/15 hidden">
             <div class="relative z-10 flex flex-col md:flex-row items-center gap-12">
                <div class="md:w-1/2">
                   <img alt="Ilustrasi perencanaan libur dan cuti" class="rounded-xl shadow-2xl w-full aspect-video object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi3Udk_AuuG0U0iJ8E0bovk0A4PTsC9i3EiEPV5Yt9rx7JL4XekXW_W8mG0TRywAyrKM5sOhWgopnzUm5oVplFXeU_-suHWAw5BmwvfCoEEz6DjtpxM6WzOyw5RtYwzv3DEB9vwxhU92RuWXFR3Wo6OGq7db11a85C9fiTqZF9BfcJHq5pebiW8KlPQnuSOOuxY3Qk7AbKTh33g3IQU9Q5YlGomvUWmDBvtsRd11AnVRKf3DJFM3Dk26J0GEY2SDIzEDUcKepbH7zx"/>
@@ -630,6 +595,19 @@
             <p class="text-sm text-on-surface-variant">© 2026 Kapan Libur</p>
          </div>
       </footer>
+      <div id="cal-popover-backdrop" class="hidden fixed inset-0 z-40 bg-black/40" aria-hidden="true"></div>
+      <div
+         id="cal-popover"
+         class="hidden fixed z-50 w-[min(100vw-1.5rem,24rem)] max-h-[min(90vh,32rem)] overflow-y-auto rounded-xl border border-outline-variant/20 bg-surface-container-low p-5 shadow-2xl text-on-surface"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="cal-popover-title"
+      >
+         <button type="button" id="cal-popover-close" class="absolute top-3 right-3 px-3 py-1.5 text-sm font-semibold rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/50">Tutup</button>
+         <h3 id="cal-popover-title" class="text-lg font-bold pr-16 mb-3 leading-snug"></h3>
+         <div id="cal-popover-body" class="text-sm"></div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" defer></script>
       <script src="/assets/site-theme.js" defer></script>
       <script src="/assets/site-home-hero.js" defer></script>
    </body>

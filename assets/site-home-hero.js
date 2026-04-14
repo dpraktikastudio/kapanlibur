@@ -24,6 +24,20 @@
   let liburMendatangSwipeBound = false;
   let liburMendatangInited = false;
 
+  const calContext = {
+    year: null,
+    byDate: null,
+    mobileMonth: 0,
+  };
+  const CAL_MOBILE_MQ = "(max-width: 640px)";
+  const DOW_CAL_SHORT = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+
+  let calPopperInstance = null;
+  let calPopoverRow = null;
+  let calPopoverLastFocus = null;
+  let calendarSwipeBound = false;
+  let calendarUIInited = false;
+
   function todayISO() {
     const n = new Date();
     const y = n.getFullYear();
@@ -775,6 +789,395 @@
     }
   }
 
+  function isCalMobile() {
+    return typeof window.matchMedia !== "undefined" &&
+      window.matchMedia(CAL_MOBILE_MQ).matches;
+  }
+
+  function calCellClasses(type) {
+    if (type === "Libur Nasional") {
+      return "bg-primary text-on-primary font-bold cursor-pointer";
+    }
+    if (type === "Cuti Bersama") {
+      return "bg-secondary-container text-on-secondary-container font-bold cursor-pointer";
+    }
+    if (type === "Sabtu") {
+      return "bg-surface-container-high text-on-surface-variant cursor-pointer";
+    }
+    if (type === "Minggu") {
+      return "bg-surface-container-high text-on-surface-variant cursor-pointer";
+    }
+    return "bg-tertiary-container text-on-tertiary-container font-medium cursor-pointer";
+  }
+
+  function closeCalPopover() {
+    if (calPopperInstance) {
+      calPopperInstance.destroy();
+      calPopperInstance = null;
+    }
+    const backdrop = document.getElementById("cal-popover-backdrop");
+    const popoverEl = document.getElementById("cal-popover");
+    if (backdrop) {
+      backdrop.classList.add("hidden");
+      backdrop.setAttribute("aria-hidden", "true");
+    }
+    if (popoverEl) {
+      popoverEl.classList.add("hidden");
+      popoverEl.style.top = "";
+      popoverEl.style.left = "";
+      popoverEl.style.transform = "";
+    }
+    calPopoverRow = null;
+    if (calPopoverLastFocus && calPopoverLastFocus.focus) {
+      try {
+        calPopoverLastFocus.focus();
+      } catch (err) {}
+    }
+    calPopoverLastFocus = null;
+  }
+
+  function openCalPopover(row, triggerEl) {
+    const byDate = calContext.byDate;
+    const title = document.getElementById("cal-popover-title");
+    const body = document.getElementById("cal-popover-body");
+    const popoverEl = document.getElementById("cal-popover");
+    const backdrop = document.getElementById("cal-popover-backdrop");
+    if (!title || !body || !popoverEl || !backdrop) return;
+
+    calPopoverRow = row;
+    calPopoverLastFocus = document.activeElement;
+
+    title.innerHTML =
+      '<time datetime="' +
+      escapeHtml(row.date) +
+      '">' +
+      escapeHtml(formatLongID(row.date)) +
+      "</time>";
+
+    const badges = renderBadgeSpans(row, byDate);
+    const badgeBlock =
+      badges !== ""
+        ? '<div class="flex flex-wrap gap-2">' + badges + "</div>"
+        : "";
+
+    body.innerHTML =
+      '<p class="text-on-surface text-base font-medium mb-2">' +
+      escapeHtml(row.description) +
+      "</p>" +
+      '<p class="text-on-surface-variant text-sm mb-4">' +
+      '<time datetime="' +
+      escapeHtml(row.date) +
+      '">' +
+      escapeHtml(row.day) +
+      "</time> · Libur " +
+      escapeHtml(formatRantaiBerturutForRow(row, byDate)) +
+      "</p>" +
+      '<div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-outline-variant/20">' +
+      badgeBlock +
+      '<div class="flex items-center gap-2 shrink-0">' +
+      '<button type="button" id="cal-popover-share" class="inline-flex items-center justify-center p-2 rounded-lg border border-outline-variant text-primary hover:bg-surface-variant/40 transition-colors" aria-label="Bagikan">' +
+      shareIconSvg() +
+      "</button>" +
+      '<span id="cal-popover-share-toast" class="share-toast text-primary text-xs whitespace-nowrap" aria-live="polite"></span>' +
+      "</div></div>";
+
+    if (calPopperInstance) {
+      calPopperInstance.destroy();
+      calPopperInstance = null;
+    }
+
+    backdrop.classList.remove("hidden");
+    backdrop.setAttribute("aria-hidden", "false");
+    popoverEl.classList.remove("hidden");
+
+    const refEl =
+      triggerEl instanceof Element ? triggerEl : document.getElementById("calendar");
+
+    if (typeof Popper !== "undefined" && refEl) {
+      popoverEl.style.top = "";
+      popoverEl.style.left = "";
+      popoverEl.style.transform = "";
+      calPopperInstance = Popper.createPopper(refEl, popoverEl, {
+        placement: "bottom",
+        strategy: "fixed",
+        modifiers: [
+          { name: "offset", options: { offset: [0, 8] } },
+          { name: "flip" },
+          { name: "preventOverflow", options: { padding: 8 } },
+        ],
+      });
+      requestAnimationFrame(function () {
+        if (calPopperInstance) calPopperInstance.update();
+      });
+    } else {
+      popoverEl.style.top = "50%";
+      popoverEl.style.left = "50%";
+      popoverEl.style.transform = "translate(-50%, -50%)";
+    }
+
+    const closeBtn = document.getElementById("cal-popover-close");
+    if (closeBtn && closeBtn.focus) closeBtn.focus();
+  }
+
+  function buildHomeMonthGrid(year, month, byDate) {
+    const first = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    const startPad = first.getDay();
+    const wrap = document.createElement("div");
+    wrap.className = "flex flex-col";
+
+    const h = document.createElement("h4");
+    h.className = "font-bold text-lg mb-4 text-on-surface";
+    h.textContent = MONTHS[month] + " " + year;
+    wrap.appendChild(h);
+
+    const dow = document.createElement("div");
+    dow.className =
+      "grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-outline mb-2 uppercase";
+    DOW_CAL_SHORT.forEach(function (label) {
+      const s = document.createElement("div");
+      s.textContent = label;
+      dow.appendChild(s);
+    });
+    wrap.appendChild(dow);
+
+    const grid = document.createElement("div");
+    grid.className = "grid grid-cols-7 gap-y-2 gap-x-1 text-sm";
+
+    for (let i = 0; i < startPad; i++) {
+      const pad = document.createElement("div");
+      pad.className = "invisible pointer-events-none h-8";
+      pad.setAttribute("aria-hidden", "true");
+      grid.appendChild(pad);
+    }
+
+    const tISO = todayISO();
+    const tParts = tISO.split("-").map(Number);
+    const isThisYearToday = tParts[0] === year;
+
+    for (let day = 1; day <= lastDay; day++) {
+      const iso =
+        year +
+        "-" +
+        String(month + 1).padStart(2, "0") +
+        "-" +
+        String(day).padStart(2, "0");
+      const cell = document.createElement("div");
+      const span = document.createElement("span");
+      span.className = "tabular-nums";
+      span.textContent = String(day);
+      cell.appendChild(span);
+
+      const row = byDate.get(iso);
+      let cls =
+        "h-8 flex items-center justify-center rounded-lg text-sm transition-colors";
+
+      if (row) {
+        cls += " " + calCellClasses(row.type);
+        cell.title = row.description + " (" + row.type + ")";
+        cell.setAttribute("tabindex", "0");
+        cell.setAttribute("role", "button");
+        (function (r, c) {
+          c.addEventListener("click", function (e) {
+            e.stopPropagation();
+            openCalPopover(r, c);
+          });
+          c.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openCalPopover(r, c);
+            }
+          });
+        })(row, cell);
+      } else {
+        cls +=
+          " text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface";
+      }
+
+      if (iso < tISO) cls += " opacity-60";
+      if (isThisYearToday && iso === tISO) {
+        cls += " ring-2 ring-primary ring-offset-2 ring-offset-background";
+      }
+
+      cell.className = cls;
+      grid.appendChild(cell);
+    }
+
+    wrap.appendChild(grid);
+    return wrap;
+  }
+
+  function stepCalMobileMonth(delta) {
+    calContext.mobileMonth += delta;
+    if (calContext.mobileMonth < 0) calContext.mobileMonth = 0;
+    if (calContext.mobileMonth > 11) calContext.mobileMonth = 11;
+    renderHomeCalendar();
+  }
+
+  function renderHomeCalendar() {
+    const container = document.getElementById("calendar");
+    if (!container || !calContext.byDate || calContext.year == null) return;
+
+    const byDate = calContext.byDate;
+    const year = calContext.year;
+    const toolbarLabel = document.getElementById("cal-toolbar-label");
+    const prevCal = document.getElementById("cal-nav-prev");
+    const nextCal = document.getElementById("cal-nav-next");
+    const mobile = isCalMobile();
+
+    if (mobile) {
+      if (toolbarLabel) {
+        toolbarLabel.textContent = MONTHS[calContext.mobileMonth] + " " + year;
+      }
+      if (prevCal) {
+        prevCal.disabled = calContext.mobileMonth <= 0;
+        prevCal.setAttribute(
+          "aria-disabled",
+          calContext.mobileMonth <= 0 ? "true" : "false"
+        );
+      }
+      if (nextCal) {
+        nextCal.disabled = calContext.mobileMonth >= 11;
+        nextCal.setAttribute(
+          "aria-disabled",
+          calContext.mobileMonth >= 11 ? "true" : "false"
+        );
+      }
+      container.innerHTML = "";
+      container.appendChild(
+        buildHomeMonthGrid(year, calContext.mobileMonth, byDate)
+      );
+    } else {
+      if (toolbarLabel) toolbarLabel.textContent = "";
+      if (prevCal) {
+        prevCal.disabled = true;
+        prevCal.setAttribute("aria-disabled", "true");
+      }
+      if (nextCal) {
+        nextCal.disabled = true;
+        nextCal.setAttribute("aria-disabled", "true");
+      }
+      container.innerHTML = "";
+      for (let m = 0; m < 12; m++) {
+        container.appendChild(buildHomeMonthGrid(year, m, byDate));
+      }
+    }
+  }
+
+  function attachCalendarWrapSwipeOnce() {
+    if (calendarSwipeBound) return;
+    const wrap = document.getElementById("calendar-wrap");
+    if (!wrap) return;
+    calendarSwipeBound = true;
+    let startX = 0;
+    let startY = 0;
+    let ptrId = null;
+    function trySwipe(endX, endY) {
+      if (!isCalMobile()) return;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        stepCalMobileMonth(1);
+      } else {
+        stepCalMobileMonth(-1);
+      }
+    }
+    wrap.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    wrap.addEventListener(
+      "touchend",
+      function (e) {
+        if (!e.changedTouches.length) return;
+        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+    wrap.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      ptrId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    wrap.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch") return;
+      if (ptrId === null || e.pointerId !== ptrId) return;
+      ptrId = null;
+      trySwipe(e.clientX, e.clientY);
+    });
+    wrap.addEventListener("pointercancel", function () {
+      ptrId = null;
+    });
+  }
+
+  function initCalendarUIOnce() {
+    if (calendarUIInited) return;
+    calendarUIInited = true;
+
+    const backdrop = document.getElementById("cal-popover-backdrop");
+    const popover = document.getElementById("cal-popover");
+    const closeBtn = document.getElementById("cal-popover-close");
+
+    if (backdrop) backdrop.addEventListener("click", closeCalPopover);
+    if (closeBtn) closeBtn.addEventListener("click", closeCalPopover);
+
+    document.addEventListener("keydown", function (e) {
+      if (
+        e.key === "Escape" &&
+        popover &&
+        !popover.classList.contains("hidden")
+      ) {
+        closeCalPopover();
+      }
+    });
+
+    if (popover) {
+      popover.addEventListener("click", function (e) {
+        if (!e.target.closest("#cal-popover-share")) return;
+        e.stopPropagation();
+        if (!calPopoverRow || !calContext.byDate) return;
+        const text = buildShareSelectedText(
+          todayISO(),
+          calPopoverRow,
+          calContext.byDate
+        );
+        const toast = document.getElementById("cal-popover-share-toast");
+        runShare(text, toast);
+      });
+    }
+
+    const prev = document.getElementById("cal-nav-prev");
+    const next = document.getElementById("cal-nav-next");
+    if (prev) {
+      prev.addEventListener("click", function () {
+        stepCalMobileMonth(-1);
+      });
+    }
+    if (next) {
+      next.addEventListener("click", function () {
+        stepCalMobileMonth(1);
+      });
+    }
+
+    attachCalendarWrapSwipeOnce();
+
+    if (typeof window.matchMedia !== "undefined") {
+      window.matchMedia(CAL_MOBILE_MQ).addEventListener("change", function () {
+        if (calContext.byDate && calContext.year != null) {
+          renderHomeCalendar();
+        }
+      });
+    }
+  }
+
   function onDataLoaded(data) {
     const byDate = new Map(data.map(function (r) { return [r.date, r]; }));
     heroContext.byDate = byDate;
@@ -802,16 +1205,27 @@
       listContext.dataYear = year;
       listContext.listYearMonth =
         t.slice(0, 4) === String(year) ? t.slice(0, 7) : year + "-01";
+      calContext.year = year;
+      calContext.byDate = byDate;
+      calContext.mobileMonth =
+        t.slice(0, 4) === String(year)
+          ? parseInt(t.slice(5, 7), 10) - 1
+          : 0;
     } else {
       listContext.sortedData = [];
       listContext.byDate = byDate;
       const y = new Date().getFullYear();
       listContext.dataYear = y;
       listContext.listYearMonth = y + "-01";
+      calContext.year = y;
+      calContext.byDate = byDate;
+      calContext.mobileMonth = 0;
     }
     showLiburMendatangLoaded();
     initLiburMendatangControls();
     renderLiburMendatangList();
+    initCalendarUIOnce();
+    renderHomeCalendar();
   }
 
   function onDataError() {
@@ -829,6 +1243,12 @@
     if (section) section.setAttribute("aria-busy", "false");
 
     showLiburMendatangError();
+
+    const calEl = document.getElementById("calendar");
+    if (calEl) {
+      calEl.innerHTML =
+        '<p class="text-on-surface-variant text-sm col-span-full">Tidak bisa memuat kalender. Muat ulang halaman atau buka <a class="text-primary font-semibold hover:underline" href="/hari-libur-nasional-2026.html">daftar lengkap</a>.</p>';
+    }
   }
 
   fetch("/json/2026.json")
