@@ -167,10 +167,28 @@
             </div>
          </div>
       </nav>
-      <main class="pt-28 md:pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
+      <div id="hero-next-banner" class="hero-promo-banner hidden bg-primary-fixed text-on-primary-fixed transition-opacity" aria-label="Libur berikutnya">
+         <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2.5 sm:py-3">
+            <div class="flex items-center gap-1 sm:gap-2 min-h-9">
+               <button type="button" id="hero-nav-prev" class="shrink-0 min-w-[2.25rem] h-9 px-0.5 rounded-md border border-on-primary-fixed/40 text-on-primary-fixed text-lg font-bold leading-none hover:bg-on-primary-fixed/15 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur sebelumnya">&#8249;</button>
+               <button type="button" id="hero-jump-terdekat" class="shrink-0 text-[0.7rem] sm:text-sm font-semibold text-on-primary-fixed/95 hover:underline underline-offset-2 px-0.5 max-w-[5.5rem] sm:max-w-none leading-tight text-left disabled:opacity-35 disabled:no-underline disabled:cursor-not-allowed disabled:hover:no-underline" aria-label="Lompat ke libur nasional atau cuti bersama terdekat">Libur / Cuti Terdekat</button>
+               <div id="hero-next-nav" class="min-w-0 flex-1 flex items-center justify-center gap-1 sm:gap-2 touch-pan-y py-0.5" role="region" aria-label="Libur berikutnya atau sebelumnya">
+                  <span class="material-symbols-outlined text-lg sm:text-xl shrink-0 text-on-primary-fixed/90" aria-hidden="true">celebration</span>
+                  <div id="hero-next-banner-summary" class="text-xs sm:text-sm font-medium text-center truncate min-w-0 text-on-primary-fixed"></div>
+               </div>
+               <span id="hero-next-banner-sr" class="sr-only"></span>
+               <span class="flex items-center gap-1 shrink-0">
+                  <button type="button" id="hero-share-next" class="inline-flex items-center justify-center w-9 h-9 rounded-md border border-on-primary-fixed/40 text-on-primary-fixed hover:bg-on-primary-fixed/15" aria-label="Bagikan libur yang dipilih"></button>
+                  <span id="hero-share-next-toast" class="share-toast text-on-primary-fixed text-xs whitespace-nowrap max-w-[4rem] sm:max-w-[6rem] truncate" aria-live="polite"></span>
+               </span>
+               <button type="button" id="hero-nav-next" class="shrink-0 min-w-[2.25rem] h-9 px-0.5 rounded-md border border-on-primary-fixed/40 text-on-primary-fixed text-lg font-bold leading-none hover:bg-on-primary-fixed/15 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur berikutnya pada daftar">&#8250;</button>
+            </div>
+         </div>
+      </div>
+      <main class="site-main pb-20 px-4 md:px-8 max-w-7xl mx-auto">
          <!-- Hero: diisi oleh /assets/site-home-hero.js -->
-         <section id="hero-section" class="mb-20" aria-busy="true" style="min-height: 359px;">
-            <div id="hero-content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+         <section id="hero-section" class="mb-20" aria-busy="true">
+            <div id="hero-content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                <div class="lg:col-span-7">
                   <p class="text-primary font-bold tracking-widest uppercase text-xs mb-4">Status hari ini</p>
                   <p class="text-base font-semibold text-on-surface mb-3"><time id="hero-today-date" datetime=""></time></p>
@@ -183,32 +201,25 @@
                      <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
                   </div>
                </div>
-               <div id="hero-next-column" class="lg:col-span-5 relative overflow-hidden">
-                  <div id="hero-next-card" class="hero-gradient p-4 md:p-8 rounded-xl text-on-primary shadow-2xl relative overflow-hidden transition-opacity">
-                     <div id="hero-next-nav" class="relative z-10" role="region" aria-label="Libur berikutnya atau sebelumnya">
-                        <p id="hero-next-section-title" class="text-white/90 text-sm font-medium mb-2"></p>
-                        <div id="hero-next-countdown" class="mb-4 hidden">
-                           <p id="hero-next-count-primary" class="text-4xl sm:text-5xl font-extrabold tracking-tighter text-white leading-tight"></p>
-                           <p id="hero-next-count-sub" class="text-lg text-white/85 mt-1"></p>
-                        </div>
-                        <p id="hero-next-because" class="text-white text-base font-medium mb-3"></p>
-                        <div id="hero-next-badges" class="flex flex-wrap gap-2 mb-3"></div>
-                        <p id="hero-next-chain" class="text-white/85 text-sm mb-4"></p>
-                        <p class="text-2xl font-bold text-white mb-4"><time id="hero-next-date" datetime=""></time></p>
+               <div class="lg:col-span-5">
+                  <div id="cuti-optimizer-card" class="rounded-xl border border-outline-variant/60 bg-surface-container-lowest p-4 md:p-6 shadow-sm">
+                     <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-2xl text-primary" aria-hidden="true">bar_chart</span>
+                        <h2 class="text-lg font-bold text-on-surface">Optimasi cuti</h2>
                      </div>
-                     <div class="flex flex-wrap items-center gap-3">
-                        <button type="button" id="hero-share-next" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/25 text-sm font-semibold text-white bg-white/10 hover:bg-white/15 transition-colors">
-                        <span>Bagikan</span>
-                        </button>
-                        <span id="hero-share-next-toast" class="share-toast text-white" aria-live="polite"></span>
-                        <div class="flex items-center gap-1 ml-auto" role="group" aria-label="Libur sebelumnya atau berikutnya">
-                           <button type="button" id="hero-nav-prev" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-white/25 text-white text-lg font-bold hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur sebelumnya">&#8249;</button>
-                           <button type="button" id="hero-nav-next" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-white/25 text-white text-lg font-bold hover:bg-white/10 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur berikutnya pada daftar">&#8250;</button>
-                        </div>
+                     <label for="cuti-optimizer-n" class="block text-[0.65rem] sm:text-xs font-bold uppercase tracking-wide text-on-surface-variant mb-1.5">Jumlah hari cuti (N)</label>
+                     <div class="flex flex-wrap gap-2 items-stretch sm:items-end mb-3">
+                        <input id="cuti-optimizer-n" type="number" min="1" max="10" value="2" class="w-20 rounded-lg border border-outline-variant bg-surface text-on-surface px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-primary focus:outline-none"/>
+                        <button type="button" id="cuti-optimizer-run" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity">Optimalkan</button>
                      </div>
-                  </div>
-                  <div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12 pointer-events-none">
-                     <span class="material-symbols-outlined text-[250px] text-white/20">event_repeat</span>
+                     <p id="cuti-optimizer-hint" class="text-sm text-on-surface-variant mb-3">Masukkan berapa hari cuti yang ingin Anda ambil, lalu klik Optimalkan.</p>
+                     <div id="cuti-optimizer-results" class="hidden space-y-2" aria-live="polite">
+                        <p class="text-[0.65rem] font-bold uppercase tracking-wide text-primary">Saran cuti</p>
+                        <p class="text-sm text-on-surface"><span class="text-on-surface-variant">Tanggal cuti:</span> <span id="cuti-optimizer-leave-dates" class="font-semibold"></span></p>
+                        <p class="text-sm text-on-surface"><span class="text-on-surface-variant">Rentang libur:</span> <span id="cuti-optimizer-span-range" class="font-semibold"></span></p>
+                        <p id="cuti-optimizer-total" class="text-2xl font-bold text-primary text-right pt-1"></p>
+                     </div>
+                     <p id="cuti-optimizer-error" class="hidden text-sm text-error" role="alert"></p>
                   </div>
                </div>
             </div>
@@ -546,5 +557,6 @@
       <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
       <script src="/assets/site-newsletter.js" defer></script>
       <script src="/assets/site-home-hero.js" defer></script>
+      <script src="/assets/site-cuti-optimizer.js" defer></script>
    </body>
 </html>

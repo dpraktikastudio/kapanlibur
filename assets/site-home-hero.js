@@ -58,6 +58,80 @@
     return Math.round((b - a) / 86400000);
   }
 
+  function indexFirstFutureNasionalCuti(sortedData, todayISO) {
+    if (!sortedData || !sortedData.length) return -1;
+    return sortedData.findIndex(function (r) {
+      return (
+        r.date > todayISO &&
+        (r.type === "Libur Nasional" || r.type === "Cuti Bersama")
+      );
+    });
+  }
+
+  function heroBannerSummaryLines(t, selectedRow, byDate) {
+    const dateStr = formatLongID(selectedRow.date);
+    const desc = selectedRow.description;
+    const type = selectedRow.type;
+    const eDesc = escapeHtml(desc);
+    const eType = escapeHtml(type);
+    let visualHtml = "";
+    let full = "";
+    if (selectedRow.date > t) {
+      const n = diffDays(t, selectedRow.date);
+      const cap = menujuNextHolidayCaption(selectedRow);
+      if (n === 1) {
+        visualHtml =
+          "Libur berikutnya: <strong>" + eDesc + "</strong> — besok!";
+        full = "Libur berikutnya: " + desc + " — besok — " + cap + " — " + dateStr;
+      } else {
+        visualHtml =
+          "Libur berikutnya: <strong>" +
+          eDesc +
+          "</strong> — dalam " +
+          n +
+          " hari!";
+        full =
+          "Libur berikutnya: " +
+          desc +
+          " — dalam " +
+          n +
+          " hari — " +
+          cap +
+          " — " +
+          dateStr;
+      }
+    } else if (selectedRow.date < t) {
+      visualHtml =
+        "<strong>" + eDesc + "</strong> (" + eType + ") · " + escapeHtml(dateStr);
+      full =
+        desc +
+        " (" +
+        type +
+        ") · " +
+        dateStr +
+        " — Libur berturut-turut: " +
+        formatRantaiBerturutForRow(selectedRow, byDate);
+    } else {
+      visualHtml =
+        "Hari ini: <strong>" + eDesc + "</strong> (" + eType + ")";
+      full =
+        "Hari ini: " +
+        desc +
+        " (" +
+        type +
+        ") · " +
+        dateStr +
+        " — Libur berturut-turut: " +
+        formatRantaiBerturutForRow(selectedRow, byDate);
+    }
+    if (selectedRow.is_long_weekend) {
+      visualHtml +=
+        " · <span class=\"font-semibold\">Libur panjang</span>";
+      full += " · Libur panjang";
+    }
+    return { visualHtml: visualHtml, full: full };
+  }
+
   function formatLongID(iso) {
     const d = parseISODate(iso);
     const day = d.getDay();
@@ -748,35 +822,30 @@
     });
   }
 
+  function setHeroPromoBarVisible(visible) {
+    if (typeof document === "undefined" || !document.body) return;
+    document.body.classList.toggle("hero-promo-visible", !!visible);
+  }
+
   function renderMainCard() {
     const elDate = document.getElementById("hero-today-date");
     const elHeadline = document.getElementById("hero-today-headline");
     const elBody = document.getElementById("hero-today-body");
     const btnShareToday = document.getElementById("hero-share-today");
     const toastToday = document.getElementById("hero-share-today-toast");
-    const nextCol = document.getElementById("hero-next-column");
-    const nextCard = document.getElementById("hero-next-card");
-    const elNextTitle = document.getElementById("hero-next-section-title");
-    const elCountdown = document.getElementById("hero-next-countdown");
-    const elCountPri = document.getElementById("hero-next-count-primary");
-    const elCountSub = document.getElementById("hero-next-count-sub");
-    const elBecause = document.getElementById("hero-next-because");
-    const elBadges = document.getElementById("hero-next-badges");
-    const elChain = document.getElementById("hero-next-chain");
-    const elNextDate = document.getElementById("hero-next-date");
-    // const elChipText = document.getElementById("hero-next-chip-text");
+    const banner = document.getElementById("hero-next-banner");
+    const elSummary = document.getElementById("hero-next-banner-summary");
+    const elSummarySr = document.getElementById("hero-next-banner-sr");
     const btnShareNext = document.getElementById("hero-share-next");
     const toastNext = document.getElementById("hero-share-next-toast");
     const prevNav = document.getElementById("hero-nav-prev");
     const nextNav = document.getElementById("hero-nav-next");
+    const btnTerdekat = document.getElementById("hero-jump-terdekat");
 
     const byDate = heroContext.byDate;
     const sortedData = heroContext.sortedData;
     const t = todayISO();
-    
-    // * Test, manipulate date
-    // const t = "2026-05-01";
-    
+
     const todayRow = byDate && byDate.get ? byDate.get(t) || null : null;
 
     if (elDate) {
@@ -793,7 +862,8 @@
         elBody.innerHTML =
           '<p class="text-on-surface-variant">Tidak ada data libur untuk ditampilkan.</p>';
       }
-      if (nextCol) nextCol.classList.add("hidden");
+      if (banner) banner.classList.add("hidden");
+      setHeroPromoBarVisible(false);
       if (btnShareToday) {
         btnShareToday.innerHTML = shareIconSvg() + "<span>Bagikan</span>";
         btnShareToday.onclick = function () {
@@ -803,7 +873,8 @@
       return;
     }
 
-    if (nextCol) nextCol.classList.remove("hidden");
+    if (banner) banner.classList.remove("hidden");
+    setHeroPromoBarVisible(true);
 
     scheduleHeroTodayHeadline(elHeadline, todayRow, t);
     setTodayBody(elBody, todayRow, byDate);
@@ -818,9 +889,14 @@
     const firstFutureIdx = sortedData.findIndex(function (r) {
       return r.date > t;
     });
+    const idxNasCuti = indexFirstFutureNasionalCuti(sortedData, t);
     if (heroContext.selectedIndex === null) {
-      heroContext.selectedIndex =
-        firstFutureIdx >= 0 ? firstFutureIdx : sortedData.length - 1;
+      if (idxNasCuti >= 0) {
+        heroContext.selectedIndex = idxNasCuti;
+      } else {
+        heroContext.selectedIndex =
+          firstFutureIdx >= 0 ? firstFutureIdx : sortedData.length - 1;
+      }
     }
     let idx = heroContext.selectedIndex;
     idx = Math.max(0, Math.min(sortedData.length - 1, idx));
@@ -829,8 +905,7 @@
     const selectedRow = sortedData[idx];
     const atMin = idx === 0;
     const atMax = idx === sortedData.length - 1;
-    const showCountdown = selectedRow.date > t;
-    const nextCardDimmed = selectedRow.date < t;
+    const bannerDimmed = selectedRow.date < t;
 
     let nextSectionTitle;
     if (selectedRow.date > t) {
@@ -841,49 +916,21 @@
       nextSectionTitle = "Libur pada hari ini";
     }
 
-    if (nextCard) {
-      nextCard.classList.toggle("opacity-60", nextCardDimmed);
+    if (banner) {
+      banner.classList.toggle("opacity-60", bannerDimmed);
     }
 
-    if (elNextTitle) elNextTitle.textContent = nextSectionTitle;
-
-    if (elCountdown && elCountPri && elCountSub) {
-      if (showCountdown) {
-        elCountdown.classList.remove("hidden");
-        const n = diffDays(t, selectedRow.date);
-        const until = daysUntilPhrase(n);
-        const untilDisp = until.charAt(0).toUpperCase() + until.slice(1);
-        elCountPri.textContent = untilDisp;
-        elCountSub.textContent = menujuNextHolidayCaption(selectedRow);
-      } else {
-        elCountdown.classList.add("hidden");
-        elCountPri.textContent = "";
-        elCountSub.textContent = "";
-      }
+    const sum = heroBannerSummaryLines(t, selectedRow, byDate);
+    if (elSummary) {
+      elSummary.innerHTML = sum.visualHtml;
+      elSummary.setAttribute("title", sum.full);
     }
-
-    if (elBecause) {
-      // elBecause.textContent = "Karena " + selectedRow.description;
+    if (elSummarySr) {
+      elSummarySr.textContent = sum.full;
     }
-    if (elBadges) {
-      elBadges.innerHTML = renderBadgeSpans(selectedRow, byDate);
-    }
-    if (elChain) {
-      elChain.innerHTML =
-        "Libur berturut-turut: <strong class=\"text-white\">" +
-        escapeHtml(formatRantaiBerturutForRow(selectedRow, byDate)) +
-        "</strong>";
-    }
-    if (elNextDate) {
-      elNextDate.setAttribute("datetime", selectedRow.date);
-      elNextDate.textContent = formatLongID(selectedRow.date);
-    }
-    // if (elChipText) {
-    //   elChipText.textContent = selectedRow.description;
-    // }
 
     if (btnShareNext) {
-      btnShareNext.innerHTML = shareIconSvg() + "<span>Bagikan</span>";
+      btnShareNext.innerHTML = shareIconSvg();
       btnShareNext.onclick = function () {
         runShare(
           buildShareSelectedText(t, selectedRow, byDate),
@@ -910,6 +957,21 @@
           heroContext.selectedIndex = heroContext.selectedIndex + 1;
           renderMainCard();
         }
+      };
+    }
+
+    if (btnTerdekat) {
+      const noTarget = idxNasCuti < 0;
+      const alreadyThere = !noTarget && idx === idxNasCuti;
+      btnTerdekat.disabled = noTarget || alreadyThere;
+      btnTerdekat.setAttribute(
+        "aria-disabled",
+        btnTerdekat.disabled ? "true" : "false"
+      );
+      btnTerdekat.onclick = function () {
+        if (btnTerdekat.disabled) return;
+        heroContext.selectedIndex = idxNasCuti;
+        renderMainCard();
       };
     }
 
@@ -1365,14 +1427,23 @@
     renderLiburMendatangList();
     initCalendarUIOnce();
     renderHomeCalendar();
+
+    document.dispatchEvent(
+      new CustomEvent("kapanlibur:holidays-loaded", {
+        detail: { byDate: byDate, sortedData: data },
+      })
+    );
   }
 
   function onDataError() {
     const content = document.getElementById("hero-content");
+    const banner = document.getElementById("hero-next-banner");
     const section = document.getElementById("hero-section");
     const calState = document.getElementById("calendar-state");
     const calLoaded = document.getElementById("calendar-loaded");
 
+    if (banner) banner.classList.add("hidden");
+    setHeroPromoBarVisible(false);
     if (content) content.classList.add("hidden");
     if (section) section.setAttribute("aria-busy", "false");
     if (calState) calState.classList.add("hidden");

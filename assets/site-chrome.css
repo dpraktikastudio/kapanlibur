@@ -266,8 +266,34 @@ opacity: 0;
 transition: opacity 0.2s;
 }
 .share-toast.show { opacity: 1; }
-#hero-next-nav {
-min-height: 253px;
+:root {
+--site-nav-clearance: 7rem;
+--hero-promo-banner-extra: 0px;
+}
+@media (min-width: 768px) {
+:root {
+--site-nav-clearance: 8rem;
+}
+}
+body.hero-promo-visible {
+--hero-promo-banner-extra: 3.75rem;
+}
+main.site-main {
+padding-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra));
+}
+.hero-promo-banner {
+position: sticky;
+top: 81px;
+left: 0;
+right: 0;
+z-index: 40;
+width: 100%;
+box-sizing: border-box;
+border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-on-primary-fixed)) 22%, transparent);
+box-shadow: 0 1px 0 color-mix(in srgb, rgb(var(--color-on-primary-fixed)) 8%, transparent);
+}
+.hero-promo-banner #hero-next-nav {
+min-height: 0;
 }
 .nav-shell .site-nav-bar {
 position: relative;
