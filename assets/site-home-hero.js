@@ -638,8 +638,8 @@
   function badgeClass(type) {
     if (type === "Libur Nasional") {
       return (
-        "px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border " +
-        "bg-primary/12 text-primary border-primary/25 " +
+        "px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border border-transparent " +
+        "bg-primary-fixed text-on-primary-fixed-variant " +
         "dark:bg-white/15 dark:text-white dark:border-white/25"
       );
     }
@@ -669,7 +669,7 @@
     }
     if (row.is_long_weekend) {
       html +=
-        '<span class="px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border border-amber-800/15 bg-amber-100 text-amber-950 dark:border-amber-400/35 dark:bg-amber-950/35 dark:text-amber-100">Libur panjang</span>';
+        '<span class="px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider bg-amber-100 text-amber-900 dark:text-white dark:border dark:border-red-500/40 dark:bg-red-600/20">Libur panjang</span>';
     }
     return html;
   }

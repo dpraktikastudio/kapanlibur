@@ -69,7 +69,7 @@
 --color-on-secondary-fixed-variant: 26 79 71;
 --color-error-container: 147 0 10;
 --color-on-tertiary-fixed: 45 22 0;
---color-primary-fixed-dim: 60 221 199;
+--color-primary-fixed-dim: 38 181 167;
 --color-outline: 133 148 144;
 --color-on-primary-fixed-variant: 0 80 71;
 --color-on-tertiary: 75 40 0;
@@ -77,13 +77,13 @@
 --color-tertiary-fixed: 255 220 192;
 --color-on-primary-container: 0 87 77;
 --color-background: 11 19 38;
---color-primary-fixed: 98 250 227;
---color-primary: 87 241 219;
---color-surface-tint: 60 221 199;
+--color-primary-fixed: 45 211 192;
+--color-primary: 45 211 192;
+--color-surface-tint: 45 211 192;
 --color-tertiary-container: 255 172 90;
 --color-on-primary-fixed: 0 32 28;
 --color-surface-dim: 11 19 38;
---color-primary-container: 45 212 191;
+--color-primary-container: 45 211 192;
 --color-surface: 11 19 38;
 --color-secondary-container: 26 79 71;
 --color-on-secondary-fixed: 0 32 28;
@@ -101,8 +101,8 @@
 --color-on-tertiary-container: 116 64 0;
 --color-on-secondary-container: 139 191 181;
 --color-surface-container: 23 31 51;
---hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 212 191) 100%);
---cal-dot-shadow: 0 0 8px rgba(87, 241, 219, 0.5);
+--hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 211 192) 100%);
+--cal-dot-shadow: 0 0 8px rgba(45, 211, 192, 0.5);
 }
 }
 html[data-theme="light"] {
@@ -172,7 +172,7 @@ html[data-theme="dark"] {
 --color-on-secondary-fixed-variant: 26 79 71;
 --color-error-container: 147 0 10;
 --color-on-tertiary-fixed: 45 22 0;
---color-primary-fixed-dim: 60 221 199;
+--color-primary-fixed-dim: 38 181 167;
 --color-outline: 133 148 144;
 --color-on-primary-fixed-variant: 0 80 71;
 --color-on-tertiary: 75 40 0;
@@ -180,13 +180,13 @@ html[data-theme="dark"] {
 --color-tertiary-fixed: 255 220 192;
 --color-on-primary-container: 0 87 77;
 --color-background: 11 19 38;
---color-primary-fixed: 98 250 227;
---color-primary: 87 241 219;
---color-surface-tint: 60 221 199;
+--color-primary-fixed: 45 211 192;
+--color-primary: 45 211 192;
+--color-surface-tint: 45 211 192;
 --color-tertiary-container: 255 172 90;
 --color-on-primary-fixed: 0 32 28;
 --color-surface-dim: 11 19 38;
---color-primary-container: 45 212 191;
+--color-primary-container: 45 211 192;
 --color-surface: 11 19 38;
 --color-secondary-container: 26 79 71;
 --color-on-secondary-fixed: 0 32 28;
@@ -204,8 +204,8 @@ html[data-theme="dark"] {
 --color-on-tertiary-container: 116 64 0;
 --color-on-secondary-container: 139 191 181;
 --color-surface-container: 23 31 51;
---hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 212 191) 100%);
---cal-dot-shadow: 0 0 8px rgba(87, 241, 219, 0.5);
+--hero-gradient: linear-gradient(135deg, rgb(0 87 77) 0%, rgb(45 211 192) 100%);
+--cal-dot-shadow: 0 0 8px rgba(45, 211, 192, 0.5);
 }
 .material-symbols-outlined {
 font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
