@@ -276,7 +276,7 @@ transition: opacity 0.2s;
 }
 }
 body.hero-promo-visible {
---hero-promo-banner-extra: 3.75rem;
+--hero-promo-banner-extra: 3.25rem;
 }
 main.site-main {
 padding-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra));

@@ -11,6 +11,7 @@
     byDate: null,
     sortedData: null,
     selectedIndex: null,
+    minSelectableIndex: 0,
     headlineTypingGen: 0,
   };
 
@@ -56,6 +57,13 @@
     const a = parseISODate(fromISO);
     const b = parseISODate(toISO);
     return Math.round((b - a) / 86400000);
+  }
+
+  function indexFirstStrictlyAfterToday(sortedData, todayISO) {
+    if (!sortedData || !sortedData.length) return -1;
+    return sortedData.findIndex(function (r) {
+      return r.date > todayISO;
+    });
   }
 
   function indexFirstFutureNasionalCuti(sortedData, todayISO) {
@@ -125,9 +133,13 @@
         formatRantaiBerturutForRow(selectedRow, byDate);
     }
     if (selectedRow.is_long_weekend) {
+      const lw = selectedRow.chain_holidays;
+      const lwN = typeof lw === "number" && lw > 0 ? lw : 1;
       visualHtml +=
-        " · <span class=\"font-semibold\">Libur panjang</span>";
-      full += " · Libur panjang";
+        " · <span class=\"font-semibold\">Libur Panjang (" +
+        lwN +
+        " hari)</span>";
+      full += " · Libur Panjang (" + lwN + " hari)";
     }
     return { visualHtml: visualHtml, full: full };
   }
@@ -325,13 +337,16 @@
       if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
       const idx = heroContext.selectedIndex;
       const max = heroContext.sortedData.length - 1;
+      const minI = heroContext.minSelectableIndex;
+      const floor =
+        typeof minI === "number" && minI >= 0 && minI <= max ? minI : 0;
       if (dx < 0) {
         if (idx < max) {
           heroContext.selectedIndex = idx + 1;
           renderMainCard();
         }
       } else {
-        if (idx > 0) {
+        if (idx > floor) {
           heroContext.selectedIndex = idx - 1;
           renderMainCard();
         }
@@ -886,24 +901,25 @@
       };
     }
 
-    const firstFutureIdx = sortedData.findIndex(function (r) {
-      return r.date > t;
-    });
+    const idxStrictFuture = indexFirstStrictlyAfterToday(sortedData, t);
+    const minSelectable =
+      idxStrictFuture >= 0 ? idxStrictFuture : sortedData.length - 1;
+    heroContext.minSelectableIndex = minSelectable;
+
     const idxNasCuti = indexFirstFutureNasionalCuti(sortedData, t);
     if (heroContext.selectedIndex === null) {
-      if (idxNasCuti >= 0) {
-        heroContext.selectedIndex = idxNasCuti;
-      } else {
-        heroContext.selectedIndex =
-          firstFutureIdx >= 0 ? firstFutureIdx : sortedData.length - 1;
-      }
+      heroContext.selectedIndex =
+        idxStrictFuture >= 0 ? idxStrictFuture : sortedData.length - 1;
     }
     let idx = heroContext.selectedIndex;
-    idx = Math.max(0, Math.min(sortedData.length - 1, idx));
+    idx = Math.max(
+      minSelectable,
+      Math.min(sortedData.length - 1, idx)
+    );
     heroContext.selectedIndex = idx;
 
     const selectedRow = sortedData[idx];
-    const atMin = idx === 0;
+    const atMin = idx <= minSelectable;
     const atMax = idx === sortedData.length - 1;
     const bannerDimmed = selectedRow.date < t;
 
@@ -930,7 +946,7 @@
     }
 
     if (btnShareNext) {
-      btnShareNext.innerHTML = shareIconSvg();
+      btnShareNext.textContent = "Bagikan!";
       btnShareNext.onclick = function () {
         runShare(
           buildShareSelectedText(t, selectedRow, byDate),
@@ -961,7 +977,9 @@
     }
 
     if (btnTerdekat) {
-      const noTarget = idxNasCuti < 0;
+      const nasCutiInvalid =
+        idxNasCuti >= 0 && idxNasCuti < minSelectable;
+      const noTarget = idxNasCuti < 0 || nasCutiInvalid;
       const alreadyThere = !noTarget && idx === idxNasCuti;
       btnTerdekat.disabled = noTarget || alreadyThere;
       btnTerdekat.setAttribute(

@@ -168,20 +168,24 @@
          </div>
       </nav>
       <div id="hero-next-banner" class="hero-promo-banner hidden bg-primary-fixed text-on-primary-fixed transition-opacity" aria-label="Libur berikutnya">
-         <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2.5 sm:py-3">
-            <div class="flex items-center gap-1 sm:gap-2 min-h-9">
-               <button type="button" id="hero-nav-prev" class="shrink-0 min-w-[2.25rem] h-9 px-0.5 rounded-md border border-on-primary-fixed/40 text-on-primary-fixed text-lg font-bold leading-none hover:bg-on-primary-fixed/15 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur sebelumnya">&#8249;</button>
-               <button type="button" id="hero-jump-terdekat" class="shrink-0 text-[0.7rem] sm:text-sm font-semibold text-on-primary-fixed/95 hover:underline underline-offset-2 px-0.5 max-w-[5.5rem] sm:max-w-none leading-tight text-left disabled:opacity-35 disabled:no-underline disabled:cursor-not-allowed disabled:hover:no-underline" aria-label="Lompat ke libur nasional atau cuti bersama terdekat">Libur / Cuti Terdekat</button>
-               <div id="hero-next-nav" class="min-w-0 flex-1 flex items-center justify-center gap-1 sm:gap-2 touch-pan-y py-0.5" role="region" aria-label="Libur berikutnya atau sebelumnya">
-                  <span class="material-symbols-outlined text-lg sm:text-xl shrink-0 text-on-primary-fixed/90" aria-hidden="true">celebration</span>
-                  <div id="hero-next-banner-summary" class="text-xs sm:text-sm font-medium text-center truncate min-w-0 text-on-primary-fixed"></div>
+         <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2">
+            <div class="flex items-center min-h-8 w-full gap-2 sm:gap-3">
+               <button type="button" id="hero-nav-prev" class="shrink-0 min-w-[2rem] h-8 px-0.5 rounded-md border border-on-primary-fixed/40 text-on-primary-fixed text-base font-bold leading-none hover:bg-on-primary-fixed/15 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur sebelumnya">&#8249;</button>
+               <div id="hero-next-nav" class="flex-1 flex justify-center min-w-0 touch-pan-y" role="region" aria-label="Libur berikutnya atau sebelumnya">
+                  <div class="relative flex items-center gap-1.5 min-w-0 max-w-full">
+                     <span class="material-symbols-outlined text-2xl shrink-0 text-on-primary-fixed/90" aria-hidden="true">campaign</span>
+                     <div id="hero-next-banner-summary" class="text-sm font-medium text-on-primary-fixed truncate min-w-0 max-w-[11rem] sm:max-w-md lg:max-w-xl text-left"></div>
+                     <span class="flex items-center gap-0.5 shrink-0">
+                        <button type="button" id="hero-share-next" class="shrink-0 text-sm font-semibold text-on-primary-fixed underline underline-offset-2 hover:opacity-90 px-0.5 py-0.5 bg-transparent border-0 cursor-pointer font-[inherit] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary-fixed rounded-sm" aria-label="Bagikan libur yang dipilih">Bagikan!</button>
+                        <span id="hero-share-next-toast" class="share-toast text-on-primary-fixed text-[0.7rem] whitespace-nowrap max-w-[3.5rem] sm:max-w-[5rem] truncate" aria-live="polite"></span>
+                     </span>
+                     <span id="hero-next-banner-sr" class="sr-only"></span>
+                  </div>
                </div>
-               <span id="hero-next-banner-sr" class="sr-only"></span>
-               <span class="flex items-center gap-1 shrink-0">
-                  <button type="button" id="hero-share-next" class="inline-flex items-center justify-center w-9 h-9 rounded-md border border-on-primary-fixed/40 text-on-primary-fixed hover:bg-on-primary-fixed/15" aria-label="Bagikan libur yang dipilih"></button>
-                  <span id="hero-share-next-toast" class="share-toast text-on-primary-fixed text-xs whitespace-nowrap max-w-[4rem] sm:max-w-[6rem] truncate" aria-live="polite"></span>
-               </span>
-               <button type="button" id="hero-nav-next" class="shrink-0 min-w-[2.25rem] h-9 px-0.5 rounded-md border border-on-primary-fixed/40 text-on-primary-fixed text-lg font-bold leading-none hover:bg-on-primary-fixed/15 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur berikutnya pada daftar">&#8250;</button>
+               <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+                  <button type="button" id="hero-jump-terdekat" class="text-[0.65rem] sm:text-xs font-semibold text-on-primary-fixed/95 hover:underline underline-offset-2 px-0.5 max-w-[5.5rem] sm:max-w-none leading-tight text-left disabled:opacity-35 disabled:no-underline disabled:cursor-not-allowed disabled:hover:no-underline" aria-label="Lompat ke libur nasional atau cuti bersama terdekat">Libur / Cuti Terdekat</button>
+                  <button type="button" id="hero-nav-next" class="shrink-0 min-w-[2rem] h-8 px-0.5 rounded-md border border-on-primary-fixed/40 text-on-primary-fixed text-base font-bold leading-none hover:bg-on-primary-fixed/15 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Libur berikutnya pada daftar">&#8250;</button>
+               </div>
             </div>
          </div>
       </div>
