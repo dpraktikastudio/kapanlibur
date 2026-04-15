@@ -527,8 +527,73 @@
       .replace(/"/g, "&quot;");
   }
 
+  /**
+   * Teks untuk dibagikan (mirip isi kartu opsi).
+   * @param {object} opt enriched option
+   */
+  function buildCutiOptionShareText(opt) {
+    const leaveN = opt.leaveDates ? opt.leaveDates.length : 0;
+    const lines = [];
+    lines.push(
+      "Dengan cuti " +
+        leaveN +
+        " hari kamu bisa dapet total libur " +
+        opt.span +
+        " hari."
+    );
+    lines.push("");
+    lines.push("Tanggal cuti: " + opt.leaveLabel);
+    lines.push("Rentang libur: " + opt.rangeLabel);
+    lines.push("");
+    lines.push("Rincian hari:");
+    (opt.scheduleLines || []).forEach(function (row) {
+      lines.push("• " + row);
+    });
+    lines.push("");
+    lines.push("Ide aktivitas: " + opt.activityHint);
+    lines.push("");
+    lines.push("Yuk rencanain liburanmu bareng kapanlibur.com!");
+    return lines.join("\n");
+  }
+
+  function runCutiShare(text) {
+    const toast = document.getElementById("cuti-optimizer-share-toast");
+    const url =
+      typeof location !== "undefined" && location.href
+        ? location.href
+        : "https://kapanlibur.com";
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "kapanlibur.com",
+          text: text,
+          url: url,
+        })
+        .catch(function () {});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text + "\n\n" + url)
+        .then(function () {
+          if (toast) {
+            toast.textContent = "Disalin ke papan klip";
+            toast.classList.add("show");
+            setTimeout(function () {
+              toast.classList.remove("show");
+            }, 2500);
+          }
+        })
+        .catch(function () {
+          window.prompt("Salin teks:", text + "\n\n" + url);
+        });
+    } else {
+      window.prompt("Salin teks:", text + "\n\n" + url);
+    }
+  }
+
   let cutiCarouselIndex = 0;
   let cutiCarouselCount = 0;
+  /** @type {object[]} */
+  let cutiShareTopSnapshot = [];
   /** @type {object[]|null} */
   let cutiLastTopRankOrder = null;
   let cutiSortNearestMode = false;
@@ -690,7 +755,7 @@
     syncCutiCarouselLayout();
   }
 
-  function renderOptionCard(rankIndex, opt) {
+  function renderOptionCard(rankIndex, opt, shareIndex) {
     const scheduleHtml = (opt.scheduleLines || [])
       .map(function (line) {
         return "<li>" + escapeHtml(line) + "</li>";
@@ -722,6 +787,14 @@
       '<p class="text-sm text-on-surface-variant border-t border-outline-variant/30 pt-3"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
       escapeHtml(opt.activityHint) +
       "</p>" +
+      '<div class="pt-2 border-t border-outline-variant/30">' +
+      '<button type="button" class="cuti-option-share inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors" data-cuti-opt-index="' +
+      shareIndex +
+      '" aria-label="Bagikan opsi ini">' +
+      '<span class="material-symbols-outlined text-base leading-none font-normal" aria-hidden="true">share</span>' +
+      "<span>Bagikan</span>" +
+      "</button>" +
+      "</div>" +
       "</article>"
     );
   }
@@ -729,11 +802,17 @@
   function renderCutiTrackFromTop(topList) {
     const track = document.getElementById("cuti-optimizer-track");
     if (!track) return;
+    cutiShareTopSnapshot = topList.slice();
+    const toast = document.getElementById("cuti-optimizer-share-toast");
+    if (toast) {
+      toast.textContent = "";
+      toast.classList.remove("show");
+    }
     let html = "";
     for (let i = 0; i < topList.length; i++) {
       html +=
         '<div class="cuti-optimizer-slide" role="listitem">' +
-        renderOptionCard(i + 1, topList[i]) +
+        renderOptionCard(i + 1, topList[i], i) +
         "</div>";
     }
     track.innerHTML = html;
@@ -774,6 +853,7 @@
     if (carouselHost) carouselHost.classList.remove("is-cuti-reorder-hidden");
     cutiCarouselIndex = 0;
     cutiCarouselCount = 0;
+    cutiShareTopSnapshot = [];
     cutiLastTopRankOrder = null;
     cutiSortNearestMode = false;
     const sortBtn = document.getElementById("cuti-optimizer-sort-nearest");
@@ -850,6 +930,18 @@
 
   const cutiNavPrev = document.getElementById("cuti-optimizer-nav-prev");
   const cutiNavNext = document.getElementById("cuti-optimizer-nav-next");
+  const cutiTrackForShare = document.getElementById("cuti-optimizer-track");
+  if (cutiTrackForShare) {
+    cutiTrackForShare.addEventListener("click", function (ev) {
+      const shareBtn = ev.target.closest(".cuti-option-share");
+      if (!shareBtn) return;
+      const idx = parseInt(shareBtn.getAttribute("data-cuti-opt-index"), 10);
+      if (idx < 0 || idx >= cutiShareTopSnapshot.length) return;
+      const opt = cutiShareTopSnapshot[idx];
+      if (!opt) return;
+      runCutiShare(buildCutiOptionShareText(opt));
+    });
+  }
   if (cutiNavPrev) {
     cutiNavPrev.addEventListener("click", function () {
       if (cutiCarouselIndex > 0) {
