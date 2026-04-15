@@ -23,6 +23,8 @@ const BUST_ASSETS = [
   "site-theme.js",
   "site-pdf.js",
   "site-newsletter.js",
+  "site-home-hero.js",
+  "site-cuti-optimizer.js",
   "Logo-no-bg.png",
   "kalender-libur-indonesia-2026.ics",
   "favicon.ico",
