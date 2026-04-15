@@ -89,11 +89,13 @@
       const cap = menujuNextHolidayCaption(selectedRow);
       if (n === 1) {
         visualHtml =
-          "Libur berikutnya: <strong>" + eDesc + "</strong> — besok!";
+          "Libur berikutnya: <strong class=\"font-semibold text-inherit\">" +
+          eDesc +
+          "</strong> — besok!";
         full = "Libur berikutnya: " + desc + " — besok — " + cap + " — " + dateStr;
       } else {
         visualHtml =
-          "Libur berikutnya: <strong>" +
+          "Libur berikutnya: <strong class=\"font-semibold text-inherit\">" +
           eDesc +
           "</strong> — dalam " +
           n +
@@ -110,7 +112,12 @@
       }
     } else if (selectedRow.date < t) {
       visualHtml =
-        "<strong>" + eDesc + "</strong> (" + eType + ") · " + escapeHtml(dateStr);
+        "<strong class=\"font-semibold text-inherit\">" +
+        eDesc +
+        "</strong> (" +
+        eType +
+        ") · " +
+        escapeHtml(dateStr);
       full =
         desc +
         " (" +
@@ -121,7 +128,11 @@
         formatRantaiBerturutForRow(selectedRow, byDate);
     } else {
       visualHtml =
-        "Hari ini: <strong>" + eDesc + "</strong> (" + eType + ")";
+        "Hari ini: <strong class=\"font-semibold text-inherit\">" +
+        eDesc +
+        "</strong> (" +
+        eType +
+        ")";
       full =
         "Hari ini: " +
         desc +
@@ -136,7 +147,7 @@
       const lw = selectedRow.chain_holidays;
       const lwN = typeof lw === "number" && lw > 0 ? lw : 1;
       visualHtml +=
-        " · <span class=\"font-semibold\">Libur Panjang (" +
+        " · <span class=\"font-semibold text-inherit\">Libur Panjang (" +
         lwN +
         " hari)</span>";
       full += " · Libur Panjang (" + lwN + " hari)";
@@ -627,8 +638,8 @@
   function badgeClass(type) {
     if (type === "Libur Nasional") {
       return (
-        "px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border border-transparent " +
-        "bg-primary-fixed text-on-primary-fixed-variant " +
+        "px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border " +
+        "bg-primary/12 text-primary border-primary/25 " +
         "dark:bg-white/15 dark:text-white dark:border-white/25"
       );
     }
@@ -658,7 +669,7 @@
     }
     if (row.is_long_weekend) {
       html +=
-        '<span class="px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider bg-amber-100 text-amber-900 dark:text-white dark:border dark:border-red-500/40 dark:bg-red-600/20">Libur panjang</span>';
+        '<span class="px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider border border-amber-800/15 bg-amber-100 text-amber-950 dark:border-amber-400/35 dark:bg-amber-950/35 dark:text-amber-100">Libur panjang</span>';
     }
     return html;
   }

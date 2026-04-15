@@ -289,8 +289,8 @@ right: 0;
 z-index: 40;
 width: 100%;
 box-sizing: border-box;
-border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-on-primary-fixed)) 22%, transparent);
-box-shadow: 0 1px 0 color-mix(in srgb, rgb(var(--color-on-primary-fixed)) 8%, transparent);
+border-bottom: 1px solid color-mix(in srgb, rgb(var(--color-outline)) 28%, transparent);
+box-shadow: 0 1px 0 color-mix(in srgb, rgb(var(--color-outline)) 10%, transparent);
 }
 .hero-promo-banner #hero-next-nav {
 min-height: 0;
