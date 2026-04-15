@@ -620,42 +620,24 @@
 
   function updateCutiCarouselUi() {
     const label = document.getElementById("cuti-optimizer-slide-label");
-    const track = document.getElementById("cuti-optimizer-track");
-    if (track) {
-      const slides = track.querySelectorAll(".cuti-optimizer-slide");
-      const prevGlobDisabled =
-        cutiCarouselCount < 2 || cutiCarouselIndex <= 0;
-      const nextGlobDisabled =
-        cutiCarouselCount < 2 ||
-        cutiCarouselIndex >= cutiCarouselCount - 1;
-      for (let i = 0; i < slides.length; i++) {
-        const active = i === cutiCarouselIndex;
-        const nav = slides[i].querySelector(
-          ".cuti-optimizer-nav-stack--in-card"
-        );
-        const prevBtn = slides[i].querySelector(".cuti-carousel-prev");
-        const nextBtn = slides[i].querySelector(".cuti-carousel-next");
-        if (nav) {
-          nav.setAttribute("aria-hidden", active ? "false" : "true");
-          nav.style.pointerEvents = active ? "auto" : "none";
-        }
-        if (prevBtn) {
-          prevBtn.disabled = prevGlobDisabled;
-          prevBtn.setAttribute(
-            "aria-disabled",
-            prevBtn.disabled ? "true" : "false"
-          );
-          prevBtn.tabIndex = active ? 0 : -1;
-        }
-        if (nextBtn) {
-          nextBtn.disabled = nextGlobDisabled;
-          nextBtn.setAttribute(
-            "aria-disabled",
-            nextBtn.disabled ? "true" : "false"
-          );
-          nextBtn.tabIndex = active ? 0 : -1;
-        }
-      }
+    const prev = document.getElementById("cuti-optimizer-nav-prev");
+    const next = document.getElementById("cuti-optimizer-nav-next");
+    const toolbar = document.getElementById("cuti-optimizer-nav-toolbar");
+    const prevGlobDisabled =
+      cutiCarouselCount < 2 || cutiCarouselIndex <= 0;
+    const nextGlobDisabled =
+      cutiCarouselCount < 2 ||
+      cutiCarouselIndex >= cutiCarouselCount - 1;
+    if (toolbar) {
+      toolbar.style.display = cutiCarouselCount > 1 ? "flex" : "none";
+    }
+    if (prev) {
+      prev.disabled = prevGlobDisabled;
+      prev.setAttribute("aria-disabled", prev.disabled ? "true" : "false");
+    }
+    if (next) {
+      next.disabled = nextGlobDisabled;
+      next.setAttribute("aria-disabled", next.disabled ? "true" : "false");
     }
     if (label) {
       label.textContent =
@@ -673,7 +655,7 @@
       })
       .join("");
     return (
-      '<article class="relative rounded-lg border border-outline-variant/50 bg-surface/50 dark:bg-surface-container-low/40 p-4 pt-5 pb-14 pr-14 space-y-3 min-h-[12rem]">' +
+      '<article class="relative rounded-lg border border-outline-variant/50 bg-surface/50 dark:bg-surface-container-low/40 p-4 pt-5 space-y-3 min-h-[12rem]">' +
       '<span class="absolute top-3 right-3 max-w-[55%] text-right text-xs font-bold text-on-surface-variant leading-tight">' +
       escapeHtml(opt.monthBadge || "") +
       "</span>" +
@@ -698,12 +680,6 @@
       '<p class="text-sm text-on-surface-variant border-t border-outline-variant/30 pt-3"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
       escapeHtml(opt.activityHint) +
       "</p>" +
-      '<div class="cuti-optimizer-nav-stack cuti-optimizer-nav-stack--in-card" role="group" aria-label="Ganti opsi">' +
-      '<button type="button" class="cuti-carousel-prev cuti-optimizer-nav-btn inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-outline-variant bg-surface/95 text-on-surface shadow-sm hover:bg-surface-variant/50 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Opsi sebelumnya">' +
-      '<span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_left</span></button>' +
-      '<button type="button" class="cuti-carousel-next cuti-optimizer-nav-btn inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-outline-variant bg-surface/95 text-on-surface shadow-sm hover:bg-surface-variant/50 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Opsi berikutnya">' +
-      '<span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_right</span></button>' +
-      "</div>" +
       "</article>"
     );
   }
@@ -824,21 +800,19 @@
   const cutiViewportSwipe = document.getElementById("cuti-optimizer-viewport");
   attachCutiOptimizerSwipe(cutiViewportSwipe);
 
-  const cutiTrackEl = document.getElementById("cuti-optimizer-track");
-  if (cutiTrackEl) {
-    cutiTrackEl.addEventListener("click", function (ev) {
-      const prevBtn = ev.target.closest(".cuti-carousel-prev");
-      const nextBtn = ev.target.closest(".cuti-carousel-next");
-      if (prevBtn && !prevBtn.disabled && cutiCarouselIndex > 0) {
+  const cutiNavPrev = document.getElementById("cuti-optimizer-nav-prev");
+  const cutiNavNext = document.getElementById("cuti-optimizer-nav-next");
+  if (cutiNavPrev) {
+    cutiNavPrev.addEventListener("click", function () {
+      if (cutiCarouselIndex > 0) {
         cutiCarouselIndex--;
         updateCutiCarouselUi();
-        return;
       }
-      if (
-        nextBtn &&
-        !nextBtn.disabled &&
-        cutiCarouselIndex < cutiCarouselCount - 1
-      ) {
+    });
+  }
+  if (cutiNavNext) {
+    cutiNavNext.addEventListener("click", function () {
+      if (cutiCarouselIndex < cutiCarouselCount - 1) {
         cutiCarouselIndex++;
         updateCutiCarouselUi();
       }

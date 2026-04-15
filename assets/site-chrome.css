@@ -293,17 +293,7 @@ min-width: 0;
 -webkit-overflow-scrolling: touch;
 touch-action: manipulation;
 }
-.cuti-optimizer-nav-stack--in-card {
-position: absolute;
-right: 0.65rem;
-bottom: 0.65rem;
-z-index: 2;
-display: flex;
-flex-direction: row;
-align-items: center;
-gap: 0.35rem;
-}
-.cuti-optimizer-nav-stack--in-card .cuti-optimizer-nav-btn {
+.cuti-optimizer-nav-toolbar .cuti-optimizer-nav-btn {
 flex-shrink: 0;
 }
 .cuti-optimizer-track {
