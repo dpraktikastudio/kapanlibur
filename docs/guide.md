@@ -1,6 +1,6 @@
 # kapanlibur.com — contributor & agent reference
 
-Static site for Indonesian national holidays (“libur nasional”, “cuti bersama”, weekends in the dataset). **Interactive app** in [`index.html`](../index.html): hero cards, month-scoped list, year calendar with Popper-based day popover. **Static reference** in [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html): tables and long-weekend copy. **Info:** [`about.html`](../about.html), [`privacy-policy.html`](../privacy-policy.html). **Data:** one JSON file per year ([`json/2026.json`](../json/2026.json)). No bundler or framework; Node is only for build and JSON-LD checks.
+Static site for Indonesian national holidays (“libur nasional”, “cuti bersama”, weekends in the dataset). **Interactive app** in [`index.html`](../index.html): sticky **next-holiday** promo strip, today status + cuti optimizer, month-scoped list, year calendar with Popper-based day popover. **Static reference** in [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html): tables and long-weekend copy. **Info:** [`about.html`](../about.html), [`privacy-policy.html`](../privacy-policy.html). **Data:** one JSON file per year ([`json/2026.json`](../json/2026.json)). No bundler or framework; Node is only for build and JSON-LD checks.
 
 **PDF links:** [`assets/site-pdf.js`](../assets/site-pdf.js) (deferred) fetches `json/2026.json`, sets every `a[data-pdf-source]` `href` from top-level `source`, with a hardcoded Kemenko PDF URL as fallback when fetch fails or `source` is missing. On the home page it also reveals `#source-line` when run.
 
@@ -10,7 +10,7 @@ Use this doc when changing UI, data shape, SEO, assets, or build output so edits
 
 ## Purpose
 
-- Show **today’s holiday status**, a **navigable “next/previous” holiday card**, **one month at a time** of upcoming rows, and a **full-year calendar**.
+- Show **today’s holiday status**, a **navigable “next/previous” holiday** line in the **sticky promo bar**, **one month at a time** of upcoming rows, and a **full-year calendar**.
 - Copy and labels are **Bahasa Indonesia**.
 - “Hari ini” uses the **device local date** (`todayISO()`).
 
@@ -34,7 +34,10 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 
 | Path | Role |
 |------|------|
-| `index.html` | Interactive UI: critical CSS (shared wide shell + `body.page-index` hero), inline FOUC snippet for `data-theme`, inline IIFE, [`assets/non-critical.css`](../assets/non-critical.css) via **`preload` + normal `stylesheet` link** (not `media="print"` + `onload`, so strict **CSP** in prod cannot block layout), [`assets/site-nav.js`](../assets/site-nav.js), [`assets/site-theme.js`](../assets/site-theme.js), [`assets/site-pdf.js`](../assets/site-pdf.js). GA4 in `<head>`. |
+| `index.html` | Home app: Tailwind (CDN + inline `tailwind.config`), [`assets/site-chrome.css`](../assets/site-chrome.css), Brevo + [`assets/site-newsletter.css`](../assets/site-newsletter.css), FOUC IIFE for `data-theme`, GA4. Scripts: [`assets/site-nav.js`](../assets/site-nav.js), [`assets/site-theme.js`](../assets/site-theme.js), [`assets/site-pdf.js`](../assets/site-pdf.js) (deferred), [`assets/site-home-hero.js`](../assets/site-home-hero.js), [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js) (deferred). |
+| [`assets/site-chrome.css`](../assets/site-chrome.css) | Shared chrome for the home layout: palette tokens, `.nav-shell`, sticky **hero promo** bar (`.hero-promo-banner`), `main.site-main` top padding via `--site-nav-clearance` + `--hero-promo-banner-extra` when `body.hero-promo-visible`, theme toggle / nav toggle rules, Material Symbols baseline. |
+| [`assets/site-home-hero.js`](../assets/site-home-hero.js) | Fetches `json/2026.json`, builds maps, renders **sticky promo strip**, **today hero**, **libur mendatang** list, **calendar** + popover, share handlers; dispatches `kapanlibur:holidays-loaded` (`detail: { byDate, sortedData }`) after a successful load. |
+| [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js) | “Optimasi cuti” card; subscribes to `kapanlibur:holidays-loaded` and reads the same holiday map the hero uses. |
 | `hari-libur-nasional-2026.html` | Static reference; JSON-LD (WebPage, ItemList, Events, BreadcrumbList); same nav + theme + `site-pdf.js` as other main pages. |
 | `about.html`, `privacy-policy.html` | Info pages; same header chrome + `site-theme.js` as home; OG/Twitter meta + favicons; deferred `site-pdf.js`. |
 | [`assets/non-critical.css`](../assets/non-critical.css) | Shared UI: **site shell** (`.wrap`, flush-top sticky `header`, mobile full-bleed nav bar, in-flow hamburger), **`.site-brand`**, **`.site-nav-cluster`**, **`.theme-toggle`**, lists, calendar, tables, `.site-nav`, `.site-logo`, footer, `.footer-links`, popover, etc. |
@@ -59,8 +62,10 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 
 ### Home page (`index.html`) layout & theme
 
-- **`body.page-index`:** Same header chrome and theme behavior as other main pages. Hero: `#hero-today` / `#hero-next` use **`hero-card-today`** / **`hero-card-next`**; from **960px** up, `#hero-stack` is a row (~62% / ~35%). The next card uses a fixed emerald gradient (not tied to `--surface`).
-- **Theme:** All four main HTML pages load `site-theme.js` and expose **`#theme-toggle`**; clearing **`localStorage.kapanlibur-theme`** restores system-driven appearance on the next full load when no stored preference applies.
+- **Shell:** Fixed **`.nav-shell`** (logo, links, theme toggle, mobile drawer). Same theme behavior as other main pages: **`site-theme.js`**, **`localStorage` key `kapanlibur-theme`**, optional `data-theme` override.
+- **Sticky promo bar** (`#hero-next-banner`, `.hero-promo-banner`): Shown after holidays load. Sits under the nav; `body.hero-promo-visible` bumps **`--hero-promo-banner-extra`** so `main.site-main` is not covered. Markup: **CSS grid** `auto | 1fr | auto` — left **`#hero-nav-prev`**, right **`#hero-nav-next`**, center cluster **`#hero-next-nav`** (megaphone + scrollable summary + share). Users change the listed holiday **only with the chevrons** (no swipe; horizontal scroll is reserved for long copy on narrow viewports).
+- **Hero section** (`#hero-section`): **`#hero-content`** grid — left: today status + **Bagikan**; right: **`#cuti-optimizer-card`** (optimizer script).
+- **Below:** Libur mendatang, subscription teaser, full calendar, newsletter `dialog`, footer — all driven or laid out in `index.html` with `site-home-hero.js`.
 
 ---
 
@@ -123,7 +128,7 @@ Top-level **`source`** is optional; PDF anchors still get a working link via **`
 
 ## Main JS modules (conceptual)
 
-All live in the same IIFE in `index.html`:
+Home behaviour lives in [`assets/site-home-hero.js`](../assets/site-home-hero.js) (single IIFE). Optimizer logic is separate in [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js).
 
 ### Date / text helpers
 
@@ -132,7 +137,7 @@ All live in the same IIFE in `index.html`:
 - `formatLongID(iso)` — e.g. `Jumat, 1 Mei 2026`.
 - `diffDays(fromISO, toISO)` — integer day difference.
 - `daysUntilPhrase(n)` — `hari ini` / `besok` / `N hari lagi`.
-- `escapeHtml`, `chipClass`, `calCellClass`, `showTypeBadgeForRow` (type chip hidden for Sabtu/Minggu in **hero** cards only).
+- `escapeHtml`, `chipClass`, `calCellClass`, `showTypeBadgeForRow` / `renderBadgeSpans` — **Sabtu/Minggu** type chips are omitted (weekend rows still get “Libur panjang” when `is_long_weekend`); used in **today body**, **month list**, and **calendar popover**.
 
 ### Rantai (chain) copy
 
@@ -141,30 +146,36 @@ All live in the same IIFE in `index.html`:
 ### Share text
 
 - `buildShareTodayText(t, todayRow, byDate)` — today-only paragraph(s).
-- `buildShareSelectedText(t, selectedRow, byDate)` — text for the **selected** hero card row.
+- `buildShareSelectedText(t, selectedRow, byDate)` — text for the **selected** promo / list row (`sortedData[selectedIndex]`).
 
 ### State bags (reset on each successful fetch)
 
 | Object | Fields | Role |
 |--------|--------|------|
-| `heroContext` | `byDate`, `sortedData`, `selectedIndex` | Hero: index into **full** sorted `data` for the navigable card. |
+| `heroContext` | `byDate`, `sortedData`, `selectedIndex`, `minSelectableIndex` | **Promo strip** + share text: index into **full** sorted `data`. Selection is clamped so users cannot move **before** the first row strictly after today (`minSelectableIndex`); initial selection follows the same rule. |
 | `listContext` | `sortedData`, `byDate`, `dataYear`, `listYearMonth` | Month filter `YYYY-MM` within `dataYear`. |
 | `calContext` | `year`, `byDate`, `mobileMonth` | 0–11 for **mobile** single-month view. |
 
-After load, `heroContext.selectedIndex` is reset to `null` so the first paint picks the **first future** row, or the **last** row if none remain in the year.
+After load, `heroContext.selectedIndex` is reset to `null` so the first paint picks the **first strictly future** row (same floor as prev navigation), or the **last** row if none remain in the year.
 
 ---
 
 ## UI sections (behavior)
 
-### 1. Hero (`#hero-stack`)
+### 1. Hero (promo strip + main column)
 
-Two **separate** `.hero` cards:
+**A. Sticky promo** (`#hero-next-banner`)
 
-1. **Libur hari ini** — Full date, libur/tidak, description, badges (type; LW only if `is_long_weekend`; no “LW Tidak”), rantai line, **Bagikan** (`buildShareTodayText`).
-2. **Libur berikutnya / sebelumnya / pada hari ini** — Title from comparing `selectedRow.date` vs `todayISO`; **dimmed** when `selectedRow.date < today`. Countdown (“Besok” / “N hari lagi”) only when **`selectedRow.date > today`**. Prev/next arrows and swipe on the list area; **Long weekend** chip only when `is_long_weekend`. **Bagikan** uses `buildShareSelectedText`.
+- **Layout:** Full-width bar inside `max-w-7xl`; **grid** places chevrons on the **outer** columns and centers **`#hero-next-nav`** (campaign icon + `#hero-next-banner-summary` inside `.hero-promo-summary-scroll` + `#hero-share-next` + toast + `#hero-next-banner-sr`).
+- **Copy:** `heroBannerSummaryLines()` returns `visualHtml` / `full`. For rows **after today**, the visible prefix **Libur berikutnya:** is wrapped in `<span class="hidden sm:inline">` so it shows from the **`sm`** breakpoint up only; mobile shows the rest of the sentence (and uses a **share** icon instead of the **Bagikan!** label). **`title`** and **`#hero-next-banner-sr`** keep the full plain string (including the prefix) for hover and screen readers.
+- **Overflow:** Narrow viewports: **horizontal scroll** on `.hero-promo-summary-scroll` (hidden scrollbar, `touch-action: pan-x` in `site-chrome.css`). From **`sm`:** `overflow-hidden` + **`truncate`** on the summary line with a **`sm:max-w-2xl`** cap on the scroll wrapper.
+- **Navigation:** **`#hero-nav-prev` / `#hero-nav-next`** only. **No swipe-to-change-holiday** (removed so it does not fight horizontal scrolling).
+- **Dimming:** Bar gets reduced opacity when the selected row is **in the past** (`selectedRow.date < today`).
 
-Swipe: `attachHeroSwipe` on `#hero-next-nav` — left = next index, right = prev; pointer handler ignores `pointerType === "touch"` where needed to avoid double-firing with touch events.
+**B. Main hero column** (`#hero-section`)
+
+- **Today:** Date (`#hero-today-date`), typed headline (`#hero-today-headline`), body (`#hero-today-body`), **Bagikan** (`buildShareTodayText`).
+- **Selected holiday share:** `#hero-share-next` runs `buildShareSelectedText` for the **same** `sortedData[selectedIndex]` row shown in the promo strip.
 
 ### 2. Libur mendatang (`#list`)
 
@@ -188,12 +199,12 @@ Swipe: `attachHeroSwipe` on `#hero-next-nav` — left = next index, right = prev
 ## Fetch pipeline (home page)
 
 1. **`assets/site-pdf.js`** (deferred): `fetch("json/2026.json")` → apply `source` or fallback to all `a[data-pdf-source]`; unhide `#source-line` when appropriate.
-2. **`index.html` IIFE:** `fetch("json/2026.json")` → parse.
+2. **`assets/site-home-hero.js`:** `fetch("json/2026.json")` → parse (second fetch of the same file; cache-friendly).
 3. `data` sorted by `date` string order.
 4. `byDate = Map(date → row)`.
 5. `year` from first row (labels + calendar).
 6. `heroContext`, `listContext`, `calContext` filled; `renderMainCard()`, `renderList()`, `renderCalendar()`.
-7. `initMonthNavAndPopover()` runs once: list/calendar nav, popover teardown, list swipe, calendar-wrap swipe, **resize listener** for calendar.
+7. `initMonthNavAndPopover()` runs once: list/calendar nav, popover teardown, list swipe, calendar-wrap swipe, **resize listener** for calendar. A **`kapanlibur:holidays-loaded`** event (with `byDate` + `sortedData` in `detail`) is dispatched for **`site-cuti-optimizer.js`**.
 
 Two `fetch` calls to the same JSON are intentional; responses are cacheable and small.
 
@@ -203,7 +214,7 @@ Two `fetch` calls to the same JSON are intentional; responses are cacheable and 
 
 - **Strings:** Indonesian UI; use `escapeHtml` when interpolating data into HTML strings.
 - **New calendar year:** Add `json/YYYY.json`, update **every** hardcoded `fetch("json/2026.json")` (and any copy that says “2026” if product requires it), and refresh static tables in `hari-libur-nasional-2026.html` / JSON-LD if that page stays year-specific.
-- **Badges:** Sabtu/Minggu type chips are suppressed in hero cards only; list still shows type chips.
+- **Badges:** Sabtu/Minggu **type** chips are omitted via `showTypeBadgeForRow` anywhere `renderBadgeSpans` runs (today body, list, calendar popover); other types still show chips.
 - **Accessibility:** Nav controls use `aria-label` / `aria-disabled`; popover uses `role="dialog"` and Escape to close.
 - **CSS:** Design tokens in `:root`; dark mode via `prefers-color-scheme: dark` in page `<style>` and shared rules in `non-critical.css`.
 - **Branding:** Prefer updating files under `assets/` and absolute `https://kapanlibur.com/assets/...` meta URLs together; watch **filename case** on Linux hosts.
