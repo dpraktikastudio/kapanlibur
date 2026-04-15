@@ -2,7 +2,7 @@
   "use strict";
 
   /**
-   * Optimasi cuti — ranked multi-option engine (pure core + DOM).
+   * Cari jadwal cuti — ranked multi-option engine (pure core + DOM).
    *
    * Urutan sort (lexikografis):
    *   1) Span kalender [L,R] terbesar
@@ -130,6 +130,71 @@
       " " +
       d.getFullYear()
     );
+  }
+
+  /** Tanggal ringkas untuk daftar harian (tanpa tahun jika tidak perlu). */
+  function formatDayMonth(iso) {
+    const d = parseISODate(iso);
+    return d.getDate() + " " + MONTHS_SHORT[d.getMonth()];
+  }
+
+  /**
+   * Label bulan untuk sudut kanan atas kartu (satu bulan atau rentang).
+   * @returns {string}
+   */
+  function rangeMonthBadge(L, R) {
+    const a = parseISODate(L);
+    const b = parseISODate(R);
+    const yA = a.getFullYear();
+    const yB = b.getFullYear();
+    const mA = a.getMonth();
+    const mB = b.getMonth();
+    if (yA === yB && mA === mB) {
+      return MONTHS_SHORT[mA] + " " + yA;
+    }
+    if (yA === yB) {
+      return MONTHS_SHORT[mA] + "–" + MONTHS_SHORT[mB] + " " + yA;
+    }
+    return MONTHS_SHORT[mA] + " " + yA + " – " + MONTHS_SHORT[mB] + " " + yB;
+  }
+
+  /**
+   * Teks libur per tanggal untuk ditampilkan ke pengguna (bukan penjelasan peringkat).
+   */
+  function offDayUserLabel(iso, leaveSet, byDate) {
+    if (leaveSet.has(iso)) return "Hari cuti Anda";
+    const row = byDate.get(iso);
+    if (row && row.description) return row.description;
+    const wd = parseISODate(iso).getDay();
+    if (wd === 0) return "Minggu";
+    if (wd === 6) return "Sabtu";
+    return "Libur";
+  }
+
+  /**
+   * Satu baris per hari di rentang [L,R]: "17 Apr: …".
+   * @returns {string[]}
+   */
+  function buildScheduleLines(L, R, leaveDates, byDate) {
+    const leaveSet = new Set(leaveDates);
+    const lines = [];
+    let cur = L;
+    while (true) {
+      lines.push(
+        formatDayMonth(cur) + ": " + offDayUserLabel(cur, leaveSet, byDate)
+      );
+      if (cur === R) break;
+      cur = addDaysISO(cur, 1);
+    }
+    return lines;
+  }
+
+  function compareNearestFirst(a, b) {
+    if (a.daysUntilStart !== b.daysUntilStart) {
+      return a.daysUntilStart - b.daysUntilStart;
+    }
+    if (b.span !== a.span) return b.span - a.span;
+    return a.L.localeCompare(b.L);
   }
 
   function formatLeaveList(isos) {
@@ -418,6 +483,12 @@
         w.leaveDates.length
       );
       const activityHint = activityRecommendationForSpan(w.span);
+      const scheduleLines = buildScheduleLines(
+        w.L,
+        w.R,
+        w.leaveDates,
+        byDate
+      );
       return {
         L: w.L,
         R: w.R,
@@ -432,6 +503,8 @@
         activityHint: activityHint,
         rangeLabel: formatShort(w.L) + " – " + formatShort(w.R),
         leaveLabel: formatLeaveList(w.leaveDates),
+        monthBadge: rangeMonthBadge(w.L, w.R),
+        scheduleLines: scheduleLines,
       };
     }
 
@@ -456,6 +529,79 @@
 
   let cutiCarouselIndex = 0;
   let cutiCarouselCount = 0;
+  /** @type {object[]|null} */
+  let cutiLastTopRankOrder = null;
+  let cutiSortNearestMode = false;
+  let cutiCarouselSwipeBound = false;
+
+  function cutiCarouselSwipeActive() {
+    const results = document.getElementById("cuti-optimizer-results");
+    if (results && results.classList.contains("hidden")) return false;
+    return cutiCarouselCount > 1;
+  }
+
+  /**
+   * Geser horizontal pada viewport: kiri = opsi berikutnya, kanan = sebelumnya
+   * (sama ambang & pola dengan libur mendatang di site-home-hero.js).
+   */
+  function attachCutiOptimizerSwipe(hostEl) {
+    if (cutiCarouselSwipeBound) return;
+    if (!hostEl) return;
+    cutiCarouselSwipeBound = true;
+    let startX = 0;
+    let startY = 0;
+    let ptrId = null;
+    function trySwipe(endX, endY) {
+      if (!cutiCarouselSwipeActive()) return;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        if (cutiCarouselIndex < cutiCarouselCount - 1) {
+          cutiCarouselIndex++;
+          updateCutiCarouselUi();
+        }
+      } else {
+        if (cutiCarouselIndex > 0) {
+          cutiCarouselIndex--;
+          updateCutiCarouselUi();
+        }
+      }
+    }
+    hostEl.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    hostEl.addEventListener(
+      "touchend",
+      function (e) {
+        if (!e.changedTouches.length) return;
+        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      },
+      { passive: true }
+    );
+    hostEl.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      ptrId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    hostEl.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch") return;
+      if (ptrId === null || e.pointerId !== ptrId) return;
+      ptrId = null;
+      trySwipe(e.clientX, e.clientY);
+    });
+    hostEl.addEventListener("pointercancel", function () {
+      ptrId = null;
+    });
+  }
 
   function syncCutiCarouselLayout() {
     const viewport = document.getElementById("cuti-optimizer-viewport");
@@ -473,17 +619,43 @@
   }
 
   function updateCutiCarouselUi() {
-    const prev = document.getElementById("cuti-optimizer-nav-prev");
-    const next = document.getElementById("cuti-optimizer-nav-next");
     const label = document.getElementById("cuti-optimizer-slide-label");
-    if (prev) {
-      prev.disabled = cutiCarouselCount < 2 || cutiCarouselIndex <= 0;
-      prev.setAttribute("aria-disabled", prev.disabled ? "true" : "false");
-    }
-    if (next) {
-      next.disabled =
-        cutiCarouselCount < 2 || cutiCarouselIndex >= cutiCarouselCount - 1;
-      next.setAttribute("aria-disabled", next.disabled ? "true" : "false");
+    const track = document.getElementById("cuti-optimizer-track");
+    if (track) {
+      const slides = track.querySelectorAll(".cuti-optimizer-slide");
+      const prevGlobDisabled =
+        cutiCarouselCount < 2 || cutiCarouselIndex <= 0;
+      const nextGlobDisabled =
+        cutiCarouselCount < 2 ||
+        cutiCarouselIndex >= cutiCarouselCount - 1;
+      for (let i = 0; i < slides.length; i++) {
+        const active = i === cutiCarouselIndex;
+        const nav = slides[i].querySelector(
+          ".cuti-optimizer-nav-stack--in-card"
+        );
+        const prevBtn = slides[i].querySelector(".cuti-carousel-prev");
+        const nextBtn = slides[i].querySelector(".cuti-carousel-next");
+        if (nav) {
+          nav.setAttribute("aria-hidden", active ? "false" : "true");
+          nav.style.pointerEvents = active ? "auto" : "none";
+        }
+        if (prevBtn) {
+          prevBtn.disabled = prevGlobDisabled;
+          prevBtn.setAttribute(
+            "aria-disabled",
+            prevBtn.disabled ? "true" : "false"
+          );
+          prevBtn.tabIndex = active ? 0 : -1;
+        }
+        if (nextBtn) {
+          nextBtn.disabled = nextGlobDisabled;
+          nextBtn.setAttribute(
+            "aria-disabled",
+            nextBtn.disabled ? "true" : "false"
+          );
+          nextBtn.tabIndex = active ? 0 : -1;
+        }
+      }
     }
     if (label) {
       label.textContent =
@@ -495,18 +667,18 @@
   }
 
   function renderOptionCard(rankIndex, opt) {
-    const reasonsHtml = opt.reasons
-      .map(function (r) {
-        return "<li>" + escapeHtml(r) + "</li>";
+    const scheduleHtml = (opt.scheduleLines || [])
+      .map(function (line) {
+        return "<li>" + escapeHtml(line) + "</li>";
       })
       .join("");
     return (
-      '<article class="rounded-lg border border-outline-variant/50 bg-surface/50 dark:bg-surface-container-low/40 p-4 space-y-3">' +
-      '<div class="flex flex-wrap items-center gap-2">' +
-      '<span class="text-xs font-bold uppercase tracking-wide text-primary">Opsi ' +
-      rankIndex +
+      '<article class="relative rounded-lg border border-outline-variant/50 bg-surface/50 dark:bg-surface-container-low/40 p-4 pt-5 pb-14 pr-14 space-y-3 min-h-[12rem]">' +
+      '<span class="absolute top-3 right-3 max-w-[55%] text-right text-xs font-bold text-on-surface-variant leading-tight">' +
+      escapeHtml(opt.monthBadge || "") +
       "</span>" +
-      '<span class="text-xs font-semibold text-on-surface-variant">Peringkat ' +
+      '<div class="flex flex-wrap items-center gap-2 pr-16">' +
+      '<span class="text-xs font-bold uppercase tracking-wide text-primary">Opsi ' +
       rankIndex +
       "</span>" +
       "</div>" +
@@ -519,15 +691,41 @@
       '<p class="text-lg font-bold text-primary">' +
       escapeHtml(String(opt.span)) +
       " hari libur</p>" +
-      '<div><p class="text-[0.65rem] font-bold uppercase tracking-wide text-on-surface-variant mb-1">Mengapa opsi ini</p>' +
-      '<ul class="list-disc list-inside text-sm text-on-surface-variant space-y-1">' +
-      reasonsHtml +
+      '<div><p class="text-[0.65rem] font-bold uppercase tracking-wide text-on-surface-variant mb-1">Rincian hari</p>' +
+      '<ul class="list-disc list-inside text-sm text-on-surface space-y-1">' +
+      scheduleHtml +
       "</ul></div>" +
       '<p class="text-sm text-on-surface-variant border-t border-outline-variant/30 pt-3"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
       escapeHtml(opt.activityHint) +
       "</p>" +
+      '<div class="cuti-optimizer-nav-stack cuti-optimizer-nav-stack--in-card" role="group" aria-label="Ganti opsi">' +
+      '<button type="button" class="cuti-carousel-prev cuti-optimizer-nav-btn inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-outline-variant bg-surface/95 text-on-surface shadow-sm hover:bg-surface-variant/50 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Opsi sebelumnya">' +
+      '<span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_left</span></button>' +
+      '<button type="button" class="cuti-carousel-next cuti-optimizer-nav-btn inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-outline-variant bg-surface/95 text-on-surface shadow-sm hover:bg-surface-variant/50 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Opsi berikutnya">' +
+      '<span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_right</span></button>' +
+      "</div>" +
       "</article>"
     );
+  }
+
+  function renderCutiTrackFromTop(topList) {
+    const track = document.getElementById("cuti-optimizer-track");
+    if (!track) return;
+    let html = "";
+    for (let i = 0; i < topList.length; i++) {
+      html +=
+        '<div class="cuti-optimizer-slide" role="listitem">' +
+        renderOptionCard(i + 1, topList[i]) +
+        "</div>";
+    }
+    track.innerHTML = html;
+    cutiCarouselCount = topList.length;
+    cutiCarouselIndex = 0;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        updateCutiCarouselUi();
+      });
+    });
   }
 
   function runOptimizer() {
@@ -552,6 +750,13 @@
     if (track) track.innerHTML = "";
     cutiCarouselIndex = 0;
     cutiCarouselCount = 0;
+    cutiLastTopRankOrder = null;
+    cutiSortNearestMode = false;
+    const sortBtn = document.getElementById("cuti-optimizer-sort-nearest");
+    if (sortBtn) {
+      sortBtn.classList.add("hidden");
+      sortBtn.setAttribute("aria-pressed", "false");
+    }
 
     const N = parseInt(String(input.value), 10);
     if (!N || N < 1 || N > 10) {
@@ -578,27 +783,21 @@
       return;
     }
 
-    if (track) {
-      let html = "";
-      for (let i = 0; i < top.length; i++) {
-        html +=
-          '<div class="cuti-optimizer-slide" role="listitem">' +
-          renderOptionCard(i + 1, top[i]) +
-          "</div>";
+    cutiLastTopRankOrder = top.slice();
+    cutiSortNearestMode = false;
+    renderCutiTrackFromTop(top);
+    if (sortBtn) {
+      if (top.length > 1) {
+        sortBtn.classList.remove("hidden");
+        sortBtn.textContent = "Tampilkan terdekat";
+        sortBtn.setAttribute("aria-pressed", "false");
+      } else {
+        sortBtn.classList.add("hidden");
       }
-      track.innerHTML = html;
     }
-    cutiCarouselCount = top.length;
-    cutiCarouselIndex = 0;
 
     if (results) results.classList.remove("hidden");
     if (hint) hint.classList.add("hidden");
-
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        updateCutiCarouselUi();
-      });
-    });
 
     if (noteEl && top.length < TOP_N) {
       noteEl.textContent =
@@ -622,21 +821,46 @@
     runBtn.addEventListener("click", runOptimizer);
   }
 
-  const cutiNavPrev = document.getElementById("cuti-optimizer-nav-prev");
-  const cutiNavNext = document.getElementById("cuti-optimizer-nav-next");
-  if (cutiNavPrev) {
-    cutiNavPrev.addEventListener("click", function () {
-      if (cutiCarouselIndex > 0) {
+  const cutiViewportSwipe = document.getElementById("cuti-optimizer-viewport");
+  attachCutiOptimizerSwipe(cutiViewportSwipe);
+
+  const cutiTrackEl = document.getElementById("cuti-optimizer-track");
+  if (cutiTrackEl) {
+    cutiTrackEl.addEventListener("click", function (ev) {
+      const prevBtn = ev.target.closest(".cuti-carousel-prev");
+      const nextBtn = ev.target.closest(".cuti-carousel-next");
+      if (prevBtn && !prevBtn.disabled && cutiCarouselIndex > 0) {
         cutiCarouselIndex--;
+        updateCutiCarouselUi();
+        return;
+      }
+      if (
+        nextBtn &&
+        !nextBtn.disabled &&
+        cutiCarouselIndex < cutiCarouselCount - 1
+      ) {
+        cutiCarouselIndex++;
         updateCutiCarouselUi();
       }
     });
   }
-  if (cutiNavNext) {
-    cutiNavNext.addEventListener("click", function () {
-      if (cutiCarouselIndex < cutiCarouselCount - 1) {
-        cutiCarouselIndex++;
-        updateCutiCarouselUi();
+
+  const sortNearestBtn = document.getElementById("cuti-optimizer-sort-nearest");
+  if (sortNearestBtn) {
+    sortNearestBtn.addEventListener("click", function () {
+      if (!cutiLastTopRankOrder || cutiLastTopRankOrder.length < 2) return;
+      const btn = sortNearestBtn;
+      if (!cutiSortNearestMode) {
+        const sorted = cutiLastTopRankOrder.slice().sort(compareNearestFirst);
+        cutiSortNearestMode = true;
+        btn.textContent = "Urutan peringkat";
+        btn.setAttribute("aria-pressed", "true");
+        renderCutiTrackFromTop(sorted);
+      } else {
+        cutiSortNearestMode = false;
+        btn.textContent = "Tampilkan terdekat";
+        btn.setAttribute("aria-pressed", "false");
+        renderCutiTrackFromTop(cutiLastTopRankOrder);
       }
     });
   }
