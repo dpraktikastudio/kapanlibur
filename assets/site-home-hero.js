@@ -22,7 +22,6 @@
     listYearMonth: null,
   };
 
-  let heroSwipeInitialized = false;
   let liburMendatangSwipeBound = false;
   let liburMendatangInited = false;
 
@@ -104,7 +103,7 @@
       const cap = menujuNextHolidayCaption(selectedRow);
       const when = n === 1 ? "besok" : "dalam " + n + " hari";
       visualHtml =
-        "Libur berikutnya: " +
+        "<span class=\"hidden sm:inline\">Libur berikutnya: </span>" +
         eDesc +
         " (" +
         eShortDate +
@@ -356,66 +355,6 @@
     } else {
       window.prompt("Salin teks:", text + "\n\n" + url);
     }
-  }
-
-  function attachHeroSwipe(navEl) {
-    let startX = 0;
-    let startY = 0;
-    let ptrId = null;
-    function trySwipe(endX, endY) {
-      const dx = endX - startX;
-      const dy = endY - startY;
-      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
-      const idx = heroContext.selectedIndex;
-      const max = heroContext.sortedData.length - 1;
-      const minI = heroContext.minSelectableIndex;
-      const floor =
-        typeof minI === "number" && minI >= 0 && minI <= max ? minI : 0;
-      if (dx < 0) {
-        if (idx < max) {
-          heroContext.selectedIndex = idx + 1;
-          renderMainCard();
-        }
-      } else {
-        if (idx > floor) {
-          heroContext.selectedIndex = idx - 1;
-          renderMainCard();
-        }
-      }
-    }
-    navEl.addEventListener(
-      "touchstart",
-      function (e) {
-        if (e.touches.length !== 1) return;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-      },
-      { passive: true }
-    );
-    navEl.addEventListener(
-      "touchend",
-      function (e) {
-        if (!e.changedTouches.length) return;
-        trySwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-      },
-      { passive: true }
-    );
-    navEl.addEventListener("pointerdown", function (e) {
-      if (e.pointerType === "touch") return;
-      if (e.pointerType === "mouse" && e.button !== 0) return;
-      ptrId = e.pointerId;
-      startX = e.clientX;
-      startY = e.clientY;
-    });
-    navEl.addEventListener("pointerup", function (e) {
-      if (e.pointerType === "touch") return;
-      if (ptrId === null || e.pointerId !== ptrId) return;
-      ptrId = null;
-      trySwipe(e.clientX, e.clientY);
-    });
-    navEl.addEventListener("pointercancel", function () {
-      ptrId = null;
-    });
   }
 
   function monthAbbrevFromISO(iso) {
@@ -971,13 +910,16 @@
     if (elSummary) {
       elSummary.innerHTML = sum.visualHtml;
       elSummary.setAttribute("title", sum.full);
+      const scrollHost = elSummary.closest(".hero-promo-summary-scroll");
+      if (scrollHost) {
+        scrollHost.scrollLeft = 0;
+      }
     }
     if (elSummarySr) {
       elSummarySr.textContent = sum.full;
     }
 
     if (btnShareNext) {
-      btnShareNext.textContent = "Bagikan!";
       btnShareNext.onclick = function () {
         runShare(
           buildShareSelectedText(t, selectedRow, byDate),
@@ -1027,15 +969,6 @@
     const heroNextNav = document.getElementById("hero-next-nav");
     if (heroNextNav) {
       heroNextNav.setAttribute("aria-label", nextSectionTitle);
-    }
-  }
-
-  function ensureHeroSwipe() {
-    if (heroSwipeInitialized) return;
-    const nav = document.getElementById("hero-next-nav");
-    if (nav) {
-      attachHeroSwipe(nav);
-      heroSwipeInitialized = true;
     }
   }
 
@@ -1445,7 +1378,6 @@
     if (calLoaded) calLoaded.classList.remove("hidden");
 
     renderMainCard();
-    ensureHeroSwipe();
 
     const t = todayISO();
     if (data.length) {

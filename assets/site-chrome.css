@@ -297,6 +297,11 @@ box-shadow: 0 1px 0 color-mix(in srgb, rgb(var(--color-outline)) 10%, transparen
 .hero-promo-banner #hero-next-nav {
 min-height: 0;
 }
+@media (max-width: 639px) {
+.hero-promo-banner .hero-promo-summary-scroll {
+touch-action: pan-x;
+}
+}
 .nav-shell .site-nav-bar {
 position: relative;
 display: flex;
