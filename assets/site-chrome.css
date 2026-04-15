@@ -242,10 +242,12 @@ background: rgb(var(--color-surface-container-low));
 outline: 2px solid rgb(var(--color-primary));
 outline-offset: 2px;
 }
-.theme-toggle svg {
+.theme-toggle .material-symbols-outlined {
 display: block;
+font-size: 1.2rem;
 width: 1.2rem;
 height: 1.2rem;
+line-height: 1.2rem;
 }
 .theme-toggle .icon-sun { display: none; }
 .theme-toggle .icon-moon { display: block; }
@@ -396,10 +398,12 @@ background: rgb(var(--color-surface-container-low));
 outline: 2px solid rgb(var(--color-primary));
 outline-offset: 2px;
 }
-.nav-shell .site-nav-toggle svg {
+.nav-shell .site-nav-toggle .material-symbols-outlined {
 display: block;
+font-size: 1.1rem;
 width: 1.1rem;
 height: 1.1rem;
+line-height: 1.1rem;
 }
 @media (max-width: 639px) {
 body.site-nav-open {

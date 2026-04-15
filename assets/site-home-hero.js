@@ -324,9 +324,7 @@
 
   function shareIconSvg() {
     return (
-      '<svg class="w-4 h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<path d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5M16.5 3h6m0 0v6m0-6L10.5 16.5" />' +
-      "</svg>"
+      '<span class="material-symbols-outlined share-icon-svg shrink-0 text-base leading-none inline-block align-middle" aria-hidden="true">share</span>'
     );
   }
 

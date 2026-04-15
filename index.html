@@ -149,18 +149,11 @@
                      <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
                   </nav>
                   <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
-                     <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-                        <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-                     </svg>
-                     <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
-                     </svg>
+                     <span class="material-symbols-outlined icon-sun text-xl leading-none" aria-hidden="true">light_mode</span>
+                     <span class="material-symbols-outlined icon-moon text-xl leading-none" aria-hidden="true">dark_mode</span>
                   </button>
                   <button type="button" class="site-nav-toggle sm:hidden" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
-                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/>
-                     </svg>
+                     <span class="material-symbols-outlined text-[1.1rem] leading-none" aria-hidden="true">menu</span>
                   </button>
                </div>
                <div id="site-nav-backdrop" class="site-nav-backdrop h-screen" hidden aria-hidden="true"></div>
@@ -170,7 +163,7 @@
       <div id="hero-next-banner" class="hero-promo-banner hidden bg-primary-container text-on-primary-container dark:bg-primary-fixed dark:text-on-primary-fixed transition-opacity" aria-label="Libur berikutnya">
          <div class="max-w-7xl mx-auto px-4 sm:px-8 py-1">
             <div class="flex items-center min-h-8 w-full gap-2 sm:gap-3">
-               <button type="button" id="hero-nav-prev" class="shrink-0 min-w-[2rem] h-8 px-0.5 rounded-md border border-on-primary-container/35 text-on-primary-container text-base font-bold leading-none hover:bg-white/15 disabled:opacity-35 disabled:cursor-not-allowed dark:border-on-primary-fixed/40 dark:text-on-primary-fixed dark:hover:bg-on-primary-fixed/15" aria-label="Libur sebelumnya">&#8249;</button>
+               <button type="button" id="hero-nav-prev" class="inline-flex items-center justify-center shrink-0 min-w-[2rem] h-8 px-0.5 rounded-md border border-on-primary-container/35 text-on-primary-container hover:bg-white/15 disabled:opacity-35 disabled:cursor-not-allowed dark:border-on-primary-fixed/40 dark:text-on-primary-fixed dark:hover:bg-on-primary-fixed/15" aria-label="Libur sebelumnya"><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_left</span></button>
                <div id="hero-next-nav" class="flex-1 flex justify-center min-w-0 touch-pan-y" role="region" aria-label="Libur berikutnya atau sebelumnya">
                   <div class="relative flex items-center gap-1.5 min-w-0 max-w-full text-on-primary-container dark:text-on-primary-fixed">
                      <span class="material-symbols-outlined text-2xl shrink-0 opacity-95 text-inherit" aria-hidden="true">campaign</span>
@@ -184,7 +177,7 @@
                </div>
                <div class="flex items-center gap-1 sm:gap-1.5 shrink-0 text-on-primary-container dark:text-on-primary-fixed">
                   <!-- <button type="button" id="hero-jump-terdekat" class="text-[0.65rem] sm:text-xs font-semibold text-inherit opacity-95 hover:underline underline-offset-2 px-0.5 max-w-[5.5rem] sm:max-w-none leading-tight text-left disabled:opacity-35 disabled:no-underline disabled:cursor-not-allowed disabled:hover:no-underline" aria-label="Lompat ke libur nasional atau cuti bersama terdekat">Libur / Cuti Terdekat</button> -->
-                  <button type="button" id="hero-nav-next" class="shrink-0 min-w-[2rem] h-8 px-0.5 rounded-md border border-on-primary-container/35 text-on-primary-container text-base font-bold leading-none hover:bg-white/15 disabled:opacity-35 disabled:cursor-not-allowed dark:border-on-primary-fixed/40 dark:text-on-primary-fixed dark:hover:bg-on-primary-fixed/15" aria-label="Libur berikutnya pada daftar">&#8250;</button>
+                  <button type="button" id="hero-nav-next" class="inline-flex items-center justify-center shrink-0 min-w-[2rem] h-8 px-0.5 rounded-md border border-on-primary-container/35 text-on-primary-container hover:bg-white/15 disabled:opacity-35 disabled:cursor-not-allowed dark:border-on-primary-fixed/40 dark:text-on-primary-fixed dark:hover:bg-on-primary-fixed/15" aria-label="Libur berikutnya pada daftar"><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_right</span></button>
                </div>
             </div>
          </div>
@@ -240,8 +233,8 @@
                      </h3>
                   </div>
                   <div id="libur-mendatang-nav" class="hidden flex items-center gap-1 shrink-0" role="group" aria-label="Ganti bulan">
-                    <button type="button" id="libur-mendatang-prev" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface text-lg font-bold hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Bulan sebelumnya">&#8249;</button>
-                    <button type="button" id="libur-mendatang-next" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface text-lg font-bold hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Bulan berikutnya">&#8250;</button>
+                    <button type="button" id="libur-mendatang-prev" class="inline-flex items-center justify-center min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Bulan sebelumnya"><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_left</span></button>
+                    <button type="button" id="libur-mendatang-next" class="inline-flex items-center justify-center min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Bulan berikutnya"><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_right</span></button>
                  </div>
                   
                </div>
@@ -324,9 +317,9 @@
             </div>
             <div id="calendar-loaded" class="hidden">
                <div id="cal-month-toolbar" class="flex md:hidden items-center gap-2 mb-6" role="group" aria-label="Bulan pada layar kecil">
-                  <button type="button" id="cal-nav-prev" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface text-lg font-bold hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed shrink-0" aria-label="Bulan sebelumnya">&#8249;</button>
+                  <button type="button" id="cal-nav-prev" class="inline-flex items-center justify-center min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed shrink-0" aria-label="Bulan sebelumnya"><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_left</span></button>
                   <p id="cal-toolbar-label" class="flex-1 text-center text-base font-bold text-on-surface min-h-[2.5rem] flex items-center justify-center"></p>
-                  <button type="button" id="cal-nav-next" class="min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface text-lg font-bold hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed shrink-0" aria-label="Bulan berikutnya">&#8250;</button>
+                  <button type="button" id="cal-nav-next" class="inline-flex items-center justify-center min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed shrink-0" aria-label="Bulan berikutnya"><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_right</span></button>
                </div>
                <div id="calendar-wrap">
                   <div id="calendar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12"></div>
@@ -371,11 +364,7 @@
                      style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;max-width:540px;"
                   >
                      <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-                        <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
-                           <path
-                              d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"
-                           />
-                        </svg>
+                        <span class="material-symbols-outlined sib-icon sib-notification__icon" aria-hidden="true">error</span>
                         <span class="sib-form-message-panel__inner-text">
                            Terdapat kesalahan pada sistem. Silahkan coba lagi dalam beberapa saat.
                         </span>
@@ -388,11 +377,7 @@
                      style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#085229; background-color:#e7faf0; border-radius:3px; border-color:#13ce66;max-width:540px;"
                   >
                      <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-                        <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
-                           <path
-                              d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"
-                           />
-                        </svg>
+                        <span class="material-symbols-outlined sib-icon sib-notification__icon" aria-hidden="true">check_circle</span>
                         <span class="sib-form-message-panel__inner-text">
                            Terima kasih! Kamu akan dapat reminder sebelum hari libur, salam tanggal merah!
                         </span>
@@ -456,7 +441,7 @@
                                  form="sib-form"
                                  type="submit"
                               >
-                                 <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                                 <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" aria-hidden="true">
                                     <path
                                        d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"
                                     />
