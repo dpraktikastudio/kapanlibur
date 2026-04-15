@@ -184,40 +184,47 @@
       <main class="site-main pb-20 px-4 md:px-8 max-w-7xl mx-auto">
          <!-- Hero: diisi oleh /assets/site-home-hero.js -->
          <section id="hero-section" class="mb-20" aria-busy="true">
-            <div id="hero-content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-               <div class="lg:col-span-7">
-                  <p class="text-primary font-bold tracking-widest uppercase text-xs mb-4">Status hari ini</p>
-                  <p class="text-base font-semibold text-on-surface mb-3"><time id="hero-today-date" datetime=""></time></p>
-                  <h1 id="hero-today-headline" class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface mb-6 leading-[1.1]"></h1>
-                  <div id="hero-today-body" class="text-lg text-on-surface-variant max-w-xl space-y-3"></div>
-                  <div class="mt-6 flex flex-wrap items-center gap-3">
-                     <button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
-                     <span>Bagikan</span>
-                     </button>
-                     <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
-                  </div>
+            <div id="hero-content" class="hidden">
+               <p class="text-primary font-bold tracking-widest uppercase text-xs mb-4">Status hari ini</p>
+               <p class="text-base font-semibold text-on-surface mb-3"><time id="hero-today-date" datetime=""></time></p>
+               <h1 id="hero-today-headline" class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface mb-6 leading-[1.1]"></h1>
+               <div id="hero-today-body" class="text-lg text-on-surface-variant max-w-xl space-y-3"></div>
+               <div class="mt-6 flex flex-wrap items-center gap-3">
+                  <button type="button" id="hero-goto-cuti-optimizer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity" aria-controls="cuti-optimizer-section">
+                  Pilih tanggal untuk cuti
+                  </button>
+                  <button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
+                  <span>Bagikan</span>
+                  </button>
+                  <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
                </div>
-               <div class="lg:col-span-5">
-                  <div id="cuti-optimizer-card" class="rounded-xl border border-outline-variant/60 bg-surface-container-lowest p-4 md:p-6 shadow-sm">
-                     <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-2xl text-primary" aria-hidden="true">bar_chart</span>
-                        <h2 class="text-lg font-bold text-on-surface">Optimasi cuti</h2>
-                     </div>
-                     <label for="cuti-optimizer-n" class="block text-[0.65rem] sm:text-xs font-bold uppercase tracking-wide text-on-surface-variant mb-1.5">Jumlah hari cuti (N)</label>
-                     <div class="flex flex-wrap gap-2 items-stretch sm:items-end mb-3">
-                        <input id="cuti-optimizer-n" type="number" min="1" max="10" value="2" class="w-20 rounded-lg border border-outline-variant bg-surface text-on-surface px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-primary focus:outline-none"/>
-                        <button type="button" id="cuti-optimizer-run" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity">Optimalkan</button>
-                     </div>
-                     <p id="cuti-optimizer-hint" class="text-sm text-on-surface-variant mb-3">Masukkan berapa hari cuti yang ingin Anda ambil, lalu klik Optimalkan.</p>
-                     <div id="cuti-optimizer-results" class="hidden space-y-2" aria-live="polite">
-                        <p class="text-[0.65rem] font-bold uppercase tracking-wide text-primary">Saran cuti</p>
-                        <p class="text-sm text-on-surface"><span class="text-on-surface-variant">Tanggal cuti:</span> <span id="cuti-optimizer-leave-dates" class="font-semibold"></span></p>
-                        <p class="text-sm text-on-surface"><span class="text-on-surface-variant">Rentang libur:</span> <span id="cuti-optimizer-span-range" class="font-semibold"></span></p>
-                        <p id="cuti-optimizer-total" class="text-2xl font-bold text-primary text-right pt-1"></p>
-                     </div>
-                     <p id="cuti-optimizer-error" class="hidden text-sm text-error" role="alert"></p>
-                  </div>
+            </div>
+         </section>
+         <section id="cuti-optimizer-section" class="mb-20 hidden w-full min-w-0" aria-label="Optimasi cuti" tabindex="-1">
+            <div id="cuti-optimizer-card" class="w-full rounded-xl border border-outline-variant/60 bg-surface-container-lowest p-4 md:p-6 shadow-sm">
+               <div class="flex items-center gap-2 mb-4">
+                  <span class="material-symbols-outlined text-2xl text-primary" aria-hidden="true">bar_chart</span>
+                  <h2 class="text-lg font-bold text-on-surface">Optimasi cuti</h2>
                </div>
+               <label for="cuti-optimizer-n" class="block text-[0.65rem] sm:text-xs font-bold uppercase tracking-wide text-on-surface-variant mb-1.5">Jumlah hari cuti (N)</label>
+               <div class="flex flex-wrap gap-2 items-stretch sm:items-end mb-3">
+                  <input id="cuti-optimizer-n" type="number" min="1" max="10" value="2" class="w-20 rounded-lg border border-outline-variant bg-surface text-on-surface px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-primary focus:outline-none"/>
+                  <button type="button" id="cuti-optimizer-run" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity">Optimalkan</button>
+               </div>
+               <p id="cuti-optimizer-hint" class="text-sm text-on-surface-variant mb-3">Masukkan berapa hari cuti yang ingin Anda ambil, lalu klik Optimalkan.</p>
+               <div id="cuti-optimizer-results" class="hidden space-y-4" aria-live="polite">
+                  <p class="text-[0.65rem] font-bold uppercase tracking-wide text-primary">Saran cuti (peringkat)</p>
+                  <p id="cuti-optimizer-slide-label" class="text-sm font-semibold text-on-surface text-center min-h-[1.25rem]" aria-live="polite"></p>
+                  <div class="cuti-optimizer-carousel flex items-stretch gap-2 sm:gap-3 min-w-0">
+                     <button type="button" id="cuti-optimizer-nav-prev" class="cuti-optimizer-nav-btn inline-flex shrink-0 items-center justify-center min-w-[2.5rem] h-10 sm:h-11 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Opsi sebelumnya" aria-controls="cuti-optimizer-track" disabled><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_left</span></button>
+                     <div id="cuti-optimizer-viewport" class="cuti-optimizer-viewport min-w-0 flex-1 overflow-hidden rounded-lg">
+                        <div id="cuti-optimizer-track" class="cuti-optimizer-track flex" role="list"></div>
+                     </div>
+                     <button type="button" id="cuti-optimizer-nav-next" class="cuti-optimizer-nav-btn inline-flex shrink-0 items-center justify-center min-w-[2.5rem] h-10 sm:h-11 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Opsi berikutnya" aria-controls="cuti-optimizer-track" disabled><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_right</span></button>
+                  </div>
+                  <p id="cuti-optimizer-options-note" class="hidden text-sm text-on-surface-variant"></p>
+               </div>
+               <p id="cuti-optimizer-error" class="hidden text-sm text-error" role="alert"></p>
             </div>
          </section>
          <!-- Grid: cuplikan libur dan newsletter -->

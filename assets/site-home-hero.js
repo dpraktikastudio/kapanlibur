@@ -812,6 +812,27 @@
     document.body.classList.toggle("hero-promo-visible", !!visible);
   }
 
+  function scrollFocusCutiOptimizer() {
+    const section = document.getElementById("cuti-optimizer-section");
+    if (!section || section.classList.contains("hidden")) return;
+    const input = document.getElementById("cuti-optimizer-n");
+    const behavior = prefersReducedMotion() ? "auto" : "smooth";
+    section.scrollIntoView({ behavior: behavior, block: "start" });
+    const focusEl = input || section;
+    function applyFocus() {
+      try {
+        focusEl.focus({ preventScroll: true });
+      } catch (e) {
+        focusEl.focus();
+      }
+    }
+    if (prefersReducedMotion()) {
+      requestAnimationFrame(applyFocus);
+    } else {
+      window.setTimeout(applyFocus, 420);
+    }
+  }
+
   function renderMainCard() {
     const elDate = document.getElementById("hero-today-date");
     const elHeadline = document.getElementById("hero-today-headline");
@@ -1368,11 +1389,13 @@
     heroContext.selectedIndex = null;
 
     const content = document.getElementById("hero-content");
+    const cutiSection = document.getElementById("cuti-optimizer-section");
     const section = document.getElementById("hero-section");
     const calState = document.getElementById("calendar-state");
     const calLoaded = document.getElementById("calendar-loaded");
 
     if (content) content.classList.remove("hidden");
+    if (cutiSection) cutiSection.classList.remove("hidden");
     if (section) section.setAttribute("aria-busy", "false");
     if (calState) calState.classList.add("hidden");
     if (calLoaded) calLoaded.classList.remove("hidden");
@@ -1418,6 +1441,7 @@
 
   function onDataError() {
     const content = document.getElementById("hero-content");
+    const cutiSection = document.getElementById("cuti-optimizer-section");
     const banner = document.getElementById("hero-next-banner");
     const section = document.getElementById("hero-section");
     const calState = document.getElementById("calendar-state");
@@ -1426,6 +1450,7 @@
     if (banner) banner.classList.add("hidden");
     setHeroPromoBarVisible(false);
     if (content) content.classList.add("hidden");
+    if (cutiSection) cutiSection.classList.add("hidden");
     if (section) section.setAttribute("aria-busy", "false");
     if (calState) calState.classList.add("hidden");
     if (calLoaded) calLoaded.classList.remove("hidden");
@@ -1437,6 +1462,15 @@
       calEl.innerHTML =
         '<p class="text-on-surface-variant text-sm col-span-full">Tidak bisa memuat kalender. Muat ulang halaman atau buka <a class="text-primary font-semibold hover:underline" href="/hari-libur-nasional-2026.html">daftar lengkap</a>.</p>';
     }
+  }
+
+  const btnGotoCutiOptimizer = document.getElementById(
+    "hero-goto-cuti-optimizer"
+  );
+  if (btnGotoCutiOptimizer) {
+    btnGotoCutiOptimizer.addEventListener("click", function () {
+      scrollFocusCutiOptimizer();
+    });
   }
 
   fetch("/json/2026.json")
