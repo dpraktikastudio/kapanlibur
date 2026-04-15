@@ -546,6 +546,18 @@
           const past = row.date < t;
           const pastClass = past ? " opacity-60" : "";
           const borderAccent = rowBorderAccentClass(row.type);
+          const isLongWeekend = !!row.is_long_weekend;
+          const dateBoxClass =
+            "flex-shrink-0 w-12 md:w-16 h-12 md:h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center " +
+            (isLongWeekend
+              ? "libur-mendatang-datebox--long-weekend"
+              : "border-l-4 " + borderAccent);
+          const monTextClass = isLongWeekend
+            ? "text-xs font-bold libur-mendatang-date-long-text"
+            : "text-xs font-bold text-on-surface-variant";
+          const dayTextClass = isLongWeekend
+            ? "text-lg md:text-2xl font-extrabold libur-mendatang-date-long-text"
+            : "text-lg md:text-2xl font-extrabold text-on-surface";
           const dayNum = parseISODate(row.date).getDate();
           const monAbbr = monthAbbrevFromISO(row.date);
           const badges = renderBadgeSpans(row, byDate);
@@ -562,13 +574,17 @@
             '" id="list-row-' +
             row.date +
             '" role="listitem">' +
-            '<div class="flex-shrink-0 w-12 md:w-16 h-12 md:h-16 bg-surface-container-highest rounded-lg flex flex-col items-center justify-center border-l-4 ' +
-            borderAccent +
+            '<div class="' +
+            dateBoxClass +
             '">' +
-            '<span class="text-xs font-bold text-on-surface-variant">' +
+            '<span class="' +
+            monTextClass +
+            '">' +
             escapeHtml(monAbbr) +
             "</span>" +
-            '<span class="text-lg md:text-2xl font-extrabold text-on-surface">' +
+            '<span class="' +
+            dayTextClass +
+            '">' +
             dayNum +
             "</span></div>" +
             '<div class="flex-grow min-w-0">' +
