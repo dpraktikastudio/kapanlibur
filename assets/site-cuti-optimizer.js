@@ -533,6 +533,48 @@
   let cutiLastTopRankOrder = null;
   let cutiSortNearestMode = false;
   let cutiCarouselSwipeBound = false;
+  /** @type {ReturnType<typeof setTimeout>|null} */
+  let cutiReorderHideTimer = null;
+  const CUTI_REORDER_HIDE_MS = 180;
+
+  function cutiPrefersReducedMotion() {
+    return (
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+  }
+
+  /**
+   * Ganti isi track setelah fade-out singkat, lalu fade-in (hindari flash saat ganti urutan).
+   */
+  function renderCutiTrackFromTopAnimatedReorder(topList) {
+    const host = document.getElementById("cuti-optimizer-carousel-host");
+    const results = document.getElementById("cuti-optimizer-results");
+    if (
+      !host ||
+      !results ||
+      results.classList.contains("hidden") ||
+      cutiPrefersReducedMotion()
+    ) {
+      renderCutiTrackFromTop(topList);
+      return;
+    }
+    if (cutiReorderHideTimer) {
+      clearTimeout(cutiReorderHideTimer);
+      cutiReorderHideTimer = null;
+      host.classList.remove("is-cuti-reorder-hidden");
+    }
+    host.classList.add("is-cuti-reorder-hidden");
+    cutiReorderHideTimer = window.setTimeout(function () {
+      cutiReorderHideTimer = null;
+      renderCutiTrackFromTop(topList);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          host.classList.remove("is-cuti-reorder-hidden");
+        });
+      });
+    }, CUTI_REORDER_HIDE_MS);
+  }
 
   function cutiCarouselSwipeActive() {
     const results = document.getElementById("cuti-optimizer-results");
@@ -724,6 +766,12 @@
       noteEl.textContent = "";
     }
     if (track) track.innerHTML = "";
+    const carouselHost = document.getElementById("cuti-optimizer-carousel-host");
+    if (cutiReorderHideTimer) {
+      clearTimeout(cutiReorderHideTimer);
+      cutiReorderHideTimer = null;
+    }
+    if (carouselHost) carouselHost.classList.remove("is-cuti-reorder-hidden");
     cutiCarouselIndex = 0;
     cutiCarouselCount = 0;
     cutiLastTopRankOrder = null;
@@ -827,14 +875,14 @@
       if (!cutiSortNearestMode) {
         const sorted = cutiLastTopRankOrder.slice().sort(compareNearestFirst);
         cutiSortNearestMode = true;
-        btn.textContent = "Urutan peringkat";
+        btn.textContent = "Tampilkan terpanjang";
         btn.setAttribute("aria-pressed", "true");
-        renderCutiTrackFromTop(sorted);
+        renderCutiTrackFromTopAnimatedReorder(sorted);
       } else {
         cutiSortNearestMode = false;
         btn.textContent = "Tampilkan terdekat";
         btn.setAttribute("aria-pressed", "false");
-        renderCutiTrackFromTop(cutiLastTopRankOrder);
+        renderCutiTrackFromTopAnimatedReorder(cutiLastTopRankOrder);
       }
     });
   }

@@ -288,6 +288,20 @@ scroll-margin-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extr
 }
 .cuti-optimizer-carousel {
 min-width: 0;
+transition: opacity 0.18s ease-out, transform 0.2s ease-out;
+}
+.cuti-optimizer-carousel.is-cuti-reorder-hidden {
+opacity: 0;
+transform: translateY(0.35rem);
+pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+.cuti-optimizer-carousel {
+transition: none;
+}
+.cuti-optimizer-carousel.is-cuti-reorder-hidden {
+transform: none;
+}
 }
 .cuti-optimizer-viewport {
 -webkit-overflow-scrolling: touch;
