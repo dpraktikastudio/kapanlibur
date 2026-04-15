@@ -527,6 +527,14 @@
       .replace(/"/g, "&quot;");
   }
 
+  /** Angka tebal untuk teks dibagikan (Unicode Mathematical Sans-Serif Bold Digit). */
+  function shareBoldNumber(n) {
+    const base = 0x1d7ec;
+    return String(n).replace(/\d/g, function (d) {
+      return String.fromCodePoint(base + parseInt(d, 10));
+    });
+  }
+
   /**
    * Teks untuk dibagikan (mirip isi kartu opsi).
    * @param {object} opt enriched option
@@ -538,7 +546,7 @@
       "Dengan cuti " +
         leaveN +
         " hari kamu bisa dapet total libur " +
-        opt.span +
+        shareBoldNumber(opt.span) +
         " hari."
     );
     lines.push("");
