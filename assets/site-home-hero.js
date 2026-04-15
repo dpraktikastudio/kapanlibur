@@ -78,37 +78,53 @@
 
   function heroBannerSummaryLines(t, selectedRow, byDate) {
     const dateStr = formatLongID(selectedRow.date);
+    const shortDateStr = formatShortDateID(selectedRow.date);
     const desc = selectedRow.description;
     const type = selectedRow.type;
     const eDesc = escapeHtml(desc);
     const eType = escapeHtml(type);
+    const eShortDate = escapeHtml(shortDateStr);
     let visualHtml = "";
     let full = "";
+
+    function longWeekendSuffix() {
+      const lw = selectedRow.chain_holidays;
+      const lwN = typeof lw === "number" && lw > 0 ? lw : 1;
+      return {
+        visual:
+          " • <span class=\"font-semibold text-inherit\">Libur Panjang (" +
+          lwN +
+          " hari)</span>",
+        plain: " • Libur Panjang (" + lwN + " hari)",
+      };
+    }
+
     if (selectedRow.date > t) {
       const n = diffDays(t, selectedRow.date);
       const cap = menujuNextHolidayCaption(selectedRow);
-      if (n === 1) {
-        visualHtml =
-          "Libur berikutnya: <strong class=\"font-semibold text-inherit\">" +
-          eDesc +
-          "</strong> — besok!";
-        full = "Libur berikutnya: " + desc + " — besok — " + cap + " — " + dateStr;
-      } else {
-        visualHtml =
-          "Libur berikutnya: <strong class=\"font-semibold text-inherit\">" +
-          eDesc +
-          "</strong> — dalam " +
-          n +
-          " hari!";
-        full =
-          "Libur berikutnya: " +
-          desc +
-          " — dalam " +
-          n +
-          " hari — " +
-          cap +
-          " — " +
-          dateStr;
+      const when = n === 1 ? "besok" : "dalam " + n + " hari";
+      visualHtml =
+        "Libur berikutnya: " +
+        eDesc +
+        " (" +
+        eShortDate +
+        ") — " +
+        when;
+      full =
+        "Libur berikutnya: " +
+        desc +
+        " (" +
+        shortDateStr +
+        ") — " +
+        when +
+        " — " +
+        cap +
+        " — " +
+        dateStr;
+      if (selectedRow.is_long_weekend) {
+        const lw = longWeekendSuffix();
+        visualHtml += lw.visual;
+        full += lw.plain;
       }
     } else if (selectedRow.date < t) {
       visualHtml =
@@ -126,6 +142,11 @@
         dateStr +
         " — Libur berturut-turut: " +
         formatRantaiBerturutForRow(selectedRow, byDate);
+      if (selectedRow.is_long_weekend) {
+        const lw = longWeekendSuffix();
+        visualHtml += lw.visual;
+        full += lw.plain;
+      }
     } else {
       visualHtml =
         "Hari ini: <strong class=\"font-semibold text-inherit\">" +
@@ -142,15 +163,11 @@
         dateStr +
         " — Libur berturut-turut: " +
         formatRantaiBerturutForRow(selectedRow, byDate);
-    }
-    if (selectedRow.is_long_weekend) {
-      const lw = selectedRow.chain_holidays;
-      const lwN = typeof lw === "number" && lw > 0 ? lw : 1;
-      visualHtml +=
-        " · <span class=\"font-semibold text-inherit\">Libur Panjang (" +
-        lwN +
-        " hari)</span>";
-      full += " · Libur Panjang (" + lwN + " hari)";
+      if (selectedRow.is_long_weekend) {
+        const lw = longWeekendSuffix();
+        visualHtml += lw.visual;
+        full += lw.plain;
+      }
     }
     return { visualHtml: visualHtml, full: full };
   }
@@ -160,6 +177,11 @@
     const day = d.getDay();
     const name = DOW_LONG[day];
     return name + ", " + d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
+  }
+
+  function formatShortDateID(iso) {
+    const d = parseISODate(iso);
+    return d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
   }
 
   function toISOFromDate(d) {
