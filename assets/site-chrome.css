@@ -284,7 +284,7 @@ main.site-main {
 padding-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra));
 }
 .hero-promo-banner {
-position: sticky;
+position: absolute;
 top: 81px;
 left: 0;
 right: 0;
