@@ -161,23 +161,23 @@
          </div>
       </nav>
       <div id="hero-next-banner" class="hero-promo-banner hidden bg-primary-container text-on-primary-container dark:bg-primary-fixed dark:text-on-primary-fixed transition-opacity" aria-label="Libur berikutnya">
-         <div class="max-w-7xl mx-auto px-2 md:px-8 py-1">
-            <div class="flex items-center min-h-8 w-full gap-1.5 sm:gap-3">
-               <button type="button" id="hero-nav-prev" class="inline-flex items-center justify-center shrink-0 min-w-[1.5rem] h-6 rounded-md border-0 px-0 text-on-primary-container hover:bg-white/15 disabled:opacity-35 disabled:cursor-not-allowed sm:min-w-[2rem] sm:h-8 sm:border sm:border-on-primary-container/35 sm:px-0.5 dark:sm:border-on-primary-fixed/40 dark:text-on-primary-fixed dark:hover:bg-on-primary-fixed/15" aria-label="Libur sebelumnya"><span class="material-symbols-outlined text-[0.9375rem] leading-none font-normal sm:text-xl" aria-hidden="true">chevron_left</span></button>
-               <div id="hero-next-nav" class="flex min-w-0 flex-1 justify-center" role="region" aria-label="Libur berikutnya atau sebelumnya">
-                  <div class="relative flex min-w-0 max-w-full items-center gap-1 sm:gap-1.5 text-on-primary-container dark:text-on-primary-fixed">
-                     <span class="material-symbols-outlined shrink-0 text-lg opacity-95 text-inherit sm:text-2xl" aria-hidden="true">campaign</span>
-                     <div class="hero-promo-summary-scroll min-w-0 flex-1 touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain sm:touch-auto sm:overflow-x-visible sm:overflow-y-visible [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                        <div id="hero-next-banner-summary" class="inline-block min-w-0 whitespace-nowrap text-left text-sm font-medium text-inherit sm:max-w-md sm:whitespace-normal sm:truncate lg:max-w-xl [&_strong]:text-inherit [&_strong]:font-semibold"></div>
+         <div class="max-w-7xl mx-auto px-4 sm:px-8 py-1.5 sm:py-1">
+            <div class="grid min-h-8 w-full grid-cols-[auto_1fr_auto] items-center gap-x-2 sm:gap-x-3">
+               <button type="button" id="hero-nav-prev" class="inline-flex h-6 min-w-[1.5rem] shrink-0 items-center justify-center justify-self-start rounded-md border-0 px-0 text-on-primary-container hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-35 sm:h-8 sm:min-w-[2rem] sm:border sm:border-on-primary-container/35 sm:px-0.5 dark:text-on-primary-fixed dark:hover:bg-on-primary-fixed/15 dark:sm:border-on-primary-fixed/40" aria-label="Libur sebelumnya"><span class="material-symbols-outlined text-[0.9375rem] font-normal leading-none sm:text-xl" aria-hidden="true">chevron_left</span></button>
+               <div class="flex min-h-8 min-w-0 items-center justify-center justify-self-stretch px-1">
+                  <div id="hero-next-nav" class="flex w-max max-w-full min-w-0 items-center gap-1.5 text-on-primary-container sm:gap-2 dark:text-on-primary-fixed" role="region" aria-label="Libur berikutnya atau sebelumnya">
+                     <span class="material-symbols-outlined shrink-0 text-lg text-inherit opacity-95 sm:text-2xl" aria-hidden="true">campaign</span>
+                     <div class="hero-promo-summary-scroll min-h-0 min-w-0 max-w-[min(16rem,calc(100vw-9.5rem))] touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:max-w-2xl sm:overflow-hidden sm:overscroll-auto sm:touch-auto">
+                        <div id="hero-next-banner-summary" class="block min-w-0 text-left text-sm font-medium leading-snug text-inherit whitespace-nowrap sm:truncate sm:leading-normal [&_strong]:font-semibold [&_strong]:text-inherit"></div>
                      </div>
-                     <span class="flex shrink-0 items-center gap-0.5">
-                        <button type="button" id="hero-share-next" class="inline-flex shrink-0 items-center justify-center rounded-sm border-0 bg-transparent p-0.5 text-inherit hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary-container dark:focus-visible:outline-on-primary-fixed sm:px-0.5 sm:py-0.5" aria-label="Bagikan libur yang dipilih"><span class="material-symbols-outlined text-base leading-none font-normal sm:hidden" aria-hidden="true">share</span><span class="hidden text-sm font-semibold underline underline-offset-2 sm:inline">Bagikan!</span></button>
+                     <div class="flex shrink-0 items-center gap-1">
+                        <button type="button" id="hero-share-next" class="inline-flex shrink-0 items-center justify-center rounded-sm border-0 bg-transparent p-0.5 text-inherit hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary-container dark:focus-visible:outline-on-primary-fixed sm:py-0.5 sm:pl-0.5 sm:pr-0" aria-label="Bagikan libur yang dipilih"><span class="material-symbols-outlined text-base font-normal leading-none sm:hidden" aria-hidden="true">share</span><span class="hidden whitespace-nowrap text-sm font-semibold underline underline-offset-2 sm:inline">Bagikan!</span></button>
                         <span id="hero-share-next-toast" class="share-toast text-inherit text-[0.7rem] whitespace-nowrap max-w-[3.5rem] sm:max-w-[5rem] truncate" aria-live="polite"></span>
-                     </span>
+                     </div>
                      <span id="hero-next-banner-sr" class="sr-only"></span>
                   </div>
                </div>
-               <button type="button" id="hero-nav-next" class="inline-flex items-center justify-center shrink-0 min-w-[1.5rem] h-6 rounded-md border-0 px-0 text-on-primary-container hover:bg-white/15 disabled:opacity-35 disabled:cursor-not-allowed sm:min-w-[2rem] sm:h-8 sm:border sm:border-on-primary-container/35 sm:px-0.5 dark:sm:border-on-primary-fixed/40 dark:text-on-primary-fixed dark:hover:bg-on-primary-fixed/15" aria-label="Libur berikutnya pada daftar"><span class="material-symbols-outlined text-[0.9375rem] leading-none font-normal sm:text-xl" aria-hidden="true">chevron_right</span></button>
+               <button type="button" id="hero-nav-next" class="inline-flex h-6 min-w-[1.5rem] shrink-0 items-center justify-center justify-self-end rounded-md border-0 px-0 text-on-primary-container hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-35 sm:h-8 sm:min-w-[2rem] sm:border sm:border-on-primary-container/35 sm:px-0.5 dark:text-on-primary-fixed dark:hover:bg-on-primary-fixed/15 dark:sm:border-on-primary-fixed/40" aria-label="Libur berikutnya pada daftar"><span class="material-symbols-outlined text-[0.9375rem] font-normal leading-none sm:text-xl" aria-hidden="true">chevron_right</span></button>
             </div>
          </div>
       </div>
