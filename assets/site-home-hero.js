@@ -628,7 +628,7 @@
     }
     if (row.is_long_weekend) {
       html +=
-        '<span class="px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider bg-amber-100 text-amber-900 dark:text-white dark:border dark:border-red-500/40 dark:bg-red-600/20">Libur panjang</span>';
+        '<span class="px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider bg-red-600/20 text-amber-900 dark:text-white dark:border dark:border-red-500/40 dark:bg-red-600/20">Libur panjang</span>';
     }
     return html;
   }
