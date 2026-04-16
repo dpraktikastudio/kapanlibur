@@ -822,13 +822,24 @@
       })
       .join("");
     const promoHref = opt.promoHref || "";
-    const promoBlock = promoHref
-      ? '<p class="pt-2 mt-1 mb-0"><a href="' +
-        escapeHtml(promoHref) +
-        '" class="inline-flex items-center justify-center px-5 py-3 sm:py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity shrink-0" target="_blank" rel="sponsored noopener noreferrer">' +
-        escapeHtml(PROMO_CTA_LABEL) +
-        "</a></p>"
-      : "";
+    const shareBtn =
+      '<button type="button" class="cuti-option-share inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors shrink-0" data-cuti-opt-index="' +
+      shareIndex +
+      '" aria-label="Bagikan opsi ini">' +
+      '<span class="material-symbols-outlined text-base leading-none font-normal" aria-hidden="true">share</span>' +
+      "<span>Bagikan</span>" +
+      "</button>";
+    const actionsFooter =
+      '<div class="pt-2 border-t border-outline-variant/30 flex flex-row flex-wrap items-center gap-2">' +
+      (promoHref
+        ? '<a href="' +
+          escapeHtml(promoHref) +
+          '" class="inline-flex flex-1 min-w-0 items-center justify-center px-4 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center" target="_blank" rel="sponsored noopener noreferrer">' +
+          escapeHtml(PROMO_CTA_LABEL) +
+          "</a>"
+        : "") +
+      shareBtn +
+      "</div>";
     return (
       '<article class="relative rounded-lg border border-outline-variant/50 bg-surface/50 dark:bg-surface-container-low/40 p-4 pt-5 space-y-3 min-h-[12rem]">' +
       '<span class="absolute top-3 right-3 max-w-[55%] text-right text-xs font-bold text-on-surface-variant leading-tight">' +
@@ -855,15 +866,7 @@
       '<p class="text-sm text-on-surface-variant border-t border-outline-variant/30 pt-3"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
       escapeHtml(opt.activityHint) +
       "</p>" +
-      promoBlock +
-      '<div class="pt-2 border-t border-outline-variant/30">' +
-      '<button type="button" class="cuti-option-share inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors" data-cuti-opt-index="' +
-      shareIndex +
-      '" aria-label="Bagikan opsi ini">' +
-      '<span class="material-symbols-outlined text-base leading-none font-normal" aria-hidden="true">share</span>' +
-      "<span>Bagikan</span>" +
-      "</button>" +
-      "</div>" +
+      actionsFooter +
       "</article>"
     );
   }
