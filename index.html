@@ -189,14 +189,14 @@
                   <section id="cuti-optimizer-section" class="hidden w-full min-w-0" aria-label="Perencana cuti" tabindex="-1">
                      <div id="cuti-optimizer-card" class="w-full rounded-xl ">
                         <p class="text-primary font-bold tracking-widest uppercase text-xs mb-2">Kapan libur</p>
-                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-4 md:mb-5 leading-[1.15]">
-                           Ubah cuti Anda jadi libur lebih panjang
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-4 md:mb-5 leading-[1.15]">
+                           Ubah cuti Anda jadi <span class="text-primary">libur panjang</span>
                         </h1>
                         <p class="text-base sm:text-lg text-on-surface-variant leading-relaxed max-w-3xl mb-6 md:mb-8">
                            Temukan cara mengubah 2–3 hari cuti menjadi 5–9 hari libur berdasarkan kalender Indonesia
                         </p>
                         <label for="cuti-optimizer-n" class="block text-sm font-bold text-on-surface mb-2">Jumlah hari cuti</label>
-                        <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-end mb-3">
+                        <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center mb-3">
                            <input id="cuti-optimizer-n" type="number" min="1" max="10" value="2" inputmode="numeric" class="w-full min-w-0 sm:w-36 rounded-lg border border-outline-variant bg-surface text-on-surface px-4 py-3 text-base font-semibold tabular-nums focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Contoh: 2"/>
                            <button type="button" id="cuti-optimizer-run" class="inline-flex items-center justify-center px-5 py-3 sm:py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity shrink-0">Rencanakan Cuti</button>
                         </div>
@@ -225,7 +225,7 @@
                      </div>
                   </section>
                </div>
-               <aside class="lg:col-span-1 min-w-0 md:sticky md:top-40" aria-label="Status hari ini">
+               <aside class="lg:col-span-1 min-w-0 md:sticky md:top-40" aria-label="Status hari ini dan penawaran">
                   <div id="home-today-card-shell" class="home-today-card-shell">
                      <div id="hero-content" class="hero-today-card hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low p-5 md:p-6 shadow-md">
                         <p class="text-xs text-on-surface-variant/90 mb-3"><time id="hero-today-date" datetime=""></time></p>
@@ -245,6 +245,13 @@
                            <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
                         </div>
                      </div>
+                  </div>
+
+                  <div id="home-aside-promo" class="mt-6 rounded-2xl border border-primary/25 bg-primary-container/25 dark:bg-primary-container/15 p-4 md:p-5 shadow-sm">
+                     <p class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-primary mb-2">Penawaran</p>
+                     <p class="text-sm font-bold text-on-surface mb-1.5">Siap berlibur?</p>
+                     <p class="text-xs text-on-surface-variant leading-relaxed mb-4">Cek promo tiket pesawat dan hotel yang cocok dengan jadwal libur Anda.</p>
+                     <a id="home-aside-promo-cta" class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary bg-primary/10 px-3 py-2.5 text-sm font-bold text-primary hover:bg-primary/15 transition-colors" href="https://atid.me/go/EG0Q0V8L" target="_blank" rel="sponsored noopener noreferrer">Cek Promo Tiket &amp; Hotel</a>
                   </div>
                </aside>
             </div>

@@ -35,23 +35,48 @@
       maxSpan: 2,
       text:
         "Cocok untuk istirahat singkat di kota: kafe, bioskop, atau main ke taman terdekat.",
+      promoHref: "https://atid.me/00nu87002p98",
     },
     {
       maxSpan: 4,
       text:
         "Cukup untuk road trip dekat atau mengunjungi satu destinasi wisata regional.",
+      promoHref: "https://atid.me/00nu87002p98",
     },
     {
       maxSpan: 5,
       text:
         "Anda bisa rencanakan liburan 4–5 hari: pantai, pegunungan, atau city break.",
+      promoHref: "https://atid.me/00nu87002p98",
     },
     {
       maxSpan: Infinity,
       text:
         "Waktu panjang — pertimbangkan liburan luar kota, keluarga besar, atau trip antar pulau.",
+      promoHref: "https://atid.me/00nu87002p98",
     },
   ];
+
+  const PROMO_CTA_LABEL = "Lihat tiket & hotel untuk libur ini →";
+
+  function sanitizePromoHref(href) {
+    if (href == null || typeof href !== "string") return "";
+    const t = href.trim();
+    if (/^https:\/\//i.test(t)) return t;
+    if (/^http:\/\//i.test(t)) return t;
+    return "";
+  }
+
+  function promoHrefForSpan(span) {
+    for (let i = 0; i < ACTIVITY_BY_SPAN.length; i++) {
+      if (span <= ACTIVITY_BY_SPAN[i].maxSpan) {
+        return sanitizePromoHref(ACTIVITY_BY_SPAN[i].promoHref);
+      }
+    }
+    return sanitizePromoHref(
+      ACTIVITY_BY_SPAN[ACTIVITY_BY_SPAN.length - 1].promoHref
+    );
+  }
 
   function parseISODate(iso) {
     const p = iso.split("-").map(Number);
@@ -483,6 +508,7 @@
         w.leaveDates.length
       );
       const activityHint = activityRecommendationForSpan(w.span);
+      const promoHref = promoHrefForSpan(w.span);
       const scheduleLines = buildScheduleLines(
         w.L,
         w.R,
@@ -501,6 +527,7 @@
         daysUntilStart: daysUntilStart,
         reasons: reasons,
         activityHint: activityHint,
+        promoHref: promoHref,
         rangeLabel: formatShort(w.L) + " – " + formatShort(w.R),
         leaveLabel: formatLeaveList(w.leaveDates),
         monthBadge: rangeMonthBadge(w.L, w.R),
@@ -609,12 +636,37 @@
   /** @type {ReturnType<typeof setTimeout>|null} */
   let cutiReorderHideTimer = null;
   const CUTI_REORDER_HIDE_MS = 180;
+  /** @type {null | (function (): void)} */
+  let cutiRevealAnimCleanup = null;
 
   function cutiPrefersReducedMotion() {
     return (
       typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     );
+  }
+
+  function triggerCutiResultsReveal() {
+    const el = document.getElementById("cuti-optimizer-results");
+    if (!el || cutiPrefersReducedMotion()) return;
+    if (cutiRevealAnimCleanup) {
+      cutiRevealAnimCleanup();
+      cutiRevealAnimCleanup = null;
+    }
+    el.classList.remove("cuti-optimizer-results-reveal");
+    void el.offsetWidth;
+    function onCutiResultsRevealEnd(e) {
+      if (e.target !== el) return;
+      if (e.animationName !== "cutiResultsReveal") return;
+      el.classList.remove("cuti-optimizer-results-reveal");
+      el.removeEventListener("animationend", onCutiResultsRevealEnd);
+      cutiRevealAnimCleanup = null;
+    }
+    cutiRevealAnimCleanup = function () {
+      el.removeEventListener("animationend", onCutiResultsRevealEnd);
+    };
+    el.addEventListener("animationend", onCutiResultsRevealEnd);
+    el.classList.add("cuti-optimizer-results-reveal");
   }
 
   /**
@@ -769,6 +821,14 @@
         return "<li>" + escapeHtml(line) + "</li>";
       })
       .join("");
+    const promoHref = opt.promoHref || "";
+    const promoBlock = promoHref
+      ? '<p class="pt-2 mt-1 mb-0"><a href="' +
+        escapeHtml(promoHref) +
+        '" class="inline-flex items-center justify-center px-5 py-3 sm:py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity shrink-0" target="_blank" rel="sponsored noopener noreferrer">' +
+        escapeHtml(PROMO_CTA_LABEL) +
+        "</a></p>"
+      : "";
     return (
       '<article class="relative rounded-lg border border-outline-variant/50 bg-surface/50 dark:bg-surface-container-low/40 p-4 pt-5 space-y-3 min-h-[12rem]">' +
       '<span class="absolute top-3 right-3 max-w-[55%] text-right text-xs font-bold text-on-surface-variant leading-tight">' +
@@ -795,6 +855,7 @@
       '<p class="text-sm text-on-surface-variant border-t border-outline-variant/30 pt-3"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
       escapeHtml(opt.activityHint) +
       "</p>" +
+      promoBlock +
       '<div class="pt-2 border-t border-outline-variant/30">' +
       '<button type="button" class="cuti-option-share inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors" data-cuti-opt-index="' +
       shareIndex +
@@ -846,7 +907,14 @@
       errEl.classList.add("hidden");
       errEl.textContent = "";
     }
-    if (results) results.classList.add("hidden");
+    if (results) {
+      if (cutiRevealAnimCleanup) {
+        cutiRevealAnimCleanup();
+        cutiRevealAnimCleanup = null;
+      }
+      results.classList.remove("cuti-optimizer-results-reveal");
+      results.classList.add("hidden");
+    }
     if (noteEl) {
       noteEl.classList.add("hidden");
       noteEl.textContent = "";
@@ -906,6 +974,11 @@
     }
 
     if (results) results.classList.remove("hidden");
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        triggerCutiResultsReveal();
+      });
+    });
 
     if (noteEl && top.length < TOP_N) {
       noteEl.textContent =
@@ -1005,6 +1078,8 @@
       compareWindows: compareWindows,
       classifyPlacement: classifyPlacement,
       activityRecommendationForSpan: activityRecommendationForSpan,
+      promoHrefForSpan: promoHrefForSpan,
+      sanitizePromoHref: sanitizePromoHref,
       addDaysISO: addDaysISO,
       diffCalendarDays: diffCalendarDays,
       isOff: function (iso, byDate) {
