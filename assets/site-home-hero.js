@@ -75,6 +75,12 @@
     });
   }
 
+  function nextLiburNasionalCutiRow(sortedData, todayISO) {
+    const i = indexFirstFutureNasionalCuti(sortedData, todayISO);
+    if (i < 0) return null;
+    return sortedData[i];
+  }
+
   function heroBannerSummaryLines(t, selectedRow, byDate) {
     const dateStr = formatLongID(selectedRow.date);
     const shortDateStr = formatShortDateID(selectedRow.date);
@@ -261,7 +267,7 @@
       .replace(/"/g, "&quot;");
   }
 
-  function buildShareTodayText(t, todayRow, byDate) {
+  function buildShareTodayText(t, todayRow, byDate, sortedData) {
     const lines = ["Per " + formatLongID(t)];
     if (todayRow) {
       lines.push(
@@ -277,7 +283,28 @@
     } else {
       lines.push("Hari ini tidak libur menurut data SKB 3 Menteri.");
     }
+    if (sortedData && sortedData.length) {
+      const nextLnCb = nextLiburNasionalCutiRow(sortedData, t);
+      if (nextLnCb) {
+        const n = diffDays(t, nextLnCb.date);
+        const when = daysUntilPhrase(n);
+        const typeLabel =
+          nextLnCb.type === "Cuti Bersama" ? "Cuti bersama" : "Libur nasional";
+        lines.push(
+          "Libur berikutnya: " +
+            when +
+            " — " +
+            formatLongID(nextLnCb.date) +
+            " · " +
+            nextLnCb.description +
+            " (" +
+            typeLabel +
+            ")"
+        );
+      }
+    }
     lines.push("");
+    lines.push("Rencanakan liburan kamu di https://kapanlibur.com!");
     return lines.join("\n");
   }
 
@@ -653,21 +680,22 @@
     if (!el) return;
     if (todayRow) {
       let html =
-        '<p class="text-on-surface">' +
+        '<p class="text-on-surface text-[0.9375rem] leading-relaxed">' +
         escapeHtml("Karena " + todayRow.description) +
         "</p>";
       const badges = renderBadgeSpans(todayRow, byDate);
       if (badges) {
-        html += '<div class="flex flex-wrap gap-2">' + badges + "</div>";
+        html +=
+          '<div class="flex flex-wrap gap-1.5">' + badges + "</div>";
       }
       html +=
-        '<p class="text-sm text-on-surface-variant">Libur berturut-turut: <strong class="text-on-surface">' +
+        '<p class="text-xs text-on-surface-variant leading-relaxed">Libur berturut-turut: <strong class="text-on-surface">' +
         escapeHtml(formatRantaiBerturutForRow(todayRow, byDate)) +
         "</strong></p>";
       el.innerHTML = html;
     } else {
       el.innerHTML =
-        '<p class="text-on-surface-variant">Tidak ada libur pada tanggal ini menurut data SKB 3 Menteri.</p>';
+        '<p class="text-on-surface-variant text-[0.9375rem] leading-relaxed">Tidak ada libur pada tanggal ini menurut data SKB 3 Menteri.</p>';
     }
   }
 
@@ -842,6 +870,8 @@
     const prevNav = document.getElementById("hero-nav-prev");
     const nextNav = document.getElementById("hero-nav-next");
     const btnTerdekat = document.getElementById("hero-jump-terdekat");
+    const calloutLnCb = document.getElementById("hero-next-ln-cb");
+    const calloutLnCbValue = document.getElementById("hero-next-ln-cb-value");
 
     const byDate = heroContext.byDate;
     const sortedData = heroContext.sortedData;
@@ -863,12 +893,14 @@
         elBody.innerHTML =
           '<p class="text-on-surface-variant">Tidak ada data libur untuk ditampilkan.</p>';
       }
+      if (calloutLnCb) calloutLnCb.classList.add("hidden");
+      if (calloutLnCbValue) calloutLnCbValue.textContent = "";
       if (banner) banner.classList.add("hidden");
       setHeroPromoBarVisible(false);
       if (btnShareToday) {
         btnShareToday.innerHTML = shareIconSvg() + "<span>Bagikan</span>";
         btnShareToday.onclick = function () {
-          runShare(buildShareTodayText(t, null, byDate), toastToday);
+          runShare(buildShareTodayText(t, null, byDate, null), toastToday);
         };
       }
       return;
@@ -880,10 +912,31 @@
     scheduleHeroTodayHeadline(elHeadline, todayRow, t);
     setTodayBody(elBody, todayRow, byDate);
 
+    if (calloutLnCb && calloutLnCbValue) {
+      const nextLnCb = nextLiburNasionalCutiRow(sortedData, t);
+      if (nextLnCb) {
+        const n = diffDays(t, nextLnCb.date);
+        const when = daysUntilPhrase(n);
+        const typeLabel =
+          nextLnCb.type === "Cuti Bersama" ? "cuti bersama" : "libur nasional";
+        calloutLnCbValue.textContent =
+          when +
+          " — " +
+          nextLnCb.description +
+          " (" +
+          typeLabel +
+          ")";
+        calloutLnCb.classList.remove("hidden");
+      } else {
+        calloutLnCbValue.textContent = "";
+        calloutLnCb.classList.add("hidden");
+      }
+    }
+
     if (btnShareToday) {
       btnShareToday.innerHTML = shareIconSvg() + "<span>Bagikan</span>";
       btnShareToday.onclick = function () {
-        runShare(buildShareTodayText(t, todayRow, byDate), toastToday);
+        runShare(buildShareTodayText(t, todayRow, byDate, sortedData), toastToday);
       };
     }
 

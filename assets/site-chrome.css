@@ -303,6 +303,18 @@ position: sticky;
 top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra) + 0.5rem);
 }
 }
+.hero-today-card {
+min-width: 0;
+}
+.hero-today-body :where(p) {
+margin: 0;
+}
+.hero-today-body :where(p:not(:last-child)) {
+margin-bottom: 0.35rem;
+}
+.hero-today-inset .material-symbols-outlined {
+font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
 .cuti-optimizer-carousel {
 min-width: 0;
 transition: opacity 0.18s ease-out, transform 0.2s ease-out;

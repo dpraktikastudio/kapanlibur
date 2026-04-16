@@ -184,8 +184,8 @@
       <main class="site-main pb-20 px-4 md:px-8 max-w-7xl mx-auto">
          <!-- Kiri: perencana cuti (site-cuti-optimizer.js). Kanan: status hari ini (site-home-hero.js). -->
          <section id="home-top-split" class="mb-24" aria-busy="true" aria-label="Perencana cuti dan status hari ini">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-               <div class="lg:col-span-7 xl:col-span-8 min-w-0">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 items-start">
+               <div class="lg:col-span-2 min-w-0">
                   <section id="cuti-optimizer-section" class="hidden w-full min-w-0" aria-label="Perencana cuti" tabindex="-1">
                      <div id="cuti-optimizer-card" class="w-full rounded-xl border border-outline-variant/60 bg-surface-container-lowest p-5 md:p-8 shadow-sm">
                         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-6 md:mb-8 leading-[1.15]">
@@ -221,14 +221,21 @@
                      </div>
                   </section>
                </div>
-               <aside class="lg:col-span-5 xl:col-span-4 min-w-0" aria-label="Status hari ini">
+               <aside class="lg:col-span-1 min-w-0" aria-label="Status hari ini">
                   <div id="home-today-card-shell" class="home-today-card-shell">
-                     <div id="hero-content" class="hidden rounded-xl border border-outline-variant/60 bg-surface-container-low p-5 md:p-6 shadow-sm">
-                        <p class="text-primary font-bold tracking-widest uppercase text-xs mb-3">Status hari ini</p>
-                        <p class="text-sm font-semibold text-on-surface-variant mb-2"><time id="hero-today-date" datetime=""></time></p>
-                        <h2 id="hero-today-headline" class="text-2xl md:text-3xl font-extrabold tracking-tight text-on-surface mb-4 leading-[1.15]"></h2>
-                        <div id="hero-today-body" class="text-sm md:text-base text-on-surface-variant space-y-3"></div>
-                        <div class="mt-5 flex flex-wrap items-center gap-3">
+                     <div id="hero-content" class="hero-today-card hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low p-5 md:p-6 shadow-md">
+                        <p class="text-on-surface-variant font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3">Status hari ini</p>
+                        <p class="text-xs text-on-surface-variant/90 mb-3"><time id="hero-today-date" datetime=""></time></p>
+                        <h2 id="hero-today-headline" class="text-2xl md:text-[1.65rem] font-extrabold tracking-tight text-on-surface mb-4 leading-snug min-h-[2.75rem]"></h2>
+                        <div id="hero-today-body" class="hero-today-body text-sm text-on-surface-variant space-y-2.5 mb-5"></div>
+                        <div id="hero-next-ln-cb" class="hero-today-inset hidden flex gap-3 items-start rounded-xl border border-outline-variant/35 bg-surface-container-highest/90 dark:bg-surface-container-highest/60 p-3.5 mb-5" role="status" aria-live="polite">
+                           <span class="material-symbols-outlined text-primary text-2xl shrink-0 leading-none mt-0.5" aria-hidden="true">work_history</span>
+                           <div class="min-w-0 flex-1">
+                              <p id="hero-next-ln-cb-label" class="text-[0.65rem] font-bold tracking-[0.18em] uppercase text-on-surface-variant mb-1">Libur berikutnya</p>
+                              <p id="hero-next-ln-cb-value" class="text-sm font-semibold text-on-surface leading-snug"></p>
+                           </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
                            <button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
                            <span>Bagikan</span>
                            </button>
