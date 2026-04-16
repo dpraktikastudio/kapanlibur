@@ -19,6 +19,7 @@ const BUST_ASSETS = [
   "site-chrome.css",
   "site-newsletter.css",
   "site-holiday-list.css",
+  "site-analytics.js",
   "site-nav.js",
   "site-theme.js",
   "site-pdf.js",

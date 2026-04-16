@@ -354,7 +354,12 @@
     );
   }
 
-  function runShare(text, toast) {
+  function runShare(text, toast, bagikanPlacement) {
+    if (bagikanPlacement && window.kapanliburGa && window.kapanliburGa.track) {
+      window.kapanliburGa.track("bagikan_click", {
+        placement: bagikanPlacement,
+      });
+    }
     const url = typeof location !== "undefined" ? location.href : "";
     if (navigator.share) {
       navigator
@@ -486,7 +491,8 @@
         if (!row) return;
         runShare(
           buildShareSelectedText(todayISO(), row, listContext.byDate),
-          toast
+          toast,
+          "libur_mendatang"
         );
       });
     }
@@ -900,7 +906,11 @@
       if (btnShareToday) {
         btnShareToday.innerHTML = shareIconSvg() + "<span>Bagikan</span>";
         btnShareToday.onclick = function () {
-          runShare(buildShareTodayText(t, null, byDate, null), toastToday);
+          runShare(
+            buildShareTodayText(t, null, byDate, null),
+            toastToday,
+            "status_today"
+          );
         };
       }
       return;
@@ -936,7 +946,11 @@
     if (btnShareToday) {
       btnShareToday.innerHTML = shareIconSvg() + "<span>Bagikan</span>";
       btnShareToday.onclick = function () {
-        runShare(buildShareTodayText(t, todayRow, byDate, sortedData), toastToday);
+        runShare(
+          buildShareTodayText(t, todayRow, byDate, sortedData),
+          toastToday,
+          "status_today"
+        );
       };
     }
 
@@ -992,7 +1006,8 @@
       btnShareNext.onclick = function () {
         runShare(
           buildShareSelectedText(t, selectedRow, byDate),
-          toastNext
+          toastNext,
+          "promo_strip"
         );
       };
     }
@@ -1402,7 +1417,7 @@
           calContext.byDate
         );
         const toast = document.getElementById("cal-popover-share-toast");
-        runShare(text, toast);
+        runShare(text, toast, "calendar_popover");
       });
     }
 
@@ -1511,6 +1526,18 @@
         '<p class="text-on-surface-variant text-sm col-span-full">Tidak bisa memuat kalender. Muat ulang halaman atau buka <a class="text-primary font-semibold hover:underline" href="/hari-libur-nasional-2026.html">daftar lengkap</a>.</p>';
     }
   }
+
+  (function attachAsidePromoAnalytics() {
+    const a = document.getElementById("home-aside-promo-cta");
+    if (!a) return;
+    a.addEventListener("click", function () {
+      if (window.kapanliburGa && window.kapanliburGa.track) {
+        window.kapanliburGa.track("promo_card_click", {
+          link_url: a.href,
+        });
+      }
+    });
+  })();
 
   fetch("/json/2026.json")
     .then(function (r) {

@@ -592,6 +592,11 @@
   }
 
   function runCutiShare(text) {
+    if (window.kapanliburGa && window.kapanliburGa.track) {
+      window.kapanliburGa.track("bagikan_click", {
+        placement: "cuti_option",
+      });
+    }
     const toast = document.getElementById("cuti-optimizer-share-toast");
     const url =
       typeof location !== "undefined" && location.href
@@ -834,7 +839,7 @@
       (promoHref
         ? '<a href="' +
           escapeHtml(promoHref) +
-          '" class="inline-flex ml-auto min-w-0 items-center justify-center px-4 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center" target="_blank" rel="sponsored noopener noreferrer">' +
+          '" class="cuti-option-promo-cta inline-flex ml-auto min-w-0 items-center justify-center px-4 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center" target="_blank" rel="sponsored noopener noreferrer">' +
           escapeHtml(PROMO_CTA_LABEL) +
           "</a>"
         : "") +
@@ -1002,7 +1007,18 @@
 
   const runBtn = document.getElementById("cuti-optimizer-run");
   if (runBtn) {
-    runBtn.addEventListener("click", runOptimizer);
+    runBtn.addEventListener("click", function () {
+      const input = document.getElementById("cuti-optimizer-n");
+      const N = input ? parseInt(String(input.value), 10) : NaN;
+      const valid = !(!N || N < 1 || N > 10);
+      if (window.kapanliburGa && window.kapanliburGa.track) {
+        window.kapanliburGa.track("rencanakan_cuti_click", {
+          leave_days: valid ? N : undefined,
+          valid_input: valid,
+        });
+      }
+      runOptimizer();
+    });
   }
 
   const cutiViewportSwipe = document.getElementById("cuti-optimizer-viewport");
@@ -1013,6 +1029,15 @@
   const cutiTrackForShare = document.getElementById("cuti-optimizer-track");
   if (cutiTrackForShare) {
     cutiTrackForShare.addEventListener("click", function (ev) {
+      const promoA = ev.target.closest("a.cuti-option-promo-cta");
+      if (promoA && promoA.href) {
+        if (window.kapanliburGa && window.kapanliburGa.track) {
+          window.kapanliburGa.track("cuti_promo_tiket_click", {
+            link_url: promoA.href,
+          });
+        }
+        return;
+      }
       const shareBtn = ev.target.closest(".cuti-option-share");
       if (!shareBtn) return;
       const idx = parseInt(shareBtn.getAttribute("data-cuti-opt-index"), 10);
