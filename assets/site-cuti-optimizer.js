@@ -920,7 +920,10 @@
         cutiRevealAnimCleanup();
         cutiRevealAnimCleanup = null;
       }
-      results.classList.remove("cuti-optimizer-results-reveal");
+      results.classList.remove(
+        "cuti-optimizer-results-reveal",
+        "cuti-optimizer-results-preface"
+      );
       results.classList.add("hidden");
     }
     if (noteEl) {
@@ -981,12 +984,20 @@
       }
     }
 
-    if (results) results.classList.remove("hidden");
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
+    if (results) {
+      results.classList.remove("hidden");
+      if (cutiPrefersReducedMotion()) {
         triggerCutiResultsReveal();
-      });
-    });
+      } else {
+        results.classList.add("cuti-optimizer-results-preface");
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            results.classList.remove("cuti-optimizer-results-preface");
+            triggerCutiResultsReveal();
+          });
+        });
+      }
+    }
 
     if (noteEl && top.length < TOP_N) {
       noteEl.textContent =
