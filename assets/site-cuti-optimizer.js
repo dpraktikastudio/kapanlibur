@@ -839,7 +839,6 @@
     const track = document.getElementById("cuti-optimizer-track");
     const noteEl = document.getElementById("cuti-optimizer-options-note");
     const errEl = document.getElementById("cuti-optimizer-error");
-    const hint = document.getElementById("cuti-optimizer-hint");
 
     if (!input || !byDateMap) return;
 
@@ -872,7 +871,6 @@
 
     const N = parseInt(String(input.value), 10);
     if (!N || N < 1 || N > 10) {
-      if (hint) hint.classList.remove("hidden");
       if (errEl) {
         errEl.textContent = "Masukkan jumlah hari cuti antara 1 dan 10.";
         errEl.classList.remove("hidden");
@@ -886,7 +884,6 @@
     });
 
     if (!top.length) {
-      if (hint) hint.classList.remove("hidden");
       if (errEl) {
         errEl.textContent =
           "Tidak menemukan kombinasi untuk jumlah hari itu. Coba angka lain atau jangka waktu lain.";
@@ -909,7 +906,6 @@
     }
 
     if (results) results.classList.remove("hidden");
-    if (hint) hint.classList.add("hidden");
 
     if (noteEl && top.length < TOP_N) {
       noteEl.textContent =
