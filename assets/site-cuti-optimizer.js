@@ -197,17 +197,19 @@
   }
 
   /**
-   * Satu baris per hari di rentang [L,R]: "17 Apr: …".
-   * @returns {string[]}
+   * Satu baris per hari di rentang [L,R] (untuk UI + teks bagikan).
+   * @returns {{ dayPart: string, detailPart: string, isLeave: boolean }[]}
    */
   function buildScheduleLines(L, R, leaveDates, byDate) {
     const leaveSet = new Set(leaveDates);
     const lines = [];
     let cur = L;
     while (true) {
-      lines.push(
-        formatDayMonth(cur) + ": " + offDayUserLabel(cur, leaveSet, byDate)
-      );
+      lines.push({
+        dayPart: formatDayMonth(cur),
+        detailPart: offDayUserLabel(cur, leaveSet, byDate),
+        isLeave: leaveSet.has(cur),
+      });
       if (cur === R) break;
       cur = addDaysISO(cur, 1);
     }
@@ -582,7 +584,7 @@
     lines.push("");
     lines.push("Rincian hari:");
     (opt.scheduleLines || []).forEach(function (row) {
-      lines.push("• " + row);
+      lines.push("• " + row.dayPart + ": " + row.detailPart);
     });
     lines.push("");
     lines.push("Ide aktivitas: " + opt.activityHint);
@@ -822,8 +824,19 @@
 
   function renderOptionCard(rankIndex, opt, shareIndex) {
     const scheduleHtml = (opt.scheduleLines || [])
-      .map(function (line) {
-        return "<li>" + escapeHtml(line) + "</li>";
+      .map(function (row) {
+        const detailClass = row.isLeave
+          ? "text-primary font-semibold"
+          : "text-on-surface";
+        return (
+          "<li class=\"text-sm text-on-surface\"><span class=\"text-on-surface-variant tabular-nums\">" +
+          escapeHtml(row.dayPart) +
+          "</span>: <span class=\"" +
+          detailClass +
+          "\">" +
+          escapeHtml(row.detailPart) +
+          "</span></li>"
+        );
       })
       .join("");
     const promoHref = opt.promoHref || "";
@@ -855,7 +868,7 @@
       rankIndex +
       "</span>" +
       "</div>" +
-      '<p class="text-sm text-on-surface"><span class="text-on-surface-variant">Tanggal cuti:</span> <strong>' +
+      '<p class="text-sm text-on-surface"><span class="text-on-surface-variant">Tanggal cuti:</span> <strong class="text-primary">' +
       escapeHtml(opt.leaveLabel) +
       "</strong></p>" +
       '<p class="text-sm text-on-surface"><span class="text-on-surface-variant">Rentang libur:</span> <strong>' +
@@ -865,7 +878,7 @@
       escapeHtml(String(opt.span)) +
       " hari libur</p>" +
       '<div><p class="text-[0.65rem] font-bold uppercase tracking-wide text-on-surface-variant mb-1">Rincian hari</p>' +
-      '<ul class="list-disc list-inside text-sm text-on-surface space-y-1">' +
+      '<ul class="list-disc list-inside space-y-1">' +
       scheduleHtml +
       "</ul></div>" +
       '<p class="text-sm text-on-surface-variant border-t border-outline-variant/30 pt-3"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
