@@ -182,44 +182,22 @@
          </div>
       </div>
       <main class="site-main pb-20 px-4 md:px-8 max-w-7xl mx-auto">
-         <!-- Hero: diisi oleh /assets/site-home-hero.js -->
-         <section id="hero-section" class="mb-24" aria-busy="true">
-            <div id="hero-content" class="hidden">
-               <p class="text-primary font-bold tracking-widest uppercase text-xs mb-4">Status hari ini</p>
-               <p class="text-base font-semibold text-on-surface mb-3"><time id="hero-today-date" datetime=""></time></p>
-               <h1 id="hero-today-headline" class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface mb-6 leading-[1.1]"></h1>
-               <div id="hero-today-body" class="text-lg text-on-surface-variant max-w-xl space-y-3"></div>
-               <div class="mt-6 flex flex-wrap items-center gap-3">
-                  <button type="button" id="hero-goto-cuti-optimizer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity" aria-controls="cuti-optimizer-section">
-                  Rencanakan Cuti
-                  </button>
-                  <button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
-                  <span>Bagikan</span>
-                  </button>
-                  <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
-               </div>
-            </div>
-         </section>
-
-         <section id="cuti-optimizer-section" class="mb-24 hidden w-full min-w-0" aria-label="Cari jadwal cuti" tabindex="-1">
-            <div class="flex-wrap min-w-0 mb-6">
-               <p class="text-primary font-bold tracking-widest uppercase text-xs mb-2">Rencanakan Cuti</p>
-               <h2 class="text-4xl font-extrabold tracking-tight text-on-surface">
-                  Cari jadwal cuti
-               </h3>
-            </div>
-            <div id="cuti-optimizer-card" class="w-full rounded-xl border border-outline-variant/60 bg-surface-container-lowest p-4 md:p-6 shadow-sm">
-               <div class="gap-2 mb-4">
-                  <p class="text-lg font-bold text-on-surface">Kami bisa bantu Anda mencari jadwal cuti yang ideal.</p>
-                  <p class="text-sm text-on-surface-variant mb-3">Sistem kami akan membantu anda menghitung jadwal liburan terbaik agar Anda mendapatkan waktu istirahat yang maksimal, dengan kuota yang minimal.</p>
-               </div>
-               <label for="cuti-optimizer-n" class="block text-[0.65rem] sm:text-xs font-bold uppercase tracking-wide text-on-surface-variant mb-1.5">Jumlah hari cuti</label>
-               <div class="flex flex-wrap gap-2 items-stretch sm:items-end mb-3">
-                  <input id="cuti-optimizer-n" type="number" min="1" max="10" value="2" class="w-20 rounded-lg border border-outline-variant bg-surface text-on-surface px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Jumlah hari cuti"/>
-                  <button type="button" id="cuti-optimizer-run" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity">Cari jadwal</button>
-               </div>
-               <p id="cuti-optimizer-hint" class="text-sm text-on-surface-variant mb-3">Masukkan berapa hari cuti yang ingin Anda ambil, lalu klik "Cari jadwal". Kami akan sediakan 5 opsi terbaik untuk perencanaan liburan Anda.</p>
-               <div id="cuti-optimizer-results" class="hidden space-y-4" aria-live="polite">
+         <!-- Kiri: perencana cuti (site-cuti-optimizer.js). Kanan: status hari ini (site-home-hero.js). -->
+         <section id="home-top-split" class="mb-24" aria-busy="true" aria-label="Perencana cuti dan status hari ini">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+               <div class="lg:col-span-7 xl:col-span-8 min-w-0">
+                  <section id="cuti-optimizer-section" class="hidden w-full min-w-0" aria-label="Perencana cuti" tabindex="-1">
+                     <div id="cuti-optimizer-card" class="w-full rounded-xl border border-outline-variant/60 bg-surface-container-lowest p-5 md:p-8 shadow-sm">
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-6 md:mb-8 leading-[1.15]">
+                           Ubah cuti jadi libur maksimal
+                        </h1>
+                        <label for="cuti-optimizer-n" class="block text-sm font-bold text-on-surface mb-2">Jumlah hari cuti</label>
+                        <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-end mb-3">
+                           <input id="cuti-optimizer-n" type="number" min="1" max="10" value="2" inputmode="numeric" class="w-full min-w-0 sm:w-36 rounded-lg border border-outline-variant bg-surface text-on-surface px-4 py-3 text-base font-semibold tabular-nums focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Contoh: 2"/>
+                           <button type="button" id="cuti-optimizer-run" class="inline-flex items-center justify-center px-5 py-3 sm:py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity shrink-0">Hitung Cuti Saya</button>
+                        </div>
+                        <p id="cuti-optimizer-hint" class="text-sm text-on-surface-variant mb-0">Masukkan berapa hari cuti yang ingin Anda pakai (1–10). Kami menampilkan hingga 5 opsi libur terpanjang yang bisa diraih.</p>
+                        <div id="cuti-optimizer-results" class="hidden space-y-4 mt-6 pt-6 border-t border-outline-variant/40" aria-live="polite">
                  
                   <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 min-w-0">
                      <div class="flex flex-col flex-wrap items-start justify-between gap-2">
@@ -238,8 +216,27 @@
                   </div>
                   <p id="cuti-optimizer-share-toast" class="share-toast text-primary text-center text-sm min-h-[1.25rem]" aria-live="polite"></p>
                   <p id="cuti-optimizer-options-note" class="hidden text-sm text-on-surface-variant"></p>
+                        </div>
+                        <p id="cuti-optimizer-error" class="hidden text-sm text-error" role="alert"></p>
+                     </div>
+                  </section>
                </div>
-               <p id="cuti-optimizer-error" class="hidden text-sm text-error" role="alert"></p>
+               <aside class="lg:col-span-5 xl:col-span-4 min-w-0" aria-label="Status hari ini">
+                  <div id="home-today-card-shell" class="home-today-card-shell">
+                     <div id="hero-content" class="hidden rounded-xl border border-outline-variant/60 bg-surface-container-low p-5 md:p-6 shadow-sm">
+                        <p class="text-primary font-bold tracking-widest uppercase text-xs mb-3">Status hari ini</p>
+                        <p class="text-sm font-semibold text-on-surface-variant mb-2"><time id="hero-today-date" datetime=""></time></p>
+                        <h2 id="hero-today-headline" class="text-2xl md:text-3xl font-extrabold tracking-tight text-on-surface mb-4 leading-[1.15]"></h2>
+                        <div id="hero-today-body" class="text-sm md:text-base text-on-surface-variant space-y-3"></div>
+                        <div class="mt-5 flex flex-wrap items-center gap-3">
+                           <button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
+                           <span>Bagikan</span>
+                           </button>
+                           <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
+                        </div>
+                     </div>
+                  </div>
+               </aside>
             </div>
          </section>
          <!-- Grid: cuplikan libur dan newsletter -->
@@ -252,7 +249,7 @@
                      <h2 class="text-4xl font-extrabold tracking-tight text-on-surface">
                         Libur mendatang —
                         <span id="libur-mendatang-month-label" class="text-on-surface"></span>
-                     </h3>
+                     </h2>
                   </div>
                   <div id="libur-mendatang-nav" class="hidden flex items-center gap-1 shrink-0" role="group" aria-label="Ganti bulan">
                     <button type="button" id="libur-mendatang-prev" class="inline-flex items-center justify-center min-w-[2.5rem] h-10 px-2 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant/40 disabled:opacity-35 disabled:cursor-not-allowed" aria-label="Bulan sebelumnya"><span class="material-symbols-outlined text-xl leading-none font-normal" aria-hidden="true">chevron_left</span></button>

@@ -2,7 +2,7 @@
   "use strict";
 
   /**
-   * Cari jadwal cuti — ranked multi-option engine (pure core + DOM).
+   * Perencana cuti (hitung libur maksimal) — ranked multi-option engine (pure core + DOM).
    *
    * Urutan sort (lexikografis):
    *   1) Span kalender [L,R] terbesar

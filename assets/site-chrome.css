@@ -291,8 +291,17 @@ body.hero-promo-visible {
 main.site-main {
 padding-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra));
 }
+#home-top-split {
+scroll-margin-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra) + 0.75rem);
+}
 #cuti-optimizer-section {
 scroll-margin-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra) + 0.75rem);
+}
+@media (min-width: 1024px) {
+.home-today-card-shell {
+position: sticky;
+top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra) + 0.5rem);
+}
 }
 .cuti-optimizer-carousel {
 min-width: 0;

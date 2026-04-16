@@ -1,6 +1,6 @@
 # kapanlibur.com — contributor & agent reference
 
-Static site for Indonesian national holidays (“libur nasional”, “cuti bersama”, weekends in the dataset). **Interactive app** in [`index.html`](../index.html): sticky **next-holiday** promo strip, **today** status with **Rencanakan Cuti** (scroll to **`#cuti-optimizer-section`**), **Cari jadwal cuti** carousel (up to five ranked options, swipe + share per option), month-scoped **Libur mendatang** list (red date box for **libur panjang** rows), year calendar with Popper-based day popover. **Static reference** in [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html): tables and long-weekend copy. **Info:** [`about.html`](../about.html), [`privacy-policy.html`](../privacy-policy.html). **Data:** one JSON file per year ([`json/2026.json`](../json/2026.json)). No bundler or framework; Node is only for build and JSON-LD checks.
+Static site for Indonesian national holidays (“libur nasional”, “cuti bersama”, weekends in the dataset). **Interactive app** in [`index.html`](../index.html): sticky **next-holiday** promo strip, a **two-column top row** on large viewports (**`#home-top-split`**) — **perencana cuti** on the **left** (`#cuti-optimizer-section`, primary `h1`, **Hitung Cuti Saya**, carousel up to five ranked options), **status hari ini** in a **card on the right** (`<aside>` + `#hero-content`, `h2` headline, **Bagikan**); stacks **cuti then today** on small screens. Month-scoped **Libur mendatang** list (red date box for **libur panjang** rows), year calendar with Popper-based day popover. **Static reference** in [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html): tables and long-weekend copy. **Info:** [`about.html`](../about.html), [`privacy-policy.html`](../privacy-policy.html). **Data:** one JSON file per year ([`json/2026.json`](../json/2026.json)). No bundler or framework; Node is only for build and JSON-LD checks.
 
 **PDF links:** [`assets/site-pdf.js`](../assets/site-pdf.js) (deferred) fetches `json/2026.json`, sets every `a[data-pdf-source]` `href` from top-level `source`, with a hardcoded Kemenko PDF URL as fallback when fetch fails or `source` is missing. On the home page it also reveals `#source-line` when run.
 
@@ -10,7 +10,7 @@ Use this doc when changing UI, data shape, SEO, assets, or build output so edits
 
 ## Purpose
 
-- Show **today’s holiday status**, a **navigable “next/previous” holiday** line in the **sticky promo bar**, **Cari jadwal cuti** (leave-window ranking + carousel), **one month at a time** of upcoming rows, and a **full-year calendar**.
+- Show **perencana cuti** (leave-window ranking + carousel) beside **today’s holiday status** on desktop, a **navigable “next/previous” holiday** line in the **sticky promo bar**, **one month at a time** of upcoming rows, and a **full-year calendar**.
 - Copy and labels are **Bahasa Indonesia**.
 - “Hari ini” uses the **device local date** (`todayISO()`).
 
@@ -35,9 +35,9 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 | Path | Role |
 |------|------|
 | `index.html` | Home app: Tailwind (CDN + inline `tailwind.config`), [`assets/site-chrome.css`](../assets/site-chrome.css), Brevo + [`assets/site-newsletter.css`](../assets/site-newsletter.css), FOUC IIFE for `data-theme`, GA4. Scripts: [`assets/site-nav.js`](../assets/site-nav.js), [`assets/site-theme.js`](../assets/site-theme.js), [`assets/site-pdf.js`](../assets/site-pdf.js) (deferred), [`assets/site-home-hero.js`](../assets/site-home-hero.js), [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js) (deferred). |
-| [`assets/site-chrome.css`](../assets/site-chrome.css) | Shared chrome for the home layout: palette tokens, `.nav-shell`, sticky **hero promo** bar (`.hero-promo-banner`), `main.site-main` top padding via `--site-nav-clearance` + `--hero-promo-banner-extra` when `body.hero-promo-visible`, **cuti carousel** (`.cuti-optimizer-carousel`, `.cuti-optimizer-viewport`, track transition, reorder hide class), **Libur mendatang** long-weekend date box (`.libur-mendatang-datebox--long-weekend`, `.libur-mendatang-date-long-text` → `#dc4b48`), theme toggle / nav toggle rules, Material Symbols baseline, `.share-toast`. |
-| [`assets/site-home-hero.js`](../assets/site-home-hero.js) | Fetches `json/2026.json`, builds maps, renders **sticky promo strip**, **today hero** (`#hero-goto-cuti-optimizer` scrolls to cuti section), **libur mendatang** list (`#libur-mendatang-list`, month nav, swipe host, per-row share), **calendar** + popover, share handlers; dispatches `kapanlibur:holidays-loaded` (`detail: { byDate, sortedData }`) after a successful load. |
-| [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js) | **Cari jadwal cuti:** subscribes to `kapanlibur:holidays-loaded`, ranks leave windows (`compareWindows`, `chainSignature`, `pickTopUniqueChains`, `TOP_N` = 5), renders **carousel** (`#cuti-optimizer-track` / viewport), **sort toggle** (e.g. terdekat vs urutan peringkat) with short hide→render→show transition on `#cuti-optimizer-carousel-host`, **swipe** on viewport, **Bagikan** per option (`buildCutiOptionShareText`, `runCutiShare` + `#cuti-optimizer-share-toast`). |
+| [`assets/site-chrome.css`](../assets/site-chrome.css) | Shared chrome for the home layout: palette tokens, `.nav-shell`, sticky **hero promo** bar (`.hero-promo-banner`), `main.site-main` top padding via `--site-nav-clearance` + `--hero-promo-banner-extra` when `body.hero-promo-visible`, **`#home-top-split`** / **`#cuti-optimizer-section`** scroll-margin, **`#home-today-card-shell.home-today-card-shell`** sticky on **≥1024px** under nav + promo, **cuti carousel** (`.cuti-optimizer-carousel`, `.cuti-optimizer-viewport`, track transition, reorder hide class), **Libur mendatang** long-weekend date box (`.libur-mendatang-datebox--long-weekend`, `.libur-mendatang-date-long-text` → `#dc4b48`), theme toggle / nav toggle rules, Material Symbols baseline, `.share-toast`. |
+| [`assets/site-home-hero.js`](../assets/site-home-hero.js) | Fetches `json/2026.json`, builds maps, renders **sticky promo strip**, **status hari ini** (`#hero-content` in the right column card), **libur mendatang** list (`#libur-mendatang-list`, month nav, swipe host, per-row share), **calendar** + popover, share handlers; clears **`#home-top-split`** `aria-busy` when data is ready; dispatches `kapanlibur:holidays-loaded` (`detail: { byDate, sortedData }`) after a successful load. |
+| [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js) | **Perencana cuti:** subscribes to `kapanlibur:holidays-loaded`, ranks leave windows (`compareWindows`, `chainSignature`, `pickTopUniqueChains`, `TOP_N` = 5), renders **carousel** (`#cuti-optimizer-track` / viewport), **sort toggle** (e.g. terdekat vs urutan peringkat) with short hide→render→show transition on `#cuti-optimizer-carousel-host`, **swipe** on viewport, **Bagikan** per option (`buildCutiOptionShareText`, `runCutiShare` + `#cuti-optimizer-share-toast`). |
 | `hari-libur-nasional-2026.html` | Static reference; JSON-LD (WebPage, ItemList, Events, BreadcrumbList); same nav + theme + `site-pdf.js` as other main pages. |
 | `about.html`, `privacy-policy.html` | Info pages; same header chrome + `site-theme.js` as home; OG/Twitter meta + favicons; deferred `site-pdf.js`. |
 | [`assets/non-critical.css`](../assets/non-critical.css) | Shared UI: **site shell** (`.wrap`, flush-top sticky `header`, mobile full-bleed nav bar, in-flow hamburger), **`.site-brand`**, **`.site-nav-cluster`**, **`.theme-toggle`**, lists, calendar, tables, `.site-nav`, `.site-logo`, footer, `.footer-links`, popover, etc. |
@@ -64,8 +64,9 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 
 - **Shell:** Fixed **`.nav-shell`** (logo, links, theme toggle, mobile drawer). Same theme behavior as other main pages: **`site-theme.js`**, **`localStorage` key `kapanlibur-theme`**, optional `data-theme` override.
 - **Sticky promo bar** (`#hero-next-banner`, `.hero-promo-banner`): Shown after holidays load. Sits under the nav; `body.hero-promo-visible` bumps **`--hero-promo-banner-extra`** so `main.site-main` is not covered. Markup: **CSS grid** `auto | 1fr | auto` — left **`#hero-nav-prev`**, right **`#hero-nav-next`**, center cluster **`#hero-next-nav`** (megaphone + scrollable summary + share). Users change the listed holiday **only with the chevrons** (no swipe; horizontal scroll is reserved for long copy on narrow viewports).
-- **Hero section** (`#hero-section`): **`#hero-content`** — today status, **Rencanakan Cuti** (`#hero-goto-cuti-optimizer` → **`#cuti-optimizer-section`**), **Bagikan** today.
-- **Cuti block** (`#cuti-optimizer-section`): Own section below hero; intro copy + **`#cuti-optimizer-card`** (input N, **Cari jadwal**, results carousel). Hidden until holidays load; same gate as **`#hero-content`** in `onDataLoaded` / `onDataError`.
+- **Top split** (`#home-top-split`): **`aria-busy`** until holidays load. **CSS grid** `lg:grid-cols-12`: **left** `lg:col-span-7 xl:col-span-8` holds **`#cuti-optimizer-section`**; **right** `lg:col-span-5 xl:col-span-4` is `<aside aria-label="Status hari ini">` with **`#home-today-card-shell`** (sticky on large screens) wrapping **`#hero-content`** (bordered card). Single-column flow: cuti block first, today card second.
+- **Cuti block** (`#cuti-optimizer-section`): Primary **`h1`** “Ubah cuti jadi libur maksimal”, input N, **Hitung Cuti Saya**, **`#cuti-optimizer-hint`**, results carousel in **`#cuti-optimizer-card`**. Hidden until holidays load; same gate as **`#hero-content`** in `onDataLoaded` / `onDataError`.
+- **Status hari ini** (`#hero-content`): **`h2`** `#hero-today-headline`, body, **Bagikan** today only (no scroll-to-cutī control).
 - **Below:** Libur mendatang grid column, subscription teaser, full calendar, newsletter `dialog`, footer — list/calendar driven by `site-home-hero.js` in `index.html`.
 
 ---
@@ -174,10 +175,10 @@ After load, `heroContext.selectedIndex` is reset to `null` so the first paint pi
 - **Navigation:** **`#hero-nav-prev` / `#hero-nav-next`** only. **No swipe-to-change-holiday** (removed so it does not fight horizontal scrolling).
 - **Dimming:** Bar gets reduced opacity when the selected row is **in the past** (`selectedRow.date < today`).
 
-**B. Main hero column** (`#hero-section`)
+**B. Status hari ini card** (`#hero-content`, right column)
 
-- **Today:** Date (`#hero-today-date`), typed headline (`#hero-today-headline`), body (`#hero-today-body`), **Bagikan** (`buildShareTodayText`).
-- **Selected holiday share:** `#hero-share-next` runs `buildShareSelectedText` for the **same** `sortedData[selectedIndex]` row shown in the promo strip.
+- **Today:** Date (`#hero-today-date`), typed headline (`#hero-today-headline`, **`h2`**), body (`#hero-today-body`), **Bagikan** (`buildShareTodayText`).
+- **Selected holiday share:** `#hero-share-next` in the promo strip runs `buildShareSelectedText` for the **same** `sortedData[selectedIndex]` row shown there.
 
 ### 2. Libur mendatang (`#libur-mendatang-list`)
 
@@ -188,7 +189,7 @@ After load, `heroContext.selectedIndex` is reset to `null` so the first paint pi
 - Per-row **Bagikan**: `.libur-mendatang-row-share` + `data-date`; toast **`#libur-mendatang-share-toast`**.
 - Month step: `liburMendatangMonthStep` (clamp January–December for that year).
 
-### 2b. Cari jadwal cuti (`#cuti-optimizer-section`)
+### 2b. Perencana cuti (`#cuti-optimizer-section`, left column)
 
 - **Data:** listens for **`kapanlibur:holidays-loaded`**; uses same `byDate` as hero.
 - **Engine (pure + DOM in `site-cuti-optimizer.js`):** enumerate leave windows, collapse by leave dates, rank (`compareWindows`: span, weekend-only tie-break, distance, placement, `L`), **`pickTopUniqueChains`** with **`chainSignature`** dedupe, top **5** options.
