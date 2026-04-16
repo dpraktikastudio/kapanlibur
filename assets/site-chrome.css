@@ -297,12 +297,7 @@ scroll-margin-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extr
 #cuti-optimizer-section {
 scroll-margin-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra) + 0.75rem);
 }
-@media (min-width: 1024px) {
-.home-today-card-shell {
-/* position: sticky;
-top: calc(var(--site-nav-clearance) + var(--hero-promo-banner-extra) + 0.5rem); */
-}
-}
+/* Penawaran column: lg:sticky on <aside aria-label="Penawaran"> in index.html (not .home-today-card-shell). */
 .hero-today-card {
 min-width: 0;
 }

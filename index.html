@@ -182,8 +182,8 @@
          </div>
       </div>
       <main class="site-main pb-20 px-4 md:px-8 max-w-7xl mx-auto">
-         <!-- Kiri: perencana cuti (site-cuti-optimizer.js). Kanan: status hari ini (site-home-hero.js). -->
-         <section id="home-top-split" class="mb-24" aria-busy="true" aria-label="Perencana cuti dan status hari ini">
+         <!-- Baris 1: perencana cuti + penawaran. Baris 2: status hari ini (site-home-hero.js). -->
+         <section id="home-top-split" class="mb-24" aria-busy="true" aria-label="Perencana cuti, penawaran, dan status hari ini">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 items-start">
                <div class="lg:col-span-2 min-w-0">
                   <section id="cuti-optimizer-section" class="hidden w-full min-w-0" aria-label="Perencana cuti" tabindex="-1">
@@ -225,29 +225,8 @@
                      </div>
                   </section>
                </div>
-               <aside class="lg:col-span-1 min-w-0 md:sticky md:top-40" aria-label="Status hari ini dan penawaran">
-                  <div id="home-today-card-shell" class="home-today-card-shell">
-                     <div id="hero-content" class="hero-today-card hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low p-5 md:p-6 shadow-md">
-                        <p class="text-xs text-on-surface-variant/90 mb-3"><time id="hero-today-date" datetime=""></time></p>
-                        <h2 id="hero-today-headline" class="text-2xl md:text-[1.65rem] font-extrabold tracking-tight text-on-surface mb-4 leading-snug min-h-[2.75rem]"></h2>
-                        <div id="hero-today-body" class="hero-today-body text-sm text-on-surface-variant space-y-2.5 mb-5"></div>
-                        <div id="hero-next-ln-cb" class="hero-today-inset hidden flex gap-3 items-start rounded-xl border border-outline-variant/35 bg-surface-container-highest/90 dark:bg-surface-container-highest/60 p-3.5 mb-5" role="status" aria-live="polite">
-                           <span class="material-symbols-outlined text-primary text-2xl shrink-0 leading-none mt-0.5" aria-hidden="true">work_history</span>
-                           <div class="min-w-0 flex-1">
-                              <p id="hero-next-ln-cb-label" class="text-[0.65rem] font-bold tracking-[0.18em] uppercase text-on-surface-variant mb-1">Libur berikutnya</p>
-                              <p id="hero-next-ln-cb-value" class="text-sm font-semibold text-on-surface leading-snug"></p>
-                           </div>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-3">
-                           <button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
-                           <span>Bagikan</span>
-                           </button>
-                           <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div id="home-aside-promo" class="mt-6 overflow-hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low shadow-md">
+               <aside class="lg:col-span-1 min-w-0 lg:sticky lg:top-40 lg:self-start" aria-label="Penawaran">
+                  <div id="home-aside-promo" class="overflow-hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low shadow-md">
                      <div class="relative aspect-[5/3] w-full">
                         <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="" width="800" height="480" loading="lazy" decoding="async"/>
                         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/55 to-transparent" aria-hidden="true"></div>
@@ -260,6 +239,28 @@
                   </div>
                </aside>
             </div>
+            <section class="mt-8 lg:mt-24" aria-label="Status hari ini">
+               <div id="home-today-card-shell" class="home-today-card-shell">
+                  <div id="hero-content" class="hero-today-card hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low p-5 md:p-6 shadow-md">
+                     <p class="text-xs text-on-surface-variant/90 mb-3"><time id="hero-today-date" datetime=""></time></p>
+                     <h2 id="hero-today-headline" class="text-2xl md:text-4xl font-extrabold tracking-tight text-on-surface mb-4 leading-snug min-h-[2.75rem]"></h2>
+                     <div id="hero-today-body" class="hero-today-body text-sm text-on-surface-variant space-y-2.5 mb-5"></div>
+                     <div id="hero-next-ln-cb" class="hero-today-inset hidden flex gap-3 items-start rounded-xl border border-outline-variant/35 bg-surface-container-highest/90 dark:bg-surface-container-highest/60 p-3.5 mb-5" role="status" aria-live="polite">
+                        <span class="material-symbols-outlined text-primary text-2xl shrink-0 leading-none mt-0.5" aria-hidden="true">work_history</span>
+                        <div class="min-w-0 flex-1">
+                           <p id="hero-next-ln-cb-label" class="text-[0.65rem] font-bold tracking-[0.18em] uppercase text-on-surface-variant mb-1">Libur berikutnya</p>
+                           <p id="hero-next-ln-cb-value" class="text-sm font-semibold text-on-surface leading-snug"></p>
+                        </div>
+                     </div>
+                     <div class="flex flex-wrap items-center gap-3">
+                        <button type="button" id="hero-share-today" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors">
+                        <span>Bagikan</span>
+                        </button>
+                        <span id="hero-share-today-toast" class="share-toast text-primary" aria-live="polite"></span>
+                     </div>
+                  </div>
+               </div>
+            </section>
          </section>
          <!-- Grid: cuplikan libur dan newsletter -->
          <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
