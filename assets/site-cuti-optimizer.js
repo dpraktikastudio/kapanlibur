@@ -834,7 +834,7 @@
       (promoHref
         ? '<a href="' +
           escapeHtml(promoHref) +
-          '" class="inline-flex flex-1 min-w-0 items-center justify-center px-4 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center" target="_blank" rel="sponsored noopener noreferrer">' +
+          '" class="inline-flex ml-auto min-w-0 items-center justify-center px-4 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center" target="_blank" rel="sponsored noopener noreferrer">' +
           escapeHtml(PROMO_CTA_LABEL) +
           "</a>"
         : "") +
