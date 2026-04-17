@@ -1077,6 +1077,64 @@
     return "bg-tertiary-container text-on-tertiary-container font-medium cursor-pointer";
   }
 
+  /** Fixed popover aligned to a reference (bottom-centered, flip, viewport clamp) — replaces @popperjs/core for #cal-popover. */
+  function createCalPopoverPositioner(refEl, popoverEl) {
+    const padding = 8;
+    const offsetMain = 8;
+
+    function update() {
+      if (!refEl || !popoverEl.isConnected) return;
+      const ref = refEl.getBoundingClientRect();
+      const pop = popoverEl.getBoundingClientRect();
+      const popW = pop.width;
+      const popH = pop.height;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      let left = ref.left + ref.width / 2 - popW / 2;
+      const spaceBelow = vh - padding - ref.bottom - offsetMain;
+      const spaceAbove = ref.top - padding - offsetMain;
+      const fitsBelow = popH <= spaceBelow;
+      const fitsAbove = popH <= spaceAbove;
+      let placeBottom = true;
+      if (fitsBelow && !fitsAbove) {
+        placeBottom = true;
+      } else if (!fitsBelow && fitsAbove) {
+        placeBottom = false;
+      } else if (fitsBelow && fitsAbove) {
+        placeBottom = true;
+      } else {
+        placeBottom = spaceBelow >= spaceAbove;
+      }
+
+      let top = placeBottom
+        ? ref.bottom + offsetMain
+        : ref.top - offsetMain - popH;
+
+      left = Math.max(padding, Math.min(left, vw - padding - popW));
+      top = Math.max(padding, Math.min(top, vh - padding - popH));
+
+      popoverEl.style.top = Math.round(top) + "px";
+      popoverEl.style.left = Math.round(left) + "px";
+      popoverEl.style.transform = "";
+    }
+
+    function onScrollOrResize() {
+      update();
+    }
+
+    window.addEventListener("scroll", onScrollOrResize, true);
+    window.addEventListener("resize", onScrollOrResize);
+
+    return {
+      update: update,
+      destroy: function () {
+        window.removeEventListener("scroll", onScrollOrResize, true);
+        window.removeEventListener("resize", onScrollOrResize);
+      },
+    };
+  }
+
   function closeCalPopover() {
     if (calPopperInstance) {
       calPopperInstance.destroy();
@@ -1160,19 +1218,12 @@
     const refEl =
       triggerEl instanceof Element ? triggerEl : document.getElementById("calendar");
 
-    if (typeof Popper !== "undefined" && refEl) {
-      popoverEl.style.top = "";
-      popoverEl.style.left = "";
-      popoverEl.style.transform = "";
-      calPopperInstance = Popper.createPopper(refEl, popoverEl, {
-        placement: "bottom",
-        strategy: "fixed",
-        modifiers: [
-          { name: "offset", options: { offset: [0, 8] } },
-          { name: "flip" },
-          { name: "preventOverflow", options: { padding: 8 } },
-        ],
-      });
+    popoverEl.style.top = "";
+    popoverEl.style.left = "";
+    popoverEl.style.transform = "";
+
+    if (refEl) {
+      calPopperInstance = createCalPopoverPositioner(refEl, popoverEl);
       requestAnimationFrame(function () {
         if (calPopperInstance) calPopperInstance.update();
       });
