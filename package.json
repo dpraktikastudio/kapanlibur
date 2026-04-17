@@ -2,10 +2,15 @@
   "name": "kapanlibur",
   "private": true,
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "build:css": "tailwindcss -i ./tailwind.input.css -o ./assets/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./tailwind.input.css -o ./assets/tailwind.css --watch",
+    "build": "npm run build:css && node scripts/build.mjs",
     "validate:jsonld": "node scripts/validate-jsonld.mjs"
   },
   "devDependencies": {
-    "html-minifier-terser": "^7.2.0"
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.9",
+    "html-minifier-terser": "^7.2.0",
+    "tailwindcss": "^3.4.17"
   }
 }

@@ -16,6 +16,7 @@ function shortHash(absPath) {
 
 const BUST_ASSETS = [
   "non-critical.css",
+  "tailwind.css",
   "site-chrome.css",
   "site-newsletter.css",
   "site-holiday-list.css",

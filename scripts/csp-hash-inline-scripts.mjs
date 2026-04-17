@@ -52,7 +52,7 @@ for (const f of files) {
 
 const hashes = [...seen].sort();
 const hosts =
-  "https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://cdn.brevo.com https://sibforms.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com";
+  "https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://cdn.brevo.com https://sibforms.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com";
 
 const part =
   "'self' " +

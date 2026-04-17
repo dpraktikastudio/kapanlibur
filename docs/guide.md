@@ -1,6 +1,6 @@
 # kapanlibur.com — contributor & agent reference
 
-Static site for Indonesian national holidays (“libur nasional”, “cuti bersama”, weekends in the dataset). **Interactive app** in [`index.html`](../index.html): sticky **next-holiday** promo strip, **`#home-top-split`** with **row 1** on large viewports: `lg:grid-cols-3` — cuti **`lg:col-span-2`**, **penawaran** **`lg:col-span-1`** (`<aside aria-label="Penawaran">` + **`#home-aside-promo`**, sticky on **`lg+`**), then **row 2**: full-width **status hari ini** (`<section aria-label="Status hari ini">` + **`#home-today-card-shell`** + **`#hero-content.hero-today-card`**: eyebrow, date, `h2`, detail body, optional **`#hero-next-ln-cb`** inset for next **Libur Nasional / Cuti Bersama** only, **Bagikan**); single-column order **cuti → promo → status** on small screens. Month-scoped **Libur mendatang** list (red date box for **libur panjang** rows), year calendar with Popper-based day popover. **Static reference** in [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html): tables and long-weekend copy. **Info:** [`about.html`](../about.html), [`privacy-policy.html`](../privacy-policy.html). **Data:** one JSON file per year ([`json/2026.json`](../json/2026.json)). No bundler or framework; Node is only for build and JSON-LD checks.
+Static site for Indonesian national holidays (“libur nasional”, “cuti bersama”, weekends in the dataset). **Interactive app** in [`index.html`](../index.html): sticky **next-holiday** promo strip, **`#home-top-split`** with **row 1** on large viewports: `lg:grid-cols-3` — cuti **`lg:col-span-2`**, **penawaran** **`lg:col-span-1`** (`<aside aria-label="Penawaran">` + **`#home-aside-promo`**, sticky on **`lg+`**), then **row 2**: full-width **status hari ini** (`<section aria-label="Status hari ini">` + **`#home-today-card-shell`** + **`#hero-content.hero-today-card`**: eyebrow, date, `h2`, detail body, optional **`#hero-next-ln-cb`** inset for next **Libur Nasional / Cuti Bersama** only, **Bagikan**); single-column order **cuti → promo → status** on small screens. Month-scoped **Libur mendatang** list (red date box for **libur panjang** rows), year calendar with a **fixed-position day popover** (`#cal-popover`; small in-tree positioner in [`assets/site-home-hero.js`](../assets/site-home-hero.js), no Popper). **Static reference** in [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html): tables and long-weekend copy. **Info:** [`about.html`](../about.html), [`privacy-policy.html`](../privacy-policy.html). **Data:** one JSON file per year ([`json/2026.json`](../json/2026.json)). No app framework; **Node** drives **Tailwind CSS** compilation, **`dist/`** build (HTML minify + cache busting), and JSON-LD validation.
 
 **PDF links:** [`assets/site-pdf.js`](../assets/site-pdf.js) (deferred) fetches `json/2026.json`, sets every `a[data-pdf-source]` `href` from top-level `source`, with a hardcoded Kemenko PDF URL as fallback when fetch fails or `source` is missing. On the home page it also reveals `#source-line` when run.
 
@@ -30,11 +30,34 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 
 ---
 
+## Tailwind CSS (compiled, not CDN)
+
+Utilities are **built ahead of time** and shipped as [`assets/tailwind.css`](../assets/tailwind.css). Main pages link it **after** Google Fonts and **before** [`assets/site-chrome.css`](../assets/site-chrome.css): [`index.html`](../index.html), [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html), [`about.html`](../about.html), [`privacy-policy.html`](../privacy-policy.html).
+
+| Path | Role |
+|------|------|
+| [`tailwind.input.css`](../tailwind.input.css) | Entry file: `@tailwind base;` / `components;` / `utilities;`. |
+| [`tailwind.config.js`](../tailwind.config.js) | `content`: root `*.html` + `assets/**/*.js` (purge sources). Same **`darkMode`** variant stack, **`theme.extend`** colors / radii / `fontFamily`, and plugins **`@tailwindcss/forms`** + **`@tailwindcss/container-queries`** as the former Play CDN setup. |
+| [`assets/tailwind.css`](../assets/tailwind.css) | **Generated** minified CSS — commit when classes change so deploys without `npm run build:css` still look correct. |
+
+**Scripts** (see [`package.json`](../package.json)):
+
+- `npm run build:css` — compile **`tailwind.input.css`** → **`assets/tailwind.css`** (minified).
+- `npm run watch:css` — same output, rebuild on save (local dev).
+- `npm run build` — runs **`build:css`** then [`scripts/build.mjs`](../scripts/build.mjs) (HTML → `dist/`, asset copy, `?v=` hashes).
+
+**Agent / contributor rules:**
+
+- After adding or changing Tailwind class names in **HTML** or under **`assets/*.js`**, run **`npm run build:css`** (or **`npm run build`**) so purged CSS includes them. Classes built only from runtime string concatenation that the scanner cannot see may be dropped — prefer full class strings in source or a `safelist` in config.
+- CSP no longer allows `https://cdn.tailwindcss.com`; inline **`tailwind.config`** blocks were removed from HTML. Regenerate script hashes with [`scripts/csp-hash-inline-scripts.mjs`](../scripts/csp-hash-inline-scripts.mjs) if you change other inline scripts and use strict CSP.
+
+---
+
 ## File layout
 
 | Path | Role |
 |------|------|
-| `index.html` | Home app: Tailwind (CDN + inline `tailwind.config`), [`assets/site-chrome.css`](../assets/site-chrome.css), Brevo + [`assets/site-newsletter.css`](../assets/site-newsletter.css), FOUC IIFE for `data-theme`, GA4. Scripts: [`assets/site-nav.js`](../assets/site-nav.js), [`assets/site-theme.js`](../assets/site-theme.js), [`assets/site-pdf.js`](../assets/site-pdf.js) (deferred), [`assets/site-home-hero.js`](../assets/site-home-hero.js), [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js) (deferred). |
+| `index.html` | Home app: [`assets/tailwind.css`](../assets/tailwind.css) (compiled Tailwind), [`assets/site-chrome.css`](../assets/site-chrome.css), Brevo + [`assets/site-newsletter.css`](../assets/site-newsletter.css), FOUC IIFE for `data-theme`, GA4. Scripts: [`assets/site-nav.js`](../assets/site-nav.js), [`assets/site-theme.js`](../assets/site-theme.js), [`assets/site-pdf.js`](../assets/site-pdf.js) (deferred), [`assets/site-home-hero.js`](../assets/site-home-hero.js), [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js) (deferred). |
 | [`assets/site-chrome.css`](../assets/site-chrome.css) | Shared chrome for the home layout: palette tokens, `.nav-shell`, sticky **hero promo** bar (`.hero-promo-banner`), `main.site-main` top padding via `--site-nav-clearance` + `--hero-promo-banner-extra` when `body.hero-promo-visible`, **`#home-top-split`** / **`#cuti-optimizer-section`** scroll-margin, **`.home-today-card-shell`** (status card shell; promo stickiness is **`lg:sticky`** on the penawaran `<aside>` in **`index.html`**), **`.hero-today-card`** / **`.hero-today-body`** / **`.hero-today-inset`** (status card + nested callout), **`#cuti-optimizer-results.cuti-optimizer-results-reveal`** (one-shot top-to-bottom reveal; disabled under **`prefers-reduced-motion: reduce`**), **cuti carousel** (`.cuti-optimizer-carousel`, `.cuti-optimizer-viewport`, track transition, reorder hide class), **Libur mendatang** long-weekend date box (`.libur-mendatang-datebox--long-weekend`, `.libur-mendatang-date-long-text` → `#dc4b48`), theme toggle / nav toggle rules, Material Symbols baseline, `.share-toast`. |
 | [`assets/site-home-hero.js`](../assets/site-home-hero.js) | Fetches `json/2026.json`, builds maps, renders **sticky promo strip**, **status hari ini** (`#hero-content`, **`nextLiburNasionalCutiRow`** + **`#hero-next-ln-cb`** when a future LN/CB row exists), **libur mendatang** list (`#libur-mendatang-list`, month nav, swipe host, per-row share), **calendar** + popover, share handlers; clears **`#home-top-split`** `aria-busy` when data is ready; dispatches `kapanlibur:holidays-loaded` (`detail: { byDate, sortedData }`) after a successful load. |
 | [`assets/site-cuti-optimizer.js`](../assets/site-cuti-optimizer.js) | **Perencana cuti:** subscribes to `kapanlibur:holidays-loaded`, ranks leave windows (`compareWindows`, `chainSignature`, `pickTopUniqueChains`, `TOP_N` = 5), renders **carousel** (`#cuti-optimizer-track` / viewport), **sort toggle** (e.g. terdekat vs urutan peringkat) with short hide→render→show transition on `#cuti-optimizer-carousel-host`, **swipe** on viewport, optional **promo** link under **Ide aktivitas** (`promoHref` per **`ACTIVITY_BY_SPAN`** tier, `http(s)` only via `sanitizePromoHref`, label **Cek Promo Tiket & Hotel**, `rel="sponsored noopener noreferrer"`), **`triggerCutiResultsReveal`** after successful **Hitung**, **Bagikan** per option (`buildCutiOptionShareText`, `runCutiShare` + `#cuti-optimizer-share-toast`). |
@@ -47,13 +70,13 @@ Then open the printed URL. For production-like output, run `npm run build` and s
 | `json/YYYY.json` | `{ "source"?: "<url>", "data": [ ... ] }` — app currently hardcodes **`json/2026.json`** in `fetch`. |
 | [`manifest.json`](../manifest.json) | PWA manifest: `theme_color`, icons under `/assets/kapanlibur-favicon-*.png`. |
 | [`og-image.html`](../og-image.html) | Optional **design template** for the social image (fixed 1200×630 layout). Export/screenshot should be saved as **`assets/OgImage.png`**; live URLs use the **exact** filename (case-sensitive on Linux). |
-| [`scripts/build.mjs`](../scripts/build.mjs) | Writes minified HTML to `dist/`, copies `assets/`, `json/`, and root SEO files. Injects **content hashes** `?v=` into listed assets (including **`site-home-hero.js`**, **`site-cuti-optimizer.js`**, CSS, and **`/json/2026.json`**) so long `Cache-Control` on `/assets/*` and `/json/*` does not strand stale clients after deploy. |
+| [`scripts/build.mjs`](../scripts/build.mjs) | **`npm run build`** runs **`build:css`** first, then this script: minified HTML to `dist/`, copies `assets/` (including generated **`tailwind.css`**), `json/`, and root SEO files. Injects **content hashes** `?v=` into listed assets (including **`tailwind.css`**, **`site-home-hero.js`**, **`site-cuti-optimizer.js`**, other CSS, and **`/json/2026.json`**) so long `Cache-Control` on `/assets/*` and `/json/*` does not strand stale clients after deploy. |
 | [`scripts/validate-jsonld.mjs`](../scripts/validate-jsonld.mjs) | JSON-LD syntax check. |
 | [`_headers`](../_headers) | Netlify-style security/cache headers + `sitemap.xml` content type. |
 | `sitemap.xml`, `robots.txt` | Discovery; update `lastmod` in sitemap when pages meaningfully change. |
 | `docs/guide.md` | This reference. |
 
-**CDN:** [`@popperjs/core`](https://popper.js.org/) v2 (`cdn.jsdelivr.net`) loads before the main script. Calendar cell clicks open `#cal-popover` with `Popper.createPopper` (`openCalPopover` / `closeCalPopover`).
+**Calendar popover:** Cell clicks open **`#cal-popover`** via `openCalPopover` / `closeCalPopover` in [`assets/site-home-hero.js`](../assets/site-home-hero.js). Positioning uses a small **`createCalPopoverPositioner`** helper (fixed placement, flip, viewport clamp, scroll/resize listeners) — no `@popperjs/core` or other positioning library.
 
 ### Site shell & navigation (all main HTML pages)
 
@@ -87,10 +110,10 @@ When replacing the social image, overwrite `assets/OgImage.png` and keep dimensi
 
 ## Production build (`dist/`)
 
-`npm run build` runs [`scripts/build.mjs`](../scripts/build.mjs):
+`npm run build` runs **`npm run build:css`** (Tailwind → [`assets/tailwind.css`](../assets/tailwind.css)), then [`scripts/build.mjs`](../scripts/build.mjs):
 
 1. Ensures `dist/` exists; deletes **`dist/icon.svg`** and **`dist/og-image.png`** if they exist (leftovers).
-2. Minifies **`index.html`**, **`hari-libur-nasional-2026.html`**, **`about.html`**, **`privacy-policy.html`** (collapse whitespace, strip HTML comments; CSS/JS inside pages not minified). **Rewrites** script/CSS/JSON URLs in HTML per `BUST_ASSETS` + JSON hash (see `scripts/build.mjs`).
+2. Minifies **`index.html`**, **`hari-libur-nasional-2026.html`**, **`about.html`**, **`privacy-policy.html`** (collapse whitespace, strip HTML comments; CSS/JS inside pages not minified). **Rewrites** script/CSS/JSON URLs in HTML per `BUST_ASSETS` + JSON hash (see `scripts/build.mjs`); **`tailwind.css`** is in the bust list.
 3. Recursively copies **`assets/`** and **`json/`** into `dist/`.
 4. Rewrites hardcoded **`/json/2026.json`** inside **`dist/assets/site-pdf.js`** to the same hashed URL.
 5. Copies **`manifest.json`**, **`robots.txt`**, **`sitemap.xml`**, **`_headers`**, **`og-image.html`**.
@@ -250,5 +273,6 @@ Two `fetch` calls to the same JSON are intentional; responses are cacheable and 
 - [ ] If touching cuti UI/DOM, sync `site-cuti-optimizer.js`, `index.html`, and **`docs/guide.md`**; confirm carousel ids and `kapanlibur:holidays-loaded` contract.
 - [ ] If touching chains, verify `chainStartISO` + `formatRantaiBerturutForRow` match product intent.
 - [ ] After JSON-LD edits: `npm run validate:jsonld`.
+- [ ] After HTML or Tailwind class changes in **`assets/*.js`**: `npm run build:css` or `npm run build`; commit updated **`assets/tailwind.css`** when applicable.
 - [ ] After HTML changes: `npm run build` and smoke-test `dist/`.
 - [ ] If changing social image: `assets/OgImage.png` + meta dimensions + caches (CDNs/social debuggers).
