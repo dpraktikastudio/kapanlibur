@@ -39,19 +39,57 @@
           name: "Jepang",
           code: "TYO",
           affiliateLink: "",
-          highlights: ["Tokyo", "Kyoto", "Osaka"],
+          highlights: [
+            {
+              destination: "Tokyo",
+              description: "Pusat belanja, kuliner, dan city vibe modern Jepang.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Kyoto",
+              description: "Kota budaya Jepang dengan kuil klasik dan taman indah.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Osaka",
+              description: "Surga street food dan akses cepat ke kawasan Kansai.",
+              affiliateLink: "",
+            },
+          ],
         },
         {
           name: "Korea Selatan",
           code: "ICN",
           affiliateLink: "",
-          highlights: ["Seoul", "Busan"],
+          highlights: [
+            {
+              destination: "Seoul",
+              description: "Kota metropolitan dengan belanja, kuliner, dan nightlife.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Busan",
+              description: "Pantai populer, seafood segar, dan suasana kota pelabuhan.",
+              affiliateLink: "",
+            },
+          ],
         },
         {
           name: "Australia",
           code: "SYD",
           affiliateLink: "",
-          highlights: ["Sydney", "Melbourne"],
+          highlights: [
+            {
+              destination: "Sydney",
+              description: "Ikon Opera House, harbour, dan city walk yang ikonik.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Melbourne",
+              description: "Kota artsy dengan kafe, galeri, dan street art.",
+              affiliateLink: "",
+            },
+          ],
         },
       ],
     },
@@ -63,19 +101,47 @@
           name: "Singapura",
           code: "SIN",
           affiliateLink: "",
-          highlights: ["Singapura"],
+          highlights: [
+            {
+              destination: "Singapura",
+              description: "City break cepat dengan kuliner dan belanja kelas dunia.",
+              affiliateLink: "",
+            },
+          ],
         },
         {
           name: "Thailand",
           code: "BKK",
           affiliateLink: "",
-          highlights: ["Bangkok", "Phuket"],
+          highlights: [
+            {
+              destination: "Bangkok",
+              description: "Surga street food, night market, dan pusat belanja.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Phuket",
+              description: "Pantai tropis dan island hopping favorit di Thailand.",
+              affiliateLink: "",
+            },
+          ],
         },
         {
           name: "Vietnam",
           code: "SGN",
           affiliateLink: "",
-          highlights: ["Ho Chi Minh", "Da Nang"],
+          highlights: [
+            {
+              destination: "Ho Chi Minh",
+              description: "Kota sejarah dengan kuliner Vietnam yang autentik.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Da Nang",
+              description: "Pantai cantik dan akses mudah ke Hoi An.",
+              affiliateLink: "",
+            },
+          ],
         },
       ],
     },
@@ -87,19 +153,52 @@
           name: "Bali",
           code: "DPS",
           affiliateLink: "",
-          highlights: ["Denpasar", "Ubud"],
+          highlights: [
+            {
+              destination: "Denpasar",
+              description: "Akses utama ke area pantai dan pusat kuliner Bali.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Ubud",
+              description: "Nuansa alam, budaya, dan retreat yang menenangkan.",
+              affiliateLink: "",
+            },
+          ],
         },
         {
           name: "Yogyakarta",
           code: "JOG",
           affiliateLink: "",
-          highlights: ["Yogyakarta", "Borobudur"],
+          highlights: [
+            {
+              destination: "Yogyakarta",
+              description: "Kota budaya dengan kuliner khas dan suasana santai.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Borobudur",
+              description: "Wisata sejarah dengan sunrise dan panorama ikonik.",
+              affiliateLink: "",
+            },
+          ],
         },
         {
           name: "Labuan Bajo",
           code: "LBJ",
           affiliateLink: "",
-          highlights: ["Labuan Bajo", "Komodo"],
+          highlights: [
+            {
+              destination: "Labuan Bajo",
+              description: "Gerbang ke Pulau Komodo dan island hopping eksotis.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Komodo",
+              description: "Eksplorasi taman nasional dan laut yang jernih.",
+              affiliateLink: "",
+            },
+          ],
         },
       ],
     },
@@ -277,6 +376,35 @@
     if (span >= 7) return "international";
     if (span >= 5) return "asean";
     return "domestic";
+  }
+
+  /**
+   * Distribusi 3 kartu berdasarkan durasi libur.
+   * - 7+ hari: 1 internasional, 1 ASEAN, 1 domestik
+   * - 5–6 hari: 1 ASEAN, 2 domestik
+   * - ≤4 hari: 3 domestik
+   * @param {number} span
+   */
+  function getCardDistribution(span) {
+    if (span >= 7) {
+      return [
+        { tier: "international", index: 0 },
+        { tier: "asean", index: 0 },
+        { tier: "domestic", index: 0 },
+      ];
+    }
+    if (span >= 5) {
+      return [
+        { tier: "asean", index: 0 },
+        { tier: "domestic", index: 0 },
+        { tier: "domestic", index: 1 },
+      ];
+    }
+    return [
+      { tier: "domestic", index: 0 },
+      { tier: "domestic", index: 1 },
+      { tier: "domestic", index: 2 },
+    ];
   }
 
   /** Rentang tanggal singkat untuk label CTA (contoh: 26 Mei – 1 Jun 2026). */
@@ -459,7 +587,13 @@
     const primaryDest = dests[0];
     const primaryHighlights = primaryDest.highlights
       ? primaryDest.highlights.slice(0, 3)
-      : [primaryDest.name];
+      : [
+          {
+            destination: primaryDest.name,
+            description: "",
+            affiliateLink: primaryDest.affiliateLink,
+          },
+        ];
     const reasoning = generateReasoning(span, opt.L, opt.R, tripKey, byDate);
     const urgency = generateUrgencyInsight(opt.L, opt.R, byDate);
     const dateLabel = formatCtaDateRange(opt.L, opt.R);
@@ -467,11 +601,18 @@
     const secondary = dests.slice(1, 3).map(function (d) {
       const subHighlights = d.highlights
         ? d.highlights.slice(0, 3)
-        : [d.name];
+        : [
+            {
+              destination: d.name,
+              description: "",
+              affiliateLink: d.affiliateLink,
+            },
+          ];
       return {
         title: span + " hari",
         trip_type: tripKey,
-        destinations: subHighlights,
+        highlights: subHighlights,
+        destination: d.name,
         reasoning:
           "Alternatif durasi sama — jarak terbang lebih pendek atau pola harga berbeda dari rekomendasi utama.",
       };
@@ -481,7 +622,8 @@
       primary: {
         title: span + " hari",
         trip_type: tripKey,
-        destinations: primaryHighlights,
+        highlights: primaryHighlights,
+        destination: primaryDest.name,
         reasoning: reasoning,
         label: "Rekomendasi terbaik",
       },
@@ -1182,69 +1324,78 @@
         );
       })
       .join("");
-    const plan = buildTripPlanJson(opt, byDateMap || new Map());
-    const primary = plan.primary;
-    const destListStr = (primary.destinations || []).join(", ");
-    const tripTypeLabel = TRIP_CONFIG[primary.trip_type].label;
-    const ctaHref = primaryCtaHref(plan);
-    const secondaryDetailsBody = (plan.secondary || [])
-      .map(function (s) {
-        const destLine = (s.destinations || []).join(", ");
+    const dateLabel = formatCtaDateRange(opt.L, opt.R);
+    const cardDistribution = getCardDistribution(opt.span);
+    const cardItems = cardDistribution
+      .map(function (card, idx) {
+        const tier = TRIP_CONFIG[card.tier];
+        const destination =
+          tier.destinations[card.index] || tier.destinations[0];
+        const highlight =
+          destination.highlights && destination.highlights.length
+            ? destination.highlights[0]
+            : {
+                destination: destination.name,
+                description: "",
+                affiliateLink: destination.affiliateLink,
+              };
+        const href =
+          sanitizePromoHref(highlight.affiliateLink) ||
+          sanitizePromoHref(destination.affiliateLink) ||
+          DEFAULT_TRIP_AFFILIATE_HREF;
+        const isPrimary = idx === 0;
+        const borderClass = isPrimary
+          ? "border border-primary/60"
+          : "border border-outline-variant/40";
+        const hiddenClass = isPrimary ? "" : " hidden";
+        const heading = isPrimary
+          ? '<p class="text-xs font-bold uppercase tracking-wide text-primary">Bingung mau kemana?</p>'
+          : "";
         return (
-          '<div class="cuti-alt-option rounded-lg border border-outline-variant/35 bg-surface-container-low/50 dark:bg-surface-container/40 p-3 space-y-1">' +
-          '<p class="text-sm font-bold text-on-surface">' +
-          escapeHtml(s.title) +
+          '<a href="' +
+          escapeHtml(href) +
+          '" class="cuti-trip-card flex h-full flex-col rounded-xl ' +
+          borderClass +
+          " bg-surface-container-low/20 p-4 space-y-2 hover:bg-surface-variant/30 transition-colors" +
+          hiddenClass +
+          '" target="_blank" rel="sponsored noopener noreferrer" data-trip-card="' +
+          (isPrimary ? "primary" : "secondary") +
+          '" data-trip-tier="' +
+          escapeHtml(card.tier) +
+          '" data-trip-destination="' +
+          escapeHtml(destination.name) +
+          '">' +
+          heading +
+          '<p class="text-xs font-semibold text-on-surface-variant">' +
+          escapeHtml(tier.label) +
           "</p>" +
-          '<p class="text-xs text-on-surface-variant">' +
-          escapeHtml(tripTypeLabel) +
-          " · " +
-          escapeHtml(destLine) +
+          '<p class="text-base font-bold text-on-surface">' +
+          escapeHtml("Liburan " + opt.span + " hari ke " + destination.name) +
           "</p>" +
-          '<p class="text-xs text-on-surface leading-snug">' +
-          escapeHtml(s.reasoning) +
+          '<p class="text-sm text-on-surface-variant leading-relaxed">' +
+          escapeHtml(highlight.description || "") +
           "</p>" +
-          "</div>"
+          '<div class="mt-auto flex justify-end text-right pt-2">' +
+          '<span class="text-sm font-semibold text-primary">' +
+          escapeHtml("Cek tiket ke " + destination.name + " (" + dateLabel + ")") +
+          "</span>" +
+          "</div>" +
+          "</a>"
         );
       })
       .join("");
-    const ctaButton =
-      '<a href="' +
-      escapeHtml(ctaHref) +
-      '" class="cuti-option-promo-cta flex w-full min-w-0 items-center justify-center px-4 py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center leading-snug" target="_blank" rel="sponsored noopener noreferrer" data-trip-type="' +
-      escapeHtml(primary.trip_type) +
-      '" data-destination-code="' +
-      escapeHtml(plan.cta_primary.params.destination) +
-      '">' +
-      escapeHtml(plan.cta_primary.label) +
-      "</a>";
     const marketingBlock =
-      '<div class="space-y-2 border-t border-outline-variant/30 pt-3">' +
-      '<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wide">Insight perjalanan</p>' +
-      '<p class="text-sm text-on-surface"><span class="font-semibold">Rekomendasi:</span> ' +
-      escapeHtml(tripTypeLabel) +
-      " · " +
-      escapeHtml(destListStr) +
-      "</p>" +
-      '<p class="text-sm text-on-surface leading-relaxed">' +
-      escapeHtml(primary.reasoning) +
-      "</p>" +
-      '<div class="cuti-urgency-block" role="status">' +
-      escapeHtml(plan.urgency) +
+      '<div class="space-y-3 border-t border-outline-variant/30 pt-3">' +
+      '<div class="cuti-trip-cards space-y-3" data-cuti-opt-index="' +
+      shareIndex +
+      '" data-expanded="false">' +
+      cardItems +
       "</div>" +
-      '<details class="cuti-alt-details group rounded-lg border border-outline-variant/40 bg-surface-container-low/30 dark:bg-surface-container/30">' +
-      '<summary class="cuti-alt-details-summary cursor-pointer list-none px-4 py-3 text-sm font-semibold text-primary hover:opacity-90 flex items-center justify-between gap-2">' +
-      '<span>' +
-      escapeHtml(plan.cta_secondary.label) +
-      "</span>" +
-      '<span class="cuti-alt-details-chevron material-symbols-outlined text-lg transition-transform" aria-hidden="true">expand_more</span>' +
-      "</summary>" +
-      '<div class="px-3 pb-3 space-y-2">' +
-      secondaryDetailsBody +
-      "</div>" +
-      "</details>" +
-      '<p class="text-sm text-on-surface-variant"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
-      escapeHtml(opt.activityHint) +
-      "</p>" +
+      '<button type="button" class="cuti-alt-cta text-sm font-semibold text-primary hover:underline" data-cuti-opt-index="' +
+      shareIndex +
+      '" aria-expanded="false">' +
+      "Lihat anjuran liburan lainnya" +
+      "</button>" +
       "</div>";
     const shareBtn =
       '<button type="button" class="cuti-option-share inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors shrink-0" data-cuti-opt-index="' +
@@ -1255,7 +1406,6 @@
       "</button>";
     const actionsFooter =
       '<div class="pt-3 border-t border-outline-variant/30 flex flex-col gap-3">' +
-      ctaButton +
       '<div class="flex justify-end">' +
       shareBtn +
       "</div>" +
@@ -1268,9 +1418,6 @@
       '<div class="flex flex-wrap items-center gap-2 pr-16">' +
       '<span class="text-xs font-bold uppercase tracking-wide text-primary">Opsi ' +
       rankIndex +
-      "</span>" +
-      '<span class="cuti-primary-badge inline-flex items-center rounded-full bg-primary/15 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-primary">' +
-      escapeHtml(primary.label) +
       "</span>" +
       "</div>" +
       '<p class="text-sm text-on-surface"><span class="text-on-surface-variant">Tanggal cuti:</span> <strong class="text-primary">' +
@@ -1290,6 +1437,30 @@
       actionsFooter +
       "</article>"
     );
+  }
+
+  function toggleTripCardsByIndex(idx) {
+    const wrapper = document.querySelector(
+      '.cuti-trip-cards[data-cuti-opt-index="' + idx + '"]'
+    );
+    if (!wrapper) return;
+    const expanded = wrapper.getAttribute("data-expanded") === "true";
+    const next = !expanded;
+    wrapper.setAttribute("data-expanded", next ? "true" : "false");
+    const cards = wrapper.querySelectorAll('[data-trip-card="secondary"]');
+    for (let i = 0; i < cards.length; i++) {
+      if (next) cards[i].classList.remove("hidden");
+      else cards[i].classList.add("hidden");
+    }
+    const btn = document.querySelector(
+      '.cuti-alt-cta[data-cuti-opt-index="' + idx + '"]'
+    );
+    if (btn) {
+      btn.textContent = next
+        ? "Sembunyikan anjuran liburan lainnya"
+        : "Lihat anjuran liburan lainnya";
+      btn.setAttribute("aria-expanded", next ? "true" : "false");
+    }
   }
 
   function renderCutiTrackFromTop(topList) {
@@ -1456,22 +1627,33 @@
   const cutiTrackForShare = document.getElementById("cuti-optimizer-track");
   if (cutiTrackForShare) {
     cutiTrackForShare.addEventListener("click", function (ev) {
-      const promoA = ev.target.closest("a.cuti-option-promo-cta");
+      const promoA = ev.target.closest("a.cuti-trip-card");
       if (promoA && promoA.href) {
         if (window.kapanliburGa && window.kapanliburGa.track) {
           window.kapanliburGa.track("cuti_promo_tiket_click", {
             link_url: promoA.href,
+            destination: promoA.getAttribute("data-trip-destination") || "",
+            trip_tier: promoA.getAttribute("data-trip-tier") || "",
           });
         }
         return;
       }
       const shareBtn = ev.target.closest(".cuti-option-share");
-      if (!shareBtn) return;
-      const idx = parseInt(shareBtn.getAttribute("data-cuti-opt-index"), 10);
-      if (idx < 0 || idx >= cutiShareTopSnapshot.length) return;
-      const opt = cutiShareTopSnapshot[idx];
-      if (!opt) return;
-      runCutiShare(buildCutiOptionShareText(opt));
+      if (shareBtn) {
+        const idx = parseInt(shareBtn.getAttribute("data-cuti-opt-index"), 10);
+        if (idx < 0 || idx >= cutiShareTopSnapshot.length) return;
+        const opt = cutiShareTopSnapshot[idx];
+        if (!opt) return;
+        runCutiShare(buildCutiOptionShareText(opt));
+        return;
+      }
+      const altCta = ev.target.closest(".cuti-alt-cta");
+      if (altCta) {
+        const idx = parseInt(altCta.getAttribute("data-cuti-opt-index"), 10);
+        if (!Number.isNaN(idx)) {
+          toggleTripCardsByIndex(idx);
+        }
+      }
     });
   }
   if (cutiNavPrev) {
@@ -1548,6 +1730,7 @@
       buildTripPlanJson: buildTripPlanJson,
       generateUrgencyInsight: generateUrgencyInsight,
       tripTypeKeyForSpan: tripTypeKeyForSpan,
+      getCardDistribution: getCardDistribution,
       DEFAULT_HORIZON: DEFAULT_HORIZON,
       TOP_N: TOP_N,
     };
