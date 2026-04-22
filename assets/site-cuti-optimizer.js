@@ -43,12 +43,12 @@
             {
               destination: "Macau Peninsula",
               description: "Perpaduan budaya Portugis dan China dengan kasino dan kuliner unik.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/hds2GL1x",
             },
             {
               destination: "Taipa",
               description: "Area santai dengan street food, heritage village, dan resort modern.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/hds2GL1x",
             },
           ],
         },
@@ -60,12 +60,12 @@
             {
               destination: "Melbourne",
               description: "Kota artsy dengan kafe, galeri, dan street culture yang kuat.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/t5tYj68F",
             },
             {
               destination: "Great Ocean Road",
               description: "Road trip ikonik dengan pemandangan laut dan tebing dramatis.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/t5tYj68F",
             },
           ],
         },
@@ -84,12 +84,12 @@
             {
               destination: "Kuching",
               description: "Kota santai di Sarawak dengan alam, budaya, dan kuliner lokal.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/xnY5dspH",
             },
             {
               destination: "Bako National Park",
               description: "Taman nasional dengan hutan, pantai, dan wildlife unik.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/xnY5dspH",
             },
           ],
         },
@@ -101,12 +101,12 @@
             {
               destination: "Bangkok",
               description: "Surga street food, night market, dan pusat belanja.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/9LHhkWGE",
             },
             {
               destination: "Ayutthaya",
               description: "Wisata sejarah dekat Bangkok dengan candi dan reruntuhan klasik.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/9LHhkWGE",
             },
           ],
         },
@@ -125,12 +125,12 @@
             {
               destination: "Canggu",
               description: "Area populer dengan beach club, kafe, dan suasana santai.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/UneMsR9l",
             },
             {
               destination: "Ubud",
               description: "Nuansa alam dan budaya dengan sawah, yoga, dan retreat.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/UneMsR9l",
             },
           ],
         },
@@ -142,12 +142,12 @@
             {
               destination: "Yogyakarta",
               description: "Kota budaya dengan kuliner khas dan suasana santai.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/ByyxHvYd",
             },
             {
               destination: "Borobudur",
               description: "Candi ikonik dengan pengalaman sunrise yang populer.",
-              affiliateLink: "",
+              affiliateLink: "https://atid.me/go/ByyxHvYd",
             },
           ],
         },
