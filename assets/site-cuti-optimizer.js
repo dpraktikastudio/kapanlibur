@@ -1187,18 +1187,6 @@
     const destListStr = (primary.destinations || []).join(", ");
     const tripTypeLabel = TRIP_CONFIG[primary.trip_type].label;
     const ctaHref = primaryCtaHref(plan);
-    const insightBlock =
-      '<div class="space-y-2 border-t border-outline-variant/30 pt-3">' +
-      '<p class="text-sm text-on-surface leading-relaxed">' +
-      escapeHtml(primary.reasoning) +
-      "</p>" +
-      '<div class="cuti-urgency-block" role="status">' +
-      escapeHtml(plan.urgency) +
-      "</div>" +
-      '<p class="text-sm text-on-surface-variant"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
-      escapeHtml(opt.activityHint) +
-      "</p>" +
-      "</div>";
     const secondaryDetailsBody = (plan.secondary || [])
       .map(function (s) {
         const destLine = (s.destinations || []).join(", ");
@@ -1219,6 +1207,45 @@
         );
       })
       .join("");
+    const ctaButton =
+      '<a href="' +
+      escapeHtml(ctaHref) +
+      '" class="cuti-option-promo-cta flex w-full min-w-0 items-center justify-center px-4 py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center leading-snug" target="_blank" rel="sponsored noopener noreferrer" data-trip-type="' +
+      escapeHtml(primary.trip_type) +
+      '" data-destination-code="' +
+      escapeHtml(plan.cta_primary.params.destination) +
+      '">' +
+      escapeHtml(plan.cta_primary.label) +
+      "</a>";
+    const marketingBlock =
+      '<div class="space-y-2 border-t border-outline-variant/30 pt-3">' +
+      '<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wide">Insight perjalanan</p>' +
+      '<p class="text-sm text-on-surface"><span class="font-semibold">Rekomendasi:</span> ' +
+      escapeHtml(tripTypeLabel) +
+      " · " +
+      escapeHtml(destListStr) +
+      "</p>" +
+      '<p class="text-sm text-on-surface leading-relaxed">' +
+      escapeHtml(primary.reasoning) +
+      "</p>" +
+      '<div class="cuti-urgency-block" role="status">' +
+      escapeHtml(plan.urgency) +
+      "</div>" +
+      '<details class="cuti-alt-details group rounded-lg border border-outline-variant/40 bg-surface-container-low/30 dark:bg-surface-container/30">' +
+      '<summary class="cuti-alt-details-summary cursor-pointer list-none px-4 py-3 text-sm font-semibold text-primary hover:opacity-90 flex items-center justify-between gap-2">' +
+      '<span>' +
+      escapeHtml(plan.cta_secondary.label) +
+      "</span>" +
+      '<span class="cuti-alt-details-chevron material-symbols-outlined text-lg transition-transform" aria-hidden="true">expand_more</span>' +
+      "</summary>" +
+      '<div class="px-3 pb-3 space-y-2">' +
+      secondaryDetailsBody +
+      "</div>" +
+      "</details>" +
+      '<p class="text-sm text-on-surface-variant"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
+      escapeHtml(opt.activityHint) +
+      "</p>" +
+      "</div>";
     const shareBtn =
       '<button type="button" class="cuti-option-share inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors shrink-0" data-cuti-opt-index="' +
       shareIndex +
@@ -1227,8 +1254,11 @@
       "<span>Bagikan</span>" +
       "</button>";
     const actionsFooter =
-      '<div class="pt-3 border-t border-outline-variant/30 flex flex-row flex-wrap items-center gap-2 justify-end">' +
+      '<div class="pt-3 border-t border-outline-variant/30 flex flex-col gap-3">' +
+      ctaButton +
+      '<div class="flex justify-end">' +
       shareBtn +
+      "</div>" +
       "</div>";
     return (
       '<article class="relative rounded-lg border border-outline-variant/50 bg-surface/50 dark:bg-surface-container-low/40 p-4 pt-5 space-y-3 min-h-[12rem]">' +
@@ -1243,14 +1273,6 @@
       escapeHtml(primary.label) +
       "</span>" +
       "</div>" +
-      '<p class="text-lg font-extrabold text-on-surface leading-snug pr-4">' +
-      escapeHtml(primary.title) +
-      "</p>" +
-      '<p class="text-xs font-semibold text-on-surface-variant">' +
-      escapeHtml(tripTypeLabel) +
-      " · " +
-      escapeHtml(destListStr) +
-      "</p>" +
       '<p class="text-sm text-on-surface"><span class="text-on-surface-variant">Tanggal cuti:</span> <strong class="text-primary">' +
       escapeHtml(opt.leaveLabel) +
       "</strong></p>" +
@@ -1260,31 +1282,11 @@
       '<p class="text-lg font-bold text-primary">' +
       escapeHtml(String(opt.span)) +
       " hari libur</p>" +
-      '<a href="' +
-      escapeHtml(ctaHref) +
-      '" class="cuti-option-promo-cta flex w-full min-w-0 items-center justify-center px-4 py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center leading-snug" target="_blank" rel="sponsored noopener noreferrer" data-trip-type="' +
-      escapeHtml(primary.trip_type) +
-      '" data-destination-code="' +
-      escapeHtml(plan.cta_primary.params.destination) +
-      '">' +
-      escapeHtml(plan.cta_primary.label) +
-      "</a>" +
-      '<details class="cuti-alt-details group rounded-lg border border-outline-variant/40 bg-surface-container-low/30 dark:bg-surface-container/30">' +
-      '<summary class="cuti-alt-details-summary cursor-pointer list-none px-4 py-3 text-sm font-semibold text-primary hover:opacity-90 flex items-center justify-between gap-2">' +
-      '<span>' +
-      escapeHtml(plan.cta_secondary.label) +
-      "</span>" +
-      '<span class="cuti-alt-details-chevron material-symbols-outlined text-lg transition-transform" aria-hidden="true">expand_more</span>' +
-      "</summary>" +
-      '<div class="px-3 pb-3 space-y-2">' +
-      secondaryDetailsBody +
-      "</div>" +
-      "</details>" +
       '<div><p class="text-[0.65rem] font-bold uppercase tracking-wide text-on-surface-variant mb-1">Rincian hari</p>' +
       '<ul class="list-disc list-inside space-y-1">' +
       scheduleHtml +
       "</ul></div>" +
-      insightBlock +
+      marketingBlock +
       actionsFooter +
       "</article>"
     );
