@@ -36,75 +36,59 @@
       label: "Internasional",
       destinations: [
         {
-          name: "Jepang",
-          code: "TYO",
+          name: "Makau",
+          code: "MFM",
           affiliateLink: "",
           highlights: [
             {
-              destination: "Tokyo",
-              description: "Pusat belanja, kuliner, dan city vibe modern Jepang.",
+              destination: "Macau Peninsula",
+              description: "Perpaduan budaya Portugis dan China dengan kasino dan kuliner unik.",
               affiliateLink: "",
             },
             {
-              destination: "Kyoto",
-              description: "Kota budaya Jepang dengan kuil klasik dan taman indah.",
-              affiliateLink: "",
-            },
-            {
-              destination: "Osaka",
-              description: "Surga street food dan akses cepat ke kawasan Kansai.",
-              affiliateLink: "",
-            },
-          ],
-        },
-        {
-          name: "Korea Selatan",
-          code: "ICN",
-          affiliateLink: "",
-          highlights: [
-            {
-              destination: "Seoul",
-              description: "Kota metropolitan dengan belanja, kuliner, dan nightlife.",
-              affiliateLink: "",
-            },
-            {
-              destination: "Busan",
-              description: "Pantai populer, seafood segar, dan suasana kota pelabuhan.",
+              destination: "Taipa",
+              description: "Area santai dengan street food, heritage village, dan resort modern.",
               affiliateLink: "",
             },
           ],
         },
         {
           name: "Australia",
-          code: "SYD",
+          code: "MEL",
           affiliateLink: "",
           highlights: [
             {
-              destination: "Sydney",
-              description: "Ikon Opera House, harbour, dan city walk yang ikonik.",
+              destination: "Melbourne",
+              description: "Kota artsy dengan kafe, galeri, dan street culture yang kuat.",
               affiliateLink: "",
             },
             {
-              destination: "Melbourne",
-              description: "Kota artsy dengan kafe, galeri, dan street art.",
+              destination: "Great Ocean Road",
+              description: "Road trip ikonik dengan pemandangan laut dan tebing dramatis.",
               affiliateLink: "",
             },
           ],
         },
       ],
     },
+  
     asean: {
       minDays: 5,
       label: "ASEAN",
       destinations: [
         {
-          name: "Singapura",
-          code: "SIN",
+          name: "Malaysia",
+          code: "KCH",
           affiliateLink: "",
           highlights: [
             {
-              destination: "Singapura",
-              description: "City break cepat dengan kuliner dan belanja kelas dunia.",
+              destination: "Kuching",
+              description: "Kota santai di Sarawak dengan alam, budaya, dan kuliner lokal.",
+              affiliateLink: "",
+            },
+            {
+              destination: "Bako National Park",
+              description: "Taman nasional dengan hutan, pantai, dan wildlife unik.",
               affiliateLink: "",
             },
           ],
@@ -120,31 +104,15 @@
               affiliateLink: "",
             },
             {
-              destination: "Phuket",
-              description: "Pantai tropis dan island hopping favorit di Thailand.",
-              affiliateLink: "",
-            },
-          ],
-        },
-        {
-          name: "Vietnam",
-          code: "SGN",
-          affiliateLink: "",
-          highlights: [
-            {
-              destination: "Ho Chi Minh",
-              description: "Kota sejarah dengan kuliner Vietnam yang autentik.",
-              affiliateLink: "",
-            },
-            {
-              destination: "Da Nang",
-              description: "Pantai cantik dan akses mudah ke Hoi An.",
+              destination: "Ayutthaya",
+              description: "Wisata sejarah dekat Bangkok dengan candi dan reruntuhan klasik.",
               affiliateLink: "",
             },
           ],
         },
       ],
     },
+  
     domestic: {
       minDays: 0,
       label: "Domestik",
@@ -155,13 +123,13 @@
           affiliateLink: "",
           highlights: [
             {
-              destination: "Denpasar",
-              description: "Akses utama ke area pantai dan pusat kuliner Bali.",
+              destination: "Canggu",
+              description: "Area populer dengan beach club, kafe, dan suasana santai.",
               affiliateLink: "",
             },
             {
               destination: "Ubud",
-              description: "Nuansa alam, budaya, dan retreat yang menenangkan.",
+              description: "Nuansa alam dan budaya dengan sawah, yoga, dan retreat.",
               affiliateLink: "",
             },
           ],
@@ -178,24 +146,7 @@
             },
             {
               destination: "Borobudur",
-              description: "Wisata sejarah dengan sunrise dan panorama ikonik.",
-              affiliateLink: "",
-            },
-          ],
-        },
-        {
-          name: "Labuan Bajo",
-          code: "LBJ",
-          affiliateLink: "",
-          highlights: [
-            {
-              destination: "Labuan Bajo",
-              description: "Gerbang ke Pulau Komodo dan island hopping eksotis.",
-              affiliateLink: "",
-            },
-            {
-              destination: "Komodo",
-              description: "Eksplorasi taman nasional dan laut yang jernih.",
+              description: "Candi ikonik dengan pengalaman sunrise yang populer.",
               affiliateLink: "",
             },
           ],
@@ -379,32 +330,159 @@
   }
 
   /**
-   * Distribusi 3 kartu berdasarkan durasi libur.
+   * Distribusi 3 slot kartu (hanya tier). Destinasi & highlight di-acak per seed.
    * - 7+ hari: 1 internasional, 1 ASEAN, 1 domestik
-   * - 5–6 hari: 1 ASEAN, 2 domestik
-   * - ≤4 hari: 3 domestik
+   * - 5–6 hari: 1 ASEAN, 2 domestik (destinasi domestik tidak duplikat bila cukup data)
+   * - ≤4 hari: 3 domestik (tidak duplikat bila cukup data)
    * @param {number} span
+   * @returns {{ tier: string }[]}
    */
   function getCardDistribution(span) {
     if (span >= 7) {
       return [
-        { tier: "international", index: 0 },
-        { tier: "asean", index: 0 },
-        { tier: "domestic", index: 0 },
+        { tier: "international" },
+        { tier: "asean" },
+        { tier: "domestic" },
       ];
     }
     if (span >= 5) {
       return [
-        { tier: "asean", index: 0 },
-        { tier: "domestic", index: 0 },
-        { tier: "domestic", index: 1 },
+        { tier: "asean" },
+        { tier: "domestic" },
+        { tier: "domestic" },
       ];
     }
     return [
-      { tier: "domestic", index: 0 },
-      { tier: "domestic", index: 1 },
-      { tier: "domestic", index: 2 },
+      { tier: "domestic" },
+      { tier: "domestic" },
+      { tier: "domestic" },
     ];
+  }
+
+  /** Seed stabil per opsi karusel (tampilan + teks bagikan konsisten). */
+  function tripCardPickSeed(opt, shareIndex) {
+    return (
+      String(opt.L) +
+      "\0" +
+      String(opt.R) +
+      "\0" +
+      String(opt.span) +
+      "\0" +
+      String(shareIndex) +
+      "\0" +
+      String(cutiTripPickNonce)
+    );
+  }
+
+  function hashStringToSeed(str) {
+    let h = 2166136261 >>> 0;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619) >>> 0;
+    }
+    return h >>> 0;
+  }
+
+  /** PRNG deterministik [0, 1). */
+  function mulberry32(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a = (a + 0x6d2b79f5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function randomIntFromRng(rng, maxExclusive) {
+    if (maxExclusive < 1) return 0;
+    return Math.floor(rng() * maxExclusive);
+  }
+
+  function pickRandomHighlight(rng, destination) {
+    const h = destination.highlights;
+    if (!h || !h.length) {
+      return {
+        destination: destination.name,
+        description: "",
+        affiliateLink: destination.affiliateLink,
+      };
+    }
+    return h[randomIntFromRng(rng, h.length)];
+  }
+
+  /**
+   * Ambil `count` destinasi berbeda dari tier (Fisher–Yates pada indeks).
+   * @param {function(): number} rng
+   * @param {string} tierKey
+   * @param {number} count
+   */
+  function pickDistinctDestinationsByTier(rng, tierKey, count) {
+    const dests = TRIP_CONFIG[tierKey].destinations;
+    const n = dests.length;
+    const idxs = [];
+    for (let i = 0; i < n; i++) idxs.push(i);
+    for (let i = n - 1; i > 0; i--) {
+      const j = randomIntFromRng(rng, i + 1);
+      const t = idxs[i];
+      idxs[i] = idxs[j];
+      idxs[j] = t;
+    }
+    const out = [];
+    for (let k = 0; k < count; k++) {
+      out.push(dests[idxs[k % n]]);
+    }
+    return out;
+  }
+
+  /**
+   * @param {number} span
+   * @param {string} seedStr
+   * @returns {{ tier: string, destination: object, highlight: object }[]}
+   */
+  function buildTripCardPicks(span, seedStr) {
+    const slots = getCardDistribution(span);
+    const rng = mulberry32(hashStringToSeed(seedStr));
+    const domesticNeed = slots.filter(function (s) {
+      return s.tier === "domestic";
+    }).length;
+    const domesticChosen = pickDistinctDestinationsByTier(
+      rng,
+      "domestic",
+      domesticNeed
+    );
+    let domesticCursor = 0;
+    const picks = [];
+    for (let i = 0; i < slots.length; i++) {
+      const slot = slots[i];
+      let destination;
+      if (slot.tier === "domestic") {
+        destination = domesticChosen[domesticCursor++];
+      } else {
+        const tier = TRIP_CONFIG[slot.tier];
+        const di = randomIntFromRng(rng, tier.destinations.length);
+        destination = tier.destinations[di];
+      }
+      const highlight = pickRandomHighlight(rng, destination);
+      picks.push({
+        tier: slot.tier,
+        destination: destination,
+        highlight: highlight,
+      });
+    }
+    return picks;
+  }
+
+  function tripHeadlineFromPick(destination, highlight) {
+    const highlightName = String(
+      highlight.destination || destination.name || ""
+    ).trim();
+    const countryName = String(destination.name || "").trim();
+    if (!highlightName || highlightName === countryName) {
+      return countryName;
+    }
+    return highlightName + ", " + countryName;
   }
 
   /** Rentang tanggal singkat untuk label CTA (contoh: 26 Mei – 1 Jun 2026). */
@@ -576,43 +654,32 @@
 
   /**
    * Payload JSON terstruktur (primary, secondary, urgency, cta).
+   * Destinasi & highlight mengikuti acak ber-seed (sama dengan kartu UI untuk shareIndex yang sama).
    * @param {object} opt enriched option (L, R, span, leaveDates, …)
    * @param {Map<string, object>} byDate
+   * @param {number} [shareIndex]
    */
-  function buildTripPlanJson(opt, byDate) {
+  function buildTripPlanJson(opt, byDate, shareIndex) {
     const span = opt.span;
-    const tripKey = tripTypeKeyForSpan(span);
-    const tier = TRIP_CONFIG[tripKey];
-    const dests = tier.destinations;
-    const primaryDest = dests[0];
-    const primaryHighlights = primaryDest.highlights
-      ? primaryDest.highlights.slice(0, 3)
-      : [
-          {
-            destination: primaryDest.name,
-            description: "",
-            affiliateLink: primaryDest.affiliateLink,
-          },
-        ];
+    const si =
+      shareIndex === undefined || shareIndex === null ? 0 : shareIndex;
+    const seed = tripCardPickSeed(opt, si);
+    const picks = buildTripCardPicks(span, seed);
+    const first = picks[0];
+    const tripKey = first.tier;
+    const primaryDest = first.destination;
+    const primaryHighlight = first.highlight;
+    const primaryHighlights = [primaryHighlight];
     const reasoning = generateReasoning(span, opt.L, opt.R, tripKey, byDate);
     const urgency = generateUrgencyInsight(opt.L, opt.R, byDate);
     const dateLabel = formatCtaDateRange(opt.L, opt.R);
 
-    const secondary = dests.slice(1, 3).map(function (d) {
-      const subHighlights = d.highlights
-        ? d.highlights.slice(0, 3)
-        : [
-            {
-              destination: d.name,
-              description: "",
-              affiliateLink: d.affiliateLink,
-            },
-          ];
+    const secondary = picks.slice(1).map(function (p) {
       return {
         title: span + " hari",
-        trip_type: tripKey,
-        highlights: subHighlights,
-        destination: d.name,
+        trip_type: p.tier,
+        highlights: [p.highlight],
+        destination: p.destination.name,
         reasoning:
           "Alternatif durasi sama — jarak terbang lebih pendek atau pola harga berbeda dari rekomendasi utama.",
       };
@@ -643,6 +710,7 @@
           return_date: opt.R,
         },
         affiliate_link:
+          sanitizePromoHref(primaryHighlight.affiliateLink) ||
           sanitizePromoHref(primaryDest.affiliateLink) ||
           DEFAULT_TRIP_AFFILIATE_HREF,
       },
@@ -1041,8 +1109,9 @@
   /**
    * Teks untuk dibagikan (mirip isi kartu opsi).
    * @param {object} opt enriched option
+   * @param {number} [shareIndex] indeks slide karusel — harus sama agar acak trip sama dengan kartu
    */
-  function buildCutiOptionShareText(opt) {
+  function buildCutiOptionShareText(opt, shareIndex) {
     const leaveN = opt.leaveDates ? opt.leaveDates.length : 0;
     const lines = [];
     lines.push(
@@ -1062,9 +1131,11 @@
     });
     lines.push("");
     lines.push("Ide aktivitas: " + opt.activityHint);
+    const si =
+      shareIndex === undefined || shareIndex === null ? 0 : shareIndex;
     const plan =
       byDateMap && byDateMap.get
-        ? buildTripPlanJson(opt, byDateMap)
+        ? buildTripPlanJson(opt, byDateMap, si)
         : null;
     if (plan) {
       lines.push("");
@@ -1130,6 +1201,23 @@
   const CUTI_REORDER_HIDE_MS = 180;
   /** @type {null | (function (): void)} */
   let cutiRevealAnimCleanup = null;
+
+  /**
+   * Di-acak tiap kali track hasil diisi ulang. Tanpa ini, seed hanya dari L/R/span/slide
+   * sehingga jendela libur yang sama selalu menghasilkan urutan RNG yang sama (mis. selalu Makau).
+   */
+  let cutiTripPickNonce = 0;
+
+  function bumpCutiTripPickNonce() {
+    if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+      const buf = new Uint32Array(1);
+      crypto.getRandomValues(buf);
+      cutiTripPickNonce = buf[0] >>> 0;
+    } else {
+      cutiTripPickNonce =
+        (Date.now() ^ (Math.floor(Math.random() * 0x100000000) >>> 0)) >>> 0;
+    }
+  }
 
   function cutiPrefersReducedMotion() {
     return (
@@ -1324,32 +1412,20 @@
         );
       })
       .join("");
-    const cardDistribution = getCardDistribution(opt.span);
-    const cardItems = cardDistribution
-      .map(function (card, idx) {
-        const tier = TRIP_CONFIG[card.tier];
-        const destination =
-          tier.destinations[card.index] || tier.destinations[0];
-        const highlight =
-          destination.highlights && destination.highlights.length
-            ? destination.highlights[0]
-            : {
-                destination: destination.name,
-                description: "",
-                affiliateLink: destination.affiliateLink,
-              };
+    const cardPicks = buildTripCardPicks(
+      opt.span,
+      tripCardPickSeed(opt, shareIndex)
+    );
+    const cardItems = cardPicks
+      .map(function (pick, idx) {
+        const tier = TRIP_CONFIG[pick.tier];
+        const destination = pick.destination;
+        const highlight = pick.highlight;
         const href =
           sanitizePromoHref(highlight.affiliateLink) ||
           sanitizePromoHref(destination.affiliateLink) ||
           DEFAULT_TRIP_AFFILIATE_HREF;
-        const highlightName = String(
-          highlight.destination || destination.name || ""
-        ).trim();
-        const countryName = String(destination.name || "").trim();
-        const tripHeadline =
-          !highlightName || highlightName === countryName
-            ? countryName
-            : highlightName + ", " + countryName;
+        const tripHeadline = tripHeadlineFromPick(destination, highlight);
         const isPrimary = idx === 0;
         const borderClass = isPrimary
           ? "cuti-trip-card-primary"
@@ -1366,7 +1442,7 @@
           '" data-trip-card="' +
           (isPrimary ? "primary" : "secondary") +
           '" data-trip-tier="' +
-          escapeHtml(card.tier) +
+          escapeHtml(pick.tier) +
           '" data-trip-destination="' +
           escapeHtml(destination.name) +
           '">' +
@@ -1384,7 +1460,7 @@
           '<a href="' +
           escapeHtml(href) +
           '" class="cuti-trip-promo-cta inline-flex items-center justify-center px-5 py-3 sm:py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity shrink-0 max-w-full text-center leading-snug ml-auto" target="_blank" rel="sponsored noopener noreferrer" data-trip-tier="' +
-          escapeHtml(card.tier) +
+          escapeHtml(pick.tier) +
           '" data-trip-destination="' +
           escapeHtml(destination.name) +
           '">' +
@@ -1619,6 +1695,7 @@
 
     cutiLastTopRankOrder = top.slice();
     cutiSortNearestMode = false;
+    bumpCutiTripPickNonce();
     renderCutiTrackFromTop(top);
     if (sortBtn) {
       if (top.length > 1) {
@@ -1703,7 +1780,7 @@
         if (idx < 0 || idx >= cutiShareTopSnapshot.length) return;
         const opt = cutiShareTopSnapshot[idx];
         if (!opt) return;
-        runCutiShare(buildCutiOptionShareText(opt));
+        runCutiShare(buildCutiOptionShareText(opt, idx));
         return;
       }
       const altCta = ev.target.closest(".cuti-alt-cta");
@@ -1790,6 +1867,8 @@
       generateUrgencyInsight: generateUrgencyInsight,
       tripTypeKeyForSpan: tripTypeKeyForSpan,
       getCardDistribution: getCardDistribution,
+      buildTripCardPicks: buildTripCardPicks,
+      tripCardPickSeed: tripCardPickSeed,
       DEFAULT_HORIZON: DEFAULT_HORIZON,
       TOP_N: TOP_N,
     };
