@@ -1324,7 +1324,6 @@
         );
       })
       .join("");
-    const dateLabel = formatCtaDateRange(opt.L, opt.R);
     const cardDistribution = getCardDistribution(opt.span);
     const cardItems = cardDistribution
       .map(function (card, idx) {
@@ -1360,13 +1359,11 @@
           ? '<p class="text-xs font-bold uppercase tracking-wide text-primary">Bingung mau kemana?</p>'
           : "";
         return (
-          '<a href="' +
-          escapeHtml(href) +
-          '" class="cuti-trip-card flex h-full flex-col rounded-xl ' +
+          '<div class="cuti-trip-card flex h-full flex-col rounded-xl ' +
           borderClass +
-          " bg-surface-container-low/20 p-4 space-y-2 hover:bg-surface-variant/30 transition-colors" +
+          " bg-surface-container-low/20 p-4 space-y-2" +
           hiddenClass +
-          '" target="_blank" rel="sponsored noopener noreferrer" data-trip-card="' +
+          '" data-trip-card="' +
           (isPrimary ? "primary" : "secondary") +
           '" data-trip-tier="' +
           escapeHtml(card.tier) +
@@ -1383,12 +1380,18 @@
           '<p class="text-sm text-on-surface-variant leading-relaxed">' +
           escapeHtml(highlight.description || "") +
           "</p>" +
-          '<div class="mt-auto flex justify-end text-right pt-2">' +
-          '<span class="text-sm font-semibold text-primary">' +
-          escapeHtml("Cek tiket ke " + tripHeadline + " (" + dateLabel + ")") +
-          "</span>" +
+          '<div class="mt-auto flex justify-end pt-2">' +
+          '<a href="' +
+          escapeHtml(href) +
+          '" class="cuti-trip-promo-cta inline-flex items-center justify-center px-5 py-3 sm:py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity shrink-0 max-w-full text-center leading-snug ml-auto" target="_blank" rel="sponsored noopener noreferrer" data-trip-tier="' +
+          escapeHtml(card.tier) +
+          '" data-trip-destination="' +
+          escapeHtml(destination.name) +
+          '">' +
+          escapeHtml("Cek liburan ke " + tripHeadline) +
+          "</a>" +
           "</div>" +
-          "</a>"
+          "</div>"
         );
       })
       .join("");
@@ -1635,7 +1638,7 @@
   const cutiTrackForShare = document.getElementById("cuti-optimizer-track");
   if (cutiTrackForShare) {
     cutiTrackForShare.addEventListener("click", function (ev) {
-      const promoA = ev.target.closest("a.cuti-trip-card");
+      const promoA = ev.target.closest("a.cuti-trip-promo-cta");
       if (promoA && promoA.href) {
         if (window.kapanliburGa && window.kapanliburGa.track) {
           window.kapanliburGa.track("cuti_promo_tiket_click", {
