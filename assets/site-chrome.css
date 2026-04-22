@@ -608,3 +608,11 @@ display: none;
 .cuti-alt-details[open] .cuti-alt-details-chevron {
 transform: rotate(180deg);
 }
+
+/* Trip cards — primary vs secondary border (clear contrast; avoids subtle Tailwind /opacity overlap) */
+a.cuti-trip-card-primary {
+border: 2px solid rgb(var(--color-primary));
+}
+a.cuti-trip-card-secondary {
+border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 65%, transparent);
+}

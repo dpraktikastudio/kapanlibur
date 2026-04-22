@@ -1343,10 +1343,18 @@
           sanitizePromoHref(highlight.affiliateLink) ||
           sanitizePromoHref(destination.affiliateLink) ||
           DEFAULT_TRIP_AFFILIATE_HREF;
+        const highlightName = String(
+          highlight.destination || destination.name || ""
+        ).trim();
+        const countryName = String(destination.name || "").trim();
+        const tripHeadline =
+          !highlightName || highlightName === countryName
+            ? countryName
+            : highlightName + ", " + countryName;
         const isPrimary = idx === 0;
         const borderClass = isPrimary
-          ? "border border-primary/60"
-          : "border border-outline-variant/40";
+          ? "cuti-trip-card-primary"
+          : "cuti-trip-card-secondary";
         const hiddenClass = isPrimary ? "" : " hidden";
         const heading = isPrimary
           ? '<p class="text-xs font-bold uppercase tracking-wide text-primary">Bingung mau kemana?</p>'
@@ -1370,14 +1378,14 @@
           escapeHtml(tier.label) +
           "</p>" +
           '<p class="text-base font-bold text-on-surface">' +
-          escapeHtml("Liburan " + opt.span + " hari ke " + destination.name) +
+          escapeHtml("Liburan " + opt.span + " hari ke " + tripHeadline) +
           "</p>" +
           '<p class="text-sm text-on-surface-variant leading-relaxed">' +
           escapeHtml(highlight.description || "") +
           "</p>" +
           '<div class="mt-auto flex justify-end text-right pt-2">' +
           '<span class="text-sm font-semibold text-primary">' +
-          escapeHtml("Cek tiket ke " + destination.name + " (" + dateLabel + ")") +
+          escapeHtml("Cek tiket ke " + tripHeadline + " (" + dateLabel + ")") +
           "</span>" +
           "</div>" +
           "</a>"
