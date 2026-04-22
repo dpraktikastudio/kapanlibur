@@ -1459,10 +1459,6 @@
     const next = !expanded;
     wrapper.setAttribute("data-expanded", next ? "true" : "false");
     const cards = wrapper.querySelectorAll('[data-trip-card="secondary"]');
-    for (let i = 0; i < cards.length; i++) {
-      if (next) cards[i].classList.remove("hidden");
-      else cards[i].classList.add("hidden");
-    }
     const btn = document.querySelector(
       '.cuti-alt-cta[data-cuti-opt-index="' + idx + '"]'
     );
@@ -1471,6 +1467,58 @@
         ? "Sembunyikan anjuran liburan lainnya"
         : "Lihat anjuran liburan lainnya";
       btn.setAttribute("aria-expanded", next ? "true" : "false");
+    }
+
+    if (cutiPrefersReducedMotion()) {
+      for (let i = 0; i < cards.length; i++) {
+        if (next) cards[i].classList.remove("hidden");
+        else cards[i].classList.add("hidden");
+      }
+      return;
+    }
+
+    function onRevealEnd(e) {
+      if (e.animationName !== "cutiResultsReveal") return;
+      e.currentTarget.classList.remove("cuti-trip-secondary-reveal");
+      e.currentTarget.removeEventListener("animationend", onRevealEnd);
+    }
+
+    function onCollapseEnd(e) {
+      if (e.animationName !== "cutiResultsReveal") return;
+      const card = e.currentTarget;
+      card.classList.remove("cuti-trip-secondary-collapse");
+      card.classList.add("hidden");
+      card.removeEventListener("animationend", onCollapseEnd);
+    }
+
+    if (next) {
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        card.classList.remove("cuti-trip-secondary-collapse");
+        card.classList.remove("cuti-trip-secondary-reveal");
+        card.removeEventListener("animationend", onCollapseEnd);
+        card.classList.remove("hidden");
+        card.classList.add("cuti-trip-secondary-preface");
+      }
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          for (let j = 0; j < cards.length; j++) {
+            const card = cards[j];
+            card.classList.remove("cuti-trip-secondary-preface");
+            card.classList.add("cuti-trip-secondary-reveal");
+            card.addEventListener("animationend", onRevealEnd);
+          }
+        });
+      });
+    } else {
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        card.classList.remove("cuti-trip-secondary-reveal");
+        card.classList.remove("cuti-trip-secondary-preface");
+        card.removeEventListener("animationend", onRevealEnd);
+        card.classList.add("cuti-trip-secondary-collapse");
+        card.addEventListener("animationend", onCollapseEnd);
+      }
     }
   }
 
