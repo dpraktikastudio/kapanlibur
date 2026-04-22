@@ -482,7 +482,8 @@
     if (!highlightName || highlightName === countryName) {
       return countryName;
     }
-    return highlightName + ", " + countryName;
+    // return highlightName + ", " + countryName;
+    return countryName;
   }
 
   /** Rentang tanggal singkat untuk label CTA (contoh: 26 Mei – 1 Jun 2026). */
@@ -1464,7 +1465,7 @@
           '" data-trip-destination="' +
           escapeHtml(destination.name) +
           '">' +
-          escapeHtml("Cek liburan ke " + tripHeadline) +
+          escapeHtml("Lihat opsi trip ke " + tripHeadline) +
           "</a>" +
           "</div>" +
           "</div>"
