@@ -26,6 +26,88 @@
   const LN_CB_BACKWARD_STEPS = 24;
   const TOP_N = 5;
 
+  /**
+   * Rekomendasi trip per durasi — mudah diubah (link afiliasi per destinasi).
+   * trip_type: international (7+ hari), asean (5–6), domestic (≤4).
+   */
+  const TRIP_CONFIG = {
+    international: {
+      minDays: 7,
+      label: "Internasional",
+      destinations: [
+        {
+          name: "Jepang",
+          code: "TYO",
+          affiliateLink: "",
+          highlights: ["Tokyo", "Kyoto", "Osaka"],
+        },
+        {
+          name: "Korea Selatan",
+          code: "ICN",
+          affiliateLink: "",
+          highlights: ["Seoul", "Busan"],
+        },
+        {
+          name: "Australia",
+          code: "SYD",
+          affiliateLink: "",
+          highlights: ["Sydney", "Melbourne"],
+        },
+      ],
+    },
+    asean: {
+      minDays: 5,
+      label: "ASEAN",
+      destinations: [
+        {
+          name: "Singapura",
+          code: "SIN",
+          affiliateLink: "",
+          highlights: ["Singapura"],
+        },
+        {
+          name: "Thailand",
+          code: "BKK",
+          affiliateLink: "",
+          highlights: ["Bangkok", "Phuket"],
+        },
+        {
+          name: "Vietnam",
+          code: "SGN",
+          affiliateLink: "",
+          highlights: ["Ho Chi Minh", "Da Nang"],
+        },
+      ],
+    },
+    domestic: {
+      minDays: 0,
+      label: "Domestik",
+      destinations: [
+        {
+          name: "Bali",
+          code: "DPS",
+          affiliateLink: "",
+          highlights: ["Denpasar", "Ubud"],
+        },
+        {
+          name: "Yogyakarta",
+          code: "JOG",
+          affiliateLink: "",
+          highlights: ["Yogyakarta", "Borobudur"],
+        },
+        {
+          name: "Labuan Bajo",
+          code: "LBJ",
+          affiliateLink: "",
+          highlights: ["Labuan Bajo", "Komodo"],
+        },
+      ],
+    },
+  };
+
+  /** Fallback jika affiliateLink destinasi masih kosong */
+  const DEFAULT_TRIP_AFFILIATE_HREF = "https://atid.me/00nu87002p98";
+
   /** @type {Map<string, object>|null} */
   let byDateMap = null;
 
@@ -56,8 +138,6 @@
       promoHref: "https://atid.me/00nu87002p98",
     },
   ];
-
-  const PROMO_CTA_LABEL = "Lihat tiket & hotel untuk libur ini →";
 
   function sanitizePromoHref(href) {
     if (href == null || typeof href !== "string") return "";
@@ -181,6 +261,258 @@
       return MONTHS_SHORT[mA] + "–" + MONTHS_SHORT[mB] + " " + yA;
     }
     return MONTHS_SHORT[mA] + " " + yA + " – " + MONTHS_SHORT[mB] + " " + yB;
+  }
+
+  function forEachDayInRange(L, R, fn) {
+    let cur = L;
+    while (true) {
+      fn(cur);
+      if (cur === R) break;
+      cur = addDaysISO(cur, 1);
+    }
+  }
+
+  /** @param {number} span */
+  function tripTypeKeyForSpan(span) {
+    if (span >= 7) return "international";
+    if (span >= 5) return "asean";
+    return "domestic";
+  }
+
+  /** Rentang tanggal singkat untuk label CTA (contoh: 26 Mei – 1 Jun 2026). */
+  function formatCtaDateRange(L, R) {
+    const a = parseISODate(L);
+    const b = parseISODate(R);
+    const yA = a.getFullYear();
+    const yB = b.getFullYear();
+    const partA =
+      a.getDate() +
+      " " +
+      MONTHS_SHORT[a.getMonth()] +
+      (yA === yB ? "" : " " + yA);
+    const partB =
+      b.getDate() + " " + MONTHS_SHORT[b.getMonth()] + " " + yB;
+    return partA + " – " + partB;
+  }
+
+  /**
+   * Insight singkat berbasis kalender resmi + pola booking Indonesia.
+   * @param {string} L
+   * @param {string} R
+   * @param {Map<string, object>} byDate
+   * @returns {string}
+   */
+  function generateUrgencyInsight(L, R, byDate) {
+    if (!byDate || !byDate.get) {
+      return (
+        "Semakin dekat tanggal berangkat, harga tiket ke rute favorit biasanya naik 10–30%. " +
+        "Cek sekarang lebih aman."
+      );
+    }
+    const hits = {
+      idulFitri: false,
+      idulAdha: false,
+      natalAkhirTahun: false,
+      imlek: false,
+      waisak: false,
+      longWeekendLnCb: 0,
+    };
+    forEachDayInRange(L, R, function (iso) {
+      const row = byDate.get(iso);
+      if (!row) return;
+      const desc = String(row.description || "").toLowerCase();
+      const type = row.type || "";
+      if (type !== "Libur Nasional" && type !== "Cuti Bersama") return;
+      if (/idul fitri|lebaran/.test(desc)) hits.idulFitri = true;
+      if (/idul adha/.test(desc)) hits.idulAdha = true;
+      if (/imlek|kongzili/.test(desc)) hits.imlek = true;
+      if (/waisak/.test(desc)) hits.waisak = true;
+      if (/natal|kelahiran yesus|tahun baru masehi/.test(desc)) {
+        hits.natalAkhirTahun = true;
+      }
+      if (row.is_long_weekend) hits.longWeekendLnCb++;
+    });
+
+    const today = todayISO();
+    const daysOut = diffCalendarDays(today, L);
+    const parts = [];
+
+    if (hits.idulFitri) {
+      parts.push(
+        "Periode ini overlap momentum Lebaran: permintaan tiket & hotel biasanya puncak, harga sering melonjak 30%+ mendekati tanggal ini."
+      );
+    } else if (hits.idulAdha && hits.waisak) {
+      parts.push(
+        "Jendela ini berdekatan dengan Idul Adha + Waisak — klasifikasi high season domestik & Asia; slot habis lebih cepat."
+      );
+    } else if (hits.idulAdha) {
+      parts.push(
+        "Sekitar Idul Adha termasuk puncak permintaan tiket domestik & regional; harga naik 10–30% tipikal menjelang H-14."
+      );
+    } else if (hits.imlek) {
+      parts.push(
+        "High season Imlek: rute Asia Timur/Tenggara sering penuh lebih awal; harga tiket cenderung naik tiap minggu."
+      );
+    } else if (hits.natalAkhirTahun) {
+      parts.push(
+        "Musim Natal & pergantian tahun: booking puncak biasanya H-21; harga tiket internasional/domestik sering naik signifikan."
+      );
+    } else if (hits.waisak) {
+      parts.push(
+        "Long weekend Waisak + libur sekitarnya: pola klasik penumpukan permintaan tiket dalam negeri."
+      );
+    } else if (hits.longWeekendLnCb >= 2) {
+      parts.push(
+        "Rangkaian long weekend + LN/CB: banyak yang ambil cuti serupa, tekanan harga tiket biasanya naik mendekati tanggal ini."
+      );
+    }
+
+    if (daysOut >= 0 && daysOut <= 21 && parts.length < 2) {
+      parts.push(
+        "Keberangkatan dalam " +
+          daysOut +
+          " hari — untuk rute favorit, harga tiket sering naik 10–30% dibanding beberapa minggu lalu."
+      );
+    } else if (daysOut > 21 && daysOut <= 60 && parts.length === 0) {
+      parts.push(
+        "Masih ada waktu, tapi pola umum: pembelian tiket menguat H-21 ke H-7 untuk tanggal libur panjang."
+      );
+    }
+
+    if (parts.length === 0) {
+      return (
+        "Di luar puncak besar, harga tetap cenderung naik mendekati tanggal terbang — cek lebih awal biasanya lebih tenang."
+      );
+    }
+    return parts.slice(0, 2).join(" ");
+  }
+
+  /**
+   * @param {number} span
+   * @param {string} L
+   * @param {string} R
+   * @param {string} tripKey
+   * @param {Map<string, object>} byDate
+   */
+  function generateReasoning(span, L, R, tripKey, byDate) {
+    const start = parseISODate(L);
+    const m = start.getMonth();
+    let musim = "";
+    if (m >= 5 && m <= 7) {
+      musim = "Bertepatan musim liburan sekolah domestik — booking lebih ramai.";
+    } else if (m === 11 || m === 0) {
+      musim = "Dekat akhir tahun — permintaan tiket biasanya lebih tinggi.";
+    }
+    const overlapLnCb = [];
+    if (byDate && byDate.get) {
+      forEachDayInRange(L, R, function (iso) {
+        const row = byDate.get(iso);
+        if (!row) return;
+        const t = row.type || "";
+        if (t === "Libur Nasional" || t === "Cuti Bersama") {
+          const d = row.description || "";
+          if (d && overlapLnCb.indexOf(d) === -1) overlapLnCb.push(d);
+        }
+      });
+    }
+    const timing =
+      overlapLnCb.length > 0
+        ? " Waktu ini memanfaatkan " +
+          overlapLnCb.slice(0, 2).join(" & ") +
+          " di kalender resmi."
+        : "";
+
+    if (tripKey === "international") {
+      return (
+        span +
+        " hari kalender pas untuk rute internasional (buffer jet lag + eksplor). " +
+        (musim ? musim + " " : "") +
+        timing.trim()
+      ).trim();
+    }
+    if (tripKey === "asean") {
+      return (
+        span +
+        " hari nyaman untuk short-haul ASEAN tanpa membuang banyak hari di jalan. " +
+        (musim ? musim + " " : "") +
+        timing.trim()
+      ).trim();
+    }
+    return (
+      span +
+      " hari ideal untuk domestik: hemat waktu tempuh, cocok long weekend yang sudah dirangkai. " +
+      (musim ? musim + " " : "") +
+      timing.trim()
+    ).trim();
+  }
+
+  /**
+   * Payload JSON terstruktur (primary, secondary, urgency, cta).
+   * @param {object} opt enriched option (L, R, span, leaveDates, …)
+   * @param {Map<string, object>} byDate
+   */
+  function buildTripPlanJson(opt, byDate) {
+    const span = opt.span;
+    const tripKey = tripTypeKeyForSpan(span);
+    const tier = TRIP_CONFIG[tripKey];
+    const dests = tier.destinations;
+    const primaryDest = dests[0];
+    const primaryHighlights = primaryDest.highlights
+      ? primaryDest.highlights.slice(0, 3)
+      : [primaryDest.name];
+    const reasoning = generateReasoning(span, opt.L, opt.R, tripKey, byDate);
+    const urgency = generateUrgencyInsight(opt.L, opt.R, byDate);
+    const dateLabel = formatCtaDateRange(opt.L, opt.R);
+
+    const secondary = dests.slice(1, 3).map(function (d) {
+      const subHighlights = d.highlights
+        ? d.highlights.slice(0, 3)
+        : [d.name];
+      return {
+        title: span + " hari",
+        trip_type: tripKey,
+        destinations: subHighlights,
+        reasoning:
+          "Alternatif durasi sama — jarak terbang lebih pendek atau pola harga berbeda dari rekomendasi utama.",
+      };
+    });
+
+    return {
+      primary: {
+        title: span + " hari",
+        trip_type: tripKey,
+        destinations: primaryHighlights,
+        reasoning: reasoning,
+        label: "Rekomendasi terbaik",
+      },
+      secondary: secondary,
+      urgency: urgency,
+      cta_primary: {
+        label:
+          "Cek tiket Jakarta → " +
+          primaryDest.name +
+          " (" +
+          dateLabel +
+          ")",
+        params: {
+          origin: "CGK",
+          destination: primaryDest.code,
+          depart_date: opt.L,
+          return_date: opt.R,
+        },
+        affiliate_link:
+          sanitizePromoHref(primaryDest.affiliateLink) ||
+          DEFAULT_TRIP_AFFILIATE_HREF,
+      },
+      cta_secondary: {
+        label: "Lihat alternatif destinasi",
+      },
+    };
+  }
+
+  function primaryCtaHref(plan) {
+    const h = plan && plan.cta_primary && plan.cta_primary.affiliate_link;
+    return sanitizePromoHref(h) || DEFAULT_TRIP_AFFILIATE_HREF;
   }
 
   /**
@@ -588,6 +920,17 @@
     });
     lines.push("");
     lines.push("Ide aktivitas: " + opt.activityHint);
+    const plan =
+      byDateMap && byDateMap.get
+        ? buildTripPlanJson(opt, byDateMap)
+        : null;
+    if (plan) {
+      lines.push("");
+      lines.push("Rencana trip (cuplikan):");
+      lines.push("• " + plan.primary.title + " — " + plan.primary.label);
+      lines.push("• " + plan.urgency);
+      lines.push("• " + plan.cta_primary.label);
+    }
     lines.push("");
     lines.push("Yuk rencanain liburanmu bareng kapanlibur.com!");
     return lines.join("\n");
@@ -839,7 +1182,43 @@
         );
       })
       .join("");
-    const promoHref = opt.promoHref || "";
+    const plan = buildTripPlanJson(opt, byDateMap || new Map());
+    const primary = plan.primary;
+    const destListStr = (primary.destinations || []).join(", ");
+    const tripTypeLabel = TRIP_CONFIG[primary.trip_type].label;
+    const ctaHref = primaryCtaHref(plan);
+    const insightBlock =
+      '<div class="space-y-2 border-t border-outline-variant/30 pt-3">' +
+      '<p class="text-sm text-on-surface leading-relaxed">' +
+      escapeHtml(primary.reasoning) +
+      "</p>" +
+      '<div class="cuti-urgency-block" role="status">' +
+      escapeHtml(plan.urgency) +
+      "</div>" +
+      '<p class="text-sm text-on-surface-variant"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
+      escapeHtml(opt.activityHint) +
+      "</p>" +
+      "</div>";
+    const secondaryDetailsBody = (plan.secondary || [])
+      .map(function (s) {
+        const destLine = (s.destinations || []).join(", ");
+        return (
+          '<div class="cuti-alt-option rounded-lg border border-outline-variant/35 bg-surface-container-low/50 dark:bg-surface-container/40 p-3 space-y-1">' +
+          '<p class="text-sm font-bold text-on-surface">' +
+          escapeHtml(s.title) +
+          "</p>" +
+          '<p class="text-xs text-on-surface-variant">' +
+          escapeHtml(tripTypeLabel) +
+          " · " +
+          escapeHtml(destLine) +
+          "</p>" +
+          '<p class="text-xs text-on-surface leading-snug">' +
+          escapeHtml(s.reasoning) +
+          "</p>" +
+          "</div>"
+        );
+      })
+      .join("");
     const shareBtn =
       '<button type="button" class="cuti-option-share inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-outline-variant text-sm font-semibold text-primary hover:bg-surface-variant/40 transition-colors shrink-0" data-cuti-opt-index="' +
       shareIndex +
@@ -848,14 +1227,7 @@
       "<span>Bagikan</span>" +
       "</button>";
     const actionsFooter =
-      '<div class="pt-2 border-t border-outline-variant/30 flex flex-row flex-wrap items-center gap-2">' +
-      (promoHref
-        ? '<a href="' +
-          escapeHtml(promoHref) +
-          '" class="cuti-option-promo-cta inline-flex ml-auto min-w-0 items-center justify-center px-4 py-2.5 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center" target="_blank" rel="sponsored noopener noreferrer">' +
-          escapeHtml(PROMO_CTA_LABEL) +
-          "</a>"
-        : "") +
+      '<div class="pt-3 border-t border-outline-variant/30 flex flex-row flex-wrap items-center gap-2 justify-end">' +
       shareBtn +
       "</div>";
     return (
@@ -867,7 +1239,18 @@
       '<span class="text-xs font-bold uppercase tracking-wide text-primary">Opsi ' +
       rankIndex +
       "</span>" +
+      '<span class="cuti-primary-badge inline-flex items-center rounded-full bg-primary/15 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-primary">' +
+      escapeHtml(primary.label) +
+      "</span>" +
       "</div>" +
+      '<p class="text-lg font-extrabold text-on-surface leading-snug pr-4">' +
+      escapeHtml(primary.title) +
+      "</p>" +
+      '<p class="text-xs font-semibold text-on-surface-variant">' +
+      escapeHtml(tripTypeLabel) +
+      " · " +
+      escapeHtml(destListStr) +
+      "</p>" +
       '<p class="text-sm text-on-surface"><span class="text-on-surface-variant">Tanggal cuti:</span> <strong class="text-primary">' +
       escapeHtml(opt.leaveLabel) +
       "</strong></p>" +
@@ -877,13 +1260,31 @@
       '<p class="text-lg font-bold text-primary">' +
       escapeHtml(String(opt.span)) +
       " hari libur</p>" +
+      '<a href="' +
+      escapeHtml(ctaHref) +
+      '" class="cuti-option-promo-cta flex w-full min-w-0 items-center justify-center px-4 py-3 rounded-lg bg-primary text-on-primary text-sm font-bold hover:opacity-95 transition-opacity text-center leading-snug" target="_blank" rel="sponsored noopener noreferrer" data-trip-type="' +
+      escapeHtml(primary.trip_type) +
+      '" data-destination-code="' +
+      escapeHtml(plan.cta_primary.params.destination) +
+      '">' +
+      escapeHtml(plan.cta_primary.label) +
+      "</a>" +
+      '<details class="cuti-alt-details group rounded-lg border border-outline-variant/40 bg-surface-container-low/30 dark:bg-surface-container/30">' +
+      '<summary class="cuti-alt-details-summary cursor-pointer list-none px-4 py-3 text-sm font-semibold text-primary hover:opacity-90 flex items-center justify-between gap-2">' +
+      '<span>' +
+      escapeHtml(plan.cta_secondary.label) +
+      "</span>" +
+      '<span class="cuti-alt-details-chevron material-symbols-outlined text-lg transition-transform" aria-hidden="true">expand_more</span>' +
+      "</summary>" +
+      '<div class="px-3 pb-3 space-y-2">' +
+      secondaryDetailsBody +
+      "</div>" +
+      "</details>" +
       '<div><p class="text-[0.65rem] font-bold uppercase tracking-wide text-on-surface-variant mb-1">Rincian hari</p>' +
       '<ul class="list-disc list-inside space-y-1">' +
       scheduleHtml +
       "</ul></div>" +
-      '<p class="text-sm text-on-surface-variant border-t border-outline-variant/30 pt-3"><span class="font-semibold text-on-surface">Ide aktivitas:</span> ' +
-      escapeHtml(opt.activityHint) +
-      "</p>" +
+      insightBlock +
       actionsFooter +
       "</article>"
     );
@@ -1141,6 +1542,10 @@
         return isLnCb(iso, byDate);
       },
       ACTIVITY_BY_SPAN: ACTIVITY_BY_SPAN,
+      TRIP_CONFIG: TRIP_CONFIG,
+      buildTripPlanJson: buildTripPlanJson,
+      generateUrgencyInsight: generateUrgencyInsight,
+      tripTypeKeyForSpan: tripTypeKeyForSpan,
       DEFAULT_HORIZON: DEFAULT_HORIZON,
       TOP_N: TOP_N,
     };

@@ -580,3 +580,31 @@ display: none !important;
 display: none !important;
 }
 }
+
+/* Cuti optimizer — rekomendasi trip & urgency */
+.cuti-urgency-block {
+border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 45%, transparent);
+background: color-mix(in srgb, rgb(var(--color-tertiary-fixed)) 18%, rgb(var(--color-surface-container-low)));
+color: rgb(var(--color-on-surface));
+padding: 0.75rem 1rem;
+border-radius: 0.5rem;
+font-size: 0.875rem;
+line-height: 1.45;
+}
+html[data-theme="dark"] .cuti-urgency-block {
+background: color-mix(in srgb, rgb(var(--color-primary-fixed-dim)) 12%, rgb(var(--color-surface-container-low)));
+}
+@media (prefers-color-scheme: dark) {
+html:not([data-theme="light"]) .cuti-urgency-block {
+background: color-mix(in srgb, rgb(var(--color-primary-fixed-dim)) 12%, rgb(var(--color-surface-container-low)));
+}
+}
+.cuti-primary-badge {
+max-width: 100%;
+}
+.cuti-alt-details-summary::-webkit-details-marker {
+display: none;
+}
+.cuti-alt-details[open] .cuti-alt-details-chevron {
+transform: rotate(180deg);
+}
