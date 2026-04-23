@@ -667,7 +667,7 @@ rgb(var(--color-surface-container-low)) 80%
 }
 @media (hover: hover) {
 .cuti-trip-card:hover .cuti-trip-card__media {
-opacity: 0.82;
+opacity: 0.9;
 }
 }
 @media (prefers-reduced-motion: reduce) {
