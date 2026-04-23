@@ -44,11 +44,13 @@
               destination: "Macau Peninsula",
               description: "Perpaduan budaya Portugis dan China dengan kasino dan kuliner unik.",
               affiliateLink: "https://atid.me/go/hds2GL1x",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/macau.webp",
             },
             {
               destination: "Taipa",
               description: "Area santai dengan street food, heritage village, dan resort modern.",
               affiliateLink: "https://atid.me/go/hds2GL1x",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/taipa.webp",
             },
           ],
         },
@@ -61,11 +63,13 @@
               destination: "Melbourne",
               description: "Kota artsy dengan kafe, galeri, dan street culture yang kuat.",
               affiliateLink: "https://atid.me/go/t5tYj68F",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/melbourne.webp",
             },
             {
               destination: "Great Ocean Road",
               description: "Road trip ikonik dengan pemandangan laut dan tebing dramatis.",
               affiliateLink: "https://atid.me/go/t5tYj68F",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/great-ocean-road.webp",
             },
           ],
         },
@@ -85,11 +89,7 @@
               destination: "Kuching",
               description: "Kota santai di Sarawak dengan alam, budaya, dan kuliner lokal.",
               affiliateLink: "https://atid.me/go/xnY5dspH",
-            },
-            {
-              destination: "Bako National Park",
-              description: "Taman nasional dengan hutan, pantai, dan wildlife unik.",
-              affiliateLink: "https://atid.me/go/xnY5dspH",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/kuching.webp",
             },
           ],
         },
@@ -102,11 +102,7 @@
               destination: "Bangkok",
               description: "Surga street food, night market, dan pusat belanja.",
               affiliateLink: "https://atid.me/go/9LHhkWGE",
-            },
-            {
-              destination: "Ayutthaya",
-              description: "Wisata sejarah dekat Bangkok dengan candi dan reruntuhan klasik.",
-              affiliateLink: "https://atid.me/go/9LHhkWGE",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/bangkok.webp",
             },
           ],
         },
@@ -126,11 +122,13 @@
               destination: "Canggu",
               description: "Area populer dengan beach club, kafe, dan suasana santai.",
               affiliateLink: "https://atid.me/go/UneMsR9l",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/canggu.webp",
             },
             {
               destination: "Ubud",
               description: "Nuansa alam dan budaya dengan sawah, yoga, dan retreat.",
               affiliateLink: "https://atid.me/go/UneMsR9l",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/ubud.webp",
             },
           ],
         },
@@ -143,11 +141,7 @@
               destination: "Yogyakarta",
               description: "Kota budaya dengan kuliner khas dan suasana santai.",
               affiliateLink: "https://atid.me/go/ByyxHvYd",
-            },
-            {
-              destination: "Borobudur",
-              description: "Candi ikonik dengan pengalaman sunrise yang populer.",
-              affiliateLink: "https://atid.me/go/ByyxHvYd",
+              cardImage: "https://assets.kapanlibur.com/assets/cards/yogyakarta.webp",
             },
           ],
         },
@@ -195,6 +189,22 @@
     if (/^https:\/\//i.test(t)) return t;
     if (/^http:\/\//i.test(t)) return t;
     return "";
+  }
+
+  function sanitizeCardImageUrl(url) {
+    if (url == null || typeof url !== "string") return "";
+    const t = url.trim();
+    if (!t) return "";
+    if (/^https:\/\//i.test(t)) return t;
+    if (/^assets\//i.test(t)) return t;
+    if (/^\.{0,2}\//.test(t)) return t;
+    return "";
+  }
+
+  function cssUrlFromImageUrl(url) {
+    return String(url).replace(/[()']/g, function (ch) {
+      return "%" + ch.charCodeAt(0).toString(16).toUpperCase();
+    });
   }
 
   function promoHrefForSpan(span) {
@@ -407,6 +417,7 @@
         destination: destination.name,
         description: "",
         affiliateLink: destination.affiliateLink,
+        cardImage: destination.cardImage || "",
       };
     }
     return h[randomIntFromRng(rng, h.length)];
@@ -1426,6 +1437,14 @@
           sanitizePromoHref(highlight.affiliateLink) ||
           sanitizePromoHref(destination.affiliateLink) ||
           DEFAULT_TRIP_AFFILIATE_HREF;
+        const cardImage = sanitizeCardImageUrl(
+          highlight.cardImage || destination.cardImage || ""
+        );
+        const imageLayer = cardImage
+          ? '<div class="cuti-trip-card__media" style="background-image:url(\'' +
+            escapeHtml(cssUrlFromImageUrl(cardImage)) +
+            '\')"></div><div class="cuti-trip-card__scrim"></div>'
+          : "";
         const tripHeadline = tripHeadlineFromPick(destination, highlight);
         const isPrimary = idx === 0;
         const borderClass = isPrimary
@@ -1436,9 +1455,9 @@
           ? '<p class="text-xs font-bold uppercase tracking-wide text-primary">Bingung mau kemana?</p>'
           : "";
         return (
-          '<div class="cuti-trip-card flex h-full flex-col rounded-xl ' +
+          '<div class="cuti-trip-card relative h-full overflow-hidden rounded-xl ' +
           borderClass +
-          " bg-surface-container-low/20 p-4 space-y-2" +
+          " bg-surface-container-low/20" +
           hiddenClass +
           '" data-trip-card="' +
           (isPrimary ? "primary" : "secondary") +
@@ -1447,6 +1466,8 @@
           '" data-trip-destination="' +
           escapeHtml(destination.name) +
           '">' +
+          imageLayer +
+          '<div class="cuti-trip-card__body relative z-10 flex h-full flex-col p-4 space-y-2">' +
           heading +
           '<p class="text-xs font-semibold text-on-surface-variant">' +
           escapeHtml(tier.label) +
@@ -1467,6 +1488,7 @@
           '">' +
           escapeHtml("Lihat opsi trip ke " + tripHeadline) +
           "</a>" +
+          "</div>" +
           "</div>" +
           "</div>"
         );

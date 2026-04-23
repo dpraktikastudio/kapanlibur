@@ -645,3 +645,33 @@ border: 2px solid rgb(var(--color-primary));
 .cuti-trip-card-secondary {
 border: 1px solid color-mix(in srgb, rgb(var(--color-outline-variant)) 65%, transparent);
 }
+.cuti-trip-card__media,
+.cuti-trip-card__scrim {
+position: absolute;
+inset: 0;
+pointer-events: none;
+}
+.cuti-trip-card__media {
+background-size: cover;
+background-position: center;
+opacity: 0.5;
+transition: opacity 220ms ease;
+}
+.cuti-trip-card__scrim {
+background: linear-gradient(
+270deg,
+color-mix(in srgb, rgb(var(--color-surface-container-low)) 10%, transparent),
+color-mix(in srgb, rgb(var(--color-surface-container-low)) 55%, transparent) 45%,
+rgb(var(--color-surface-container-low)) 80%
+);
+}
+@media (hover: hover) {
+.cuti-trip-card:hover .cuti-trip-card__media {
+opacity: 0.82;
+}
+}
+@media (prefers-reduced-motion: reduce) {
+.cuti-trip-card__media {
+transition: none;
+}
+}
