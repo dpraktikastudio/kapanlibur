@@ -1428,8 +1428,7 @@
       opt.span,
       tripCardPickSeed(opt, shareIndex)
     );
-    const cardItems = cardPicks
-      .map(function (pick, idx) {
+    const cardHtmlParts = cardPicks.map(function (pick, idx) {
         const tier = TRIP_CONFIG[pick.tier];
         const destination = pick.destination;
         const highlight = pick.highlight;
@@ -1450,7 +1449,6 @@
         const borderClass = isPrimary
           ? "cuti-trip-card-primary"
           : "cuti-trip-card-secondary";
-        const hiddenClass = isPrimary ? "" : " hidden";
         const heading = isPrimary
           ? '<p class="text-xs font-bold uppercase tracking-wide text-primary">Bingung mau kemana?</p>'
           : "";
@@ -1458,7 +1456,6 @@
           '<div class="cuti-trip-card relative h-full overflow-hidden rounded-xl ' +
           borderClass +
           " bg-surface-container-low/20" +
-          hiddenClass +
           '" data-trip-card="' +
           (isPrimary ? "primary" : "secondary") +
           '" data-trip-tier="' +
@@ -1492,8 +1489,12 @@
           "</div>" +
           "</div>"
         );
-      })
-      .join("");
+      });
+    const cardItems =
+      cardHtmlParts[0] +
+      '<div class="cuti-trip-secondary-group hidden space-y-3" aria-hidden="true">' +
+      cardHtmlParts.slice(1).join("") +
+      "</div>";
     const marketingBlock =
       '<div class="space-y-3 border-t border-outline-variant/30 pt-3">' +
       '<div class="cuti-trip-cards space-y-3" data-cuti-opt-index="' +
@@ -1554,10 +1555,11 @@
       '.cuti-trip-cards[data-cuti-opt-index="' + idx + '"]'
     );
     if (!wrapper) return;
+    const secondaryGroup = wrapper.querySelector(".cuti-trip-secondary-group");
+    if (!secondaryGroup) return;
     const expanded = wrapper.getAttribute("data-expanded") === "true";
     const next = !expanded;
     wrapper.setAttribute("data-expanded", next ? "true" : "false");
-    const cards = wrapper.querySelectorAll('[data-trip-card="secondary"]');
     const btn = document.querySelector(
       '.cuti-alt-cta[data-cuti-opt-index="' + idx + '"]'
     );
@@ -1569,9 +1571,12 @@
     }
 
     if (cutiPrefersReducedMotion()) {
-      for (let i = 0; i < cards.length; i++) {
-        if (next) cards[i].classList.remove("hidden");
-        else cards[i].classList.add("hidden");
+      if (next) {
+        secondaryGroup.classList.remove("hidden");
+        secondaryGroup.setAttribute("aria-hidden", "false");
+      } else {
+        secondaryGroup.classList.add("hidden");
+        secondaryGroup.setAttribute("aria-hidden", "true");
       }
       return;
     }
@@ -1584,40 +1589,33 @@
 
     function onCollapseEnd(e) {
       if (e.animationName !== "cutiResultsReveal") return;
-      const card = e.currentTarget;
-      card.classList.remove("cuti-trip-secondary-collapse");
-      card.classList.add("hidden");
-      card.removeEventListener("animationend", onCollapseEnd);
+      const el = e.currentTarget;
+      el.classList.remove("cuti-trip-secondary-collapse");
+      el.classList.add("hidden");
+      el.setAttribute("aria-hidden", "true");
+      el.removeEventListener("animationend", onCollapseEnd);
     }
 
     if (next) {
-      for (let i = 0; i < cards.length; i++) {
-        const card = cards[i];
-        card.classList.remove("cuti-trip-secondary-collapse");
-        card.classList.remove("cuti-trip-secondary-reveal");
-        card.removeEventListener("animationend", onCollapseEnd);
-        card.classList.remove("hidden");
-        card.classList.add("cuti-trip-secondary-preface");
-      }
+      secondaryGroup.classList.remove("cuti-trip-secondary-collapse");
+      secondaryGroup.classList.remove("cuti-trip-secondary-reveal");
+      secondaryGroup.removeEventListener("animationend", onCollapseEnd);
+      secondaryGroup.classList.remove("hidden");
+      secondaryGroup.setAttribute("aria-hidden", "false");
+      secondaryGroup.classList.add("cuti-trip-secondary-preface");
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
-          for (let j = 0; j < cards.length; j++) {
-            const card = cards[j];
-            card.classList.remove("cuti-trip-secondary-preface");
-            card.classList.add("cuti-trip-secondary-reveal");
-            card.addEventListener("animationend", onRevealEnd);
-          }
+          secondaryGroup.classList.remove("cuti-trip-secondary-preface");
+          secondaryGroup.classList.add("cuti-trip-secondary-reveal");
+          secondaryGroup.addEventListener("animationend", onRevealEnd);
         });
       });
     } else {
-      for (let i = 0; i < cards.length; i++) {
-        const card = cards[i];
-        card.classList.remove("cuti-trip-secondary-reveal");
-        card.classList.remove("cuti-trip-secondary-preface");
-        card.removeEventListener("animationend", onRevealEnd);
-        card.classList.add("cuti-trip-secondary-collapse");
-        card.addEventListener("animationend", onCollapseEnd);
-      }
+      secondaryGroup.classList.remove("cuti-trip-secondary-preface");
+      secondaryGroup.classList.remove("cuti-trip-secondary-reveal");
+      secondaryGroup.removeEventListener("animationend", onRevealEnd);
+      secondaryGroup.classList.add("cuti-trip-secondary-collapse");
+      secondaryGroup.addEventListener("animationend", onCollapseEnd);
     }
   }
 
