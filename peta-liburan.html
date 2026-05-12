@@ -168,11 +168,13 @@
             background: rgba(6, 161, 161, 0.15);
          }
          
-         /* Custom Markers */
+         /* Custom Markers - GPU accelerated */
          .custom-marker {
             display: flex;
             align-items: center;
             justify-content: center;
+            will-change: transform;
+            transform: translateZ(0);
          }
          
          .marker-dot {
@@ -182,6 +184,8 @@
             border: 2px solid white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.4);
             transition: all 0.2s;
+            will-change: transform, opacity;
+            transform: translateZ(0);
          }
          
          .marker-dot.active {
@@ -194,8 +198,17 @@
          }
          
          @keyframes pulse-marker {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.7; }
+            0%, 100% { transform: scale(1) translateZ(0); opacity: 1; }
+            50% { transform: scale(1.3) translateZ(0); opacity: 0.7; }
+         }
+         
+         /* Leaflet canvas optimization */
+         .leaflet-zoom-animated {
+            will-change: transform;
+         }
+         
+         .leaflet-marker-icon {
+            will-change: transform;
          }
          
          /* Province Detail Card */
@@ -822,17 +835,20 @@
          let activeFilter = 'long-weekend';
          let holidayData = null;
          let activeProvince = null;
+         let viewportUpdateTimeout = null;
+         const VIEWPORT_UPDATE_DELAY = 150; // ms to throttle updates
          
-         // Initialize map
+         // Initialize map with Canvas renderer for performance
          function initMap() {
-            // Create map centered on Indonesia
+            // Create map centered on Indonesia with Canvas renderer
             map = L.map('map', {
                center: [-2.5, 118],
                zoom: 5,
                zoomControl: false,
                attributionControl: false,
                minZoom: 4,
-               maxZoom: 10
+               maxZoom: 10,
+               preferCanvas: true // Use Canvas renderer instead of SVG
             });
             
             // Dark theme tile layer
@@ -842,52 +858,55 @@
                maxZoom: 19
             }).addTo(map);
             
-            // Load GeoJSON boundaries
-            loadProvinceBoundaries();
-            
-            // Add markers
+            // Add markers only (boundaries loaded on demand)
             addProvinceMarkers();
             
             // Setup controls
             setupMapControls();
          }
          
-         // Load all province boundaries from individual .geojson files
-         function loadProvinceBoundaries() {
-            const provinces = Object.keys(provinceData);
-            const loadPromises = provinces.map(name => {
-               const fileName = provinceFileMap[name];
-               if (!fileName) return Promise.resolve(null);
-               
-               return fetch(`/json/geojson/provinces/${fileName}.geojson`)
-                  .then(r => r.ok ? r.json() : null)
-                  .then(geojson => {
-                     if (!geojson) return null;
-                     // Add name property if not present
-                     if (!geojson.properties) geojson.properties = {};
-                     geojson.properties.name = name;
-                     return geojson;
-                  })
-                  .catch(() => null);
-            });
+         // Province detail layers (loaded on demand only when selected)
+         let provinceDetailLayers = {};
+         let activeDetailLayer = null;
+         
+         // Load detailed province boundary on demand
+         function loadProvinceDetail(name) {
+            // Remove previous detail layer
+            if (activeDetailLayer) {
+               map.removeLayer(activeDetailLayer);
+               activeDetailLayer = null;
+            }
             
-            Promise.all(loadPromises).then(results => {
-               const features = results.filter(r => r !== null);
-               if (features.length === 0) {
-                  console.warn('No GeoJSON files loaded, using markers only');
-                  return;
-               }
-               
-               const collection = {
-                  type: "FeatureCollection",
-                  features: features
-               };
-               
-               provinceLayer = L.geoJSON(collection, {
-                  style: provinceStyle,
-                  onEachFeature: onEachProvince
-               }).addTo(map);
-            });
+            const fileName = provinceFileMap[name];
+            if (!fileName) return Promise.resolve();
+            
+            // Check cache
+            if (provinceDetailLayers[name]) {
+               activeDetailLayer = provinceDetailLayers[name];
+               activeDetailLayer.addTo(map);
+               return Promise.resolve();
+            }
+            
+            return fetch(`/json/geojson/provinces/${fileName}.geojson`)
+               .then(r => r.ok ? r.json() : null)
+               .then(geojson => {
+                  if (!geojson) return;
+                  
+                  const layer = L.geoJSON(geojson, {
+                     style: {
+                        fillColor: '#06a1a1',
+                        weight: 2,
+                        opacity: 1,
+                        color: '#06a1a1',
+                        fillOpacity: 0.2
+                     }
+                  });
+                  
+                  provinceDetailLayers[name] = layer;
+                  activeDetailLayer = layer;
+                  layer.addTo(map);
+               })
+               .catch(() => {});
          }
          
          // Province style based on filter
@@ -941,24 +960,72 @@
             }
          }
          
-         // Add markers for each province
+         // Marker layer group for viewport management
+         let markerLayerGroup = L.layerGroup();
+         let visibleMarkers = new Map();
+         
+         // Add markers for each province (viewport-based)
          function addProvinceMarkers() {
+            markerLayerGroup.addTo(map);
+            
+            // Initial render of visible markers
+            updateVisibleMarkers();
+            
+            // Update on map move (throttled for performance)
+            map.on('move zoom', () => {
+               if (viewportUpdateTimeout) {
+                  clearTimeout(viewportUpdateTimeout);
+               }
+               viewportUpdateTimeout = setTimeout(() => {
+                  updateVisibleMarkers();
+               }, VIEWPORT_UPDATE_DELAY);
+            });
+            
+            // Final update on move end + check for detail loading
+            map.on('moveend zoomend', () => {
+               if (viewportUpdateTimeout) {
+                  clearTimeout(viewportUpdateTimeout);
+               }
+               updateVisibleMarkers();
+               checkZoomForDetail();
+            });
+         }
+         
+         // Only render markers in current viewport
+         function updateVisibleMarkers() {
+            const bounds = map.getBounds();
+            const zoom = map.getZoom();
+            
             Object.entries(provinceData).forEach(([name, data]) => {
-               const isActive = isProvinceActive(data);
+               const isInViewport = bounds.contains(data.coords);
+               const existingMarker = visibleMarkers.get(name);
                
-               const icon = L.divIcon({
-                  className: 'custom-marker',
-                  html: `<div class="marker-dot ${isActive ? 'active' : 'inactive'}"></div>`,
-                  iconSize: [16, 16],
-                  iconAnchor: [8, 8]
-               });
-               
-               const marker = L.marker(data.coords, { icon })
-                  .addTo(map)
-                  .bindPopup(createPopupContent(name, data));
-               
-               marker.on('click', () => selectProvince(name, data));
-               markers[name] = marker;
+               if (isInViewport && !existingMarker) {
+                  // Add marker if in viewport and not already rendered
+                  const isActive = isProvinceActive(data);
+                  
+                  const icon = L.divIcon({
+                     className: 'custom-marker',
+                     html: `<div class="marker-dot ${isActive ? 'active' : 'inactive'}"></div>`,
+                     iconSize: [16, 16],
+                     iconAnchor: [8, 8]
+                  });
+                  
+                  const marker = L.marker(data.coords, { 
+                     icon,
+                     renderer: L.canvas() // Force canvas rendering
+                  })
+                     .bindPopup(createPopupContent(name, data));
+                  
+                  marker.on('click', () => selectProvince(name, data));
+                  markerLayerGroup.addLayer(marker);
+                  visibleMarkers.set(name, marker);
+                  
+               } else if (!isInViewport && existingMarker) {
+                  // Remove marker if out of viewport
+                  markerLayerGroup.removeLayer(existingMarker);
+                  visibleMarkers.delete(name);
+               }
             });
          }
          
@@ -988,11 +1055,16 @@
                card.classList.toggle('active', card.dataset.province === name);
             });
             
-            // Fly to province
-            map.flyTo(data.coords, 7, { duration: 1.2 });
-            
-            // Show detail card
+            // Show detail card immediately
             showProvinceCard(name, data);
+            
+            // Fly to province, THEN load geojson (fast 2x)
+            map.flyTo(data.coords, 8, { duration: 0.6 });
+            
+            // Wait for flyTo to finish before loading heavy geojson
+            map.once('moveend', () => {
+               loadProvinceDetail(name);
+            });
          }
          
          // Show province detail card
@@ -1049,6 +1121,42 @@
             return months[new Date(dateStr).getMonth()];
          }
          
+         // Load detail boundaries when zoomed in
+         function checkZoomForDetail() {
+            const zoom = map.getZoom();
+            
+            // Only load details at high zoom
+            if (zoom >= 9) {
+               const bounds = map.getBounds();
+               
+               // Find provinces in viewport
+               Object.entries(provinceData).forEach(([name, data]) => {
+                  if (bounds.contains(data.coords)) {
+                     // Preload detail (silent, for cache)
+                     const fileName = provinceFileMap[name];
+                     if (fileName && !provinceDetailLayers[name]) {
+                        fetch(`/json/geojson/provinces/${fileName}.geojson`)
+                           .then(r => r.ok ? r.json() : null)
+                           .then(geojson => {
+                              if (!geojson) return;
+                              const layer = L.geoJSON(geojson, {
+                                 style: {
+                                    fillColor: '#06a1a1',
+                                    weight: 1,
+                                    opacity: 0.6,
+                                    color: '#06a1a1',
+                                    fillOpacity: 0.1
+                                 }
+                              });
+                              provinceDetailLayers[name] = layer;
+                           })
+                           .catch(() => {});
+                     }
+                  }
+               });
+            }
+         }
+         
          // Close province card
          function closeProvinceCard() {
             const card = document.getElementById('province-card');
@@ -1056,8 +1164,14 @@
             card.setAttribute('aria-hidden', 'true');
             activeProvince = null;
             
-            // Reset map view
-            map.flyTo([-2.5, 118], 5, { duration: 1 });
+            // Remove detail layer
+            if (activeDetailLayer) {
+               map.removeLayer(activeDetailLayer);
+               activeDetailLayer = null;
+            }
+            
+            // Reset map view (fast 2x)
+            map.flyTo([-2.5, 118], 5, { duration: 0.5 });
             
             // Remove region card highlights
             document.querySelectorAll('.region-card').forEach(card => {
@@ -1070,7 +1184,7 @@
             document.getElementById('map-zoom-in').addEventListener('click', () => map.zoomIn());
             document.getElementById('map-zoom-out').addEventListener('click', () => map.zoomOut());
             document.getElementById('map-reset').addEventListener('click', () => {
-               map.flyTo([-2.5, 118], 5, { duration: 1 });
+               map.flyTo([-2.5, 118], 5, { duration: 0.5 });
                closeProvinceCard();
             });
             document.getElementById('map-locate').addEventListener('click', () => {
@@ -1147,10 +1261,10 @@
             });
          }
          
-         // Apply filter to markers and layers
+         // Apply filter to visible markers
          function applyFilter(filter) {
-            // Update markers
-            Object.entries(markers).forEach(([name, marker]) => {
+            // Update visible markers
+            visibleMarkers.forEach((marker, name) => {
                const data = provinceData[name];
                const isActive = isProvinceActive(data);
                
