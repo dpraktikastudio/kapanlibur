@@ -825,6 +825,41 @@
                climate: "Varied by region",
                type: "culture",
                description: "Tribal highlands, ancient cultures, remote expeditions."
+            },
+            "Kepulauan Bangka Belitung": {
+               coords: [-2.7411, 106.4406],
+               destinations: ["Pangkal Pinang", "Belitung", "Lengkuas"],
+               climate: "Tropical island",
+               type: "beach",
+               description: "Granite boulder beaches, Dutch lighthouse, tin mining heritage."
+            },
+            "Papua Barat Daya": {
+               coords: [-1.0000, 131.0000],
+               destinations: ["Fakfak", "Kaimana"],
+               climate: "Coastal tropical",
+               type: "nature",
+               description: "Cenderawasih Bay access, remote beaches, traditional villages."
+            },
+            "Papua Pegunungan": {
+               coords: [-4.5000, 139.5000],
+               destinations: ["Jayawijaya", "Puncak Jaya"],
+               climate: "Highland cool",
+               type: "culture",
+               description: "Highest peaks in Oceania, tribal highlands, unique ecosystems."
+            },
+            "Papua Selatan": {
+               coords: [-7.0000, 139.0000],
+               destinations: ["Merauke", "Wasur"],
+               climate: "Savannah tropical",
+               type: "nature",
+               description: "Trans-Fly swamps, savannah landscapes, bird watching."
+            },
+            "Papua Tengah": {
+               coords: [-3.5000, 137.0000],
+               destinations: ["Nabire", "Teluk Cenderawasih"],
+               climate: "Coastal tropical",
+               type: "nature",
+               description: "Whale shark encounters, inland lakes, cultural diversity."
             }
          };
          
@@ -858,55 +893,104 @@
                maxZoom: 19
             }).addTo(map);
             
-            // Add markers only (boundaries loaded on demand)
+            // Add markers and preload all boundaries
             addProvinceMarkers();
+            preloadAllProvinceBoundaries();
             
             // Setup controls
             setupMapControls();
          }
          
-         // Province detail layers (loaded on demand only when selected)
-         let provinceDetailLayers = {};
-         let activeDetailLayer = null;
+         // All province boundaries (preloaded at start)
+         let allProvinceLayers = {};
+         let activeProvinceLayer = null;
+         let geojsonLoading = false;
          
-         // Load detailed province boundary on demand
-         function loadProvinceDetail(name) {
-            // Remove previous detail layer
-            if (activeDetailLayer) {
-               map.removeLayer(activeDetailLayer);
-               activeDetailLayer = null;
-            }
+         // Preload all province boundaries
+         function preloadAllProvinceBoundaries() {
+            const provinces = Object.keys(provinceData);
+            const total = provinces.length;
+            let loaded = 0;
             
-            const fileName = provinceFileMap[name];
-            if (!fileName) return Promise.resolve();
+            geojsonLoading = true;
             
-            // Check cache
-            if (provinceDetailLayers[name]) {
-               activeDetailLayer = provinceDetailLayers[name];
-               activeDetailLayer.addTo(map);
-               return Promise.resolve();
-            }
+            // Show loading indicator
+            const loadingEl = document.createElement('div');
+            loadingEl.id = 'geojson-loading';
+            loadingEl.className = 'fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[200] bg-surface-container-high text-on-surface px-4 py-2 rounded-full text-sm font-medium shadow-lg';
+            loadingEl.innerHTML = `<span class="material-symbols-outlined text-base animate-spin mr-2">progress_activity</span>Loading provinces... 0/${total}`;
+            document.body.appendChild(loadingEl);
             
-            return fetch(`/json/geojson/provinces/${fileName}.geojson`)
-               .then(r => r.ok ? r.json() : null)
-               .then(geojson => {
-                  if (!geojson) return;
-                  
-                  const layer = L.geoJSON(geojson, {
-                     style: {
-                        fillColor: '#06a1a1',
-                        weight: 2,
-                        opacity: 1,
-                        color: '#06a1a1',
-                        fillOpacity: 0.2
-                     }
+            const loadPromises = provinces.map(name => {
+               const fileName = provinceFileMap[name];
+               if (!fileName) return Promise.resolve();
+               
+               return fetch(`/json/geojson/provinces/${fileName}.geojson`)
+                  .then(r => r.ok ? r.json() : null)
+                  .then(geojson => {
+                     if (!geojson) return null;
+                     
+                     const layer = L.geoJSON(geojson, {
+                        style: {
+                           fillColor: '#1e293b',
+                           weight: 1,
+                           opacity: 0.6,
+                           color: '#334155',
+                           fillOpacity: 0.1
+                        }
+                     });
+                     
+                     allProvinceLayers[name] = layer;
+                     
+                     loaded++;
+                     loadingEl.innerHTML = `<span class="material-symbols-outlined text-base animate-spin mr-2">progress_activity</span>Loading provinces... ${loaded}/${total}`;
+                     
+                     return layer;
+                  })
+                  .catch(() => null);
+            });
+            
+            Promise.all(loadPromises).then(() => {
+               geojsonLoading = false;
+               loadingEl.remove();
+               
+               // Only show boundaries at zoom 7+
+               const zoom = map.getZoom();
+               if (zoom >= 7) {
+                  Object.values(allProvinceLayers).forEach(layer => {
+                     layer.addTo(map);
                   });
-                  
-                  provinceDetailLayers[name] = layer;
-                  activeDetailLayer = layer;
-                  layer.addTo(map);
-               })
-               .catch(() => {});
+               }
+               
+               // Listen for zoom changes
+               map.on('zoomend', updateBoundaryVisibility);
+            });
+         }
+         
+         // Highlight province (now just restyle)
+         function highlightProvince(name) {
+            // Reset all to default
+            Object.entries(allProvinceLayers).forEach(([pName, layer]) => {
+               layer.setStyle({
+                  fillColor: '#1e293b',
+                  weight: 1,
+                  opacity: 0.6,
+                  color: '#334155',
+                  fillOpacity: 0.1
+               });
+            });
+            
+            // Highlight selected
+            if (allProvinceLayers[name]) {
+               allProvinceLayers[name].setStyle({
+                  fillColor: '#06a1a1',
+                  weight: 2,
+                  opacity: 1,
+                  color: '#06a1a1',
+                  fillOpacity: 0.3
+               });
+               allProvinceLayers[name].bringToFront();
+            }
          }
          
          // Province style based on filter
@@ -981,13 +1065,12 @@
                }, VIEWPORT_UPDATE_DELAY);
             });
             
-            // Final update on move end + check for detail loading
+            // Final update on move end
             map.on('moveend zoomend', () => {
                if (viewportUpdateTimeout) {
                   clearTimeout(viewportUpdateTimeout);
                }
                updateVisibleMarkers();
-               checkZoomForDetail();
             });
          }
          
@@ -1058,13 +1141,11 @@
             // Show detail card immediately
             showProvinceCard(name, data);
             
-            // Fly to province, THEN load geojson (fast 2x)
+            // Fly to province
             map.flyTo(data.coords, 8, { duration: 0.6 });
             
-            // Wait for flyTo to finish before loading heavy geojson
-            map.once('moveend', () => {
-               loadProvinceDetail(name);
-            });
+            // Highlight the province boundary (already loaded)
+            highlightProvince(name);
          }
          
          // Show province detail card
@@ -1121,42 +1202,6 @@
             return months[new Date(dateStr).getMonth()];
          }
          
-         // Load detail boundaries when zoomed in
-         function checkZoomForDetail() {
-            const zoom = map.getZoom();
-            
-            // Only load details at high zoom
-            if (zoom >= 9) {
-               const bounds = map.getBounds();
-               
-               // Find provinces in viewport
-               Object.entries(provinceData).forEach(([name, data]) => {
-                  if (bounds.contains(data.coords)) {
-                     // Preload detail (silent, for cache)
-                     const fileName = provinceFileMap[name];
-                     if (fileName && !provinceDetailLayers[name]) {
-                        fetch(`/json/geojson/provinces/${fileName}.geojson`)
-                           .then(r => r.ok ? r.json() : null)
-                           .then(geojson => {
-                              if (!geojson) return;
-                              const layer = L.geoJSON(geojson, {
-                                 style: {
-                                    fillColor: '#06a1a1',
-                                    weight: 1,
-                                    opacity: 0.6,
-                                    color: '#06a1a1',
-                                    fillOpacity: 0.1
-                                 }
-                              });
-                              provinceDetailLayers[name] = layer;
-                           })
-                           .catch(() => {});
-                     }
-                  }
-               });
-            }
-         }
-         
          // Close province card
          function closeProvinceCard() {
             const card = document.getElementById('province-card');
@@ -1164,11 +1209,16 @@
             card.setAttribute('aria-hidden', 'true');
             activeProvince = null;
             
-            // Remove detail layer
-            if (activeDetailLayer) {
-               map.removeLayer(activeDetailLayer);
-               activeDetailLayer = null;
-            }
+            // Reset all province styles to default
+            Object.values(allProvinceLayers).forEach(layer => {
+               layer.setStyle({
+                  fillColor: '#1e293b',
+                  weight: 1,
+                  opacity: 0.6,
+                  color: '#334155',
+                  fillOpacity: 0.1
+               });
+            });
             
             // Reset map view (fast 2x)
             map.flyTo([-2.5, 118], 5, { duration: 0.5 });
