@@ -1,0 +1,8 @@
+{
+  "type": "Feature",
+  "properties": { "name": "DKI Jakarta", "id": "ID-JK" },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[[106.7, -6.0], [107.0, -6.0], [107.0, -6.4], [106.7, -6.4], [106.7, -6.0]]]
+  }
+}

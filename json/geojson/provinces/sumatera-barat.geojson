@@ -1,0 +1,8 @@
+{
+  "type": "Feature",
+  "properties": { "name": "Sumatera Barat", "id": "ID-SB" },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[[99.5, 0.0], [101.0, 0.0], [101.5, -1.0], [101.0, -2.0], [100.5, -2.5], [99.5, -2.0], [99.0, -1.0], [99.0, 0.0], [99.5, 0.0]]]
+  }
+}

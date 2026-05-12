@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="id">
+   <head>
+      <meta charset="utf-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <script>
+         (function () {
+           try {
+             var t = localStorage.getItem("kapanlibur-theme");
+             if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+           } catch (e) {}
+         })();
+      </script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-6SNHQ0XXL5"></script>
+      <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         gtag('config', 'G-6SNHQ0XXL5');
+      </script>
+      <meta id="theme-color-meta" name="theme-color" content="#00685f"/>
+      <title>Peta Liburan Indonesia — Explore Destinations | Kapan Libur</title>
+      <meta name="description" content="Jelajahi destinasi wisata di seluruh Indonesia. Temukan libur panjang, cuaca optimal, dan rekomendasi perjalanan berdasarkan kalender 2026." />
+      <meta name="keywords" content="peta wisata indonesia, destinasi liburan, peta interaktif, provinsi wisata, libur panjang 2026" />
+      <meta name="robots" content="index, follow" />
+      <meta name="author" content="Kapan Libur" />
+      <link rel="canonical" href="https://kapanlibur.com/peta-liburan.html" />
+      <meta property="og:title" content="Peta Liburan Indonesia — Explore Destinations | Kapan Libur" />
+      <meta property="og:description" content="Jelajahi destinasi wisata di seluruh Indonesia. Temukan libur panjang, cuaca optimal, dan rekomendasi perjalanan." />
+      <meta property="og:image" content="https://assets.kapanlibur.com/assets/ogimage.webp" />
+      <meta property="og:image:width" content="1440" />
+      <meta property="og:image:height" content="1080" />
+      <meta property="og:url" content="https://kapanlibur.com/peta-liburan.html" />
+      <meta property="og:type" content="website" />
+      <meta property="og:locale" content="id_ID" />
+      <meta property="og:site_name" content="Kapan Libur" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Peta Liburan Indonesia — Explore Destinations | Kapan Libur" />
+      <meta name="twitter:description" content="Jelajahi destinasi wisata di seluruh Indonesia. Temukan libur panjang, cuaca optimal, dan rekomendasi perjalanan." />
+      <meta name="twitter:image" content="https://assets.kapanlibur.com/assets/ogimage.webp" />
+      <link rel="manifest" href="/manifest.json" />
+      <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+      <link rel="icon" href="/assets/favicon-32x32.png" type="image/png" sizes="32x32" />
+      <link rel="icon" href="/assets/favicon-16x16.png" type="image/png" sizes="16x16" />
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+      <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+      
+      <!-- Leaflet CSS -->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+      
+      <link rel="stylesheet" href="/assets/tailwind.css" />
+      <link rel="stylesheet" href="/assets/site-chrome.css" />
+      
+      <style>
+         /* Map Container */
+         #map-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+         }
+         
+         #map {
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+         }
+         
+         /* Leaflet Dark Theme Overrides */
+         .leaflet-container {
+            background: #0f172a;
+         }
+         
+         .leaflet-popup-content-wrapper {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(6, 161, 161, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            backdrop-filter: blur(12px);
+         }
+         
+         .leaflet-popup-tip {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(6, 161, 161, 0.3);
+         }
+         
+         .leaflet-popup-content {
+            margin: 12px 16px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+         }
+         
+         /* Opportunity Sidebar */
+         .opportunity-sidebar {
+            position: fixed;
+            left: 1rem;
+            top: 5rem;
+            width: 340px;
+            max-height: calc(100vh - 6rem);
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(6, 161, 161, 0.5) transparent;
+         }
+         
+         .opportunity-sidebar::-webkit-scrollbar {
+            width: 6px;
+         }
+         
+         .opportunity-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(6, 161, 161, 0.5);
+            border-radius: 3px;
+         }
+         
+         /* Filter Buttons */
+         .filter-btn {
+            display: block;
+            width: 100%;
+            padding: 0.625rem 1rem;
+            text-align: left;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #94a3b8;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            transition: all 0.2s;
+            cursor: pointer;
+         }
+         
+         .filter-btn:hover {
+            background: rgba(30, 41, 59, 0.8);
+            color: #e2e8f0;
+         }
+         
+         .filter-btn.active {
+            background: rgba(6, 161, 161, 0.2);
+            border-color: #06a1a1;
+            color: #06a1a1;
+         }
+         
+         /* Region Cards */
+         .region-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 14px;
+            padding: 1rem;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+         }
+         
+         .region-card:hover {
+            border-color: #06a1a1;
+            background: rgba(30, 41, 59, 0.8);
+         }
+         
+         .region-card.active {
+            border-color: #06a1a1;
+            background: rgba(6, 161, 161, 0.15);
+         }
+         
+         /* Custom Markers */
+         .custom-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+         }
+         
+         .marker-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            transition: all 0.2s;
+         }
+         
+         .marker-dot.active {
+            background: #06a1a1;
+            animation: pulse-marker 2s infinite;
+         }
+         
+         .marker-dot.inactive {
+            background: #64748b;
+         }
+         
+         @keyframes pulse-marker {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+         }
+         
+         /* Province Detail Card */
+         .province-detail-card {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 400px;
+            max-height: calc(100vh - 8rem);
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            display: none;
+         }
+         
+         .province-detail-card.visible {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+         }
+         
+         @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+         }
+         
+         /* Map Controls */
+         .map-controls {
+            position: fixed;
+            top: 5rem;
+            right: 1rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+         }
+         
+         .map-control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+         }
+         
+         .map-control-btn:hover {
+            background: rgba(6, 161, 161, 0.2);
+            border-color: #06a1a1;
+         }
+         
+         /* Progress Bar */
+         .holiday-progress {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+         }
+         
+         .holiday-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #06a1a1, #34d399);
+            border-radius: 2px;
+            transition: width 0.5s ease;
+         }
+         
+         /* Legend */
+         .map-legend {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 1.5rem;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+         }
+         
+         .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+         }
+         
+         .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+         }
+         
+         .legend-dot.high { background: #06a1a1; }
+         .legend-dot.medium { background: #64748b; }
+         .legend-dot.low { background: #475569; }
+         
+         /* Responsive */
+         @media (max-width: 768px) {
+            .opportunity-sidebar {
+               width: calc(100% - 2rem);
+               max-height: 45vh;
+               top: auto;
+               bottom: 5rem;
+            }
+            
+            .province-detail-card {
+               width: calc(100% - 2rem);
+               left: 1rem;
+               right: 1rem;
+            }
+            
+            .map-legend {
+               display: none;
+            }
+         }
+         
+         /* Weather Icons */
+         .weather-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+         }
+      </style>
+   </head>
+   <body class="bg-background text-on-surface font-body overflow-hidden">
+      <!-- Top Navigation Bar -->
+      <nav class="nav-shell fixed top-0 w-full z-[200] backdrop-blur-xl shadow-sm">
+         <div class="max-w-7xl mx-auto px-4 sm:px-8">
+            <div class="site-nav-bar">
+               <a href="/" class="site-brand hover:opacity-95" aria-label="Beranda Kapan Libur">
+                  <img class="h-10 w-10 sm:h-10 sm:w-10 object-contain shrink-0 block" src="/assets/variation-1-no-bg-logo-only.png" alt="" width="120" height="120" decoding="async"/>
+                  <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate max-w-[10.5rem] sm:max-w-none sm:whitespace-nowrap" style="color: #06a1a1;">KapanLibur.com</span>
+               </a>
+               <div class="site-nav-cluster">
+                  <nav id="site-nav-panel" class="site-nav h-screen sm:h-fit" aria-label="Navigasi utama">
+                     <a class="text-on-surface-variant hover:text-primary transition-colors" href="/">Beranda</a>
+                     <span class="site-nav-sep" aria-hidden="true">|</span>
+                     <a class="text-on-surface-variant hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
+                     <span class="site-nav-sep" aria-hidden="true">|</span>
+                     <a class="text-primary font-bold sm:border-b-2 sm:border-primary sm:pb-0.5" href="/peta-liburan.html">Peta Liburan</a>
+                     <span class="site-nav-sep" aria-hidden="true">|</span>
+                     <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
+                  </nav>
+                  <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
+                     <span class="material-symbols-outlined icon-sun text-xl leading-none" aria-hidden="true">light_mode</span>
+                     <span class="material-symbols-outlined icon-moon text-xl leading-none" aria-hidden="true">dark_mode</span>
+                  </button>
+                  <button type="button" class="site-nav-toggle sm:hidden" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Buka menu navigasi">
+                     <span class="material-symbols-outlined text-[1.1rem] leading-none" aria-hidden="true">menu</span>
+                  </button>
+               </div>
+               <div id="site-nav-backdrop" class="site-nav-backdrop h-screen" hidden aria-hidden="true"></div>
+            </div>
+         </div>
+      </nav>
+
+      <!-- Map Container -->
+      <div id="map-container">
+         <div id="map"></div>
+      </div>
+
+      <!-- Opportunity Sidebar -->
+      <aside class="opportunity-sidebar" aria-label="Opportunity Map Panel">
+         <div class="mb-6">
+            <h2 class="text-lg font-bold mb-1">Opportunity Map</h2>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+               Visualize your next escape across the Indonesian archipelago.
+            </p>
+         </div>
+
+         <div class="mb-6">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-primary mb-3">Active View</h3>
+            <div class="flex items-center gap-3 p-3 bg-surface-container-high/50 rounded-xl">
+               <span class="material-symbols-outlined text-primary">map</span>
+               <div>
+                  <p class="text-xs text-on-surface-variant uppercase tracking-wide">Active View</p>
+                  <p class="text-sm font-semibold">Interactive Archipelago</p>
+               </div>
+            </div>
+         </div>
+
+         <div class="mb-6">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-primary mb-3">Regional Filters</h3>
+            <div class="space-y-2">
+               <button class="filter-btn active" data-filter="long-weekend">
+                  <span class="flex items-center gap-2">
+                     <span class="material-symbols-outlined text-sm">calendar_month</span>
+                     Upcoming Long Weekends
+                  </span>
+               </button>
+               <button class="filter-btn" data-filter="weekend-escapes">
+                  <span class="flex items-center gap-2">
+                     <span class="material-symbols-outlined text-sm">weekend</span>
+                     Top Weekend Escapes
+                  </span>
+               </button>
+               <button class="filter-btn" data-filter="climate">
+                  <span class="flex items-center gap-2">
+                     <span class="material-symbols-outlined text-sm">partly_cloudy_day</span>
+                     Best Climate Status
+                  </span>
+               </button>
+            </div>
+         </div>
+
+         <div class="mb-6">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-primary mb-3">Weather Status</h3>
+            <div id="region-list" class="space-y-3">
+               <!-- Populated by JavaScript -->
+            </div>
+         </div>
+
+         <!-- Optimizer CTA -->
+         <div class="p-4 bg-primary-container rounded-xl border border-primary/20">
+            <div class="flex items-center gap-2 mb-2">
+               <span class="material-symbols-outlined text-primary text-lg">auto_awesome</span>
+               <h4 class="font-bold text-on-primary-container text-sm">Optimizer Active</h4>
+            </div>
+            <p class="text-xs text-on-primary-container/80 leading-relaxed mb-3">
+               Anda punya <span id="leave-days-count" class="font-bold text-primary">—</span> hari cuti tersisa. Kami menemukan <span id="optimal-trips-count" class="font-bold text-primary">—</span> perjalanan optimal.
+            </p>
+            <a href="/#cuti-optimizer-section" class="block text-center py-2.5 bg-primary text-on-primary rounded-lg font-semibold text-sm hover:opacity-95 transition-opacity">
+               Generate My Itineraries
+            </a>
+         </div>
+      </aside>
+
+      <!-- Map Controls -->
+      <div class="map-controls">
+         <button class="map-control-btn" id="map-zoom-in" aria-label="Zoom in">
+            <span class="material-symbols-outlined">add</span>
+         </button>
+         <button class="map-control-btn" id="map-zoom-out" aria-label="Zoom out">
+            <span class="material-symbols-outlined">remove</span>
+         </button>
+         <button class="map-control-btn" id="map-locate" aria-label="Locate me">
+            <span class="material-symbols-outlined">my_location</span>
+         </button>
+         <button class="map-control-btn" id="map-reset" aria-label="Reset view">
+            <span class="material-symbols-outlined">refresh</span>
+         </button>
+      </div>
+
+      <!-- Province Detail Card -->
+      <div id="province-card" class="province-detail-card" role="dialog" aria-labelledby="province-card-title" aria-hidden="true">
+         <div class="relative">
+            <!-- Close Button -->
+            <button id="close-province-card" class="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high/80 text-on-surface hover:bg-surface-container-high transition-colors">
+               <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+            
+            <!-- Image Header -->
+            <div id="province-image" class="h-32 bg-gradient-to-br from-primary/30 to-surface-container-high relative">
+               <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+               <div class="absolute bottom-3 left-4 right-4">
+                  <div class="flex items-center gap-2 text-primary text-xs font-semibold uppercase tracking-wide mb-1">
+                     <span class="material-symbols-outlined text-sm">star</span>
+                     <span>Architect's Pick</span>
+                  </div>
+               </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-4">
+               <h3 id="province-card-title" class="text-xl font-bold mb-3">—</h3>
+               
+               <!-- Next Holiday Progress -->
+               <div class="mb-4">
+                  <div class="flex justify-between items-center mb-2">
+                     <span class="text-xs text-on-surface-variant uppercase tracking-wide">Next Holiday</span>
+                     <span id="province-next-holiday-date" class="text-xs font-semibold text-primary">—</span>
+                  </div>
+                  <div class="holiday-progress mb-2">
+                     <div id="holiday-progress-bar" class="holiday-progress-bar" style="width: 0%"></div>
+                  </div>
+                  <div class="flex justify-between text-xs text-on-surface-variant">
+                     <span id="days-until-holiday">—</span>
+                     <span id="holiday-total-days">—</span>
+                  </div>
+               </div>
+               
+               <!-- Description -->
+               <p id="province-description" class="text-sm text-on-surface-variant leading-relaxed mb-4">
+                  —
+               </p>
+               
+               <!-- Top Destinations -->
+               <div class="mb-4">
+                  <h4 class="text-xs font-bold uppercase tracking-wide text-on-surface-variant mb-2">Top Destinations</h4>
+                  <div id="province-destinations" class="flex flex-wrap gap-2">
+                     <!-- Populated by JS -->
+                  </div>
+               </div>
+               
+               <!-- Action Buttons -->
+               <div class="flex gap-3">
+                  <button id="province-details-btn" class="flex-1 py-2.5 px-4 rounded-xl bg-surface-container-high text-on-surface font-semibold text-sm hover:bg-surface-container transition-colors">
+                     Details
+                  </button>
+                  <a id="province-plan-btn" href="/#cuti-optimizer-section" class="flex-1 py-2.5 px-4 rounded-xl bg-primary text-on-primary font-semibold text-sm text-center hover:opacity-95 transition-opacity">
+                     Plan Trip
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="map-legend">
+         <div class="legend-item">
+            <div class="legend-dot high"></div>
+            <span>High Opportunity</span>
+         </div>
+         <div class="legend-item">
+            <div class="legend-dot medium"></div>
+            <span>Limited Availability</span>
+         </div>
+         <div class="legend-item">
+            <div class="legend-dot low"></div>
+            <span>Off Season</span>
+         </div>
+      </div>
+
+      <!-- Leaflet JS -->
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+      
+      <!-- Scripts -->
+      <script src="/assets/site-theme.js"></script>
+      <script src="/assets/site-nav.js"></script>
+      
+      <script>
+      (function() {
+         "use strict";
+         
+         // Map province names to GeoJSON filenames
+         const provinceFileMap = {
+            "Aceh": "Aceh",
+            "Sumatera Utara": "Sumatera_Utara",
+            "Sumatera Barat": "Sumatera_Barat",
+            "Riau": "Riau",
+            "Kepulauan Riau": "Kepulauan_Riau",
+            "Jambi": "Jambi",
+            "Sumatera Selatan": "Sumatera_Selatan",
+            "Bengkulu": "Bengkulu",
+            "Lampung": "Lampung",
+            "DKI Jakarta": "DKI_Jakarta",
+            "Jawa Barat": "Jawa_Barat",
+            "Jawa Tengah": "Jawa_Tengah",
+            "DI Yogyakarta": "Daerah_Istimewa_Yogyakarta",
+            "Jawa Timur": "Jawa_Timur",
+            "Banten": "Banten",
+            "Bali": "Bali",
+            "Nusa Tenggara Barat": "Nusa_Tenggara_Barat",
+            "Nusa Tenggara Timur": "Nusa_Tenggara_Timur",
+            "Kalimantan Barat": "Kalimantan_Barat",
+            "Kalimantan Tengah": "Kalimantan_Tengah",
+            "Kalimantan Selatan": "Kalimantan_Selatan",
+            "Kalimantan Timur": "Kalimantan_Timur",
+            "Kalimantan Utara": "Kalimantan_Utara",
+            "Sulawesi Utara": "Sulawesi_Utara",
+            "Sulawesi Tengah": "Sulawesi_Tengah",
+            "Sulawesi Selatan": "Sulawesi_Selatan",
+            "Sulawesi Tenggara": "Sulawesi_Tenggara",
+            "Gorontalo": "Gorontalo",
+            "Sulawesi Barat": "Sulawesi_Barat",
+            "Maluku": "Maluku",
+            "Maluku Utara": "Maluku_Utara",
+            "Papua Barat": "Papua_Barat",
+            "Papua": "Papua"
+         };
+         
+         // Province data with destinations, climate info, and coordinates
+         const provinceData = {
+            "Aceh": {
+               coords: [4.6951, 96.7494],
+               destinations: ["Banda Aceh", "Pulau Weh", "Lhokseumawe"],
+               climate: "Dry season optimal: Nov–Feb",
+               type: "culture",
+               description: "Rich Islamic heritage, tsunami memorial sites, and pristine diving at Pulau Weh."
+            },
+            "Sumatera Utara": {
+               coords: [2.1154, 99.5451],
+               destinations: ["Danau Toba", "Medan", "Berastagi"],
+               climate: "Highland climate year-round",
+               type: "nature",
+               description: "The world's largest volcanic lake, Batak culture, and cool highland retreats."
+            },
+            "Sumatera Barat": {
+               coords: [-0.7399, 100.8005],
+               destinations: ["Padang", "Bukittinggi", "Mentawai"],
+               climate: "Tropical, best Mar–Oct",
+               type: "beach",
+               description: "World-class surfing in Mentawai, Minangkabau culture, and mountain valleys."
+            },
+            "Riau": {
+               coords: [0.5071, 101.4478],
+               destinations: ["Batam", "Bintan", "Pekanbaru"],
+               climate: "Tropical, occasional haze",
+               type: "beach",
+               description: "Easy getaway from Singapore, golf resorts, and duty-free shopping."
+            },
+            "Kepulauan Riau": {
+               coords: [3.9457, 108.1429],
+               destinations: ["Batam", "Bintan", "Anambas"],
+               climate: "Island tropical climate",
+               type: "beach",
+               description: "Hidden gem islands, luxury resorts, and world-class golf courses."
+            },
+            "Jambi": {
+               coords: [-1.4852, 102.4386],
+               destinations: ["Jambi City", "Kerinci Volcano"],
+               climate: "Humid tropical",
+               type: "nature",
+               description: "Gateway to Kerinci Seblat National Park, ancient temple sites."
+            },
+            "Sumatera Selatan": {
+               coords: [-3.3194, 103.9144],
+               destinations: ["Palembang", "Pulau Kemaro", "Lahat"],
+               climate: "Tropical monsoon",
+               type: "culture",
+               description: "Historic trading port, Ampera Bridge, unique pempek cuisine."
+            },
+            "Bengkulu": {
+               coords: [-3.7928, 102.2608],
+               destinations: ["Bengkulu City", "Pantai Panjang"],
+               climate: "Coastal tropical",
+               type: "beach",
+               description: "Longest beach in Indonesia, colonial heritage, turtle conservation."
+            },
+            "Lampung": {
+               coords: [-4.5586, 105.4068],
+               destinations: ["Way Kambas", "Krakatau", "Pahawang"],
+               climate: "Best May–Sep",
+               type: "nature",
+               description: "Elephant conservation, Krakatau volcano tours, pristine islands."
+            },
+            "DKI Jakarta": {
+               coords: [-6.2088, 106.8456],
+               destinations: ["Kota Tua", "Monas", "Ancol"],
+               climate: "Urban tropical",
+               type: "city",
+               description: "Colonial old town, national monuments, diverse culinary scene."
+            },
+            "Jawa Barat": {
+               coords: [-7.0909, 107.6689],
+               destinations: ["Bandung", "Lembang", "Pangandaran"],
+               climate: "Highland pleasant",
+               type: "nature",
+               description: "Cool mountain city, volcanic landscapes, tea plantations."
+            },
+            "Jawa Tengah": {
+               coords: [-7.1510, 110.1403],
+               destinations: ["Borobudur", "Prambanan", "Dieng"],
+               climate: "Tropical highland",
+               type: "culture",
+               description: "UNESCO temples, ancient Hindu heritage, mystical highland plateau."
+            },
+            "DI Yogyakarta": {
+               coords: [-7.7956, 110.3695],
+               destinations: ["Borobudur", "Malioboro", "Parangtritis"],
+               climate: "Cultural highland",
+               type: "culture",
+               description: "Indonesia's cultural heart, royal palaces, ancient wonders."
+            },
+            "Jawa Timur": {
+               coords: [-7.9423, 112.9530],
+               destinations: ["Bromo", "Ijen", "Surabaya"],
+               climate: "Varied by altitude",
+               type: "nature",
+               description: "Dramatic volcanic landscapes, blue fire crater, vibrant city life."
+            },
+            "Banten": {
+               coords: [-6.4058, 106.0640],
+               destinations: ["Anyer", "Ujung Kulon", "Baduy"],
+               climate: "Coastal tropical",
+               type: "nature",
+               description: "Endangered rhino sanctuary, Baduy tribal villages, beach escapes."
+            },
+            "Bali": {
+               coords: [-8.4095, 115.1889],
+               destinations: ["Ubud", "Canggu", "Uluwatu", "Nusa Penida"],
+               climate: "Optimal: Apr–Oct",
+               type: "beach",
+               description: "Island of the Gods, world-class beaches, spiritual retreats, digital nomad hub."
+            },
+            "Nusa Tenggara Barat": {
+               coords: [-8.6529, 117.3616],
+               destinations: ["Senggigi", "Gili Islands", "Rinjani"],
+               climate: "Dry May–Oct",
+               type: "beach",
+               description: "Pristine Gilis, volcano trekking, unspoiled beaches."
+            },
+            "Nusa Tenggara Timur": {
+               coords: [-8.6574, 121.0794],
+               destinations: ["Labuan Bajo", "Komodo", "Sumba"],
+               climate: "Elite Visibility: Apr–Jun",
+               type: "nature",
+               description: "Dragon islands, world-class diving, wild savannah landscapes."
+            },
+            "Kalimantan Barat": {
+               coords: [-0.2788, 111.4753],
+               destinations: ["Pontianak", "Singkawang", "Kapuas"],
+               climate: "Equatorial",
+               type: "nature",
+               description: "Equatorial city, Chinese heritage, river adventures."
+            },
+            "Kalimantan Tengah": {
+               coords: [-1.6815, 113.3824],
+               destinations: ["Palangkaraya", "Sebangau"],
+               climate: "Wet year-round",
+               type: "nature",
+               description: "Peat swamp forests, orangutan rehabilitation, Dayak culture."
+            },
+            "Kalimantan Selatan": {
+               coords: [-3.0926, 115.2838],
+               destinations: ["Banjarmasin", "Loksado", "Derawan"],
+               climate: "Tropical, less rain Jun–Aug",
+               type: "nature",
+               description: "Floating markets, bamboo rafting, hidden island paradise."
+            },
+            "Kalimantan Timur": {
+               coords: [1.6406, 116.4194],
+               destinations: ["Balikpapan", "Samarinda", "Kutai"],
+               climate: "Coastal equatorial",
+               type: "city",
+               description: "Gateway to Borneo, wildlife sanctuaries, river cities."
+            },
+            "Kalimantan Utara": {
+               coords: [3.0731, 116.0414],
+               destinations: ["Tanjung Selor", "Tarakan", "Kayan"],
+               climate: "Remote equatorial",
+               type: "nature",
+               description: "Indonesia's youngest province, untouched frontiers."
+            },
+            "Sulawesi Utara": {
+               coords: [1.5931, 124.7745],
+               destinations: ["Manado", "Bunaken", "Tomohon"],
+               climate: "Best May–Sep",
+               type: "nature",
+               description: "World-class wall diving, volcanic highlands, unique Minahasa culture."
+            },
+            "Sulawesi Tengah": {
+               coords: [-1.4300, 121.4456],
+               destinations: ["Lore Lindu", "Togean", "Palu"],
+               climate: "Tropical",
+               type: "nature",
+               description: "Banggai archipelago, megalithic cultures, coral triangle."
+            },
+            "Sulawesi Selatan": {
+               coords: [-3.6688, 119.9741],
+               destinations: ["Makassar", "Tana Toraja", "Bira"],
+               climate: "Best Jun–Sep",
+               type: "culture",
+               description: "Elaborate funeral ceremonies, cliff graves, Phinisi boat building."
+            },
+            "Sulawesi Tenggara": {
+               coords: [-4.1449, 122.1746],
+               destinations: ["Wakatobi", "Kendari", "Bau-Bau"],
+               climate: "Diving optimal Apr–Nov",
+               type: "beach",
+               description: "UNESCO marine biosphere, pristine coral atolls."
+            },
+            "Gorontalo": {
+               coords: [0.6999, 122.4467],
+               destinations: ["Gorontalo City", "Olele"],
+               climate: "Year-round diving",
+               type: "beach",
+               description: "Hidden diving gem, whale shark encounters."
+            },
+            "Sulawesi Barat": {
+               coords: [-2.8444, 119.3910],
+               destinations: ["Mamuju", "Polewali"],
+               climate: "Remote tropical",
+               type: "nature",
+               description: "Off-the-beaten-path, pristine mangroves."
+            },
+            "Maluku": {
+               coords: [-3.2385, 130.1453],
+               destinations: ["Ambon", "Banda Neira", "Seram"],
+               climate: "Best Oct–Apr",
+               type: "nature",
+               description: "Spice islands history, world-class muck diving."
+            },
+            "Maluku Utara": {
+               coords: [1.5700, 127.8088],
+               destinations: ["Ternate", "Tidore", "Halmahera"],
+               climate: "Spice islands climate",
+               type: "nature",
+               description: "Historic spice sultanates, volcano diving, remote reefs."
+            },
+            "Papua Barat": {
+               coords: [-1.3361, 133.1747],
+               destinations: ["Raja Ampat", "Sorong"],
+               climate: "Diving optimal Oct–Apr",
+               type: "nature",
+               description: "World's richest marine biodiversity, epic underwater landscapes."
+            },
+            "Papua": {
+               coords: [-4.2699, 138.0804],
+               destinations: ["Jayapura", "Baliem Valley", "Asmat"],
+               climate: "Varied by region",
+               type: "culture",
+               description: "Tribal highlands, ancient cultures, remote expeditions."
+            }
+         };
+         
+         // State
+         let map;
+         let markers = {};
+         let provinceLayer;
+         let activeFilter = 'long-weekend';
+         let holidayData = null;
+         let activeProvince = null;
+         
+         // Initialize map
+         function initMap() {
+            // Create map centered on Indonesia
+            map = L.map('map', {
+               center: [-2.5, 118],
+               zoom: 5,
+               zoomControl: false,
+               attributionControl: false,
+               minZoom: 4,
+               maxZoom: 10
+            });
+            
+            // Dark theme tile layer
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+               attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+               subdomains: 'abcd',
+               maxZoom: 19
+            }).addTo(map);
+            
+            // Load GeoJSON boundaries
+            loadProvinceBoundaries();
+            
+            // Add markers
+            addProvinceMarkers();
+            
+            // Setup controls
+            setupMapControls();
+         }
+         
+         // Load all province boundaries from individual .geojson files
+         function loadProvinceBoundaries() {
+            const provinces = Object.keys(provinceData);
+            const loadPromises = provinces.map(name => {
+               const fileName = provinceFileMap[name];
+               if (!fileName) return Promise.resolve(null);
+               
+               return fetch(`/json/geojson/provinces/${fileName}.geojson`)
+                  .then(r => r.ok ? r.json() : null)
+                  .then(geojson => {
+                     if (!geojson) return null;
+                     // Add name property if not present
+                     if (!geojson.properties) geojson.properties = {};
+                     geojson.properties.name = name;
+                     return geojson;
+                  })
+                  .catch(() => null);
+            });
+            
+            Promise.all(loadPromises).then(results => {
+               const features = results.filter(r => r !== null);
+               if (features.length === 0) {
+                  console.warn('No GeoJSON files loaded, using markers only');
+                  return;
+               }
+               
+               const collection = {
+                  type: "FeatureCollection",
+                  features: features
+               };
+               
+               provinceLayer = L.geoJSON(collection, {
+                  style: provinceStyle,
+                  onEachFeature: onEachProvince
+               }).addTo(map);
+            });
+         }
+         
+         // Province style based on filter
+         function provinceStyle(feature) {
+            const name = feature.properties.name;
+            const data = provinceData[name];
+            const isActive = isProvinceActive(data);
+            
+            return {
+               fillColor: isActive ? '#06a1a1' : '#1e293b',
+               weight: 1,
+               opacity: 1,
+               color: isActive ? '#06a1a1' : '#334155',
+               fillOpacity: isActive ? 0.3 : 0.1
+            };
+         }
+         
+         // Check if province matches current filter
+         function isProvinceActive(data) {
+            if (!data) return false;
+            
+            switch(activeFilter) {
+               case 'long-weekend':
+                  return data.type === 'beach' || data.type === 'nature';
+               case 'weekend-escapes':
+                  return data.destinations.some(d => 
+                     ['Bali', 'Lombok', 'Bandung', 'Yogyakarta', 'Batam'].includes(d)
+                  );
+               case 'climate':
+                  return data.climate.includes('Optimal') || data.climate.includes('Best');
+               default:
+                  return true;
+            }
+         }
+         
+         // Handle each province feature
+         function onEachProvince(feature, layer) {
+            const name = feature.properties.name;
+            const data = provinceData[name];
+            
+            if (data) {
+               layer.on({
+                  click: () => selectProvince(name, data),
+                  mouseover: (e) => {
+                     e.target.setStyle({ fillOpacity: 0.5 });
+                  },
+                  mouseout: (e) => {
+                     e.target.setStyle({ fillOpacity: isProvinceActive(data) ? 0.3 : 0.1 });
+                  }
+               });
+            }
+         }
+         
+         // Add markers for each province
+         function addProvinceMarkers() {
+            Object.entries(provinceData).forEach(([name, data]) => {
+               const isActive = isProvinceActive(data);
+               
+               const icon = L.divIcon({
+                  className: 'custom-marker',
+                  html: `<div class="marker-dot ${isActive ? 'active' : 'inactive'}"></div>`,
+                  iconSize: [16, 16],
+                  iconAnchor: [8, 8]
+               });
+               
+               const marker = L.marker(data.coords, { icon })
+                  .addTo(map)
+                  .bindPopup(createPopupContent(name, data));
+               
+               marker.on('click', () => selectProvince(name, data));
+               markers[name] = marker;
+            });
+         }
+         
+         // Create popup content
+         function createPopupContent(name, data) {
+            const isOptimal = data.climate.includes('Optimal') || data.climate.includes('Best');
+            return `
+               <div class="font-sans">
+                  <h3 class="font-bold text-base mb-1">${name}</h3>
+                  <p class="text-xs text-gray-400 mb-2">${data.climate}</p>
+                  <div class="flex flex-wrap gap-1 mb-2">
+                     ${data.destinations.slice(0, 3).map(d => 
+                        `<span class="text-xs bg-surface-container-high px-2 py-0.5 rounded">${d}</span>`
+                     ).join('')}
+                  </div>
+                  ${isOptimal ? '<span class="text-xs text-primary font-semibold">★ High Opportunity</span>' : ''}
+               </div>
+            `;
+         }
+         
+         // Select province and show detail card
+         function selectProvince(name, data) {
+            activeProvince = name;
+            
+            // Highlight region card in sidebar
+            document.querySelectorAll('.region-card').forEach(card => {
+               card.classList.toggle('active', card.dataset.province === name);
+            });
+            
+            // Fly to province
+            map.flyTo(data.coords, 7, { duration: 1.2 });
+            
+            // Show detail card
+            showProvinceCard(name, data);
+         }
+         
+         // Show province detail card
+         function showProvinceCard(name, data) {
+            const card = document.getElementById('province-card');
+            
+            // Update content
+            document.getElementById('province-card-title').textContent = name;
+            document.getElementById('province-description').textContent = data.description;
+            
+            // Destinations tags
+            const destContainer = document.getElementById('province-destinations');
+            destContainer.innerHTML = data.destinations.map(d => 
+               `<span class="text-xs bg-surface-container-high text-on-surface px-2 py-1 rounded-lg">${d}</span>`
+            ).join('');
+            
+            // Next holiday info (if we have holiday data)
+            if (holidayData) {
+               updateHolidayInfo(name, data);
+            } else {
+               document.getElementById('province-next-holiday-date').textContent = '2026 data loading...';
+            }
+            
+            // Show card
+            card.classList.add('visible');
+            card.setAttribute('aria-hidden', 'false');
+         }
+         
+         // Update holiday info for province
+         function updateHolidayInfo(name, data) {
+            // Find next relevant holiday
+            const today = new Date().toISOString().split('T')[0];
+            const upcoming = holidayData?.data?.filter(h => 
+               h.date >= today && 
+               (h.type === 'Libur Nasional' || h.type === 'Cuti Bersama')
+            ).slice(0, 5);
+            
+            if (upcoming && upcoming.length > 0) {
+               const next = upcoming[0];
+               const daysUntil = Math.ceil((new Date(next.date) - new Date()) / (1000 * 60 * 60 * 24));
+               const progress = Math.max(0, Math.min(100, (30 - daysUntil) / 30 * 100));
+               
+               document.getElementById('province-next-holiday-date').textContent = 
+                  `${new Date(next.date).getDate()} ${getMonthName(next.date)} (${next.chain_holidays} Days)`;
+               document.getElementById('days-until-holiday').textContent = `${daysUntil} days until`;
+               document.getElementById('holiday-total-days').textContent = `${next.chain_holidays}-day break`;
+               document.getElementById('holiday-progress-bar').style.width = `${progress}%`;
+            }
+         }
+         
+         // Get month name
+         function getMonthName(dateStr) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
+            return months[new Date(dateStr).getMonth()];
+         }
+         
+         // Close province card
+         function closeProvinceCard() {
+            const card = document.getElementById('province-card');
+            card.classList.remove('visible');
+            card.setAttribute('aria-hidden', 'true');
+            activeProvince = null;
+            
+            // Reset map view
+            map.flyTo([-2.5, 118], 5, { duration: 1 });
+            
+            // Remove region card highlights
+            document.querySelectorAll('.region-card').forEach(card => {
+               card.classList.remove('active');
+            });
+         }
+         
+         // Setup map controls
+         function setupMapControls() {
+            document.getElementById('map-zoom-in').addEventListener('click', () => map.zoomIn());
+            document.getElementById('map-zoom-out').addEventListener('click', () => map.zoomOut());
+            document.getElementById('map-reset').addEventListener('click', () => {
+               map.flyTo([-2.5, 118], 5, { duration: 1 });
+               closeProvinceCard();
+            });
+            document.getElementById('map-locate').addEventListener('click', () => {
+               if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(pos => {
+                     map.flyTo([pos.coords.latitude, pos.coords.longitude], 8);
+                  });
+               }
+            });
+         }
+         
+         // Populate region list in sidebar
+         function populateRegionList() {
+            const container = document.getElementById('region-list');
+            const sorted = Object.entries(provinceData)
+               .sort((a, b) => {
+                  // Sort by priority: optimal climate first, then alphabetically
+                  const aOptimal = a[1].climate.includes('Optimal') || a[1].climate.includes('Best');
+                  const bOptimal = b[1].climate.includes('Optimal') || b[1].climate.includes('Best');
+                  if (aOptimal && !bOptimal) return -1;
+                  if (!aOptimal && bOptimal) return 1;
+                  return a[0].localeCompare(b[0]);
+               })
+               .slice(0, 6); // Show top 6
+            
+            container.innerHTML = sorted.map(([name, data]) => {
+               const isOptimal = data.climate.includes('Optimal') || data.climate.includes('Best');
+               const weatherIcon = getWeatherIcon(data.type);
+               
+               return `
+                  <div class="region-card" data-province="${name}">
+                     <div class="flex justify-between items-start mb-1">
+                        <h4 class="font-semibold text-sm">${name}</h4>
+                        <span class="material-symbols-outlined text-base ${isOptimal ? 'text-primary' : 'text-on-surface-variant'}">${weatherIcon}</span>
+                     </div>
+                     <p class="text-xs text-on-surface-variant leading-snug">${data.climate}</p>
+                     ${isOptimal ? '<span class="inline-block mt-1.5 text-[10px] text-primary font-semibold">★ Architect\'s Pick</span>' : ''}
+                  </div>
+               `;
+            }).join('');
+            
+            // Add click handlers
+            container.querySelectorAll('.region-card').forEach(card => {
+               card.addEventListener('click', () => {
+                  const name = card.dataset.province;
+                  selectProvince(name, provinceData[name]);
+               });
+            });
+         }
+         
+         // Get weather icon based on type
+         function getWeatherIcon(type) {
+            const icons = {
+               beach: 'sunny',
+               nature: 'forest',
+               culture: 'temple_hindu',
+               city: 'location_city'
+            };
+            return icons[type] || 'partly_cloudy_day';
+         }
+         
+         // Setup filter buttons
+         function setupFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+               btn.addEventListener('click', () => {
+                  // Update active state
+                  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                  btn.classList.add('active');
+                  
+                  // Apply filter
+                  activeFilter = btn.dataset.filter;
+                  applyFilter(activeFilter);
+               });
+            });
+         }
+         
+         // Apply filter to markers and layers
+         function applyFilter(filter) {
+            // Update markers
+            Object.entries(markers).forEach(([name, marker]) => {
+               const data = provinceData[name];
+               const isActive = isProvinceActive(data);
+               
+               const icon = L.divIcon({
+                  className: 'custom-marker',
+                  html: `<div class="marker-dot ${isActive ? 'active' : 'inactive'}"></div>`,
+                  iconSize: [16, 16],
+                  iconAnchor: [8, 8]
+               });
+               
+               marker.setIcon(icon);
+            });
+            
+            // Update GeoJSON layer if exists
+            if (provinceLayer) {
+               provinceLayer.setStyle(provinceStyle);
+            }
+            
+            // Update region list
+            populateRegionList();
+         }
+         
+         // Fetch holiday data
+         function fetchHolidayData() {
+            fetch('/json/2026.json')
+               .then(r => r.json())
+               .then(data => {
+                  holidayData = data;
+                  
+                  // Update optimizer stats
+                  const today = new Date().toISOString().split('T')[0];
+                  const remaining = data.data?.filter(h => h.date >= today).length || 0;
+                  document.getElementById('leave-days-count').textContent = remaining;
+                  document.getElementById('optimal-trips-count').textContent = Math.floor(remaining / 2);
+                  
+                  // Update active province card if open
+                  if (activeProvince) {
+                     updateHolidayInfo(activeProvince, provinceData[activeProvince]);
+                  }
+               })
+               .catch(console.error);
+         }
+         
+         // Close button handler
+         document.getElementById('close-province-card').addEventListener('click', closeProvinceCard);
+         
+         // Initialize
+         initMap();
+         populateRegionList();
+         setupFilters();
+         fetchHolidayData();
+         
+         // Handle escape key
+         document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+               closeProvinceCard();
+            }
+         });
+         
+      })();
+      </script>
+   </body>
+</html>

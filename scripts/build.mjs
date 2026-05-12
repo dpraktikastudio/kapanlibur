@@ -77,6 +77,7 @@ const minifyOpts = {
 for (const page of [
   "index.html",
   "hari-libur-nasional-2026.html",
+  "peta-liburan.html",
   "about.html",
   "privacy-policy.html",
 ]) {
