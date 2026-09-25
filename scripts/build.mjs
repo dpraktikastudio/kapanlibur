@@ -91,7 +91,6 @@ for (const page of [
   "index.html",
   "hari-libur-nasional-2026.html",
   "hari-libur-nasional-2027.html",
-  "peta-liburan.html",
   "about.html",
   "privacy-policy.html",
 ]) {
