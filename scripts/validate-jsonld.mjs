@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const re = /<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g;
 
-for (const f of ["index.html", "hari-libur-nasional-2026.html"]) {
+for (const f of ["index.html", "hari-libur-nasional-2026.html", "hari-libur-nasional-2027.html"]) {
   const h = fs.readFileSync(path.join(root, f), "utf8");
   let m;
   let n = 0;

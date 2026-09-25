@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /peta-liburan.html
 
 Sitemap: https://kapanlibur.com/sitemap.xml

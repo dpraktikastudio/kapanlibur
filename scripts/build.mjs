@@ -35,21 +35,29 @@ const BUST_ASSETS = [
   "apple-touch-icon.png",
 ];
 
-function bustHtml(html, assetHashes, jsonHash) {
+const JSON_YEARS = ["2026", "2027"];
+
+function bustHtml(html, assetHashes, jsonHashes) {
   let out = html;
   for (const name of BUST_ASSETS) {
     const h = assetHashes[name];
     const base = `/assets/${name}`;
     out = out.split(base).join(`${base}?v=${h}`);
   }
-  const jsonPath = "/json/2026.json";
-  out = out.split(jsonPath).join(`${jsonPath}?v=${jsonHash}`);
+  for (const year of JSON_YEARS) {
+    const jsonPath = `/json/${year}.json`;
+    out = out.split(jsonPath).join(`${jsonPath}?v=${jsonHashes[year]}`);
+  }
   return out;
 }
 
-function patchSitePdfJs(js, jsonHash) {
-  const jsonPath = "/json/2026.json";
-  return js.split(jsonPath).join(`${jsonPath}?v=${jsonHash}`);
+function patchJsonPathsInJs(js, jsonHashes) {
+  let out = js;
+  for (const year of JSON_YEARS) {
+    const jsonPath = `/json/${year}.json`;
+    out = out.split(jsonPath).join(`${jsonPath}?v=${jsonHashes[year]}`);
+  }
+  return out;
 }
 
 fs.mkdirSync(dist, { recursive: true });
@@ -60,7 +68,12 @@ const assetHashes = Object.fromEntries(
     shortHash(path.join(root, "assets", name)),
   ]),
 );
-const jsonHash = shortHash(path.join(root, "json", "2026.json"));
+const jsonHashes = Object.fromEntries(
+  JSON_YEARS.map((year) => [
+    year,
+    shortHash(path.join(root, "json", `${year}.json`)),
+  ]),
+);
 
 for (const stale of ["icon.svg", "og-image.png"]) {
   const stalePath = path.join(dist, stale);
@@ -77,11 +90,13 @@ const minifyOpts = {
 for (const page of [
   "index.html",
   "hari-libur-nasional-2026.html",
+  "hari-libur-nasional-2027.html",
+  "peta-liburan.html",
   "about.html",
   "privacy-policy.html",
 ]) {
   const raw = fs.readFileSync(path.join(root, page), "utf8");
-  const busted = bustHtml(raw, assetHashes, jsonHash);
+  const busted = bustHtml(raw, assetHashes, jsonHashes);
   const out = await minify(busted, minifyOpts);
   fs.writeFileSync(path.join(dist, page), out);
 }
@@ -89,10 +104,10 @@ for (const page of [
 fs.cpSync(path.join(root, "assets"), path.join(dist, "assets"), { recursive: true });
 fs.cpSync(path.join(root, "json"), path.join(dist, "json"), { recursive: true });
 
-const pdfJsPath = path.join(dist, "assets", "site-pdf.js");
+const heroJsPath = path.join(dist, "assets", "site-home-hero.js");
 fs.writeFileSync(
-  pdfJsPath,
-  patchSitePdfJs(fs.readFileSync(pdfJsPath, "utf8"), jsonHash),
+  heroJsPath,
+  patchJsonPathsInJs(fs.readFileSync(heroJsPath, "utf8"), jsonHashes),
 );
 
 for (const f of [

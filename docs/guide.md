@@ -2,7 +2,7 @@
 
 Static site for Indonesian national holidays (“libur nasional”, “cuti bersama”, weekends in the dataset). **Interactive app** in [`index.html`](../index.html): sticky **next-holiday** promo strip, **`#home-top-split`** with **row 1** on large viewports: `lg:grid-cols-3` — cuti **`lg:col-span-2`**, **penawaran** **`lg:col-span-1`** (`<aside aria-label="Penawaran">` + **`#home-aside-promo`**, sticky on **`lg+`**), then **row 2**: full-width **status hari ini** (`<section aria-label="Status hari ini">` + **`#home-today-card-shell`** + **`#hero-content.hero-today-card`**: eyebrow, date, `h2`, detail body, optional **`#hero-next-ln-cb`** inset for next **Libur Nasional / Cuti Bersama** only, **Bagikan**); single-column order **cuti → promo → status** on small screens. Month-scoped **Libur mendatang** list (red date box for **libur panjang** rows), year calendar with a **fixed-position day popover** (`#cal-popover`; small in-tree positioner in [`assets/site-home-hero.js`](../assets/site-home-hero.js), no Popper). **Static reference** in [`hari-libur-nasional-2026.html`](../hari-libur-nasional-2026.html): tables and long-weekend copy. **Info:** [`about.html`](../about.html), [`privacy-policy.html`](../privacy-policy.html). **Data:** one JSON file per year ([`json/2026.json`](../json/2026.json)). No app framework; **Node** drives **Tailwind CSS** compilation, **`dist/`** build (HTML minify + cache busting), and JSON-LD validation.
 
-**PDF links:** [`assets/site-pdf.js`](../assets/site-pdf.js) (deferred) fetches `json/2026.json`, sets every `a[data-pdf-source]` `href` from top-level `source`, with a hardcoded Kemenko PDF URL as fallback when fetch fails or `source` is missing. On the home page it also reveals `#source-line` when run.
+**PDF links:** Nav and footer use **static** Kemenko PDF URLs per year (2026 / 2027). [`assets/site-pdf.js`](../assets/site-pdf.js) only reveals `#source-line` on the home page when present.
 
 Use this doc when changing UI, data shape, SEO, assets, or build output so edits stay consistent.
 
@@ -26,7 +26,7 @@ npx serve .
 
 Then open the printed URL. For production-like output, run `npm run build` and serve `dist/` the same way.
 
-**Quality gate:** `npm run validate:jsonld` parses every `application/ld+json` block in `index.html` and `hari-libur-nasional-2026.html` and fails if any block is invalid JSON or missing.
+**Quality gate:** `npm run validate:jsonld` parses every `application/ld+json` block in `index.html`, `hari-libur-nasional-2026.html`, and `hari-libur-nasional-2027.html` and fails if any block is invalid JSON or missing.
 
 ---
 
@@ -67,7 +67,7 @@ Utilities are **built ahead of time** and shipped as [`assets/tailwind.css`](../
 | [`assets/site-nav.js`](../assets/site-nav.js) | Below `640px`: hamburger opens a fixed drawer for `#site-nav-panel`; backdrop + Escape close. Desktop: inline nav bar. |
 | [`assets/site-theme.js`](../assets/site-theme.js) | On every page that includes `#theme-toggle`: sets `html[data-theme="light"|"dark"]`, persists **`localStorage` key `kapanlibur-theme`**, updates `#theme-color-meta`. If the key is absent, `data-theme` is omitted and **`prefers-color-scheme`** controls palette (see each page’s critical CSS + boot IIFE in `<head>`). |
 | [`assets/site-pdf.js`](../assets/site-pdf.js) | PDF `href` hydration from JSON `source` (+ fallback). |
-| `json/YYYY.json` | `{ "source"?: "<url>", "data": [ ... ] }` — app currently hardcodes **`json/2026.json`** in `fetch`. |
+| `json/YYYY.json` | `{ "source"?: "<url>", "data": [ ... ] }` — home fetches **2026 + 2027** and merges rows; annual calendar has **`#cal-year-select`** (default = device year clamped to available years). |
 | [`manifest.json`](../manifest.json) | PWA manifest: `theme_color`, icons under `/assets/kapanlibur-favicon-*.png`. |
 | [`og-image.html`](../og-image.html) | Optional **design template** for the social image (fixed 1200×630 layout). Export/screenshot should be saved as **`assets/OgImage.png`**; live URLs use the **exact** filename (case-sensitive on Linux). |
 | [`scripts/build.mjs`](../scripts/build.mjs) | **`npm run build`** runs **`build:css`** first, then this script: minified HTML to `dist/`, copies `assets/` (including generated **`tailwind.css`**), `json/`, and root SEO files. Injects **content hashes** `?v=` into listed assets (including **`tailwind.css`**, **`site-home-hero.js`**, **`site-cuti-optimizer.js`**, other CSS, and **`/json/2026.json`**) so long `Cache-Control` on `/assets/*` and `/json/*` does not strand stale clients after deploy. |
@@ -234,22 +234,20 @@ After load, `heroContext.selectedIndex` is reset to `null` so the first paint pi
 
 ## Fetch pipeline (home page)
 
-1. **`assets/site-pdf.js`** (deferred): `fetch("json/2026.json")` → apply `source` or fallback to all `a[data-pdf-source]`; unhide `#source-line` when appropriate.
-2. **`assets/site-home-hero.js`:** `fetch("json/2026.json")` → parse (second fetch of the same file; cache-friendly).
-3. `data` sorted by `date` string order.
-4. `byDate = Map(date → row)`.
-5. `year` from first row (labels + calendar).
-6. `heroContext`, `listContext`, `calContext` filled; `renderMainCard()`, `renderList()`, `renderCalendar()`.
-7. `initCalendarUIOnce()` runs once: calendar popover, calendar-wrap swipe, **resize listener** for calendar. List month nav + libur swipe are wired in **`initLiburMendatangControls()`**. A **`kapanlibur:holidays-loaded`** event (with `byDate` + `sortedData` in `detail`) is dispatched for **`site-cuti-optimizer.js`**.
+1. **`assets/site-home-hero.js`:** `Promise.all` fetch `json/2026.json` + `json/2027.json` → merge by `date` (partial failure OK if one year loads).
+2. `data` sorted by `date` string order; `byDate = Map(date → row)`.
+3. `heroContext`, `listContext` (`minYearMonth` / `maxYearMonth`), `calContext` (`year` from `#cal-year-select` default) filled; render hero, libur mendatang, calendar.
+4. `initCalendarUIOnce()` + **`kapanlibur:holidays-loaded`** for **`site-cuti-optimizer.js`**.
 
-Two `fetch` calls to the same JSON are intentional; responses are cacheable and small.
+Merged data powers hero, libur mendatang (month nav spans 2026–2027), cuti optimizer, and calendar (year select switches `calContext.year` only).
 
 ---
 
 ## Conventions for future changes
 
 - **Strings:** Indonesian UI; use `escapeHtml` when interpolating data into HTML strings.
-- **New calendar year:** Add `json/YYYY.json`, update **every** hardcoded `fetch("json/2026.json")` (and any copy that says “2026” if product requires it), and refresh static tables in `hari-libur-nasional-2026.html` / JSON-LD if that page stays year-specific.
+- **New calendar year:** Add `json/YYYY.json`, extend `JSON_YEARS` / `CALENDAR_YEARS` in `site-home-hero.js` and `scripts/build.mjs`, add `hari-libur-nasional-YYYY.html`, nav dropdown year link, and sitemap entry.
+- **Peta Liburan:** Hidden from nav; `/peta-liburan.html` 301 → `/` via `netlify.toml`; `robots.txt` Disallow.
 - **Badges:** Sabtu/Minggu **type** chips are omitted via `showTypeBadgeForRow` anywhere `renderBadgeSpans` runs (today body, list, calendar popover); other types still show chips.
 - **Accessibility:** Nav controls use `aria-label` / `aria-disabled`; popover uses `role="dialog"` and Escape to close.
 - **CSS:** Design tokens in `:root`; dark mode via `prefers-color-scheme: dark` in page `<style>` and shared rules in `non-critical.css`.

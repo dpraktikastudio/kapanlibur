@@ -19,11 +19,11 @@ Static site for Indonesian national holidays and collective leave (“cuti bersa
 | Command | Description |
 |--------|-------------|
 | `npm run build` | Minify HTML into `dist/`, copy `assets/`, `json/`, `manifest.json`, `robots.txt`, `sitemap.xml`, etc. |
-| `npm run validate:jsonld` | Validate JSON-LD blocks in `index.html` and `hari-libur-nasional-2026.html`. |
+| `npm run validate:jsonld` | Validate JSON-LD blocks in `index.html`, `hari-libur-nasional-2026.html`, and `hari-libur-nasional-2027.html`. |
 
 ## Running locally
 
-The app loads data with `fetch("json/2026.json")`. Opening `index.html` directly as `file://` usually fails; serve the project root over HTTP instead, for example:
+The home page loads `json/2026.json` and `json/2027.json` together. Opening `index.html` directly as `file://` usually fails; serve the project root over HTTP instead, for example:
 
 ```bash
 npx serve .
@@ -36,11 +36,11 @@ Then open the URL shown in the terminal.
 | Path | Role |
 |------|------|
 | `index.html` | Interactive UI (hero, monthly list, calendar, popover). |
-| `hari-libur-nasional-2026.html` | Static reference tables and copy. |
+| `hari-libur-nasional-2026.html`, `hari-libur-nasional-2027.html` | Static reference tables and copy per year. |
 | `about.html`, `privacy-policy.html` | About and privacy policy. |
 | `assets/non-critical.css` | Shared layout and component styles. |
-| `assets/site-nav.js` | Mobile drawer menu for the main site nav (hamburger + backdrop). |
-| `assets/site-pdf.js` | Sets official PDF links from JSON `source` on `a[data-pdf-source]`. |
-| `json/2026.json` | Source URL + per-day holiday rows. |
+| `assets/site-nav.js` | Mobile drawer + year dropdowns in nav (`<details class="site-nav-dd">`). |
+| `assets/site-pdf.js` | Reveals `#source-line` on home when present (nav/footer PDF links are static). |
+| `json/2026.json`, `json/2027.json` | Source URL + per-day holiday rows per year. |
 | `scripts/build.mjs` | Build pipeline. |
 | `docs/guide.md` | Detailed notes for contributors (UI, fetch pipeline, JSON fields). |

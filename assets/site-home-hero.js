@@ -15,10 +15,14 @@
     headlineTypingGen: 0,
   };
 
+  const CALENDAR_YEARS = [2026, 2027];
+  const JSON_YEARS = [2026, 2027];
+
   const listContext = {
     sortedData: null,
     byDate: null,
-    dataYear: null,
+    minYearMonth: null,
+    maxYearMonth: null,
     listYearMonth: null,
   };
 
@@ -45,6 +49,50 @@
     const m = String(n.getMonth() + 1).padStart(2, "0");
     const d = String(n.getDate()).padStart(2, "0");
     return y + "-" + m + "-" + d;
+  }
+
+  function clampCalendarYear(y) {
+    const min = CALENDAR_YEARS[0];
+    const max = CALENDAR_YEARS[CALENDAR_YEARS.length - 1];
+    if (y < min) return min;
+    if (y > max) return max;
+    return y;
+  }
+
+  function defaultCalendarYear() {
+    return clampCalendarYear(new Date().getFullYear());
+  }
+
+  function daftarUrlForYear(year) {
+    return "/hari-libur-nasional-" + year + ".html";
+  }
+
+  function addMonthsToYearMonth(ym, delta) {
+    const y = parseInt(ym.slice(0, 4), 10);
+    const m = parseInt(ym.slice(5, 7), 10) - 1 + delta;
+    const d = new Date(y, m, 1);
+    return (
+      d.getFullYear() +
+      "-" +
+      String(d.getMonth() + 1).padStart(2, "0")
+    );
+  }
+
+  function clampYearMonth(ym, minYm, maxYm) {
+    if (ym < minYm) return minYm;
+    if (ym > maxYm) return maxYm;
+    return ym;
+  }
+
+  function updateCalendarYearUI(year) {
+    const heading = document.getElementById("cal-year-heading");
+    const select = document.getElementById("cal-year-select");
+    if (heading) {
+      heading.textContent = "Kalender libur nasional " + year;
+    }
+    if (select && String(select.value) !== String(year)) {
+      select.value = String(year);
+    }
   }
 
   function parseISODate(iso) {
@@ -401,12 +449,12 @@
   }
 
   function liburMendatangMonthStep(delta) {
-    if (!listContext.listYearMonth) return;
-    let m = parseInt(listContext.listYearMonth.slice(5, 7), 10) - 1 + delta;
-    if (m < 0) m = 0;
-    if (m > 11) m = 11;
-    listContext.listYearMonth =
-      listContext.dataYear + "-" + String(m + 1).padStart(2, "0");
+    if (!listContext.listYearMonth || !listContext.minYearMonth) return;
+    listContext.listYearMonth = clampYearMonth(
+      addMonthsToYearMonth(listContext.listYearMonth, delta),
+      listContext.minYearMonth,
+      listContext.maxYearMonth
+    );
     renderLiburMendatangList();
   }
 
@@ -505,7 +553,11 @@
     const host = document.getElementById("libur-mendatang-swipe-host");
     const nav = document.getElementById("libur-mendatang-nav");
     if (state) state.classList.add("hidden");
-    if (err) err.classList.add("hidden");
+    if (err) {
+      err.classList.add("hidden");
+      err.setAttribute("hidden", "");
+      err.setAttribute("aria-hidden", "true");
+    }
     if (host) host.classList.remove("hidden");
     if (nav) nav.classList.remove("hidden");
   }
@@ -516,7 +568,11 @@
     const host = document.getElementById("libur-mendatang-swipe-host");
     const nav = document.getElementById("libur-mendatang-nav");
     if (state) state.classList.add("hidden");
-    if (err) err.classList.remove("hidden");
+    if (err) {
+      err.classList.remove("hidden");
+      err.removeAttribute("hidden");
+      err.setAttribute("aria-hidden", "false");
+    }
     if (host) host.classList.add("hidden");
     if (nav) nav.classList.add("hidden");
   }
@@ -548,17 +604,22 @@
     }
 
     const ym = listContext.listYearMonth;
+    const ymYear = parseInt(ym.slice(0, 4), 10);
     const mIdx = parseInt(ym.slice(5, 7), 10) - 1;
     if (labelEl) {
-      labelEl.textContent = MONTHS[mIdx] + " " + listContext.dataYear;
+      labelEl.textContent = MONTHS[mIdx] + " " + ymYear;
     }
+    const atMin =
+      listContext.minYearMonth && ym <= listContext.minYearMonth;
+    const atMax =
+      listContext.maxYearMonth && ym >= listContext.maxYearMonth;
     if (prev) {
-      prev.disabled = mIdx <= 0;
-      prev.setAttribute("aria-disabled", mIdx <= 0 ? "true" : "false");
+      prev.disabled = !!atMin;
+      prev.setAttribute("aria-disabled", atMin ? "true" : "false");
     }
     if (next) {
-      next.disabled = mIdx >= 11;
-      next.setAttribute("aria-disabled", mIdx >= 11 ? "true" : "false");
+      next.disabled = !!atMax;
+      next.setAttribute("aria-disabled", atMax ? "true" : "false");
     }
 
     const rows = sorted.filter(function (r) {
@@ -1485,6 +1546,22 @@
       });
     }
 
+    const yearSelect = document.getElementById("cal-year-select");
+    if (yearSelect) {
+      yearSelect.addEventListener("change", function () {
+        const y = parseInt(yearSelect.value, 10);
+        if (!y || calContext.byDate == null) return;
+        calContext.year = y;
+        const t = todayISO();
+        calContext.mobileMonth =
+          t.slice(0, 4) === String(y)
+            ? parseInt(t.slice(5, 7), 10) - 1
+            : 0;
+        updateCalendarYearUI(y);
+        renderHomeCalendar();
+      });
+    }
+
     attachCalendarWrapSwipeOnce();
 
     if (typeof window.matchMedia !== "undefined") {
@@ -1518,23 +1595,30 @@
 
     const t = todayISO();
     if (data.length) {
-      const year = parseInt(data[0].date.slice(0, 4), 10);
+      const minDate = data[0].date;
+      const maxDate = data[data.length - 1].date;
       listContext.sortedData = data;
       listContext.byDate = byDate;
-      listContext.dataYear = year;
-      listContext.listYearMonth =
-        t.slice(0, 4) === String(year) ? t.slice(0, 7) : year + "-01";
-      calContext.year = year;
+      listContext.minYearMonth = minDate.slice(0, 7);
+      listContext.maxYearMonth = maxDate.slice(0, 7);
+      listContext.listYearMonth = clampYearMonth(
+        t.slice(0, 7),
+        listContext.minYearMonth,
+        listContext.maxYearMonth
+      );
+      const calYear = defaultCalendarYear();
+      calContext.year = calYear;
       calContext.byDate = byDate;
       calContext.mobileMonth =
-        t.slice(0, 4) === String(year)
+        t.slice(0, 4) === String(calYear)
           ? parseInt(t.slice(5, 7), 10) - 1
           : 0;
     } else {
       listContext.sortedData = [];
       listContext.byDate = byDate;
-      const y = new Date().getFullYear();
-      listContext.dataYear = y;
+      const y = defaultCalendarYear();
+      listContext.minYearMonth = y + "-01";
+      listContext.maxYearMonth = y + "-12";
       listContext.listYearMonth = y + "-01";
       calContext.year = y;
       calContext.byDate = byDate;
@@ -1544,6 +1628,7 @@
     initLiburMendatangControls();
     renderLiburMendatangList();
     initCalendarUIOnce();
+    updateCalendarYearUI(calContext.year);
     renderHomeCalendar();
 
     document.dispatchEvent(
@@ -1573,9 +1658,44 @@
 
     const calEl = document.getElementById("calendar");
     if (calEl) {
+      const daftarUrl = daftarUrlForYear(defaultCalendarYear());
       calEl.innerHTML =
-        '<p class="text-on-surface-variant text-sm col-span-full">Tidak bisa memuat kalender. Muat ulang halaman atau buka <a class="text-primary font-semibold hover:underline" href="/hari-libur-nasional-2026.html">daftar lengkap</a>.</p>';
+        '<p class="text-on-surface-variant text-sm col-span-full">Tidak bisa memuat kalender. Muat ulang halaman atau buka <a class="text-primary font-semibold hover:underline" href="' +
+        daftarUrl +
+        '">daftar lengkap</a>.</p>';
     }
+  }
+
+  function fetchHolidayJson(year) {
+    return fetch("/json/" + year + ".json")
+      .then(function (r) {
+        if (!r.ok) {
+          throw new Error("Gagal memuat json/" + year + ".json (" + r.status + ")");
+        }
+        return r.json();
+      })
+      .then(function (json) {
+        if (!json || !Array.isArray(json.data)) {
+          throw new Error("json/" + year + ".json: properti data tidak valid");
+        }
+        return json.data;
+      })
+      .catch(function (err) {
+        console.warn(err);
+        return [];
+      });
+  }
+
+  function mergeHolidayRows(rowsList) {
+    const byDate = new Map();
+    rowsList.forEach(function (rows) {
+      rows.forEach(function (row) {
+        if (row && row.date) byDate.set(row.date, row);
+      });
+    });
+    return Array.from(byDate.values()).sort(function (a, b) {
+      return a.date.localeCompare(b.date);
+    });
   }
 
   (function attachAsidePromoAnalytics() {
@@ -1590,17 +1710,12 @@
     });
   })();
 
-  fetch("/json/2026.json")
-    .then(function (r) {
-      if (!r.ok) {
-        throw new Error("Gagal memuat json/2026.json (" + r.status + ")");
+  Promise.all(JSON_YEARS.map(fetchHolidayJson))
+    .then(function (rowsList) {
+      const data = mergeHolidayRows(rowsList);
+      if (!data.length) {
+        throw new Error("Tidak ada data libur yang berhasil dimuat");
       }
-      return r.json();
-    })
-    .then(function (json) {
-      const data = json.data.slice().sort(function (a, b) {
-        return a.date.localeCompare(b.date);
-      });
       onDataLoaded(data);
     })
     .catch(function (err) {

@@ -8,3 +8,9 @@
   to = "/"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/peta-liburan.html"
+  to = "/"
+  status = 301
+  force = true

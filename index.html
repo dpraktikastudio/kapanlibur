@@ -20,7 +20,7 @@
       </script>
       <meta id="theme-color-meta" name="theme-color" content="#00685f"/>
       <title>Kapan Libur — Ubah Hari Cuti Jadi Libur Panjang 2026</title>
-      <meta name="description" content="Rencanakan cuti lebih cerdas. Ubah hari cuti jadi libur panjang dengan memanfaatkan tanggal merah 2026. Berdasarkan SKB 3 Menteri resmi." />
+      <meta name="description" content="Rencanakan cuti lebih cerdas. Ubah hari cuti jadi libur panjang dengan memanfaatkan tanggal merah 2026–2027. Berdasarkan SKB 3 Menteri resmi." />
       <meta name="keywords" content="perencana cuti 2026, cuti optimizer, libur panjang 2026, maksimalkan cuti, tanggal merah 2026, kalender libur Indonesia, cuti bersama 2026, tips cuti" />
       <meta name="robots" content="index, follow" />
       <meta name="author" content="Kapan Libur" />
@@ -44,7 +44,7 @@
       <link rel="icon" href="/assets/favicon-16x16.png" type="image/png" sizes="16x16" />
       <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
       <script type="application/ld+json">
-         {"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com","description":"Perencana cuti Indonesia — ubah hari cuti jadi libur panjang. Berdasarkan SKB 3 Menteri 2026.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com?q={search_term_string}","query-input":"required name=search_term_string"}}
+         {"@context":"https://schema.org","@type":"WebSite","name":"Kapan Libur","url":"https://kapanlibur.com","description":"Perencana cuti Indonesia — ubah hari cuti jadi libur panjang. Berdasarkan SKB 3 Menteri 2026–2027.","inLanguage":"id-ID","potentialAction":{"@type":"SearchAction","target":"https://kapanlibur.com?q={search_term_string}","query-input":"required name=search_term_string"}}
       </script>
       <link rel="preconnect" href="https://fonts.googleapis.com"/>
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -70,9 +70,21 @@
                   <nav id="site-nav-panel" class="site-nav h-screen sm:h-fit" aria-label="Navigasi utama">
                      <a class="text-primary font-bold sm:border-b-2 sm:border-primary sm:pb-0.5" href="/">Beranda</a>
                      <span class="site-nav-sep" aria-hidden="true">|</span>
-                     <a class="text-on-surface-variant hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
+                     <details class="site-nav-dd">
+                        <summary class="site-nav-dd-summary text-on-surface-variant hover:text-primary transition-colors">Daftar Libur</summary>
+                        <div class="site-nav-dd-panel" role="group" aria-label="Daftar libur per tahun">
+                           <a class="site-nav-dd-link" href="/hari-libur-nasional-2026.html">2026</a>
+                           <a class="site-nav-dd-link" href="/hari-libur-nasional-2027.html">2027</a>
+                        </div>
+                     </details>
                      <span class="site-nav-sep" aria-hidden="true">|</span>
-                     <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
+                     <details class="site-nav-dd">
+                        <summary class="site-nav-dd-summary text-on-surface-variant hover:text-primary transition-colors">SKB 3 Menteri</summary>
+                        <div class="site-nav-dd-panel" role="group" aria-label="PDF SKB per tahun">
+                           <a class="site-nav-dd-link" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">2026</a>
+                           <a class="site-nav-dd-link" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2026-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202027.pdf" target="_blank" rel="noopener noreferrer">2027</a>
+                        </div>
+                     </details>
                   </nav>
                   <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
                      <span class="material-symbols-outlined icon-sun text-xl leading-none" aria-hidden="true">light_mode</span>
@@ -235,7 +247,7 @@
                   </div>
                </div>
                <div id="libur-mendatang-error" class="hidden text-on-surface-variant text-sm">
-                  <p>Tidak bisa memuat daftar libur. Coba muat ulang halaman atau <a class="text-primary font-semibold hover:underline" href="/hari-libur-nasional-2026.html">buka daftar lengkap</a>.</p>
+                  <p>Tidak bisa memuat daftar libur. Coba muat ulang halaman atau <a class="text-primary font-semibold hover:underline" href="/hari-libur-nasional-2026.html">buka daftar 2026</a> / <a class="text-primary font-semibold hover:underline" href="/hari-libur-nasional-2027.html">2027</a>.</p>
                </div>
                <div id="libur-mendatang-swipe-host" class="hidden">
                   <div id="libur-mendatang-list" class="space-y-6" role="list"></div>
@@ -254,12 +266,19 @@
                </div>
             </div>
          </section>
-         <!-- Kalender libur nasional 2026 -->
+         <!-- Kalender libur nasional -->
          <section class="mb-24">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
                <div>
                   <p class="text-primary font-bold tracking-widest uppercase text-xs mb-2">Kalender tahunan</p>
-                  <h2 class="text-4xl font-extrabold tracking-tight text-on-surface">Kalender libur nasional 2026</h2>
+                  <h2 id="cal-year-heading" class="text-4xl font-extrabold tracking-tight text-on-surface">Kalender libur nasional 2026</h2>
+               </div>
+               <div class="flex items-center gap-2 shrink-0">
+                  <label for="cal-year-select" class="text-sm font-semibold text-on-surface-variant">Tahun</label>
+                  <select id="cal-year-select" class="rounded-lg border border-outline-variant bg-surface-container-low text-on-surface text-sm font-semibold px-3 py-2 min-w-[5.5rem] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="Tahun kalender">
+                     <option value="2026">2026</option>
+                     <option value="2027">2027</option>
+                  </select>
                </div>
             </div>
             <div id="calendar-state" role="status" aria-live="polite" class="mb-4">
@@ -451,8 +470,10 @@
                   <nav aria-label="Peta situs">
                      <ul class="space-y-3 text-sm text-on-surface-variant">
                         <li><a class="hover:text-primary transition-colors" href="/">Beranda</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar libur</a></li>
-                        <li><a class="hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar libur 2026</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2027.html">Daftar libur 2027</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri 2026</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2026-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202027.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri 2027</a></li>
                      </ul>
                   </nav>
                </div>
@@ -468,8 +489,10 @@
             </div>
             <div class="mt-14 pt-8 border-t border-outline-variant/10 text-xs text-on-surface-variant leading-relaxed space-y-2">
                <p>
-                  Sumber data: <strong class="text-on-surface font-medium">SKB 3 Menteri No. 1497 Tahun 2025</strong> tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026.
-                  <a class="text-primary font-medium hover:underline" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">Unduh PDF resmi (Kemenko PMK)</a>
+                  Sumber data: <strong class="text-on-surface font-medium">SKB 3 Menteri No. 1497 Tahun 2025</strong> (2026) dan <strong class="text-on-surface font-medium">No. 1205 / 3 / 2 Tahun 2026</strong> (2027) tentang Hari Libur Nasional dan Cuti Bersama.
+                  <a class="text-primary font-medium hover:underline" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">PDF 2026</a>
+                  ·
+                  <a class="text-primary font-medium hover:underline" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2026-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202027.pdf" target="_blank" rel="noopener noreferrer">PDF 2027</a>
                </p>
                <p>Tanggal di perangkat Anda dipakai untuk status “hari ini” dan hitungan hari menuju libur.</p>
                <p><a class="text-primary font-medium hover:underline" href="#top">Kembali ke atas</a></p>

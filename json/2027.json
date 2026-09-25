@@ -1,0 +1,1112 @@
+{
+  "source": "https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2026-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202027.pdf",
+  "data": [
+    {
+      "number": 1,
+      "date": "2027-01-01",
+      "day": "Jumat",
+      "description": "Tahun Baru 2027 Masehi",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    },
+    {
+      "number": 2,
+      "date": "2027-01-02",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    },
+    {
+      "number": 3,
+      "date": "2027-01-03",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    },
+    {
+      "number": 4,
+      "date": "2027-01-05",
+      "day": "Selasa",
+      "description": "Isra Mikraj Nabi Muhammad S.A.W. 1448 Hijriah",
+      "type": "Libur Nasional",
+      "is_long_weekend": false,
+      "chain_holidays": 1
+    },
+    {
+      "number": 5,
+      "date": "2027-01-09",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 6,
+      "date": "2027-01-10",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 7,
+      "date": "2027-01-16",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 8,
+      "date": "2027-01-17",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 9,
+      "date": "2027-01-23",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 10,
+      "date": "2027-01-24",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 11,
+      "date": "2027-01-30",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 12,
+      "date": "2027-01-31",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 13,
+      "date": "2027-02-05",
+      "day": "Jumat",
+      "description": "Tahun Baru Imlek 2578 Kongzili",
+      "type": "Cuti Bersama",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    },
+    {
+      "number": 14,
+      "date": "2027-02-06",
+      "day": "Sabtu",
+      "description": "Tahun Baru Imlek 2578 Kongzili",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    },
+    {
+      "number": 15,
+      "date": "2027-02-07",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    },
+    {
+      "number": 16,
+      "date": "2027-02-13",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 17,
+      "date": "2027-02-14",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 18,
+      "date": "2027-02-20",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 19,
+      "date": "2027-02-21",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 20,
+      "date": "2027-02-27",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 21,
+      "date": "2027-02-28",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 22,
+      "date": "2027-03-06",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 23,
+      "date": "2027-03-07",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 24,
+      "date": "2027-03-08",
+      "day": "Senin",
+      "description": "Hari Suci Nyepi (Tahun Baru Saka 1949)",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 25,
+      "date": "2027-03-09",
+      "day": "Selasa",
+      "description": "Idul Fitri 1448 Hijriah",
+      "type": "Cuti Bersama",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 26,
+      "date": "2027-03-10",
+      "day": "Rabu",
+      "description": "Idul Fitri 1448 Hijriah (Hari Pertama)",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 27,
+      "date": "2027-03-11",
+      "day": "Kamis",
+      "description": "Idul Fitri 1448 Hijriah (Hari Kedua)",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 28,
+      "date": "2027-03-12",
+      "day": "Jumat",
+      "description": "Idul Fitri 1448 Hijriah",
+      "type": "Cuti Bersama",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 29,
+      "date": "2027-03-13",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 30,
+      "date": "2027-03-14",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 31,
+      "date": "2027-03-15",
+      "day": "Senin",
+      "description": "Idul Fitri 1448 Hijriah",
+      "type": "Cuti Bersama",
+      "is_long_weekend": true,
+      "chain_holidays": 10
+    },
+    {
+      "number": 32,
+      "date": "2027-03-20",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 33,
+      "date": "2027-03-21",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 34,
+      "date": "2027-03-25",
+      "day": "Kamis",
+      "description": "Wafat Yesus Kristus",
+      "type": "Cuti Bersama",
+      "is_long_weekend": true,
+      "chain_holidays": 4
+    },
+    {
+      "number": 35,
+      "date": "2027-03-26",
+      "day": "Jumat",
+      "description": "Wafat Yesus Kristus",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 4
+    },
+    {
+      "number": 36,
+      "date": "2027-03-27",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": true,
+      "chain_holidays": 4
+    },
+    {
+      "number": 37,
+      "date": "2027-03-28",
+      "day": "Minggu",
+      "description": "Kebangkitan Yesus Kristus (Paskah)",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 4
+    },
+    {
+      "number": 38,
+      "date": "2027-04-03",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 39,
+      "date": "2027-04-04",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 40,
+      "date": "2027-04-10",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 41,
+      "date": "2027-04-11",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 42,
+      "date": "2027-04-17",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 43,
+      "date": "2027-04-18",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 44,
+      "date": "2027-04-24",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 45,
+      "date": "2027-04-25",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 46,
+      "date": "2027-05-01",
+      "day": "Sabtu",
+      "description": "Hari Buruh Internasional",
+      "type": "Libur Nasional",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 47,
+      "date": "2027-05-02",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 48,
+      "date": "2027-05-06",
+      "day": "Kamis",
+      "description": "Kenaikan Yesus Kristus",
+      "type": "Libur Nasional",
+      "is_long_weekend": false,
+      "chain_holidays": 1
+    },
+    {
+      "number": 49,
+      "date": "2027-05-08",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 50,
+      "date": "2027-05-09",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 51,
+      "date": "2027-05-15",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": true,
+      "chain_holidays": 6
+    },
+    {
+      "number": 52,
+      "date": "2027-05-16",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": true,
+      "chain_holidays": 6
+    },
+    {
+      "number": 53,
+      "date": "2027-05-17",
+      "day": "Senin",
+      "description": "Idul Adha 1448 Hijriah",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 6
+    },
+    {
+      "number": 54,
+      "date": "2027-05-18",
+      "day": "Selasa",
+      "description": "Idul Adha 1448 Hijriah",
+      "type": "Cuti Bersama",
+      "is_long_weekend": true,
+      "chain_holidays": 6
+    },
+    {
+      "number": 55,
+      "date": "2027-05-19",
+      "day": "Rabu",
+      "description": "Hari Raya Waisak 2571 BE",
+      "type": "Cuti Bersama",
+      "is_long_weekend": true,
+      "chain_holidays": 6
+    },
+    {
+      "number": 56,
+      "date": "2027-05-20",
+      "day": "Kamis",
+      "description": "Hari Raya Waisak 2571 BE",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 6
+    },
+    {
+      "number": 57,
+      "date": "2027-05-22",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 58,
+      "date": "2027-05-23",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 59,
+      "date": "2027-05-29",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 60,
+      "date": "2027-05-30",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 61,
+      "date": "2027-06-01",
+      "day": "Selasa",
+      "description": "Hari Lahir Pancasila",
+      "type": "Libur Nasional",
+      "is_long_weekend": false,
+      "chain_holidays": 1
+    },
+    {
+      "number": 62,
+      "date": "2027-06-05",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 63,
+      "date": "2027-06-06",
+      "day": "Minggu",
+      "description": "1 Muharam Tahun Baru Islam 1449 Hijriah",
+      "type": "Libur Nasional",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 64,
+      "date": "2027-06-12",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 65,
+      "date": "2027-06-13",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 66,
+      "date": "2027-06-19",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 67,
+      "date": "2027-06-20",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 68,
+      "date": "2027-06-26",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 69,
+      "date": "2027-06-27",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 70,
+      "date": "2027-07-03",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 71,
+      "date": "2027-07-04",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 72,
+      "date": "2027-07-10",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 73,
+      "date": "2027-07-11",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 74,
+      "date": "2027-07-17",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 75,
+      "date": "2027-07-18",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 76,
+      "date": "2027-07-24",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 77,
+      "date": "2027-07-25",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 78,
+      "date": "2027-07-31",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 79,
+      "date": "2027-08-01",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 80,
+      "date": "2027-08-07",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 81,
+      "date": "2027-08-08",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 82,
+      "date": "2027-08-14",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 83,
+      "date": "2027-08-15",
+      "day": "Minggu",
+      "description": "Maulid Nabi Muhammad S.A.W.",
+      "type": "Libur Nasional",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 84,
+      "date": "2027-08-17",
+      "day": "Selasa",
+      "description": "Proklamasi Kemerdekaan",
+      "type": "Libur Nasional",
+      "is_long_weekend": false,
+      "chain_holidays": 1
+    },
+    {
+      "number": 85,
+      "date": "2027-08-21",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 86,
+      "date": "2027-08-22",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 87,
+      "date": "2027-08-28",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 88,
+      "date": "2027-08-29",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 89,
+      "date": "2027-09-04",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 90,
+      "date": "2027-09-05",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 91,
+      "date": "2027-09-11",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 92,
+      "date": "2027-09-12",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 93,
+      "date": "2027-09-18",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 94,
+      "date": "2027-09-19",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 95,
+      "date": "2027-09-25",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 96,
+      "date": "2027-09-26",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 97,
+      "date": "2027-10-02",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 98,
+      "date": "2027-10-03",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 99,
+      "date": "2027-10-09",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 100,
+      "date": "2027-10-10",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 101,
+      "date": "2027-10-16",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 102,
+      "date": "2027-10-17",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 103,
+      "date": "2027-10-23",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 104,
+      "date": "2027-10-24",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 105,
+      "date": "2027-10-30",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 106,
+      "date": "2027-10-31",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 107,
+      "date": "2027-11-06",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 108,
+      "date": "2027-11-07",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 109,
+      "date": "2027-11-13",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 110,
+      "date": "2027-11-14",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 111,
+      "date": "2027-11-20",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 112,
+      "date": "2027-11-21",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 113,
+      "date": "2027-11-27",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 114,
+      "date": "2027-11-28",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 115,
+      "date": "2027-12-04",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 116,
+      "date": "2027-12-05",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 117,
+      "date": "2027-12-11",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 118,
+      "date": "2027-12-12",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 119,
+      "date": "2027-12-18",
+      "day": "Sabtu",
+      "description": "Sabtu",
+      "type": "Sabtu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 120,
+      "date": "2027-12-19",
+      "day": "Minggu",
+      "description": "Minggu",
+      "type": "Minggu",
+      "is_long_weekend": false,
+      "chain_holidays": 2
+    },
+    {
+      "number": 121,
+      "date": "2027-12-24",
+      "day": "Jumat",
+      "description": "Kelahiran Yesus Kristus",
+      "type": "Cuti Bersama",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    },
+    {
+      "number": 122,
+      "date": "2027-12-25",
+      "day": "Sabtu",
+      "description": "Kelahiran Yesus Kristus",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    },
+    {
+      "number": 123,
+      "date": "2027-12-26",
+      "day": "Minggu",
+      "description": "Isra Mikraj Nabi Muhammad S.A.W. 1449 Hijriah",
+      "type": "Libur Nasional",
+      "is_long_weekend": true,
+      "chain_holidays": 3
+    }
+  ]
+}

@@ -77,9 +77,21 @@
           <nav id="site-nav-panel" class="site-nav h-screen sm:h-fit" aria-label="Navigasi utama">
             <a class="text-on-surface-variant hover:text-primary transition-colors" href="/">Beranda</a>
             <span class="site-nav-sep" aria-hidden="true">|</span>
-            <a class="text-primary font-bold sm:border-b-2 sm:border-primary sm:pb-0.5" href="/hari-libur-nasional-2026.html">Daftar Libur</a>
+            <details class="site-nav-dd site-nav-dd--current">
+              <summary class="site-nav-dd-summary text-primary font-bold sm:border-b-2 sm:border-primary sm:pb-0.5">Daftar Libur</summary>
+              <div class="site-nav-dd-panel" role="group" aria-label="Daftar libur per tahun">
+                <a class="site-nav-dd-link site-nav-dd-link--current" href="/hari-libur-nasional-2026.html" aria-current="page">2026</a>
+                <a class="site-nav-dd-link" href="/hari-libur-nasional-2027.html">2027</a>
+              </div>
+            </details>
             <span class="site-nav-sep" aria-hidden="true">|</span>
-            <a class="text-on-surface-variant hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
+            <details class="site-nav-dd">
+              <summary class="site-nav-dd-summary text-on-surface-variant hover:text-primary transition-colors">SKB 3 Menteri</summary>
+              <div class="site-nav-dd-panel" role="group" aria-label="PDF SKB per tahun">
+                <a class="site-nav-dd-link" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">2026</a>
+                <a class="site-nav-dd-link" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2026-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202027.pdf" target="_blank" rel="noopener noreferrer">2027</a>
+              </div>
+            </details>
           </nav>
           <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Ganti mode terang atau gelap" aria-pressed="false" title="Tema">
             <span class="material-symbols-outlined icon-sun text-xl leading-none" aria-hidden="true">light_mode</span>
@@ -326,10 +338,10 @@
           <nav aria-label="Peta situs">
             <ul class="space-y-3 text-sm text-on-surface-variant">
               <li><a class="hover:text-primary transition-colors" href="/">Beranda</a></li>
-              <li><a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar libur</a></li>
-              <li>
-                <a class="hover:text-primary transition-colors" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri</a>
-              </li>
+              <li><a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2026.html">Daftar libur 2026</a></li>
+              <li><a class="hover:text-primary transition-colors" href="/hari-libur-nasional-2027.html">Daftar libur 2027</a></li>
+              <li><a class="hover:text-primary transition-colors" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri 2026</a></li>
+              <li><a class="hover:text-primary transition-colors" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2026-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202027.pdf" target="_blank" rel="noopener noreferrer">SKB 3 Menteri 2027</a></li>
             </ul>
           </nav>
         </div>
@@ -345,8 +357,10 @@
       </div>
       <div class="mt-14 pt-8 border-t border-outline-variant/10 text-xs text-on-surface-variant leading-relaxed space-y-2">
         <p>
-          Sumber data: <strong class="text-on-surface font-medium">SKB 3 Menteri No. 1497 Tahun 2025</strong> tentang Hari Libur Nasional dan Cuti Bersama Tahun 2026.
-          <a class="text-primary font-medium hover:underline" data-pdf-source href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">Unduh PDF resmi (Kemenko PMK)</a>
+          Sumber data: <strong class="text-on-surface font-medium">SKB 3 Menteri No. 1497 Tahun 2025</strong> (2026) dan <strong class="text-on-surface font-medium">No. 1205 / 3 / 2 Tahun 2026</strong> (2027) tentang Hari Libur Nasional dan Cuti Bersama.
+          <a class="text-primary font-medium hover:underline" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2025-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202026.pdf" target="_blank" rel="noopener noreferrer">PDF 2026</a>
+          ·
+          <a class="text-primary font-medium hover:underline" href="https://www.kemenkopmk.go.id/sites/default/files/pengumuman/2026-09/SKB%20Libur%20Nasional%20dan%20Cuti%20Bersama%20Tahun%202027.pdf" target="_blank" rel="noopener noreferrer">PDF 2027</a>
         </p>
         <p>Tanggal di perangkat Anda dipakai untuk status “hari ini” dan hitungan hari menuju libur.</p>
         <p>
